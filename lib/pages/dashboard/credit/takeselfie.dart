@@ -1,0 +1,151 @@
+import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+import 'package:kwikee1/styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+class TakeSelfie extends StatefulWidget {
+  const TakeSelfie({ Key? key }) : super(key: key);
+
+  @override
+  _TakeSelfieState createState() => _TakeSelfieState();
+}
+
+class _TakeSelfieState extends State<TakeSelfie> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // backgroundColor: ,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  height: 20.h,
+                  width: 100.w,
+                  // child: Text("fiosa"),  
+                  decoration: BoxDecoration(
+                    color: primary,
+                    image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), fit: BoxFit.cover),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 33, right: 33, top: 11),
+                    width: 100.w,
+                    color: dashboardcard,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Apply For Credit",
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: primary,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Take a Selfie",
+                          style: TextStyle(
+                            fontSize: 28,
+                            color:  Color.fromRGBO(57, 183, 233, 1),
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        const SizedBox(height: 17),
+                        const Text(
+                          "To verify it's human we need to take a selfie which will be compared with your passport photo.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color:  Color.fromRGBO(53, 49, 48, 0.6),
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        Center(
+                          child: SvgPicture.asset(
+                            'assets/image/addpics.svg',
+                            semanticsLabel: 'money bill',
+                            // color: white,
+                          ),
+                        ),
+                        
+                        
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Align( 
+              alignment: Alignment.bottomCenter,
+              child: GestureDetector(
+                // onTap: () => Get.toNamed('credit/first'),
+                onTap: () => Get.offAllNamed("home"),
+                child: Container(
+                  width: 100.w,
+                  height: 58,
+                  color: const Color.fromRGBO(66, 213, 121, 1),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Back",
+                    style: TextStyle(
+                      color: white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 58,
+              child: GestureDetector(
+                // onTap: () => Get.toNamed('credit/first'),
+                // onTap: () => Get.toNamed("credit/addbvn"),
+                onTap: () => Get.toNamed("credit/camera", arguments: Get.arguments),
+                child: Container(
+                  width: 100.w,
+                  height: 58,
+                  color: primary,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Open Camera",
+                    style: TextStyle(
+                      color: white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 16.h,
+              right: 7.w,
+              child: Container(
+                width: 64,
+                height: 64,
+                padding: const EdgeInsets.all(10),
+                child: SvgPicture.asset(
+                  "assets/image/Iconmoney-bill.svg",
+                  semanticsLabel: 'Acme Logo',
+                  width: 40,
+                  height: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: primary,
+                  shape: BoxShape.circle
+                ),
+              )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
