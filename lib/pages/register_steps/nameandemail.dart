@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
-import 'dart:async';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 
 class Nameandemail extends StatefulWidget {
@@ -17,6 +16,7 @@ class Nameandemail extends StatefulWidget {
 class _NameandemailState extends State<Nameandemail> {
 
   bool isPhone = false;
+  CustomTheme currentheme = CustomTheme();
   final _formKey = GlobalKey<FormState>();
 
   Color resolvePhonecolor(String themestate) {
@@ -76,241 +76,209 @@ class _NameandemailState extends State<Nameandemail> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+      backgroundColor: CustomTheme.presntstate ? darkscaffold :  whitescaffold,
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
             children: [
-              Container(
-                width: 60.w,
-                height: 15.h,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/topwaver.png'),
-                    fit: BoxFit.cover,    // -> 02
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 60.w,
+                    height: 15.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/topwaver.png'),
+                        fit: BoxFit.cover,    // -> 02
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          ListView(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 8.h, left: 20, right: 20, bottom: 10.h),
+              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      'assets/image/reglogo.png',
-                      // width: 60.w,
-                    ),
-                    SizedBox(height: 6.h),
-                    Text(
-                      'Verified',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: themestate == "dark" ? white : onboardbackground
-                      ),
-                    ),
-                    const  SizedBox(height: 10),
-                    Text(
-                      'Create your account to proceed to get loans at affordable interest rates.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        height: 1.4,
-                        fontSize: 12.sp,
-                        color: themestate == "dark" ? inputcolordark : getstartedp    
-                      ),
-                    ),
-                   SizedBox(height: 4.h),
-                    Form(
-                      key: _formKey,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          
+                          Image.asset(
+                            'assets/image/reglogo.png',
+                            // width: 60.w,
+                          ),
+                          SizedBox(height: 3.h),
                           Text(
-                            'First Name',
+                            'Verified',
                             style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              color: CustomTheme.presntstate ? creditwithdark : primary
                             ),
                           ),
-                          const SizedBox(height: 5),
-                          TextFormField( 
-                            style: TextStyle(
-                              color: themestate == "dark" ? whitescaffold : darkscaffold
-                            ),
-                            validator: RequiredValidator(errorText: 'First Name must be required.'),
-                            keyboardType: TextInputType.name,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            onSaved: (val) => backendata["firstname"] = val,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
-                          ),
-                          SizedBox(height: 2.h),
+                          const  SizedBox(height: 10),
                           Text(
-                            'Last Name',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField( 
-                            style: TextStyle(
-                              color: themestate == "dark" ? whitescaffold : darkscaffold
-                            ),
-                            validator: RequiredValidator(errorText: 'Last Name must be required.'),
-                            keyboardType: TextInputType.name,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.next,
-                            onSaved: (val) => backendata["lastname"] = val,
-                            decoration: InputDecoration(
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
-                          ),
-                          SizedBox(height: 2.h),
-                          Text(
-                            'Email Address',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField( 
-                            style: TextStyle(
-                              color: themestate == "dark" ? whitescaffold : darkscaffold
-                            ),
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'Valid email is required.'),
-                              EmailValidator(errorText: 'Valid email is required.'),    
-                            ]),
-                            keyboardType: TextInputType.emailAddress,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.done,
-                            onSaved: (val) => backendata["email"] = val,
-                            decoration: InputDecoration(
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
-                          ),
-                          SizedBox(height: 2.h),
-                          Text(
-                            'Ensure to put in accurate information that tallies with the information on your Salary Bank Account.',
+                            'Create your account to proceed to get loans at affordable interest rates.',
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
-                              height: 1.2,
-                              fontSize: 13.sp,
-                              color: themestate == "dark" ? inputcolordark : onboardbackground    
+                              height: 1.6,
+                              fontSize: 15,
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp    
                             ),
                           ),
-                          // SizedBox(height: .h),
+                         SizedBox(height: 2.h),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                
+                                Text(
+                                  'First Name',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                  ),
+                                  validator: RequiredValidator(errorText: 'First Name must be required.'),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  onSaved: (val) => backendata["firstname"] = val,
+                                  textInputAction: TextInputAction.next,
+                                ),
+                                SizedBox(height: 2.h),
+                                Text(
+                                  'Last Name',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                  ),
+                                  validator: RequiredValidator(errorText: 'Last Name must be required.'),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  textInputAction: TextInputAction.next,
+                                  onSaved: (val) => backendata["lastname"] = val,
+                                ),
+                                SizedBox(height: 2.h),
+                                Text(
+                                  'Email Address',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                  ),
+                                  validator: MultiValidator([
+                                    RequiredValidator(errorText: 'Valid email is required.'),
+                                    EmailValidator(errorText: 'Valid email is required.'),    
+                                  ]),
+                                  keyboardType: TextInputType.emailAddress,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  textInputAction: TextInputAction.done,
+                                  onSaved: (val) => backendata["email"] = val,
+                                ),
+                                SizedBox(height: 2.h),
+                                Text(
+                                  'Ensure to put in accurate information that tallies with the information on your Salary Bank Account.',
+                                  maxLines: 2,
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    height: 1.2,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                  ),
+                                ),
+                              ],
+                            )
+                          )
                         ],
-                      )
+                      ),
+                    ),  
+                    // const SizedBox(height: 100),            
+                  ],
+                ),
+              ),
+          
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                        
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: labelactive),
+                        child: Center(
+                          child: Text(
+                              'Previous',
+                              style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: registerActioncolor),
+                        child: Center(
+                          child: Text(
+                            'Next',
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
-              ),  
-              const SizedBox(height: 100),            
+              ),
+        
             ],
           ),
-      
-          Positioned(
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: labelactive
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Previous',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      validate();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: registerActioncolor
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-
-        ],
+        ),
       ),
     );
   }

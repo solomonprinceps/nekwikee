@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class TakeSelfie extends StatefulWidget {
   const TakeSelfie({ Key? key }) : super(key: key);
@@ -12,6 +13,7 @@ class TakeSelfie extends StatefulWidget {
 }
 
 class _TakeSelfieState extends State<TakeSelfie> {
+  CustomTheme customTheme = CustomTheme();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,7 @@ class _TakeSelfieState extends State<TakeSelfie> {
                   child: Container(
                     padding: const EdgeInsets.only(left: 33, right: 33, top: 11),
                     width: 100.w,
-                    color: dashboardcard,
+                    color: CustomTheme.presntstate ? applydark : dashboardcard,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -42,25 +44,25 @@ class _TakeSelfieState extends State<TakeSelfie> {
                           "Apply For Credit",
                           style: TextStyle(
                             fontSize: 28,
-                            color: primary,
+                            color: CustomTheme.presntstate ? creditwithdark : primary,
                             fontWeight: FontWeight.w400
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text(
+                        Text(
                           "Take a Selfie",
                           style: TextStyle(
                             fontSize: 28,
-                            color:  Color.fromRGBO(57, 183, 233, 1),
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                             fontWeight: FontWeight.w400
                           ),
                         ),
                         const SizedBox(height: 17),
-                        const Text(
+                        Text(
                           "To verify it's human we need to take a selfie which will be compared with your passport photo.",
                           style: TextStyle(
                             fontSize: 12,
-                            color:  Color.fromRGBO(53, 49, 48, 0.6),
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                             fontWeight: FontWeight.w400
                           ),
                         ),

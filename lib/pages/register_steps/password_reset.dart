@@ -7,7 +7,8 @@ import 'package:kwikee1/services/utils.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:kwikee1/themes/apptheme.dart';
+import 'package:flutter/gestures.dart';
 
 class Passwordreset extends StatefulWidget {
   const Passwordreset({ Key? key }) : super(key: key);
@@ -17,6 +18,7 @@ class Passwordreset extends StatefulWidget {
 }
 
 class _PasswordresetState extends State<Passwordreset> {
+  CustomTheme currentheme = CustomTheme();
   SignupController signup =  Get.put(SignupController());
   bool isPhone = false;
   bool isChecked = false;
@@ -82,180 +84,181 @@ class _PasswordresetState extends State<Passwordreset> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
-      body: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
             children: [
-              Container(
-                width: 60.w,
-                height: 15.h,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/topwaver.png'),
-                    fit: BoxFit.cover,    // -> 02
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 60.w,
+                    height: 15.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/topwaver.png'),
+                        fit: BoxFit.cover,    // -> 02
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 17.h, left: 20, right: 20),
+              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 5.h),
-                    Image.asset(
-                      'assets/image/reglogo.png',
-                      // width: 60.w,
-                    ),
-                    SizedBox(height: 5.h),
-                    Text(
-                      'Reset Password',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: themestate == "dark" ? white : onboardbackground
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Text(
-                      'Enter the email associated with your account and we’ll send an email with instructions to reset your password.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        height: 1.3,
-                        fontSize: 15,
-                        color: themestate == "dark" ? inputcolordark : getstartedp    
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    Form(
-                      key: _formKey,
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          
-                          Text(
-                            'Email Address',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
-                            ),
+                          Image.asset(
+                            'assets/image/reglogo.png',
+                            // width: 60.w,
                           ),
-                          const SizedBox(height: 5),
-                          TextFormField( 
-                            style: TextStyle(
-                              color: themestate == "dark" ? whitescaffold : darkscaffold
-                            ),
-                            onSaved: (val) {
-                              setState(() {
-                                data["email"] = val;
-                              });
+                          SizedBox(height: 5.h),
+                          InkWell(
+                            onTap: () {
+                              currentheme.toggleTheme(CustomTheme.presntstate);
                             },
-                            validator: EmailValidator(errorText: 'Email is required.'),
-                            keyboardType: TextInputType.emailAddress,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              filled: true,
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: SvgPicture.asset(
-                                  'assets/image/mailbox.svg',
-                                  // width: 6,
-                                  // height: 6,
-                                  semanticsLabel: 'Scanner'
-                                ),
+                            child: Text(
+                              'Reset Password',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: CustomTheme.presntstate ? creditwithdark : primary,
                               ),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
+                            ),
                           ),
-                         
-                          SizedBox(height: 12.h),
-                          
+                          SizedBox(height: 2.h),
+                          Text(
+                            'Enter the email associated with your account and we’ll send an email with instructions to reset your password.',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              height: 1.3,
+                              fontSize: 15,
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                            ),
+                          ),
+                          const SizedBox(height: 25),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                
+                                Text(
+                                  'Email Address',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                  ),
+                                  onSaved: (val) {
+                                    setState(() {
+                                      data["email"] = val;
+                                    });
+                                  },
+                                  validator: EmailValidator(errorText: 'Email is required.'),
+                                  keyboardType: TextInputType.emailAddress,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    suffixIcon: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: SvgPicture.asset(
+                                        'assets/image/mailbox.svg',
+                                        semanticsLabel: 'Scanner'
+                                      ),
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                    fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
+                                    border: inputborder,
+                                    focusedBorder: activeinputborder,
+                                    enabledBorder: inputborder,
+                                    focusedErrorBorder:inputborder ,
+                                    errorBorder: errorborder,
+                                    disabledBorder: inputborder,
+                                    errorStyle: const TextStyle(color: Colors.red),
+                                  )
+                                ),
+                                SizedBox(height: 10),
+                                const SizedBox(height: 20),
+                                SizedBox(
+                                  
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children:  <TextSpan>[
+                                        TextSpan(
+                                          recognizer: TapGestureRecognizer()..onTap = () {
+                                            // print('Terms and Conditions Single Tap');
+                                            Get.toNamed('auth/login');
+                                          },
+                                          text: ' Already have an account ?', 
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(0, 175, 239, 1)
+                                          )
+                                        ),
+                                        
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          )
                         ],
-                      )
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              ),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: registerActioncolor
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Send Instructions',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
-              
-              
             ],
           ),
-     
-          Positioned(
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAllNamed('register/getnumber');
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: primary
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Previous',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      validate();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: registerActioncolor
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Send Instructions',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

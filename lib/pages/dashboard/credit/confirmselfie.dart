@@ -9,6 +9,7 @@ import 'dart:io' as Io;
 import 'package:kwikee1/controllers/applycontroller.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class Confirmselfie extends StatefulWidget {
   const Confirmselfie({ Key? key }) : super(key: key);
@@ -20,6 +21,7 @@ class Confirmselfie extends StatefulWidget {
 class _ConfirmselfieState extends State<Confirmselfie> {
   ApplyController applycon = Get.put(ApplyController());
   AuthController auth = Get.put(AuthController());
+  CustomTheme customTheme = CustomTheme();
   dynamic loanid;
   dynamic img;
   @override
@@ -35,8 +37,6 @@ class _ConfirmselfieState extends State<Confirmselfie> {
     dynamic dbnk = jsonDecode(Get.arguments);
     loanid = dbnk[0];
     img = dbnk[1];
-    print(loanid);
-    print(img);
   }
 
   uploadselfie() async {
@@ -85,7 +85,7 @@ class _ConfirmselfieState extends State<Confirmselfie> {
                   child: Container(
                     padding: const EdgeInsets.only(left: 33, right: 33, top: 11),
                     width: 100.w,
-                    color: dashboardcard,
+                    color: CustomTheme.presntstate ? applydark : dashboardcard,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -98,20 +98,20 @@ class _ConfirmselfieState extends State<Confirmselfie> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text(
+                        Text(
                           "Take a Selfie",
                           style: TextStyle(
                             fontSize: 28,
-                            color:  Color.fromRGBO(57, 183, 233, 1),
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                             fontWeight: FontWeight.w400
                           ),
                         ),
                         const SizedBox(height: 17),
-                        const Text(
+                        Text(
                           "To verify it's human we need to take a selfie which will be compared with your passport photo.",
                           style: TextStyle(
                             fontSize: 12,
-                            color:  Color.fromRGBO(53, 49, 48, 0.6),
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                             fontWeight: FontWeight.w400
                           ),
                         ),

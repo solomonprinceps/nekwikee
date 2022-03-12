@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kwikee1/services/datstruct.dart';
 
 class Credit extends StatefulWidget {
   const Credit({Key? key}) : super(key: key);
@@ -172,7 +173,7 @@ class _CreditState extends State<Credit> {
             height: 40,
             child: Icon(
               FontAwesome.angle_left,
-              color: black,
+              color: CustomTheme.presntstate ? white : black,
             ),
           ),
         ),
@@ -208,7 +209,8 @@ class _CreditState extends State<Credit> {
                     width: 24,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: primary, borderRadius: BorderRadius.circular(6)
+                      color: CustomTheme.presntstate ? const Color.fromRGBO(246, 251, 254, 1) : primary,
+                      borderRadius: BorderRadius.circular(6)
                     ),
                   ),
                   const SizedBox(width: 5),
@@ -216,8 +218,9 @@ class _CreditState extends State<Credit> {
                     width: 9,
                     height: 6,
                     decoration: BoxDecoration(
-                        color: primary.withOpacity(0.60),
-                        borderRadius: BorderRadius.circular(6)),
+                      color: CustomTheme.presntstate ? const Color.fromRGBO(246, 251, 254, 1).withOpacity(0.6) : primary.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(6)
+                    ),
                   )
                 ],
               ),
@@ -250,14 +253,17 @@ class _CreditState extends State<Credit> {
                       ),
                       SizedBox(height: 3.h),
                       Obx(() => Text(
-                          "${auth.userdata["firstname"]} ${auth.userdata["lastname"]}",
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15
-                          ),
-                        )),
+                        " ${makecapitalize("${auth.userdata["firstname"]}")} ${makecapitalize(auth.userdata["lastname"])}",
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: TextStyle(
+                          color: white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15
+                        ),
+                      )),
                       const SizedBox(height: 10),
                     ]),
               ),
@@ -288,33 +294,15 @@ class _CreditState extends State<Credit> {
                       )
                     ],
                   ),
-                  // Container(
-                  //   padding: const EdgeInsets.all(10),
-                  //   child: Text(
-                  //     loanstatus(loandata["status"].toString()),
-                  //     style: TextStyle(
-                  //       fontWeight: FontWeight.w400,
-                  //       fontSize: 10,
-                  //       color: !CustomTheme.presntstate
-                  //         ? primary
-                  //         : const Color.fromRGBO(130, 134, 157, 1),
-                  //     ),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     color: loanscolor(loandata["status"].toString()),
-                  //     borderRadius: BorderRadius.circular(10)
-                  //   ),
-                  // ),
                 ],
               ),
               const SizedBox(height: 20),
               Container(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
                 decoration: BoxDecoration(
                   color: !CustomTheme.presntstate
                       ? HexColor("#EFEFEF").withOpacity(0.46)
-                      : const Color.fromRGBO(33, 40, 69, 1).withOpacity(0.46),
+                      : HexColor("#212845").withOpacity(0.46),
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 height: 160,
@@ -332,8 +320,8 @@ class _CreditState extends State<Credit> {
                                 "TOTAL CREDIT RECIEVED",
                                 style: TextStyle(
                                     // color: creditcolorlight,rgba(53, 49, 48, 0.6)
-                                    color: !CustomTheme.presntstate
-                                        ? const Color.fromRGBO(53, 49, 48, 0.6)
+                                    color: CustomTheme.presntstate
+                                        ? const Color.fromRGBO(130, 134, 157, 1)
                                         : const Color.fromRGBO(53, 49, 48, 0.6),
                                     fontSize: 10,
                                     fontWeight: FontWeight.w400),
@@ -343,10 +331,13 @@ class _CreditState extends State<Credit> {
                                 stringamount(loandata["loan_amount"]),
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
+                                maxLines: 1,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 24,
-                                  color: success,
+                                  color: CustomTheme.presntstate
+                                    ? const Color.fromRGBO(246, 251, 254, 1)
+                                    : const Color.fromRGBO(66, 213, 121, 1),
                                   fontFamily: GoogleFonts.roboto().toString(),
                                 ),
                               )
@@ -361,8 +352,8 @@ class _CreditState extends State<Credit> {
                                 "PAYBACK AMOUNT",
                                 style: TextStyle(
                                     // color: creditcolorlight,rgba(53, 49, 48, 0.6)
-                                    color: !CustomTheme.presntstate
-                                        ? const Color.fromRGBO(53, 49, 48, 0.6)
+                                    color: CustomTheme.presntstate
+                                        ? const Color.fromRGBO(130, 134, 157, 1)
                                         : const Color.fromRGBO(53, 49, 48, 0.6),
                                     fontSize: 10,
                                     fontWeight: FontWeight.w400),
@@ -372,10 +363,13 @@ class _CreditState extends State<Credit> {
                                 stringamount(paymentcard["payback_amount"].toString()),
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
+                                maxLines: 1,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 24,
-                                  color: primary.withOpacity(0.6),
+                                  color: CustomTheme.presntstate ? 
+                                    const Color.fromRGBO(246, 251, 254, 1)
+                                    : const Color.fromRGBO(145, 216, 247, 1),
                                   fontFamily: GoogleFonts.roboto().toString(),
                                 ),
                               )
@@ -384,7 +378,7 @@ class _CreditState extends State<Credit> {
                         )
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -396,8 +390,8 @@ class _CreditState extends State<Credit> {
                                 "AMOUNT WITHDRAWN",
                                 style: TextStyle(
                                     // color: creditcolorlight,rgba(53, 49, 48, 0.6)
-                                    color: !CustomTheme.presntstate
-                                        ? const Color.fromRGBO(53, 49, 48, 0.6)
+                                    color: CustomTheme.presntstate
+                                        ? const Color.fromRGBO(130, 134, 157, 1)
                                         : const Color.fromRGBO(53, 49, 48, 0.6),
                                     fontSize: 10,
                                     fontWeight: FontWeight.w400),
@@ -407,10 +401,13 @@ class _CreditState extends State<Credit> {
                                 stringamount(loandata["wallet_history"]["amount_withdrawn"].toString()),
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
+                                maxLines: 1,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 24,
-                                  color: primary,
+                                  color: CustomTheme.presntstate ? 
+                                    const Color.fromRGBO(246, 251, 254, 1)
+                                    : const Color.fromRGBO(62, 64, 149, 1),
                                   fontFamily: GoogleFonts.roboto().toString(),
                                 ),
                               )
@@ -452,7 +449,8 @@ class _CreditState extends State<Credit> {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
-                                  color: white),
+                                  color: white
+                              ),
                             ),
                             const SizedBox(width: 10),
                             SvgPicture.asset(

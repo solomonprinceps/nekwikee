@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kwikee1/styles.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'dart:async';
@@ -220,259 +221,241 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 75.w,
-                height: 15.h,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/logreg1.png'),
-                    fit: BoxFit.cover,    // -> 02
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 75.w,
+                    height: 15.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/logreg1.png'),
+                        fit: BoxFit.cover,    // -> 02
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 17.h, left: 20, right: 20),
+              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 30),
-                    Image.asset(
-                      'assets/image/reglogo.png',
-                      // width: 60.w,
-                    ),
-                    SizedBox(height: 7.h),
-                    Text(
-                      'Sign in',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: themestate == "dark" ? white : onboardbackground
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Text(
-                      'Enter your credentials to log in to your Kwikee account.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        height: 1.3,
-                        fontSize: 15,
-                        color: themestate == "dark" ? inputcolordark : getstartedp    
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Form(
-                      key: _formKey,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 17, left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          
-                          Text(
-                            'Email Address / Phone Number',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
-                            ),
+                          const SizedBox(height: 30),
+                          Image.asset(
+                            'assets/image/reglogo.png',
+                            // width: 60.w,
                           ),
-                          const SizedBox(height: 5),
-                          TextFormField( 
+                          SizedBox(height: 7.h),
+                          Text(
+                            'Sign in',
                             style: TextStyle(
-                              color: themestate == "dark" ? whitescaffold : darkscaffold
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              color: CustomTheme.presntstate ? creditwithdark : primary 
                             ),
-                            // obscureText: true,
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'Valid email is required.'),
-                              EmailValidator(errorText: 'Valid email is required.'),    
-                            ]),
-                            keyboardType: TextInputType.emailAddress,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.done,
-                            onSaved: (val) {
-                              loginstate.login["email"] = val;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: SvgPicture.asset(
-                                  'assets/image/mailbox.svg',
-                                  // width: 6,
-                                  // height: 6,
-                                  semanticsLabel: 'Scanner'
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Password',
+                            'Enter your credentials to log in to your Kwikee account.',
                             style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: themestate == "dark" ? inputcolordark : getstartedp
+                              fontWeight: FontWeight.w300,
+                              height: 1.3,
+                              fontSize: 15,
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                             ),
                           ),
-                          const SizedBox(height: 5),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: TextFormField( 
+                          const SizedBox(height: 20),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                
+                                Text(
+                                  'Email Address / Phone Number',
                                   style: TextStyle(
-                                    color: themestate == "dark" ? whitescaffold : darkscaffold
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                   ),
-                                  obscureText: true,
-                                  validator: RequiredValidator(errorText: 'Password is required.'),
-                                  keyboardType: TextInputType.name,
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                  ),
+                                  // obscureText: true,
+                                  validator: MultiValidator([
+                                    RequiredValidator(errorText: 'Valid email is required.'),
+                                    EmailValidator(errorText: 'Valid email is required.'),    
+                                  ]),
+                                  keyboardType: TextInputType.emailAddress,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.done,
                                   onSaved: (val) {
-                                    loginstate.login["pin"] = val;
+                                    loginstate.login["email"] = val;
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
                                 ),
-                              ),
-
-                              InkWell(
-                                onTap: () {
-                                  _authenticateMe();
-                                },
-                                child: SizedBox(
-                                  // margin: loginError : ,
-                                  child: SvgPicture.asset(
-                                    'assets/image/finger_scanner.svg',
-                                    // color: Colors.red,
-                                    width: 40,
-                                    height: 50,
-                                    semanticsLabel: 'Scanner'
+                                SizedBox(height: 2.h),
+                                Text(
+                                  'Password',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            
-                            child: RichText(
-                              text: TextSpan(
-                                children:  <TextSpan>[
-                                  TextSpan(
-                                    recognizer: TapGestureRecognizer()..onTap = () {
-                                      // print('Terms and Conditions Single Tap');
-                                      Get.toNamed('auth/password/reset');
-                                    },
-                                    text: ' Forgot Password?', 
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                      color: Color.fromRGBO(0, 175, 239, 1)
+                                const SizedBox(height: 5),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: TextFormField( 
+                                        style: TextStyle(
+                                          color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                        ),
+                                        obscureText: true,
+                                        validator: RequiredValidator(errorText: 'Password is required.'),
+                                        keyboardType: TextInputType.name,
+                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                        textInputAction: TextInputAction.done,
+                                        onSaved: (val) {
+                                          loginstate.login["pin"] = val;
+                                        },
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                          fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
+                                          border: inputborder,
+                                          focusedBorder: activeinputborder,
+                                          enabledBorder: inputborder,
+                                          focusedErrorBorder:inputborder ,
+                                          errorBorder: errorborder,
+                                          disabledBorder: inputborder,
+                                          errorStyle: const TextStyle(color: Colors.red),
+                                        )
+                                      ),
+                                    ),
+                    
+                                    InkWell(
+                                      onTap: () {
+                                        _authenticateMe();
+                                      },
+                                      child: SizedBox(
+                                        // margin: loginError : ,
+                                        child: SvgPicture.asset(
+                                          'assets/image/finger_scanner.svg',
+                                          // color: Colors.red,
+                                          width: 40,
+                                          height: 50,
+                                          semanticsLabel: 'Scanner'
+                                        ),
+                                      ),
                                     )
-                                  ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                SizedBox(
                                   
-                                ],
-                              ),
-                            ),
-                          ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children:  <TextSpan>[
+                                        TextSpan(
+                                          recognizer: TapGestureRecognizer()..onTap = () {
+                                            // print('Terms and Conditions Single Tap');
+                                            Get.toNamed('auth/password/reset');
+                                          },
+                                          text: ' Forgot Password?', 
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(0, 175, 239, 1)
+                                          )
+                                        ),
+                                        
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          )
                         ],
-                      )
-                    )
+                      ),
+                    ),
+                    
                   ],
                 ),
               ),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Get.offAllNamed('home');
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: primary
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Log In',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('register/getnumber');
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: registerActioncolor
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Create an Account',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    )            
+                  ],
+                ),
+              ),
+             
             ],
           ),
-          Positioned(
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Get.offAllNamed('home');
-                      validate();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: primary
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Log In',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAndToNamed('register/getnumber');
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: registerActioncolor
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Create an Account',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

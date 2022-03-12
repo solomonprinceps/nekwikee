@@ -43,8 +43,20 @@ class CustomTheme with ChangeNotifier {
         onPrimary: primary,
         secondary: creditcolordark
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+        fillColor: inputColor,
+        border: inputborder,
+        focusedBorder: activeinputborder,
+        enabledBorder: inputborder,
+        focusedErrorBorder:inputborder ,
+        errorBorder: errorborder,
+        disabledBorder: inputborder,
+        errorStyle: const TextStyle(color: Colors.red),
+      ),
       scaffoldBackgroundColor: HexColor('#ffffff'),
-      textTheme: GoogleFonts.openSansTextTheme(),
+      textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0
@@ -59,7 +71,6 @@ class CustomTheme with ChangeNotifier {
   static ThemeData get darkTheme {
     return ThemeData(
       primaryColor: Colors.black,
-      accentColor: primary,
       colorScheme: ColorScheme.dark(
         primary: dackmodedashboardcaard,
         onPrimary: darkwhite,
@@ -68,10 +79,22 @@ class CustomTheme with ChangeNotifier {
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: Colors.blue
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+        fillColor: inputcolordark,
+        border: inputborder,
+        focusedBorder: activeinputborder,
+        enabledBorder: inputborder,
+        focusedErrorBorder:inputborder ,
+        errorBorder: errorborder,
+        disabledBorder: inputborder,
+        errorStyle: const TextStyle(color: Colors.red),
+      ),
       backgroundColor: Colors.grey,
       unselectedWidgetColor:  const Color.fromRGBO(112, 112, 112, 1),
       scaffoldBackgroundColor: HexColor('#131B39'),
-      textTheme: GoogleFonts.openSansTextTheme(),
+      textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0

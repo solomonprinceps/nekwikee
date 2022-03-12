@@ -255,23 +255,23 @@ class _CreditpreviewState extends State<Creditpreview> {
                             children: [
                               Column(
                                 children:  [
-                                  const Text(
-                                    "TENURE",
-                                    style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11
-                                    ),
-                                  ),
-                                  Text(
-                                    // '${savingsdata["duration"].toString()} Days',
-                                    "$loantenor Months",
-                                    style:const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18
-                                    ),
-                                  ),
+                                  // const Text(
+                                  //   "TENURE",
+                                  //   style: TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 1),
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: 11
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   // '${savingsdata["duration"].toString()} Days',
+                                  //   "$loantenor Months",
+                                  //   style:const TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 0.6),
+                                  //     fontWeight: FontWeight.w600,
+                                  //     fontSize: 18
+                                  //   ),
+                                  // ),
                                   const SizedBox(height: 30),
                                   const Text(
                                     "INTEREST RATE",
@@ -311,23 +311,23 @@ class _CreditpreviewState extends State<Creditpreview> {
                                       fontSize: 18
                                     ),
                                   ),
-                                  const SizedBox(height: 30),
-                                  const Text(
-                                    "Monthly Repayment",
-                                    style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11
-                                    ),
-                                  ),
-                                  Text(
-                                    stringamount(monthlyrepayment.toString()),
-                                    style: const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18
-                                    ),
-                                  ),
+                                  // const SizedBox(height: 30),
+                                  // const Text(
+                                  //   "Monthly Repayment",
+                                  //   style: TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 1),
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: 11
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   stringamount(monthlyrepayment.toString()),
+                                  //   style: const TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 0.6),
+                                  //     fontWeight: FontWeight.w600,
+                                  //     fontSize: 18
+                                  //   ),
+                                  // ),
                                 ],
                               )
                             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kwikee1/controllers/applycontroller.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/services/utils.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -49,7 +50,6 @@ class _CredithomeState extends State<Credithome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: ,
       body: SafeArea(
         child: Stack(
           children: [
@@ -68,7 +68,8 @@ class _CredithomeState extends State<Credithome> {
                   child: Container(
                     padding: const EdgeInsets.only(left: 33, right: 33, top: 41),
                     width: 100.w,
-                    color: dashboardcard,
+                    // color: error,
+                    color: CustomTheme.presntstate ? applydark : dashboardcard,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -76,7 +77,7 @@ class _CredithomeState extends State<Credithome> {
                           "Apply For Credit",
                           style: TextStyle(
                             fontSize: 30,
-                            color: primary,
+                            color: CustomTheme.presntstate ? creditwithdark : primary,
                             fontWeight: FontWeight.w400
                           ),
                         ),
@@ -87,31 +88,31 @@ class _CredithomeState extends State<Credithome> {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
-                            color: savingmonth
+                            color: CustomTheme.presntstate ? credithometextdark : savingmonth
                           ),
                           minFontSize: 10,
                           maxLines: 4,
                           // overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 17),
-                        const AutoSizeText(
+                        AutoSizeText(
                           'The loans work like a virtual credit card for salary earners. The repayment date is dependent on distance between date the loan is collected and your salary date.',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: Color.fromRGBO(53, 49, 48, 0.6)
+                            color: credithometextdark
                           ),
                           minFontSize: 10,
                           maxLines: 4,
                           // overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 17),
-                        const AutoSizeText(
+                        AutoSizeText(
                           'We will collect some information from you in the next few steps and based on this we will make you a loan offer. \n\n This amount is the maximum credit amount that can be made available for you at this time. As you increase your credibility by paying back at the required time, more will be made available to you.',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: Color.fromRGBO(53, 49, 48, 0.6)
+                            color: credithometextdark 
                           ),
                           minFontSize: 10,
                           // maxLines: 4,

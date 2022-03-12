@@ -89,14 +89,19 @@ class _OnboardingState extends State<Onboarding> {
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              'With Kwikee Life just got easier. Financial solutions at your finger tips with several benefits.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromRGBO(246, 251, 254, 1),
-                                fontWeight: FontWeight.w300
+                          const Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                'With Kwikee Life just got easier. Financial solutions at your finger tips with several benefits.',
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(246, 251, 254, 1),
+                                  fontWeight: FontWeight.w300
+                                ),
                               ),
                             ),
                           ),
@@ -139,14 +144,17 @@ class _OnboardingState extends State<Onboarding> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20, top: 50),
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: themestate == "dark" ? white : onboardbackground,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16
+                  child: GestureDetector(
+                    onTap: () => Get.toNamed('auth/login'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20, top: 50),
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: themestate == "dark" ? white : onboardbackground,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16
+                        ),
                       ),
                     ),
                   ),
@@ -200,14 +208,19 @@ class _OnboardingState extends State<Onboarding> {
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              'Save for your immediate and long-term needs Invest for the Future Get Cash Back when you Invest.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromRGBO(246, 251, 254, 1),
-                                fontWeight: FontWeight.w300
+                          const Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                'Save for your immediate and long-term needs Invest for the Future Get Cash Back when you Invest.',
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(246, 251, 254, 1),
+                                  fontWeight: FontWeight.w300
+                                ),
                               ),
                             ),
                           ),
@@ -269,14 +282,17 @@ class _OnboardingState extends State<Onboarding> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20, top: 50),
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: themestate == "dark" ? white : onboardbackground,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16
+                  child: GestureDetector(
+                    onTap: () => Get.toNamed('auth/login'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20, top: 50),
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: themestate == "dark" ? white : onboardbackground,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16
+                        ),
                       ),
                     ),
                   ),
@@ -330,14 +346,19 @@ class _OnboardingState extends State<Onboarding> {
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              'Access up to 500,000 in your Kwikee Wallet. Zero Interest on Weekends; more fun and cashbacks!',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromRGBO(246, 251, 254, 1),
-                                fontWeight: FontWeight.w300
+                          const Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                'Access up to 500,000 in your Kwikee Wallet. Zero Interest on Weekends; more fun and cashbacks!',
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(246, 251, 254, 1),
+                                  fontWeight: FontWeight.w300
+                                ),
                               ),
                             ),
                           ),
@@ -396,16 +417,19 @@ class _OnboardingState extends State<Onboarding> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20, top: 50),
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: themestate == "dark" ? white : onboardbackground,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16
+                GestureDetector(
+                  onTap: () => Get.toNamed('auth/login'),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20, top: 50),
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: themestate == "dark" ? white : onboardbackground,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16
+                        ),
                       ),
                     ),
                   ),

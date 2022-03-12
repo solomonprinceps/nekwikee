@@ -72,16 +72,26 @@ class _MyAppState extends State<MyApp> {
       overlayOpacity: 0.8,
       child: Sizer(
         builder: (context, orientation, deviceType) {
-          return GetMaterialApp(
-            title: 'Kwikee',
-            debugShowCheckedModeBanner: false,
-            theme: CustomTheme.lightTheme,
-            darkTheme: CustomTheme.darkTheme,
-            themeMode: currentTheme.currentTheme,     
-            // themeMode: ThemeMode.light,
-            initialRoute: '/first',
-            // initialRoute: '/onboard',
-            getPages: approutlist
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus &&
+                  currentFocus.focusedChild != null) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              }
+            },  
+            child: GetMaterialApp(
+              title: 'Kwikee',
+              debugShowCheckedModeBanner: false,
+              theme: CustomTheme.lightTheme,
+              darkTheme: CustomTheme.darkTheme,
+              themeMode: currentTheme.currentTheme,     
+              // themeMode: ThemeMode.light,
+              initialRoute: '/first',
+              // initialRoute: '/onboard',
+              getPages: approutlist
+            ),
           );
         },
       )

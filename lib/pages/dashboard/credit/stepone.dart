@@ -10,6 +10,7 @@ import 'package:kwikee1/services/utils.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kwikee1/controllers/applycontroller.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class Creditfirst extends StatefulWidget {
   const Creditfirst({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _CreditfirstState extends State<Creditfirst> {
   TextEditingController address = TextEditingController();
   TextEditingController numberofyear = TextEditingController();
   TextEditingController marital = TextEditingController();
+  CustomTheme customTheme = CustomTheme();
 
   void _showDatePicker(ctx) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
@@ -91,7 +93,7 @@ class _CreditfirstState extends State<Creditfirst> {
           CupertinoActionSheetAction(
             child: Text(
               'Single',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               applystate.personalinfo["marital_status"] = '1';
@@ -102,7 +104,7 @@ class _CreditfirstState extends State<Creditfirst> {
           CupertinoActionSheetAction(
             child: Text(
               'Married',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               applystate.personalinfo["marital_status"] = '2';
@@ -113,7 +115,7 @@ class _CreditfirstState extends State<Creditfirst> {
           CupertinoActionSheetAction(
             child: Text(
               'Divorced',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               applystate.personalinfo["marital_status"] = '3';
@@ -183,41 +185,29 @@ class _CreditfirstState extends State<Creditfirst> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      // backgroundColor: ,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: SizedBox(
+            height: 100.h,
+            child: Column(
               children: [
-                Container(
-                  height: 20.h,
-                  width: 100.w,
-                  // child: Text("fiosa"),
-                  decoration: BoxDecoration(
-                    color: primary,
-                    image: const DecorationImage(
-                      image: AssetImage("assets/image/credithome.png"),
-                      fit: BoxFit.cover
-                    ),
-                  ),
-                ),
+                const Topbar(),
                 Expanded(
-                  child: ListView(
+                  child: Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.only(left: 33, right: 33, top: 28),
+                        padding: const EdgeInsets.only(left: 33, right: 33),
                         width: 100.w,
                         // height: double.infinity,
-                        color: dashboardcard,
+                        // color: CustomTheme.presntstate ? applydark : dashboardcard,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Personal Information",
                               style: TextStyle(
                                 fontSize: 21,
-                                color: primary,
+                                
                                 fontWeight: FontWeight.w400
                               ),
                             ),
@@ -228,7 +218,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   height: 6,
                                   width: 61,
                                   decoration: BoxDecoration(
-                                    color: primary,
+                                    color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
                                     borderRadius: const BorderRadius.all(Radius.circular(20))
                                   ),
                                 ),
@@ -237,7 +227,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   height: 6,
                                   width: 23,
                                   decoration: BoxDecoration(
-                                    color: primary.withOpacity(0.6),
+                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
                                     borderRadius: const BorderRadius.all(Radius.circular(20))
                                   ),
                                 ),
@@ -255,7 +245,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   height: 6,
                                   width: 23,
                                   decoration: BoxDecoration(
-                                    color: primary.withOpacity(0.6),
+                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
                                     borderRadius: const BorderRadius.all(Radius.circular(20))
                                   ),
                                 ),
@@ -264,7 +254,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   height: 6,
                                   width: 23,
                                   decoration: BoxDecoration(
-                                    color: primary.withOpacity(0.6),
+                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
                                     borderRadius: const BorderRadius.all(Radius.circular(20))
                                   ),
                                 )
@@ -290,26 +280,30 @@ class _CreditfirstState extends State<Creditfirst> {
                                       style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         fontSize: 9,
-                                        color: const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
+                                        color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
                                         fontWeight: FontWeight.w500
                                       ),
-                                      children: const <TextSpan>[
+                                      children: <TextSpan>[
                                         TextSpan(
-                                            text: '(SURNAME, FIRST NAME)',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300)),
+                                          text: '(SURNAME, FIRST NAME)',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
+                                          )
+                                        ),
                                       ],
                                     ),
                                   ),
                                   Obx(() => Text(
-                                        "${auth.userdata['firstname']} ${auth.userdata['lastname']}",
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                            color: primary,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15),
-                                      )),
+                                    "${auth.userdata['firstname']} ${auth.userdata['lastname']}",
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                    ),
+                                  )),
                                   const SizedBox(height: 10),
                                   Text(
                                     "EMAIL ADDRESS",
@@ -317,7 +311,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                     softWrap: true,
                                     style: TextStyle(
                                       fontSize: 9,
-                                      color: const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
+                                      color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
@@ -326,7 +320,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                     style: TextStyle(
-                                      color: primary,
+                                      color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15
                                     ),
@@ -342,17 +336,19 @@ class _CreditfirstState extends State<Creditfirst> {
                                   text: TextSpan(
                                     text: "Want to Edit; Go to ",
                                     style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: 9,
-                                        color: const Color.fromRGBO(53, 49, 48, 1)
-                                            .withOpacity(0.5),
-                                        fontWeight: FontWeight.w500),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 9,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                      fontWeight: FontWeight.w500
+                                    ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Settings',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: primary)),
+                                        text: 'Settings',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: CustomTheme.presntstate ? creditwithdark : primary 
+                                        )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -366,77 +362,27 @@ class _CreditfirstState extends State<Creditfirst> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Text(
-                                    //   'Date of Birth (DOB)',
-                                    //   style: TextStyle(
-                                    //     fontWeight: FontWeight.w400,
-                                    //     fontSize: 12,
-                                    //     color: getstartedp
-                                    //   ),
-                                    // ),
-                          
-                                    // const SizedBox(height: 5),
-                                    // GestureDetector(
-                                    //   onTap: () => _showDatePicker(context),
-                                    //   child: TextFormField(
-                                    //     style: TextStyle(
-                                    //       color: darkscaffold
-                                    //     ),
-                                    //     enabled: false,
-                                    //     validator: RequiredValidator(errorText: 'Date of birth is required.'),
-                                    //     keyboardType: TextInputType.name,
-                                    //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    //     controller: startdate,
-                                    //     // onSaved: (val) => backendata["firstname"] = val,
-                                    //     // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                    //     textInputAction: TextInputAction.next,
-                                    //     decoration: InputDecoration(
-                                    //       hintText: "DD/MM/YYYY",
-                                    //       hintStyle: TextStyle(
-                                    //         fontSize: 15,
-                                    //         color: const Color.fromRGBO(53, 49, 48, 0.73).withOpacity(0.5),
-                                    //         fontWeight: FontWeight.w400
-                                    //       ),
-                                    //       suffixIconColor: primary,
-                                    //       suffix: Icon(
-                                    //         FontAwesome.calendar_plus_o,
-                                    //         color: const Color.fromRGBO(53, 49, 48, 0.73).withOpacity(0.5),
-                                    //         size: 20,
-                                    //       ),
-                                    //       filled: true,
-                                    //       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    //       fillColor:  inputColor,
-                                    //       border: inputborder,
-                                    //       focusedBorder: activeinputborder,
-                                    //       enabledBorder: inputborder,
-                                    //       focusedErrorBorder:inputborder ,
-                                    //       errorBorder: errorborder,
-                                    //       disabledBorder: inputborder,
-                                    //       errorStyle: const TextStyle(color: Colors.red),
-                                    //     )
-                                    //   ),
-                                    // ),
-                                    // const SizedBox(height: 20),
                           
                                     Text(
                                       'Marital Status',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: getstartedp),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                      ),
                                     ),
                           
                                     const SizedBox(height: 5),
                                     GestureDetector(
                                       onTap: () => shoWidget(),
                                       child: TextFormField(
-                                        style: TextStyle(color: darkscaffold),
+                                        style: TextStyle(
+                                          color: CustomTheme.presntstate ? white : darkscaffold,
+                                        ),
                                         enabled: false,
-                                        validator: RequiredValidator(
-                                          errorText:'Marital Status required.'),
+                                        validator: RequiredValidator(errorText:'Marital Status required.'),
                                         keyboardType: TextInputType.name,
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
+                                        autovalidateMode: AutovalidateMode.onUserInteraction,
                                         controller: marital,
                                         // onSaved: (val) => backendata["firstname"] = val,
                                         // onSaved: (val) => savings.createKwikMax["start_date"] = val,
@@ -445,38 +391,31 @@ class _CreditfirstState extends State<Creditfirst> {
                                           hintText: "Select an option",
                                           hintStyle: TextStyle(
                                             fontSize: 15,
-                                            color: const Color.fromRGBO(  53, 49, 48, 0.73).withOpacity(0.5),
+                                            color:  CustomTheme.presntstate ? white : const Color.fromRGBO(  53, 49, 48, 0.73).withOpacity(0.5),
                                             fontWeight: FontWeight.w400
                                           ),
-                                          suffixIconColor: primary,
-                                          suffix:
-                                              const Icon(FontAwesome.angle_down),
-                                          filled: true,
-                                          contentPadding:
-                                          const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                          fillColor: inputColor,
-                                          border: inputborder,
-                                          focusedBorder: activeinputborder,
-                                          enabledBorder: inputborder,
-                                          focusedErrorBorder: inputborder,
-                                          errorBorder: errorborder,
-                                          disabledBorder: inputborder,
-                                          errorStyle: const TextStyle(color: Colors.red),
+                                          suffix: Icon(
+                                            FontAwesome.angle_down,
+                                            color: CustomTheme.presntstate ? white : primary,
+                                            // size: 10,
+                                          ),
                                         )
                                       ),
                                     ),
                                     const SizedBox(height: 20),
                                     Text(
-                                      'Current Residential Address',
+                                      'Current Residential Address', 
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: getstartedp
+                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                                       ),
                                     ),
                                     const SizedBox(height: 5),
                                     TextFormField(
-                                      style: TextStyle(color: darkscaffold),
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : darkscaffold,
+                                      ),
                                       // enabled: false,
                                       validator: RequiredValidator(
                                         errorText:  'Current residential is required.'
@@ -490,19 +429,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                       // onSaved: (val) => backendata["firstname"] = val,
                                       // onSaved: (val) => savings.createKwikMax["start_date"] = val,
                                       textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        contentPadding: const EdgeInsets.symmetric( vertical: 3.0, horizontal: 10.0),
-                                        fillColor: inputColor,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle:
-                                            const TextStyle(color: Colors.red),
-                                      )
+                                      
                                     ),
                                     const SizedBox(height: 20),
                                     Text(
@@ -510,12 +437,14 @@ class _CreditfirstState extends State<Creditfirst> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: getstartedp
+                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                                       ),
                                     ),
                                     const SizedBox(height: 5),
                                     TextFormField(
-                                      style: TextStyle(color: darkscaffold),
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : darkscaffold,
+                                      ),
                                       validator: RequiredValidator( errorText: 'Number of years is required.'),
                                       keyboardType: TextInputType.number,
                                       autovalidateMode:  AutovalidateMode.onUserInteraction,
@@ -526,95 +455,109 @@ class _CreditfirstState extends State<Creditfirst> {
                                         applystate.personalinfo["no_of_years_in_address"] = val;
                                       },
                                       textInputAction: TextInputAction.done,
-                                      decoration: InputDecoration(
-                                        hintText: "Number Of year at address.",
-                                        hintStyle: TextStyle(
-                                          fontSize: 15,
-                                          color: const Color.fromRGBO(53, 49, 48, 0.73).withOpacity(0.5),
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                        filled: true,
-                                        contentPadding:const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                        fillColor: inputColor,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle: const TextStyle(color: Colors.red),
-                                      )
+                                     
                                     ),
-                                    const SizedBox(height: 20),
-                                    // const SizedBox(height: 50),
+                                    // const SizedBox(height: 3),
                                   ],
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 50),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                // onTap: () => Get.toNamed("credit/second"), applystate.personalinfo
-                onTap: () => validate(),
-                child: Container(
-                  width: 100.w,
-                  height: 58,
-                  color: const Color.fromRGBO(66, 213, 121, 1),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      color: white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400
+                ),
+                Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: GestureDetector(
+                    // onTap: () => Get.toNamed("credit/second"), applystate.personalinfo
+                    onTap: () => validate(),
+                    child: Container(
+                      width: 100.w,
+                      height: 58,
+                      color: const Color.fromRGBO(66, 213, 121, 1),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                
+              ],
             ),
-            Positioned(
-                top: 16.h,
-                right: 7.w,
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  padding: const EdgeInsets.all(10),
-                  child: SvgPicture.asset(
-                    "assets/image/Iconmoney-bill.svg",
-                    semanticsLabel: 'Acme Logo',
-                    width: 40,
-                    height: 20,
-                  ),
-                  decoration:
-                      BoxDecoration(color: primary, shape: BoxShape.circle),
-                )),
-            Positioned(
-                top: 6.h,
-                left: 3.w,
-                child: GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Container(
-                    width: 42,
-                    height: 42,
-                    padding: const EdgeInsets.all(10),
-                    child: Icon(
-                      FontAwesome.angle_left,
-                      color: black,
-                    ),
-                  ),
-                )),
-          ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+
+class Topbar extends StatelessWidget {
+  const Topbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(height: 25.h),
+        Container(
+          height: 20.h,
+          width: 100.w,
+          // child: Text("fiosa"),  
+          decoration: BoxDecoration(
+            color: primary,
+            image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+              fit: BoxFit.cover
+            ),
+          ),
+        ),
+        Positioned(
+          top: 16.h,
+          right: 7.w,
+          child: Container(
+            width: 64,
+            height: 64,
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              "assets/image/Iconmoney-bill.svg",
+              semanticsLabel: 'Acme Logo',
+              width: 40,
+              height: 20,
+            ),
+            decoration: BoxDecoration(
+              color: primary,
+              shape: BoxShape.circle
+            ),
+          )
+        ),
+        Positioned(
+          top: 6.h,
+          left: 3.w,
+          child: GestureDetector(
+            onTap: () =>  Get.back(),
+            child: Container(
+              width: 42,
+              height: 42,
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                FontAwesome.angle_left,
+                color: black,
+              ),
+            
+            ),
+          )
+        ),
+      ],
     );
   }
 }

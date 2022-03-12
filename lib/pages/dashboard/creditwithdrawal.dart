@@ -32,7 +32,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
   final _formKey = GlobalKey<FormState>();
   dynamic selectedbank;
   dynamic tranw;
-  dynamic beneficiaries = [];
+  List beneficiaries = [];
 
   List transwhere = [
     {"text": "Other Account", "value": '2'},
@@ -1047,7 +1047,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     context.loaderOverlay.show();
     await withdraw.withdrawalstart().then((value) {
       context.loaderOverlay.hide();
-      // print(value);
+      print(value);
       if (value["status"] == "error") {
         snackbar(message: value["message"], header: "Error.", bcolor: error);
         return;
@@ -1071,13 +1071,16 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
         return;
       }
 
-      if (value?["user"]["beneficiary"] != null) {
-        setState(() {
-          beneficiaries = value?["user"]["beneficiary"];
-          withdraw.withform["loan_id"] = value["loans"]["loan_id"];
-        });
+      if (value?["status"] == "success") {
+        withdraw.withform["loan_id"] = value["loans"]["loan_id"];
+        if (value?["user"]["beneficiary"] != null) {
+          setState(() {
+            beneficiaries = value?["user"]["beneficiary"];
+          });
+        }        
       }
-      print(beneficiaries);
+      // print(withdraw.withform);  
+      // print(value["loans"]["loan_id"]);
     }).catchError((err) {
       context.loaderOverlay.hide();
       print(err);
@@ -1085,6 +1088,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
   }
 
   _showFullModal(context) {
+    FocusScope.of(context).requestFocus(FocusNode());
     showGeneralDialog(
       context: context,
       barrierDismissible:
@@ -1149,12 +1153,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        prefixIcon: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Icon(
-                              FontAwesome5Solid.piggy_bank,
-                              color: primary,
-                            )),
+                        
                         hintText: "Sort Bank",
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 3.0, horizontal: 10.0),
@@ -1218,41 +1217,40 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Icon(FontAwesome.angle_left,
-                        color: !CustomTheme.presntstate ? black : white,
-                        size: 20
+        body: SizedBox(
+          height: 100.h,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: Icon(FontAwesome.angle_left,
+                          color: !CustomTheme.presntstate ? black : white,
+                          size: 20
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 60.w,
-                    height: 15.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/image/topwaver.png'),
-                        fit: BoxFit.cover, // -> 02
+                    Container(
+                      width: 60.w,
+                      height: 15.h,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/image/topwaver.png'),
+                          fit: BoxFit.cover, // -> 02
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: SizedBox(
-                // height: 100.h,
+              Expanded(
                 child: ListView(
                   children: [
                     Padding(
@@ -1266,25 +1264,26 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w600,
-                              color: !CustomTheme.presntstate
-                                  ? primary
-                                  : creditwithdark,
+                              color: CustomTheme.presntstate ? creditwithdark : primary 
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             "Enter the Amount you would like to withdraw today and the payment destination.",
-                            style: TextStyle(color: creditwithdark, fontSize: 15),
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                              fontSize: 15
+                            ),
                           ),
                           const SizedBox(height: 12),
                           Visibility(
-                              visible: withdraw.withform["mode"] != "2",
-                              child: const SizedBox(height: 20)),
+                            visible: withdraw.withform["mode"] != "2",
+                              child: const SizedBox(height: 20)
+                            ),
                           Obx(() => Visibility(
-                                visible: withdraw.withform["mode"] == "2",
-                                child: Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 10, right: 10),
+                              visible: withdraw.withform["mode"] == "2" && beneficiaries.isNotEmpty,
+                              child: Container(
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   padding: const EdgeInsets.all(10),
                                   width: double.infinity,
                                   height: 120,
@@ -1298,11 +1297,8 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                             modecontroller.text = "Other Account";
                                             accountno.text = beneficiaries[index]["account_number"];
                                             banks.forEach((data) {
-                                              if (data["bankcode"] ==
-                                                  beneficiaries[index]
-                                                      ["bank_code"]) {
-                                                withdraw.withform["bankcode"] =
-                                                    data["bankcode"];
+                                              if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
+                                                withdraw.withform["bankcode"] =  data["bankcode"];
                                                 bankcontroller.text = data["name"];
                                               }
                                             });
@@ -1357,9 +1353,11 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                                   softWrap: true,
                                                   textAlign: TextAlign.center,
                                                   overflow: TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w600),
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                                  ),
                                                 )
                                               ],
                                             ),
@@ -1367,99 +1365,216 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                         );
                                       }),
                                 ),
-                              )),
+                          )),
                           const SizedBox(height: 20),
                           Form(
-                              key: _formKey,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'How much do you want to withdraw?',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: !CustomTheme.presntstate
-                                            ? inputcolordark
-                                            : getstartedp),
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'How much do you want to withdraw?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
                                   ),
-                                  const SizedBox(height: 5),
-                                  TextFormField(
-                                      style: TextStyle(
-                                        color: !CustomTheme.presntstate ? darkscaffold  : whitescaffold,
-                                        fontFamily: GoogleFonts.roboto().toString(),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField(
+                                    style: TextStyle(
+                                      color: !CustomTheme.presntstate ? darkscaffold  : whitescaffold,
+                                      fontFamily: GoogleFonts.roboto().toString(),
+                                    ),
+                                    // obscureText: true,
+                                    validator: RequiredValidator(
+                                        errorText: 'Amount is required.'),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      CurrencyTextInputFormatter(
+                                      locale: 'en',
+                                      decimalDigits: 0,
+                                      symbol: '₦',
+                                    )],
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      withdraw.formatamount(val);
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      contentPadding: const EdgeInsets.symmetric(
+                                          vertical: 3.0, horizontal: 10.0),
+                                      fillColor: !CustomTheme.presntstate
+                                          ? inputColor
+                                          : inputcolordark,
+                                      border: inputborder,
+                                      focusedBorder: activeinputborder,
+                                      enabledBorder: inputborder,
+                                      focusedErrorBorder: inputborder,
+                                      errorBorder: errorborder,
+                                      disabledBorder: inputborder,
+                                      errorStyle:
+                                        const TextStyle(color: Colors.red),
+                                    )),
+                                const SizedBox(height: 15),
+                                Text(
+                                  'Where Do you want to withdraw into ?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                GestureDetector(
+                                  onTap: () => shoWidget(),
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                        color: !CustomTheme.presntstate
+                                            ? darkscaffold
+                                            : whitescaffold),
+                                    // obscureText: true,
+                                    validator: (String? value) {
+                                      if (value == null) {
+                                        return 'Mode is required';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      // loginstate.login["email"] = val;
+                                    },
+                                    enabled: false,
+                                    controller: modecontroller,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                      fillColor: !CustomTheme.presntstate
+                                          ? inputColor
+                                          : inputcolordark,
+                                      border: inputborder,
+                                      focusedBorder: activeinputborder,
+                                      enabledBorder: inputborder,
+                                      focusedErrorBorder: inputborder,
+                                      errorBorder: errorborder,
+                                      disabledBorder: inputborder,
+                                      errorStyle: const TextStyle(color: Colors.red),
+                                    )
+                                  ),
+                                ),
+                                Obx(() => Visibility(
+                                    visible: withdraw.withform["mode"] == "2",
+                                    child: const SizedBox(height: 20))),
+                                Obx(() => Visibility(
+                                      visible: withdraw.withform["mode"] == "2",
+                                      child: Text(
+                                        'Choose Bank ?',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                        ),
                                       ),
-                                      // obscureText: true,
-                                      validator: RequiredValidator(
-                                          errorText: 'Amount is required.'),
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        CurrencyTextInputFormatter(
-                                        locale: 'en',
-                                        decimalDigits: 0,
-                                        symbol: '₦',
-                                      )],
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      textInputAction: TextInputAction.done,
-                                      onSaved: (val) {
-                                        withdraw.formatamount(val);
-                                      },
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        contentPadding: const EdgeInsets.symmetric(
-                                            vertical: 3.0, horizontal: 10.0),
-                                        fillColor: !CustomTheme.presntstate
-                                            ? inputColor
-                                            : inputcolordark,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle:
-                                            const TextStyle(color: Colors.red),
-                                      )),
-                                  const SizedBox(height: 15),
-                                  Text(
-                                    'Where Do you want to withdraw into ?',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: !CustomTheme.presntstate
-                                            ? inputcolordark
-                                            : getstartedp),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  GestureDetector(
-                                    onTap: () => shoWidget(),
+                                    )),
+                                Obx(() => Visibility(
+                                    visible: withdraw.withform["mode"] == "2",
+                                    child: const SizedBox(height: 5))),
+                                Obx(() => Visibility(
+                                      visible: withdraw.withform["mode"] == "2",
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            allbanks = banks;
+                                          });
+                                          allbanks.sort((a,b) =>a["name"].compareTo(b["name"]));
+                                          _showFullModal(context);
+                                        } ,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                                color: !CustomTheme.presntstate
+                                                    ? darkscaffold
+                                                    : whitescaffold),
+                                            // obscureText: true,
+                                            validator: RequiredValidator(errorText: "Bank is required"),
+                                            keyboardType: TextInputType.number,
+                                            autovalidateMode: AutovalidateMode
+                                                .onUserInteraction,
+                                            textInputAction: TextInputAction.done,
+                                            onSaved: (val) {
+                                              // loginstate.login["email"] = val;
+                                            },
+                                            enabled: false,
+                                            controller: bankcontroller,
+                                            decoration: InputDecoration(
+                                              filled: true,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 3.0,
+                                                      horizontal: 10.0),
+                                              fillColor: !CustomTheme.presntstate
+                                                  ? inputColor
+                                                  : inputcolordark,
+                                              border: inputborder,
+                                              focusedBorder: activeinputborder,
+                                              enabledBorder: inputborder,
+                                              focusedErrorBorder: inputborder,
+                                              errorBorder: errorborder,
+                                              disabledBorder: inputborder,
+                                              errorStyle: const TextStyle(
+                                                  color: Colors.red),
+                                            )),
+                                      ),
+                                    )),
+                                Obx(() => Visibility(
+                                    visible: withdraw.withform["mode"] == "2",
+                                    child: const SizedBox(height: 20))),
+                                Obx(() => Visibility(
+                                      visible: withdraw.withform["mode"] == "2",
+                                      child: Text(
+                                        'Account Number ?',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                        ),
+                                      ),
+                                    )),
+                                Obx(() => Visibility(
+                                    visible: withdraw.withform["mode"] == "2",
+                                    child: const SizedBox(height: 5))),
+                                Obx(() => Visibility(
+                                    visible: withdraw.withform["mode"] == "2",
                                     child: TextFormField(
                                         style: TextStyle(
-                                            color: !CustomTheme.presntstate
-                                                ? darkscaffold
-                                                : whitescaffold),
+                                          color: !CustomTheme.presntstate
+                                              ? darkscaffold
+                                              : whitescaffold),
                                         // obscureText: true,
-                                        validator: (String? value) {
-                                          if (value == null) {
-                                            return 'Mode is required';
-                                          }
-                                          return null;
-                                        },
+              
                                         keyboardType: TextInputType.number,
                                         autovalidateMode:
                                             AutovalidateMode.onUserInteraction,
                                         textInputAction: TextInputAction.done,
                                         onSaved: (val) {
-                                          // loginstate.login["email"] = val;
+                                          withdraw.withform["accountnumber"] = val;
                                         },
-                                        enabled: false,
-                                        controller: modecontroller,
+                                        validator: MultiValidator([
+                                          RequiredValidator( errorText: "Account number is reqired"),
+                                          MinLengthValidator(10,
+                                            errorText:  "Account number should be more than 10")
+                                        ]),
+                                        controller: accountno,
                                         decoration: InputDecoration(
                                           filled: true,
                                           contentPadding:
                                               const EdgeInsets.symmetric(
-                                                  vertical: 3.0, horizontal: 10.0),
+                                                  vertical: 3.0,
+                                                  horizontal: 10.0),
                                           fillColor: !CustomTheme.presntstate
                                               ? inputColor
                                               : inputcolordark,
@@ -1469,251 +1584,123 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                           focusedErrorBorder: inputborder,
                                           errorBorder: errorborder,
                                           disabledBorder: inputborder,
-                                          errorStyle:
-                                              const TextStyle(color: Colors.red),
+                                          errorStyle: const TextStyle(
+                                              color: Colors.red),
                                         )),
+                                  )
+                              ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  'Pin?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
                                   ),
-                                  Obx(() => Visibility(
-                                      visible: withdraw.withform["mode"] == "2",
-                                      child: const SizedBox(height: 20))),
-                                  Obx(() => Visibility(
-                                        visible: withdraw.withform["mode"] == "2",
-                                        child: Text(
-                                          'Choose Bank ?',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                            color: !CustomTheme.presntstate
-                                                ? inputcolordark
-                                                : getstartedp
-                                          ),
-                                        ),
-                                      )),
-                                  Obx(() => Visibility(
-                                      visible: withdraw.withform["mode"] == "2",
-                                      child: const SizedBox(height: 5))),
-                                  Obx(() => Visibility(
-                                        visible: withdraw.withform["mode"] == "2",
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              allbanks = banks;
-                                            });
-                                            allbanks.sort((a,b) =>a["name"].compareTo(b["name"]));
-                                            _showFullModal(context);
-                                          } ,
-                                          child: TextFormField(
-                                              style: TextStyle(
-                                                  color: !CustomTheme.presntstate
-                                                      ? darkscaffold
-                                                      : whitescaffold),
-                                              // obscureText: true,
-                                              validator: RequiredValidator(errorText: "Bank is required"),
-                                              keyboardType: TextInputType.number,
-                                              autovalidateMode: AutovalidateMode
-                                                  .onUserInteraction,
-                                              textInputAction: TextInputAction.done,
-                                              onSaved: (val) {
-                                                // loginstate.login["email"] = val;
-                                              },
-                                              enabled: false,
-                                              controller: bankcontroller,
-                                              decoration: InputDecoration(
-                                                filled: true,
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3.0,
-                                                        horizontal: 10.0),
-                                                fillColor: !CustomTheme.presntstate
-                                                    ? inputColor
-                                                    : inputcolordark,
-                                                border: inputborder,
-                                                focusedBorder: activeinputborder,
-                                                enabledBorder: inputborder,
-                                                focusedErrorBorder: inputborder,
-                                                errorBorder: errorborder,
-                                                disabledBorder: inputborder,
-                                                errorStyle: const TextStyle(
-                                                    color: Colors.red),
-                                              )),
-                                        ),
-                                      )),
-                                  Obx(() => Visibility(
-                                      visible: withdraw.withform["mode"] == "2",
-                                      child: const SizedBox(height: 20))),
-                                  Obx(() => Visibility(
-                                        visible: withdraw.withform["mode"] == "2",
-                                        child: Text(
-                                          'Account Number ?',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: !CustomTheme.presntstate
-                                                  ? inputcolordark
-                                                  : getstartedp),
-                                        ),
-                                      )),
-                                  Obx(() => Visibility(
-                                      visible: withdraw.withform["mode"] == "2",
-                                      child: const SizedBox(height: 5))),
-                                  Obx(() => Visibility(
-                                      visible: withdraw.withform["mode"] == "2",
-                                      child: TextFormField(
-                                          style: TextStyle(
-                                              color: !CustomTheme.presntstate
-                                                  ? darkscaffold
-                                                  : whitescaffold),
-                                          // obscureText: true,
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField(
+                                    style: TextStyle(
+                                        color: !CustomTheme.presntstate
+                                            ? darkscaffold
+                                            : whitescaffold),
+                                    // obscureText: true,
               
-                                          keyboardType: TextInputType.number,
-                                          autovalidateMode:
-                                              AutovalidateMode.onUserInteraction,
-                                          textInputAction: TextInputAction.done,
-                                          onSaved: (val) {
-                                            withdraw.withform["accountnumber"] = val;
-                                          },
-                                          validator: MultiValidator([
-                                            RequiredValidator(
-                                                errorText:
-                                                    "Account number is reqired"),
-                                            MinLengthValidator(10,
-                                                errorText:
-                                                    "Account number should be more than 10")
-                                          ]),
-                                          controller: accountno,
-                                          decoration: InputDecoration(
-                                            filled: true,
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 3.0,
-                                                    horizontal: 10.0),
-                                            fillColor: !CustomTheme.presntstate
-                                                ? inputColor
-                                                : inputcolordark,
-                                            border: inputborder,
-                                            focusedBorder: activeinputborder,
-                                            enabledBorder: inputborder,
-                                            focusedErrorBorder: inputborder,
-                                            errorBorder: errorborder,
-                                            disabledBorder: inputborder,
-                                            errorStyle: const TextStyle(
-                                                color: Colors.red),
-                                          )),
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      withdraw.withform["transaction_pin"] = val;
+                                    },
+                                    validator: MultiValidator([
+                                      RequiredValidator(
+                                          errorText: "Pin is reqired"),
+                                    ]),
+                                    controller: pincontroller,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      contentPadding: const EdgeInsets.symmetric(
+                                          vertical: 3.0, horizontal: 10.0),
+                                      fillColor: !CustomTheme.presntstate
+                                          ? inputColor
+                                          : inputcolordark,
+                                      border: inputborder,
+                                      focusedBorder: activeinputborder,
+                                      enabledBorder: inputborder,
+                                      focusedErrorBorder: inputborder,
+                                      errorBorder: errorborder,
+                                      disabledBorder: inputborder,
+                                      errorStyle:
+                                          const TextStyle(color: Colors.red),
                                     )
                                 ),
-                                  const SizedBox(height: 20),
-                                  Text(
-                                    'Pin?',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: !CustomTheme.presntstate
-                                            ? inputcolordark
-                                            : getstartedp),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  TextFormField(
-                                      style: TextStyle(
-                                          color: !CustomTheme.presntstate
-                                              ? darkscaffold
-                                              : whitescaffold),
-                                      // obscureText: true,
-              
-                                      keyboardType: TextInputType.number,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      textInputAction: TextInputAction.done,
-                                      onSaved: (val) {
-                                        withdraw.withform["transaction_pin"] = val;
-                                      },
-                                      validator: MultiValidator([
-                                        RequiredValidator(
-                                            errorText: "Pin is reqired"),
-                                      ]),
-                                      controller: pincontroller,
-                                      obscureText: true,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        contentPadding: const EdgeInsets.symmetric(
-                                            vertical: 3.0, horizontal: 10.0),
-                                        fillColor: !CustomTheme.presntstate
-                                            ? inputColor
-                                            : inputcolordark,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle:
-                                            const TextStyle(color: Colors.red),
-                                      )
-                                  ),
-                                ],
-                              )
+                              ],
+                            )
                           ),
-                          const SizedBox(height: 20)
                         ],
                       ),
-                    )
+                    ),
+                    const SizedBox(height: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Get.offAllNamed("/credit");
+                            Get.back();
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 58,
+                            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              color: labelactive
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Previous',
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            validate();
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 58,
+                            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              color: registerActioncolor
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Withdraw',
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Get.offAllNamed("/credit");
-                      Get.back();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: labelactive
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Previous',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      validate();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: registerActioncolor
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Withdraw',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
+              
+            ],
+          ),
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:pinput/pin_put/pin_put.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:flutter/gestures.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class Verifynumber extends StatefulWidget {
   const Verifynumber({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class Verifynumber extends StatefulWidget {
 
 class _VerifynumberState extends State<Verifynumber> {
   SignupController signup =  Get.put(SignupController());
+  CustomTheme currentheme = CustomTheme();
   dynamic verificationData;
   bool isPhone = false;
   final _formKey = GlobalKey<FormState>();
@@ -87,6 +89,7 @@ class _VerifynumberState extends State<Verifynumber> {
     setState(() {
       verificationData = Get.arguments;
       signup.verification["otp_id"] = verificationData["otp_id"];
+      signup.sendotp["phone_number"] = verificationData["phone_number"];
     });
     super.initState();
   }
@@ -112,7 +115,7 @@ class _VerifynumberState extends State<Verifynumber> {
     });
   }
 
-  final BoxDecoration pinPutDecoration = BoxDecoration(
+  final BoxDecoration pinPutDecoration =  BoxDecoration(
       border: Border(
     bottom: BorderSide(width: 2.0, color: labelactive),
   ));
@@ -122,206 +125,232 @@ class _VerifynumberState extends State<Verifynumber> {
   @override
   Widget build(BuildContext context) {
     final String themestate =
-        MediaQuery.of(context).platformBrightness == Brightness.light
+        MediaQuery.of(context).platformBrightness != Brightness.light
             ? "light"
             : "dark";
     return Scaffold(
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+      backgroundColor: CustomTheme.presntstate ? darkscaffold :  whitescaffold,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
             children: [
-              Container(
-                width: 60.w,
-                height: 15.h,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/topwaver.png'),
-                    fit: BoxFit.cover, // -> 02
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 60.w,
+                    height: 15.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/topwaver.png'),
+                        fit: BoxFit.cover, // -> 02
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 17.h, left: 20, right: 20),
+              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      'assets/image/reglogo.png',
-                      // width: 60.w,
-                    ),
-                    SizedBox(height: 7.h),
-                    Text(
-                      'Get Started',
-                      style: TextStyle(
-                        fontSize: 30.sp,
-                        fontWeight: FontWeight.w600,
-                        color: themestate == "dark" ? white : onboardbackground
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Text(
-                      'We sent a verification code to your number Enter the code below to proceed.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        height: 1.3,
-                        fontSize: 13.sp,
-                        color: themestate == "dark"
-                            ? inputcolordark
-                            : getstartedp
-                      ),
-                    ),
-                    SizedBox(height: 3.h),
-                    Form(
-                      key: _formKey,
+                    Padding(
+                      padding: const EdgeInsets.only( left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding:  const EdgeInsets.only(left: 1, right: 15),
-                              child: Row(
+                          Image.asset(
+                            'assets/image/reglogo.png',
+                            // width: 60.w,
+                          ),
+                          SizedBox(height: 5.h),
+                          Text(
+                            'Get Started',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              color: CustomTheme.presntstate ? creditwithdark : primary 
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          Text(
+                            'We sent a verification code to your number Enter the code below to proceed.',
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              height: 1.3,
+                              fontSize: 15,
+                              color: CustomTheme.presntstate ? const Color.fromRGBO(246, 251, 254, 1) : getstartedp
+                            ),
+                          ),
+                          SizedBox(height: 3.h),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '${verificationData["phone_number"]}',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: themestate == "dark"
-                                        ? labelactive
-                                        : primary,
-                                    fontWeight: FontWeight.w500
+                                Padding(
+                                  padding:  const EdgeInsets.only(left: 1, right: 15),
+                                    child: Row(
+                                    children: [
+                                      Text(
+                                        '${verificationData["phone_number"]}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: themestate == "dark"
+                                              ? labelactive
+                                              : primary,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Icon(
+                                        FontAwesome.pencil_square_o,
+                                        size: 15,
+                                        color: labelactive,
+                                      )
+                                    ],
+                                  )
+                                ),
+                    
+                                const SizedBox(height: 7),
+                                PinPut(
+                                  textStyle: TextStyle(
+                                    color: CustomTheme.presntstate ? white : black,
+                                    fontSize: 25.0,
+                                  ),
+                                  autovalidateMode: AutovalidateMode.always,
+                                  withCursor: true,
+                                  fieldsCount: 4,
+                                  validator: MinLengthValidator(4, errorText: "Pin must be four characters"),
+                                  fieldsAlignment: MainAxisAlignment.spaceAround,
+                                  eachFieldMargin: const EdgeInsets.all(0),
+                                  eachFieldWidth: 45.0,
+                                  eachFieldHeight: 20.0,
+                                  
+                                  inputDecoration: const InputDecoration(
+                                    // contentPadding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    focusedBorder:OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    enabledBorder:OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    fillColor: Colors.transparent
+                                  ),
+                                  onSaved: (val) => {
+                                    signup.verification["otp"] = val
+                                  },
+                                  focusNode: _pinPutFocusNode,
+                                  // controller: _pinPutController,
+                                  submittedFieldDecoration: pinPutDecoration,
+                                  selectedFieldDecoration: pinPutDecoration,
+                                  followingFieldDecoration: pinPutDecoration,
+                                  pinAnimationType: PinAnimationType.scale,
+                                ),
+                                SizedBox(height: 7.h),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 1, right: 15),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'Did\'t receive OTP? ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 13,
+                                        color: themestate == "dark"
+                                            ? inputcolordark
+                                            : primary
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: 'Resend OTP',
+                                          recognizer: TapGestureRecognizer()..onTap = () => callOtp(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(0, 175, 239, 1)
+                                          )
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(width: 5),
-                                Icon(
-                                  FontAwesome.pencil_square_o,
-                                  size: 15,
-                                  color: labelactive,
-                                )
+                                // SizedBox(height: 25.h)
                               ],
                             )
-                          ),
-
-                          const SizedBox(height: 7),
-                          PinPut(
-                            textStyle: TextStyle(
-                              color: themestate == "dark" ? white : black,
-                              fontSize: 25.0,
-                            ),
-                            autovalidateMode: AutovalidateMode.always,
-                            withCursor: true,
-                            fieldsCount: 4,
-                            validator: MinLengthValidator(4, errorText: "Pin must be four characters"),
-                            fieldsAlignment: MainAxisAlignment.spaceAround,
-                            eachFieldMargin: const EdgeInsets.all(0),
-                            eachFieldWidth: 45.0,
-                            eachFieldHeight: 55.0,
-                            onSaved: (val) => {
-                              signup.verification["otp"] = val
-                            },
-                            focusNode: _pinPutFocusNode,
-                            // controller: _pinPutController,
-                            submittedFieldDecoration: pinPutDecoration,
-                            selectedFieldDecoration: pinPutDecoration,
-                            followingFieldDecoration: pinPutDecoration,
-                            pinAnimationType: PinAnimationType.scale,
-                          ),
-                          SizedBox(height: 7.h),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 1, right: 15),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Did\'t receive OTP? ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: themestate == "dark"
-                                      ? inputcolordark
-                                      : primary
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Resend OTP',
-                                    recognizer: TapGestureRecognizer()..onTap = () => callOtp(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                      color: Color.fromRGBO(0, 175, 239, 1)
-                                    )
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          // SizedBox(height: 25.h)
+                          )
                         ],
-                      )
+                      ),
+                    ),
+                    // SizedBox(height: 22.h),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('register/getnumber');
+                        
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: labelactive),
+                        child: Center(
+                          child: Text(
+                              'Previous',
+                              style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: registerActioncolor),
+                        child: Center(
+                          child: Text(
+                            'Verify My Number',
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
-              // SizedBox(height: 22.h),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAndToNamed('register/getnumber');
-                      
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(color: labelactive),
-                      child: Center(
-                        child: Text(
-                            'Previous',
-                            style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      validate();
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      decoration: BoxDecoration(color: registerActioncolor),
-                      child: Center(
-                        child: Text(
-                          'Verify My Number',
-                          style: TextStyle(
-                              color: white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

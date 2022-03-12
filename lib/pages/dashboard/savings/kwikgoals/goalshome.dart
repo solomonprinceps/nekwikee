@@ -511,7 +511,7 @@ class _GoalshomeState extends State<Goalshome> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Settings',
+                                'Edit',
                                 style: TextStyle(
                                   color: iconcolorselected,
                                   fontSize: 9,

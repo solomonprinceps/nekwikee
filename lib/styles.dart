@@ -38,11 +38,15 @@ Color iconcolorselected = HexColor("#3e4095");
 Color goalstext = HexColor("#F6FBFE");
 Color cashbackbackground = HexColor("#F75C35");
 Color greybackground = HexColor("#F8F8F8");
+Color credithometextlight = const Color.fromRGBO(53, 49, 48, 0.6);
 
 
 Color darkbottomtype = HexColor("#212946");
 Color darkactivity = HexColor("#82869D");
 Color creditwithdark = HexColor("#53D1FF");
+Color applydark = HexColor("#131B39");
+
+Color credithometextdark = HexColor("#CBD1D8");
 
 
 

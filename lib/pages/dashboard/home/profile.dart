@@ -10,6 +10,7 @@ import 'package:kwikee1/services/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kwikee1/themes/apptheme.dart';
+import 'package:kwikee1/services/datstruct.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -190,10 +191,10 @@ class _ProfileState extends State<Profile> {
                         Row(
                           children: [
                             Container(
-                              width: 147,
+                              width: 200,
                               alignment: Alignment.centerLeft,
                               child: Obx(() => Text(
-                                "${auth.userdata["firstname"]} ${auth.userdata["lastname"]}",
+                                " ${makecapitalize(auth.userdata["firstname"].toString().toLowerCase())} ${makecapitalize(auth.userdata["lastname"].toString().toLowerCase())}",
                                 textAlign: TextAlign.left,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -205,16 +206,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                               )),
                             ),
-                            const SizedBox(width: 20),
-                            Container(
-                              width: 24,
-                              height: 24,
-                              // child: ,
-                              decoration: BoxDecoration(
-                                color: white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                            )
+                            
                           ],
                         ),
                       ],

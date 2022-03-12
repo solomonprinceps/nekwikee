@@ -602,7 +602,7 @@ class _FirstState extends State<First> {
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Withdrawal',
+                                  'Withdraw',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: white
@@ -849,112 +849,7 @@ class _FirstState extends State<First> {
                             ),
                           ),    
                 
-                          Visibility(
-                            visible: showgoals,
-                            child: Card(
-                              shadowColor: HexColor("#0000000F"),
-                              // margin: const EdgeInsets.only(right: 5, left: 5),
-                              margin: const EdgeInsets.only(right: 10),
-                              child: Container(
-                                padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
-                                height: 180,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: HexColor("#0000000F"),
-                                      blurRadius: 3,
-                                      offset: const Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 24,
-                                          height: 24,
-                                          decoration: BoxDecoration(
-                                            color: kwikeegoals,
-                                            borderRadius: BorderRadius.circular(100)
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: SvgPicture.asset(
-                                            'assets/image/goalsicons.svg',
-                                            semanticsLabel: 'Target',
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          "Goals",
-                                          style: TextStyle(
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w600,
-                                            color: Theme.of(context).colorScheme.onPrimary,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      latestgoal["savings_name"] != null ? makecapitalize(latestgoal["savings_name"].toString()) : '',
-                                      softWrap: true,
-                                      overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: HexColor("#35313099"),
-                                        fontWeight: FontWeight.w400
-                                      ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      stringamount(latestgoal["target_amount"].toString()),
-                                      softWrap: true,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: 23,
-                                        color: Theme.of(context).colorScheme.onPrimary,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: GoogleFonts.roboto().toString(),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    LinearPercentIndicator(
-                                      width: 110,
-                                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                                      alignment: MainAxisAlignment.start,
-                                      animation: false,
-                                      lineHeight: 10.0,
-                                      animationDuration: 2500,
-                                      percent: ((int.parse(latestgoal["amount_saved"].toString())/int.parse(latestgoal["target_amount"].toString()))).toDouble(),
-                                      backgroundColor: primary.withOpacity(0.1),
-                                      barRadius: const Radius.circular(10),
-                                      progressColor: HexColor("#42D579"),
-                                    ),
-                                    const SizedBox(height: 15),
-                                    Text(
-                                      '${latestgoal["matures_in"].toString()}/day',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 9,
-                                        color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.27),
-                                        fontWeight: FontWeight.w400
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                  
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          
                           
                           Visibility(
                             visible: auth.showbankstatementsetup.value,
@@ -1129,6 +1024,115 @@ class _FirstState extends State<First> {
                           ),   
 
                           
+                          Visibility(
+                            visible: showgoals,
+                            child: Card(
+                              shadowColor: HexColor("#0000000F"),
+                              // margin: const EdgeInsets.only(right: 5, left: 5),
+                              margin: const EdgeInsets.only(right: 10),
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
+                                height: 180,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: HexColor("#0000000F"),
+                                      blurRadius: 3,
+                                      offset: const Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 24,
+                                          height: 24,
+                                          decoration: BoxDecoration(
+                                            color: kwikeegoals,
+                                            borderRadius: BorderRadius.circular(100)
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: SvgPicture.asset(
+                                            'assets/image/goalsicons.svg',
+                                            semanticsLabel: 'Target',
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          "Goals",
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(context).colorScheme.onPrimary,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      latestgoal["savings_name"] != null ? makecapitalize(latestgoal["savings_name"].toString()) : '',
+                                      softWrap: true,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: HexColor("#35313099"),
+                                        fontWeight: FontWeight.w400
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      stringamount(latestgoal["target_amount"].toString()),
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 23,
+                                        color: Theme.of(context).colorScheme.onPrimary,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: GoogleFonts.roboto().toString(),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    LinearPercentIndicator(
+                                      width: 110,
+                                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                                      alignment: MainAxisAlignment.start,
+                                      animation: false,
+                                      lineHeight: 10.0,
+                                      animationDuration: 2500,
+                                      percent: ((int.parse(latestgoal["amount_saved"].toString())/int.parse(latestgoal["target_amount"].toString()))).toDouble(),
+                                      backgroundColor: primary.withOpacity(0.1),
+                                      barRadius: const Radius.circular(10),
+                                      progressColor: HexColor("#42D579"),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Text(
+                                      '${latestgoal["matures_in"].toString()}/day',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 9,
+                                        color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.27),
+                                        fontWeight: FontWeight.w400
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                  
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          
+
                           Card(
                             shadowColor: HexColor("#0000000F"),
                             margin: const EdgeInsets.only( right: 20),
