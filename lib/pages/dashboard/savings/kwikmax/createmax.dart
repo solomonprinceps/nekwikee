@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:get/get.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -158,7 +159,7 @@ class _CreateMaxState extends State<CreateMax> {
             child: Icon(
               FontAwesome.angle_left,
               size: 20,
-              color: black,
+              color: CustomTheme.presntstate ? white : black,
             ),
           ),
         ),
@@ -179,7 +180,6 @@ class _CreateMaxState extends State<CreateMax> {
             ),
           ),
         ],
-        backgroundColor: white,
         elevation: 0,
       ),
       body: SafeArea(
@@ -222,7 +222,7 @@ class _CreateMaxState extends State<CreateMax> {
                           style: TextStyle(
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
-                            color: HexColor("#353130")
+                            color: CustomTheme.presntstate ? white : HexColor("#353130")
                           ),
                           overflow: TextOverflow.clip,
                           softWrap: true,
@@ -239,7 +239,7 @@ class _CreateMaxState extends State<CreateMax> {
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: HexColor("#F8F8F8"),
+                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F8F8F8"),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 child: Form(
@@ -254,13 +254,13 @@ class _CreateMaxState extends State<CreateMax> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          color: getstartedp,
+                          color: CustomTheme.presntstate ? inputcolordark : getstartedp
                         ),
                       ),
                       const SizedBox(height: 5),
                       TextFormField( 
                         style: TextStyle(
-                          color: darkscaffold,
+                          color: CustomTheme.presntstate ? white : darkscaffold,
                           fontFamily: GoogleFonts.roboto().toString(),
                         ),
                         validator: RequiredValidator(errorText: 'Amount is required.'),
@@ -277,20 +277,7 @@ class _CreateMaxState extends State<CreateMax> {
                           savings.createKwikMax["target_amount"] = savings.goalformatamount(val);
                           savings.createKwikMax["deposit_amount"] = savings.goalformatamount(val);
                         },
-                        // onSaved: (val) => backendata["firstname"] = val,
                         textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
-                        )
                       ),
                       const SizedBox(height: 20),
             
@@ -299,7 +286,7 @@ class _CreateMaxState extends State<CreateMax> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          color: getstartedp
+                          color: CustomTheme.presntstate ? inputcolordark : getstartedp
                         ),
                       ),
             
@@ -308,7 +295,7 @@ class _CreateMaxState extends State<CreateMax> {
                         onTap: () => _showDatePicker(context),
                         child: TextFormField( 
                           style: TextStyle(
-                            color: darkscaffold 
+                            color: CustomTheme.presntstate ? white : darkscaffold 
                           ),
                           enabled: false,
                           validator: RequiredValidator(errorText: 'Start date is required.'),
@@ -318,18 +305,6 @@ class _CreateMaxState extends State<CreateMax> {
                           // onSaved: (val) => backendata["firstname"] = val,
                           onSaved: (val) => savings.createKwikMax["start_date"] = val,
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                            fillColor:  inputColor,
-                            border: inputborder,
-                            focusedBorder: activeinputborder,
-                            enabledBorder: inputborder,
-                            focusedErrorBorder:inputborder ,
-                            errorBorder: errorborder,
-                            disabledBorder: inputborder,
-                            errorStyle: const TextStyle(color: Colors.red),
-                          )
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -338,15 +313,15 @@ class _CreateMaxState extends State<CreateMax> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          color: getstartedp
+                          color: CustomTheme.presntstate ? inputcolordark : getstartedp
                         ),
                       ),
                       const SizedBox(height: 5),
                       DropdownButtonFormField<dynamic>(
-                        hint: const Text(
+                        hint:  Text(
                           "Select Savings Frequency",
                           style: TextStyle(
-                            color: Color.fromRGBO(173,175,176, 1),
+                            color: CustomTheme.presntstate ? white : const Color.fromRGBO(173,175,176, 1),
                             fontWeight: FontWeight.w300,
                             fontSize: 14
                           ),
@@ -363,25 +338,13 @@ class _CreateMaxState extends State<CreateMax> {
                           return null;
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
-                        ),
                         items: transwhere.map((dynamic single) {
                           return DropdownMenuItem<dynamic>(
                             value: single,
                             child: Text(
                               single["text"],
-                              style: const TextStyle(
-                                color: Color.fromRGBO(136, 136, 136, 1),
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : const Color.fromRGBO(136, 136, 136, 1),
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14
                               ),

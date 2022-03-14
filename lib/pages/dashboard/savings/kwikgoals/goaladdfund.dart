@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 
 class Goalsaddfund extends StatefulWidget {
@@ -55,7 +57,6 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      print(data);
       submit();
       // print(saving.savingwithdrawal);
     } else {
@@ -64,10 +65,8 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
 
   Future submit() async {
     context.loaderOverlay.show();
-    print(saving.savingwithdrawal);
     await saving.addfundGoals(data).then((value) {
       context.loaderOverlay.hide();
-      print(value);
       if (value["status"] == "error") {
         snackbar(message: value?["message"], header: "error", bcolor: error);
       }
@@ -96,7 +95,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
               child: Icon(
                 FontAwesome.angle_left,
                 size: 20,
-                color: primary,
+                color: CustomTheme.presntstate ? white : primary,
               ),
             ),
           ),
@@ -116,10 +115,8 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
               ),
             ),
           ],
-          backgroundColor: white,
           elevation: 0,
         ),
-        backgroundColor: white,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -150,7 +147,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 30,
-                          color: primary
+                          color: CustomTheme.presntstate ? creditwithdark : primary 
                         ),
                       ),
                     ],
@@ -163,7 +160,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                       padding: const EdgeInsets.all(20),
                       // alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: greybackground,
+                        color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
                         borderRadius: BorderRadius.circular(5)
                       ),
                       child: Column(
@@ -181,11 +178,13 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                             ),
                           ),
                           Text(
-                            // "₦300,782",
-                            stringamount(savings["amount_saved"].toString()),
+                            stringamount(savings?["amount_saved"].toString()),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 42.sp,
+                              fontSize: 42,
                               fontFamily: GoogleFonts.roboto().toString(),
                               color: savingmonth
                             ),
@@ -201,15 +200,15 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                                   'Amount',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color:  getstartedp
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 TextFormField( 
                                   style: TextStyle(
-                                    color: darkscaffold,
-                                     fontFamily: GoogleFonts.roboto().toString(),
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold,
+                                    fontFamily: GoogleFonts.roboto().toString(),
                                   ),
                                   // obscureText: true,
                                   controller: amount,
@@ -230,26 +229,15 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                                       data["amount"] = saving.goalformatamount(val);
                                     });
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: inputColor ,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
+                                  
                                 ),
                                 SizedBox(height: 2.h),
                                 Text(
                                   'FUND KWIKLITE',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color:  getstartedp
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp
                                   ),
                                 ),
                                 
@@ -259,9 +247,10 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                           const SizedBox(height: 15),
                           
                           Text(
-                            "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  \n \n Bank Details - Adedayo Adebimpe |GTBank | 3123245354",
+                            "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to this savings",
                             style: TextStyle(
-                              color: getstartedp.withOpacity(0.42),
+                              // color: getstartedp.withOpacity(0.42),
+                              color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp,
                               fontSize: 11
                             ),
                           ),

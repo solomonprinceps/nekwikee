@@ -203,11 +203,11 @@ class _CreditfirstState extends State<Creditfirst> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Personal Information",
                               style: TextStyle(
                                 fontSize: 21,
-                                
+                                color: CustomTheme.presntstate ? creditwithdark : primary,
                                 fontWeight: FontWeight.w400
                               ),
                             ),

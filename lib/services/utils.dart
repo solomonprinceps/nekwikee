@@ -46,6 +46,7 @@ double checkDouble(dynamic value) {
 }
 
 String stringamount(String? value) { 
+  
   if (value.toString() == '' || value.toString() == ' ') {
     return '₦0';
   }

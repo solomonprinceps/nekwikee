@@ -310,7 +310,7 @@ class _GoalshomeState extends State<Goalshome> {
                                 Text(
                                   savings["matures_in"].toString(),
                                   style: TextStyle(
-                                    color: goalstext.withOpacity(0.27),
+                                    color: CustomTheme.presntstate ?  white :  goalstext.withOpacity(0.27),
                                     fontSize: 11,
                                     fontWeight: FontWeight.w400
                                   ),
@@ -359,7 +359,7 @@ class _GoalshomeState extends State<Goalshome> {
                           Text(
                             'Your Kwiklite is directly connected to a bank account which could be funded using the above Wema Bank Account Number.',
                              style: TextStyle(
-                               color: kwiklightcolor.withOpacity(0.42),
+                               color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
                                fontSize: 9
                              ),   
                           )
@@ -678,7 +678,7 @@ class _GoalshomeState extends State<Goalshome> {
                                                       style: TextStyle(
                                                         fontSize: 8,
                                                         fontWeight: FontWeight.w400,
-                                                        color: listingtextlight
+                                                        color: CustomTheme.presntstate ?  white : black
                                                       ),
                                                     ),
                                                     Text(
@@ -687,7 +687,7 @@ class _GoalshomeState extends State<Goalshome> {
                                                       style: TextStyle(
                                                         fontSize: 8,
                                                         fontWeight: FontWeight.w400,
-                                                        color: listingtextdatelight
+                                                        color: CustomTheme.presntstate ?  white : black
                                                       ),
                                                     ),
                                                   ],

@@ -24,7 +24,7 @@ class _CashbackState extends State<Cashback> {
   @override
   void initState() {
     // data = jsonDecode(Get.arguments);
-    timedown();
+    // timedown();
     super.initState();
   }
 
@@ -68,32 +68,32 @@ class _CashbackState extends State<Cashback> {
               ),
             ),
             const SizedBox(height: 38),
-            const Text(
+            Text(
               "SUCCESSFUL!",
               style: TextStyle(
-                color: Color.fromRGBO(62, 64, 149, 1),
+                color: CustomTheme.presntstate ? creditwithdark : primary,
                 fontSize: 28
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'Cashback Successful Funded',
               style: TextStyle(
-                color: Color.fromRGBO(62, 64, 149, 1),
+                color: CustomTheme.presntstate ? creditwithdark : primary,
                 fontSize: 21,
                 fontWeight: FontWeight.w400
               ),
             ),
             const SizedBox(height: 10),
             //rgba(53, 49, 48, 1)
-            const Padding(
-              padding: EdgeInsets.only(left:20, right: 20, top: 15),
+            Padding(
+              padding: const EdgeInsets.only(left:20, right: 20, top: 15),
               child: Text(
                 "To access your cashback funds go to your Kwickee Kwik Lite.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
-                  color: Color.fromRGBO(53, 49, 48, 1),
+                  color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                   fontWeight: FontWeight.w400
                 ),
               )

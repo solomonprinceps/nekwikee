@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import "package:kwikee1/styles.dart";
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -111,7 +112,7 @@ class _CashbackhomeState extends State<Cashbackhome> {
             child: Icon(
               FontAwesome.angle_left,
               size: 20,
-              color: black,
+              color: CustomTheme.presntstate ? white : black,
             ),
           ),
         ),
@@ -132,7 +133,6 @@ class _CashbackhomeState extends State<Cashbackhome> {
             ),
           ),
         ],
-        backgroundColor: white,
         elevation: 0,
       ),
       body: Column(
@@ -175,7 +175,7 @@ class _CashbackhomeState extends State<Cashbackhome> {
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w400,
                         fontSize: 9,
-                        color: black
+                        color: CustomTheme.presntstate ? white : black
                       ),
                     ),
                   ],
@@ -284,12 +284,12 @@ class _CashbackhomeState extends State<Cashbackhome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:  [
-                const Text(
+                Text(
                   "Cashback",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
-                    color: Color.fromRGBO(53, 49, 48, 0.6),
+                    color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 0.6),
                   ),
                 ),
                 Text(
@@ -357,12 +357,12 @@ class _CashbackhomeState extends State<Cashbackhome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:  [
-                const Text(
+                Text(
                   "Repayment Date",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
-                    color: Color.fromRGBO(53, 49, 48, 0.6),
+                    color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 0.6),
                   ),
                 ),
                 Text(

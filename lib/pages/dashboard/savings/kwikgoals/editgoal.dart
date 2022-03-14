@@ -546,7 +546,6 @@ class _EditGoalsState extends State<EditGoals> {
     savingdata = Get.arguments;
     if (savingdata["user"]["card_authorizations"] != null) {
       addcards(savingdata["user"]["card_authorizations"]);
-      print(cards); 
     }
     
     saving.EditKwikGoal["investmentid"] = savingdata?["investmentid"];
@@ -563,7 +562,7 @@ class _EditGoalsState extends State<EditGoals> {
   }
 
   addcards(List dcards) {
-    print("dcards $dcards");
+    // print("dcards $dcards");
     dcards.forEach((element) { 
       setState(() {
         cards.add(element);        
@@ -589,7 +588,7 @@ class _EditGoalsState extends State<EditGoals> {
             child: Icon(
               FontAwesome.angle_left,
               size: 20,
-              color: black,
+              color: CustomTheme.presntstate ? white : primary,
             ),
           ),
         ),
@@ -609,7 +608,6 @@ class _EditGoalsState extends State<EditGoals> {
             ),
           ),
         ],
-        backgroundColor: white,
         elevation: 0,
       ),
       body: SafeArea(
@@ -653,7 +651,7 @@ class _EditGoalsState extends State<EditGoals> {
                           style: TextStyle(
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
-                            color: HexColor("#353130")
+                            color: CustomTheme.presntstate ? white : HexColor("#353130")
                           ),
                           overflow: TextOverflow.clip,
                           softWrap: true,
@@ -670,442 +668,272 @@ class _EditGoalsState extends State<EditGoals> {
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: HexColor("#F8F8F8"),
+                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F8F8F8"),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 child: Form(
                   key: _formKey,
-                  child: ListView(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                      // Text("data"),
-                      Text(
-                        'What are you saving for ?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: getstartedp
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      TextFormField( 
-                        style: TextStyle(
-                          color: darkscaffold 
-                        ),
-                        validator: RequiredValidator(errorText: 'Title is required.'),
-                        keyboardType: TextInputType.name,
-                        controller: title,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        onSaved: (val) => saving.EditKwikGoal["savings_name"]  = val,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
-                        )
-                      ),
-                      const SizedBox(height: 20),
-            
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Target amount',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: getstartedp
-                            ),
-                          ),
-                          Text(
-                            // "savingdata?["target_amount"]}",
-                            stringamount(savingdata?["target_amount"]),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: getstartedp
-                            ),
-                          )
-                        ],
-                      ),
-            
-                      const SizedBox(height: 5),
-                      TextFormField( 
-                        style: TextStyle(
-                          color: darkscaffold,
-                          fontFamily: GoogleFonts.roboto().toString(),
-                        ),
-                        validator: RequiredValidator(errorText: 'Target amount is required.'),
-                        keyboardType: TextInputType.number,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: amount,
-                        onSaved: (val) => saving.EditKwikGoal["target_amount"] = saving.goalformatamount(val),
-                        inputFormatters: [
-                          CurrencyTextInputFormatter(
-                          locale: 'en',
-                          decimalDigits: 0,
-                          symbol: '₦',
-                        )],
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
-                        )
-                      ),
-                      const SizedBox(height: 20),
-            
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Preffered saving amount',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: getstartedp
-                            ),
-                          ),
-
-                          Text(
-                            stringamount(savingdata?["preffered_saving_amount"]),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: getstartedp
-                            ),
-                          ),
-                          
-                        ],
-                      ),
-            
-                      const SizedBox(height: 5),
-                      TextFormField( 
-                        style: TextStyle(
-                          color: darkscaffold,
-                          fontFamily: GoogleFonts.roboto().toString(),
-                        ),
-                        validator: RequiredValidator(errorText: 'Preffered saving amount is required.'),
-                        keyboardType: TextInputType.number,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: prefferedamount,
-                        onSaved: (val) => saving.EditKwikGoal["preffered_saving_amount"] = saving.goalformatamount(val),
-                        inputFormatters: [
-                          CurrencyTextInputFormatter(
-                          locale: 'en',
-                          decimalDigits: 0,
-                          symbol: '₦',
-                        )],
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
-                        )
-                      ),
-                      const SizedBox(height: 20),
-                      // Text(
-                      //   'Saving Category',
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w400,
-                      //     fontSize: 12,
-                      //     color: getstartedp
-                      //   ),
-                      // ),
-            
-                      // const SizedBox(height: 5),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     setState(() {
-                      //       banklist = reasons;
-                      //       allbanks = reasons;
-                      //     });
-                          
-                          
-                      //     _reasonshowFullModal(context);
-                      //   }, 
-                      //   child: TextFormField( 
-                      //     style: TextStyle(
-                      //       color: darkscaffold 
-                      //     ),
-                      //     enabled: false,
-                      //     validator: RequiredValidator(errorText: 'Saving category is required.'),
-                      //     keyboardType: TextInputType.number,
-                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //     controller: savingreason,
-                      //     onSaved: (val) => saving.EditKwikGoal["savings_category"] = val,
-                          
-                      //     textInputAction: TextInputAction.next,
-                      //     decoration: InputDecoration(
-                      //       filled: true,
-                      //       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                      //       fillColor:  inputColor,
-                      //       border: inputborder,
-                      //       focusedBorder: activeinputborder,
-                      //       enabledBorder: inputborder,
-                      //       focusedErrorBorder:inputborder ,
-                      //       errorBorder: errorborder,
-                      //       disabledBorder: inputborder,
-                      //       errorStyle: const TextStyle(color: Colors.red),
-                      //     )
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 20),
-                      // Text(
-                      //   'How long do you want to save for?',
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w400,
-                      //     fontSize: 12,
-                      //     color: getstartedp
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 5),
-                      // DropdownButtonFormField<dynamic>(
-                      //   hint: const Text(
-                      //     "Select Savings Frequency",
-                      //     style: TextStyle(
-                      //       color: Color.fromRGBO(173,175,176, 1),
-                      //       fontWeight: FontWeight.w300,
-                      //       fontSize: 14
-                      //     ),
-                      //   ),
-                      //   value: tranw,
-                      //   icon: const Icon(
-                      //     FontAwesome.angle_down
-                      //   ),
-                      //   isExpanded: true,
-                      //   validator: (value) {
-                      //     if (value == null) {
-                      //       return 'Option is required';
-                      //     }
-                      //     return null;
-                      //   },
-                      //   autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //   decoration: InputDecoration(
-                      //     filled: true,
-                      //     contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                      //     fillColor:  inputColor,
-                      //     border: inputborder,
-                      //     focusedBorder: activeinputborder,
-                      //     enabledBorder: inputborder,
-                      //     focusedErrorBorder:inputborder ,
-                      //     errorBorder: errorborder,
-                      //     disabledBorder: inputborder,
-                      //     errorStyle: const TextStyle(color: Colors.red),
-                      //   ),
-                      //   items: transwhere.map((dynamic single) {
-                      //     return DropdownMenuItem<dynamic>(
-                      //       value: single,
-                      //       child: Text(
-                      //         single["text"],
-                      //         style: const TextStyle(
-                      //           color: Color.fromRGBO(136, 136, 136, 1),
-                      //           fontWeight: FontWeight.w600,
-                      //           fontSize: 14
-                      //         ),
-                      //       ),
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (val) {
-                      //     setState(() {
-                      //       tranw = val;
-                      //     });
-                      //     // print(val["text"]);
-                      //     // if (val["value"] == " ") {
-                      //     //   setState(() {
-                      //     //     showother = true;
-                      //     //   });
-                      //     //   return;
-                      //     // }
-                      //     // if (val["value"] != " ") {
-                      //     //   setState(() {
-                      //     //     showother = false;
-                      //     //   });
-                      //     // }
-                      //     saving.EditKwikGoal["saving_frequency"] = val["value"].toString();
-                      //   },
-                      // ),
-
-
-                      Text(
-                        'How often do you want to save?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: getstartedp
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      DropdownButtonFormField<dynamic>(
-                        hint: const Text(
-                          "Select an option",
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: ListView(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children:  [
+                        // Text("data"),
+                        Text(
+                          'What are you saving for ?',
                           style: TextStyle(
-                            color: Color.fromRGBO(136, 136, 136, 1),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
                           ),
                         ),
-                        value: selectedfreq,
-                        isExpanded: true,
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Option is required';
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor:  inputColor,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: inputborder,
-                          focusedErrorBorder:inputborder ,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
+                        const SizedBox(height: 5),
+                        TextFormField( 
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? white : darkscaffold 
+                          ),
+                          validator: RequiredValidator(errorText: 'Title is required.'),
+                          keyboardType: TextInputType.name,
+                          controller: title,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          onSaved: (val) => saving.EditKwikGoal["savings_name"]  = val,
+                          textInputAction: TextInputAction.next,
                         ),
-                        items: freqs.map((dynamic single) {
-                          return DropdownMenuItem<dynamic>(
-                            value: single,
-                            child: Text(
-                              single["text"],
-                              style: const TextStyle(
-                                color: Color.fromRGBO(136, 136, 136, 1),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14
+                        const SizedBox(height: 20),
+                              
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Target amount',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp
                               ),
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (val) {
-                          setState(() {
-                            selectedfreq = val;
-                          });
-                          // print(val["text"]);
-                          saving.EditKwikGoal["saving_frequency"] = val["value"].toString();
-                        },
-                      ),
-
-                      const SizedBox(height: 20),
-                      Text(
-                        'Start Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: getstartedp
+                            Text(
+                              // "savingdata?["target_amount"]}",
+                              stringamount(savingdata?["target_amount"]),
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () => _showDatePicker(context),
-                        child: TextFormField( 
+                              
+                        const SizedBox(height: 5),
+                        TextFormField( 
                           style: TextStyle(
-                            color: darkscaffold 
+                            color: CustomTheme.presntstate ? white : darkscaffold,
+                            fontFamily: GoogleFonts.roboto().toString(),
                           ),
-                          validator: RequiredValidator(errorText: 'Start date is required.'),
-                          keyboardType: TextInputType.name,
-                          controller: goalsdate,
+                          validator: RequiredValidator(errorText: 'Target amount is required.'),
+                          keyboardType: TextInputType.number,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          // onSaved: (val) => backendata["firstname"] = val,
-                          enabled: false,
+                          controller: amount,
+                          onSaved: (val) => saving.EditKwikGoal["target_amount"] = saving.goalformatamount(val),
+                          inputFormatters: [
+                            CurrencyTextInputFormatter(
+                            locale: 'en',
+                            decimalDigits: 0,
+                            symbol: '₦',
+                          )],
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                            fillColor: inputColor,
-                            border: inputborder,
-                            focusedBorder: activeinputborder,
-                            enabledBorder: inputborder,
-                            focusedErrorBorder:inputborder ,
-                            errorBorder: errorborder,
-                            disabledBorder: inputborder,
-                            errorStyle: const TextStyle(color: Colors.red),
-                          )
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Maturity Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: getstartedp
+                        const SizedBox(height: 20),
+                              
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Preffered saving amount',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                              ),
+                            ),
+                  
+                            Text(
+                              stringamount(savingdata?["preffered_saving_amount"]),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                              ),
+                            ),
+                            
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () => _maturityDatePicker(context),
-                        child: TextFormField( 
+                              
+                        const SizedBox(height: 5),
+                        TextFormField( 
                           style: TextStyle(
-                            color: darkscaffold 
+                            color: CustomTheme.presntstate ? white : darkscaffold,
+                            fontFamily: GoogleFonts.roboto().toString(),
                           ),
-                          validator: RequiredValidator(errorText: 'Maturity date is required.'),
-                          keyboardType: TextInputType.name,
-                          controller: maturitydate,
+                          validator: RequiredValidator(errorText: 'Preffered saving amount is required.'),
+                          keyboardType: TextInputType.number,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          // onSaved: (val) => backendata["firstname"] = val,
-                          enabled: false,
+                          controller: prefferedamount,
+                          onSaved: (val) => saving.EditKwikGoal["preffered_saving_amount"] = saving.goalformatamount(val),
+                          inputFormatters: [
+                            CurrencyTextInputFormatter(
+                            locale: 'en',
+                            decimalDigits: 0,
+                            symbol: '₦',
+                          )],
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                            fillColor:  inputColor,
-                            border: inputborder,
-                            focusedBorder: activeinputborder,
-                            enabledBorder: inputborder,
-                            focusedErrorBorder:inputborder ,
-                            errorBorder: errorborder,
-                            disabledBorder: inputborder,
-                            errorStyle: const TextStyle(color: Colors.red),
-                          )
                         ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      Text(
-                        'Savings Source',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: getstartedp
+                        const SizedBox(height: 20),
+                        // Text(
+                        //   'Saving Category',
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 12,
+                        //     color: getstartedp
+                        //   ),
+                        // ),
+                              
+                        // const SizedBox(height: 5),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       banklist = reasons;
+                        //       allbanks = reasons;
+                        //     });
+                            
+                            
+                        //     _reasonshowFullModal(context);
+                        //   }, 
+                        //   child: TextFormField( 
+                        //     style: TextStyle(
+                        //       color: darkscaffold 
+                        //     ),
+                        //     enabled: false,
+                        //     validator: RequiredValidator(errorText: 'Saving category is required.'),
+                        //     keyboardType: TextInputType.number,
+                        //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                        //     controller: savingreason,
+                        //     onSaved: (val) => saving.EditKwikGoal["savings_category"] = val,
+                            
+                        //     textInputAction: TextInputAction.next,
+                        //     decoration: InputDecoration(
+                        //       filled: true,
+                        //       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                        //       fillColor:  inputColor,
+                        //       border: inputborder,
+                        //       focusedBorder: activeinputborder,
+                        //       enabledBorder: inputborder,
+                        //       focusedErrorBorder:inputborder ,
+                        //       errorBorder: errorborder,
+                        //       disabledBorder: inputborder,
+                        //       errorStyle: const TextStyle(color: Colors.red),
+                        //     )
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 20),
+                        // Text(
+                        //   'How long do you want to save for?',
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 12,
+                        //     color: getstartedp
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 5),
+                        // DropdownButtonFormField<dynamic>(
+                        //   hint: const Text(
+                        //     "Select Savings Frequency",
+                        //     style: TextStyle(
+                        //       color: Color.fromRGBO(173,175,176, 1),
+                        //       fontWeight: FontWeight.w300,
+                        //       fontSize: 14
+                        //     ),
+                        //   ),
+                        //   value: tranw,
+                        //   icon: const Icon(
+                        //     FontAwesome.angle_down
+                        //   ),
+                        //   isExpanded: true,
+                        //   validator: (value) {
+                        //     if (value == null) {
+                        //       return 'Option is required';
+                        //     }
+                        //     return null;
+                        //   },
+                        //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                        //   decoration: InputDecoration(
+                        //     filled: true,
+                        //     contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                        //     fillColor:  inputColor,
+                        //     border: inputborder,
+                        //     focusedBorder: activeinputborder,
+                        //     enabledBorder: inputborder,
+                        //     focusedErrorBorder:inputborder ,
+                        //     errorBorder: errorborder,
+                        //     disabledBorder: inputborder,
+                        //     errorStyle: const TextStyle(color: Colors.red),
+                        //   ),
+                        //   items: transwhere.map((dynamic single) {
+                        //     return DropdownMenuItem<dynamic>(
+                        //       value: single,
+                        //       child: Text(
+                        //         single["text"],
+                        //         style: const TextStyle(
+                        //           color: Color.fromRGBO(136, 136, 136, 1),
+                        //           fontWeight: FontWeight.w600,
+                        //           fontSize: 14
+                        //         ),
+                        //       ),
+                        //     );
+                        //   }).toList(),
+                        //   onChanged: (val) {
+                        //     setState(() {
+                        //       tranw = val;
+                        //     });
+                        //     // print(val["text"]);
+                        //     // if (val["value"] == " ") {
+                        //     //   setState(() {
+                        //     //     showother = true;
+                        //     //   });
+                        //     //   return;
+                        //     // }
+                        //     // if (val["value"] != " ") {
+                        //     //   setState(() {
+                        //     //     showother = false;
+                        //     //   });
+                        //     // }
+                        //     saving.EditKwikGoal["saving_frequency"] = val["value"].toString();
+                        //   },
+                        // ),
+                  
+                  
+                        Text(
+                          'How often do you want to save?',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      Visibility(
-                        visible: true,
-                        child: DropdownButtonFormField<dynamic>(
-                          hint: const Text(
+                        const SizedBox(height: 5),
+                        DropdownButtonFormField<dynamic>(
+                          hint: Text(
                             "Select an option",
                             style: TextStyle(
-                              color: Color.fromRGBO(136, 136, 136, 1),
+                              color: CustomTheme.presntstate ? white : darkscaffold,
                               fontWeight: FontWeight.w600,
                               fontSize: 14
                             ),
                           ),
-                          value: selectedsource,
+                          value: selectedfreq,
                           isExpanded: true,
                           validator: (value) {
                             if (value == null) {
@@ -1114,26 +942,13 @@ class _EditGoalsState extends State<EditGoals> {
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          decoration: InputDecoration(
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                            fillColor:  inputColor,
-                            border: inputborder,
-                            focusedBorder: activeinputborder,
-                            enabledBorder: inputborder,
-                            focusedErrorBorder:inputborder ,
-                            errorBorder: errorborder,
-                            disabledBorder: inputborder,
-                            errorStyle: const TextStyle(color: Colors.red),
-                          ),
-                          items: cards.map((dynamic single) {
+                          items: freqs.map((dynamic single) {
                             return DropdownMenuItem<dynamic>(
                               value: single,
                               child: Text(
-                                // 'idmk',
-                                single["last4"] != "-1" ? 'Card - '+single["bank"] : single["bank"],
-                                style: const TextStyle(
-                                  color: Color.fromRGBO(136, 136, 136, 1),
+                                single["text"],
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? white : darkscaffold,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14
                                 ),
@@ -1142,66 +957,171 @@ class _EditGoalsState extends State<EditGoals> {
                           }).toList(),
                           onChanged: (val) {
                             setState(() {
-                              selectedsource = val;
+                              selectedfreq = val;
                             });
                             // print(val["text"]);
-                            saving.EditKwikGoal["savings_source"] = val["last4"].toString();
+                            saving.EditKwikGoal["saving_frequency"] = val["value"].toString();
                           },
                         ),
-                      ),
-
-                      
-                      const SizedBox(height: 20),
-                      GestureDetector(
-                        // onTap: () => Get.toNamed("savings/goals/confirm"),
-                        onTap: () => validate(),
-                        child: Card(
-                          color: HexColor("#0000000F"),
-                          child: Container(
-                            width: double.infinity,
-                            height: 44,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(66, 213, 121, 1),
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor("#0000000F"),
-                                  blurRadius: 3,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
+                  
+                        const SizedBox(height: 20),
+                        Text(
+                          'Start Date',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        GestureDetector(
+                          onTap: () => _showDatePicker(context),
+                          child: TextFormField( 
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ? white : darkscaffold,
                             ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Continue',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                          color: white
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Icon(
-                                        FontAwesome5Solid.arrow_right,
-                                        color: white,
-                                        size: 10,
-                                      )
-                                    ],
+                            validator: RequiredValidator(errorText: 'Start date is required.'),
+                            keyboardType: TextInputType.name,
+                            controller: goalsdate,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            // onSaved: (val) => backendata["firstname"] = val,
+                            enabled: false,
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Maturity Date',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        GestureDetector(
+                          onTap: () => _maturityDatePicker(context),
+                          child: TextFormField( 
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ? white : darkscaffold,
+                            ),
+                            validator: RequiredValidator(errorText: 'Maturity date is required.'),
+                            keyboardType: TextInputType.name,
+                            controller: maturitydate,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            // onSaved: (val) => backendata["firstname"] = val,
+                            enabled: false,
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                  
+                        Text(
+                          'Savings Source',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Visibility(
+                          visible: true,
+                          child: DropdownButtonFormField<dynamic>(
+                            hint: const Text(
+                              "Select an option",
+                              style: TextStyle(
+                                color: Color.fromRGBO(136, 136, 136, 1),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14
+                              ),
+                            ),
+                            value: selectedsource,
+                            isExpanded: true,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Option is required';
+                              }
+                              return null;
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            items: cards.map((dynamic single) {
+                              return DropdownMenuItem<dynamic>(
+                                value: single,
+                                child: Text(
+                                  // 'idmk',
+                                  single["last4"] != "-1" ? 'Card - '+single["bank"] : single["bank"],
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? white : darkscaffold,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                selectedsource = val;
+                              });
+                              // print(val["text"]);
+                              saving.EditKwikGoal["savings_source"] = val["last4"].toString();
+                            },
+                          ),
+                        ),
+                  
+                        
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          // onTap: () => Get.toNamed("savings/goals/confirm"),
+                          onTap: () => validate(),
+                          child: Card(
+                            color: HexColor("#0000000F"),
+                            child: Container(
+                              width: double.infinity,
+                              height: 44,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(66, 213, 121, 1),
+                                borderRadius: BorderRadius.circular(5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: HexColor("#0000000F"),
+                                    blurRadius: 3,
+                                    offset: const Offset(0, 3), // changes position of shadow
                                   ),
                                 ],
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Continue',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: white
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Icon(
+                                          FontAwesome5Solid.arrow_right,
+                                          color: white,
+                                          size: 10,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   )
                 ),
               ),

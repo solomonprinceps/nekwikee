@@ -39,7 +39,8 @@ class _MaxconfirmState extends State<Maxconfirm> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       
       plugin.initialize(publicKey: publicKeyTest);
-      loadashboard();
+      // loadashboard();
+      print('${savingsdata["user"]["card_authorizations"]}');
     });
     super.initState();
   }
@@ -57,7 +58,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
 
   //async method to charge users card and return a response card_setup_link
   chargeCard() async {
-    print(savingsdata["paymentref"].toString());
+    print("ref " + savingsdata["paymentref"].toString());
     String refs = savingsdata["paymentref"].toString();
     var charge = Charge();
     charge.amount = int.parse(savingsdata["deposit_amount"]) *100;
@@ -71,12 +72,18 @@ class _MaxconfirmState extends State<Maxconfirm> {
 
     if (response.status == true) {
       updatebackcard(refs);
+      setState(() {
+        savingsdata["payment_type"] = '3';
+        savingsdata["last4"] = "";
+        // savingsdata["paymentref"] = savingsdata["paymentref"].toString();
+      });
+      print('saving ${savingsdata["paymentref"]}');
       savingsdata["payment_type"] = '3';
-      savingsdata["last4"] = "";
-      savingsdata["paymentref"] = savingsdata["paymentref"].toString();
+      print('payment_type ${savingsdata["payment_type"]}');
+      print("last4 ${savingsdata["last4"]}");  
       savingMAX();
       _showMessage('Payment was successful!!!', success);
-      Get.offAllNamed('home', arguments: 1);
+      // Get.offAllNamed('home', arguments: 1);
     } else {
       _showMessage('Payment Failed!!!', error);
     }
@@ -110,11 +117,14 @@ class _MaxconfirmState extends State<Maxconfirm> {
 
   savingMAX() async {
     context.loaderOverlay.show();
+       
     await saving.submitmax(savingsdata).then((value) {
       context.loaderOverlay.hide();
       print(value);   
       if (value["status"] == "success") {
+        context.loaderOverlay.hide();
         snackbar(message: value["message"], header: "Success", bcolor: success);
+        
         Get.toNamed('home', arguments: 1);
         // Get.toNamed('dashboard/savings/confirmation', arguments: value);
       }
@@ -306,7 +316,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
             child: Icon(
               FontAwesome.angle_left,
               size: 20,
-              color: black,
+              color: CustomTheme.presntstate ? white : black,
             ),
           ),
         ),
@@ -315,7 +325,6 @@ class _MaxconfirmState extends State<Maxconfirm> {
             padding: const EdgeInsets.only(right: 20),
             child: Row(
               children: [
-                
                 Icon(
                   FontAwesome.bell,
                   color: registerActioncolor,
@@ -327,7 +336,6 @@ class _MaxconfirmState extends State<Maxconfirm> {
             ),
           ),
         ],
-        backgroundColor: white,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -363,7 +371,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                             style: TextStyle(
                               fontSize: 35,
                               fontWeight: FontWeight.w400,
-                              color: primary
+                              color: CustomTheme.presntstate ? creditwithdark : primary 
                             ),
                           ),
                           Text(
@@ -371,7 +379,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
-                              color: HexColor("#353130")
+                              color: CustomTheme.presntstate ? white : HexColor("#353130")
                             ),
                             overflow: TextOverflow.clip,
                             softWrap: true,
@@ -383,11 +391,11 @@ class _MaxconfirmState extends State<Maxconfirm> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 20),
                 width: double.infinity,
                 // height: double.infinity,
                 decoration: BoxDecoration(
-                  color: HexColor("#F8F8F8"),
+                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F8F8F8"),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 child: Column(
@@ -414,7 +422,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                                   Text(
                                     "Deposit amount",
                                     style: TextStyle(
-                                      color: kwiklightcolor,
+                                      color: CustomTheme.presntstate ? inputcolordark : kwiklightcolor,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600
                                     ),
@@ -424,7 +432,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                                     // "₦300,000",
                                     stringamount(savingsdata["deposit_amount"].toString()),
                                     style: TextStyle(
-                                      color: primary,
+                                      color: CustomTheme.presntstate ? white : primary,
                                       fontSize: 30,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: GoogleFonts.roboto().toString(),
@@ -495,35 +503,36 @@ class _MaxconfirmState extends State<Maxconfirm> {
                         children: [
                           Column(
                             children: [
-                              const Text(
+                              Text(
                                 "TENURE",
                                 style: TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 1),
+                                  // color:Color.fromRGBO(53, 49, 48, 1),
+                                  color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 1),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11
                                 ),
                               ),
                               Text(
                                 '${savingsdata["duration"].toString()} Days',
-                                style: const TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 0.6),
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 0.6),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18
                                 ),
                               ),
                               const SizedBox(height: 30),
-                              const Text(
+                              Text(
                                 "INTEREST RATE",
                                 style: TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 1),
+                                  color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 1),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11
                                 ),
                               ),
                               Text(
                                 savingsdata["rate"].toString(),
-                                style: const TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 0.6),
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 0.6),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18
                                 ),
@@ -532,27 +541,27 @@ class _MaxconfirmState extends State<Maxconfirm> {
                           ),
                           Column(
                             children: [
-                              const Text(
+                              Text(
                                 "MATURITY DATE",
                                 style: TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 1),
+                                  color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 1),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11
                                 ),
                               ),
                                Text(
                                 dateformater(savingsdata["maturity_date"].toString()),
-                                style: const TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 0.6),
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 0.6),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18
                                 ),
                               ),
                               const SizedBox(height: 30),
-                              const Text(
+                              Text(
                                 "ESTIMATED AMOUNT",
                                 style: TextStyle(
-                                  color:Color.fromRGBO(53, 49, 48, 1),
+                                  color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 1),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11
                                 ),
@@ -561,7 +570,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                                 // "₦400,000.00",
                                 stringamount(savingsdata["estimated_amount"].toString()),
                                 style: TextStyle(
-                                  color:const Color.fromRGBO(53, 49, 48, 0.6),
+                                  color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 0.6),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
                                   fontFamily: GoogleFonts.roboto().toString(),
@@ -573,12 +582,12 @@ class _MaxconfirmState extends State<Maxconfirm> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       "This estimate assumes you save N5000 monthly between today and your chosen maturity date",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: Color.fromRGBO(53, 49, 48, 1)
+                        color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 1)
                       ),
                     ),
                     Padding(
@@ -597,10 +606,10 @@ class _MaxconfirmState extends State<Maxconfirm> {
                               });
                             },
                           ),
-                          const Text(
+                          Text(
                             "I agree to the terms and conditions.",
                             style: TextStyle(
-                              color: Color.fromRGBO(28, 27, 27, 1),   
+                              color: CustomTheme.presntstate ? white : const Color.fromRGBO(28, 27, 27, 1),   
                               fontSize: 15 
                             )
                           )  

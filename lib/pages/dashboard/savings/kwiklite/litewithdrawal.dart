@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
@@ -35,7 +33,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
   final _formKey = GlobalKey<FormState>();
   dynamic selectedbank;
   dynamic tranw;
-  dynamic beneficiaries = [];
+  List beneficiaries = [];
   dynamic savingdata;
   List transwhere = [
     {"text": "Other Account", "value": '2'},
@@ -1004,10 +1002,8 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
 
   Future submit() async {
     context.loaderOverlay.show();
-    print(saving.savingwithdrawal);
     await saving.withsavings().then((value) {
       context.loaderOverlay.hide();
-      print(value);
       if (value["status"] == "error") {
         snackbar(message: value["message"], header: "Error", bcolor: error);
         
@@ -1108,15 +1104,9 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        prefixIcon: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Icon(
-                              FontAwesome5Solid.piggy_bank,
-                              color: primary,
-                            )),
+                       
                         hintText: "Sort Bank",
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 3.0, horizontal: 10.0),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
                         fillColor: !CustomTheme.presntstate
                             ? inputColor
                             : inputcolordark,
@@ -1174,358 +1164,296 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Icon(FontAwesome.angle_left,
-                        color: !CustomTheme.presntstate ? black : white,
-                        size: 20
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
+            children: [
+              // const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: SizedBox(
+                        // color: black,
+                        width: 50,
+                        height: 50,
+                        child: Icon(FontAwesome.angle_left,
+                          color: CustomTheme.presntstate ? white : black,
+                          size: 20
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 60.w,
-                    height: 15.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/image/topwaver.png'),
-                        fit: BoxFit.cover, // -> 02
+                    Container(
+                      width: 60.w,
+                      height: 15.h,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/image/topwaver.png'),
+                          fit: BoxFit.cover, // -> 02
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding:  EdgeInsets.only(top: 16.h, left: 20, right: 20),
-              child: ListView(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'New Withdrawal',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600,
-                      color: !CustomTheme.presntstate
-                          ? primary
-                          : creditwithdark,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Enter the Amount you would like to withdraw today and the payment destination.",
-                    style: TextStyle(color: creditwithdark, fontSize: 15),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 80.h,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(left: 10, right: 10,bottom: 10),
-                          padding: const EdgeInsets.all(10),
-                          width: double.infinity,
-                          height: 120,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: beneficiaries.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    withdraw.withform["beneficiary"] = '1';
-                                    modecontroller.text = "Other Account";
-                                    accountno.text = beneficiaries[index]["account_number"];
-                                    banks.forEach((data) {
-                                      if (data["bankcode"] ==
-                                          beneficiaries[index]
-                                              ["bank_code"]) {
-                                        withdraw.withform["bankcode"] =
-                                            data["bankcode"];
-                                        bankcontroller.text = data["name"];
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        top: 8, bottom: 8),
-                                    padding: const EdgeInsets.only(
-                                        top: 5, bottom: 5),
-                                    width: 80,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CachedNetworkImage(
-                                          imageUrl: beneficiaries[index]
-                                              ["logo"],
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            width: 60,
-                                            height: 60,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey.shade400,
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'New Withdrawal',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                          color: !CustomTheme.presntstate
+                              ? primary
+                              : creditwithdark,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        "Enter the Amount you would like to withdraw today and the payment destination.",
+                        style: TextStyle(color: creditwithdark, fontSize: 15),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        child: Column(
+                          children: [
+                            Visibility(
+                              visible: beneficiaries.isNotEmpty,
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10, right: 10,bottom: 10),
+                                padding: const EdgeInsets.all(10),
+                                width: double.infinity,
+                                height: 120,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: beneficiaries.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        withdraw.withform["beneficiary"] = '1';
+                                        modecontroller.text = "Other Account";
+                                        accountno.text = beneficiaries[index]["account_number"];
+                                        banks.forEach((data) {
+                                          if (data["bankcode"] ==
+                                              beneficiaries[index]
+                                                  ["bank_code"]) {
+                                            withdraw.withform["bankcode"] =
+                                                data["bankcode"];
+                                            bankcontroller.text = data["name"];
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.only(top: 8, bottom: 8),
+                                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                        width: 80,
+                                        child: Column(
+                                          mainAxisAlignment:MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl: beneficiaries[index]
+                                                  ["logo"],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: 60,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey.shade400,
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                            baseColor: Colors.grey.shade300,
-                                            highlightColor:
-                                                Colors.grey[100]!,
-                                            child: Container(
-                                              width: 45,
-                                              height: 45,
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey[300],
-                                                borderRadius: BorderRadius.circular(5)
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                baseColor: Colors.grey.shade300,
+                                                highlightColor:
+                                                    Colors.grey[100]!,
+                                                child: Container(
+                                                  width: 45,
+                                                  height: 45,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[300],
+                                                    borderRadius: BorderRadius.circular(5)
+                                                  ),
+                                                ),
                                               ),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
                                             ),
-                                          ),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                            Text(
+                                              '${beneficiaries[index]["account_name"]}',
+                                              softWrap: true,
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          ],
                                         ),
-                                        Text(
-                                          '${beneficiaries[index]["account_name"]}',
-                                          softWrap: true,
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      ],
+                                      ),
+                                    );
+                                  }
+                                ),
+                              ),
+                            ),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'How much do you want to withdraw?',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                     ),
                                   ),
-                                );
-                              }),
+                                  const SizedBox(height: 5),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : darkscaffold,
+                                      fontFamily: GoogleFonts.roboto().toString(),
+                                    ),
+                                    // obscureText: true,
+                                    validator: RequiredValidator(
+                                        errorText: 'Amount is required.'),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      CurrencyTextInputFormatter(
+                                      locale: 'en',
+                                      decimalDigits: 0,
+                                      symbol: '₦',
+                                    )],
+                                    autovalidateMode:  AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      saving.savingwithdrawal["amount"] = saving.goalformatamount(val);
+                                    },
+                                    
+                                  ),
+                                  const SizedBox(height: 15),
+                      
+                                  Text(
+                                    'Choose Bank ?',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        allbanks = banks;
+                                      });
+                                      allbanks.sort((a,b) =>a["name"].compareTo(b["name"]));
+                                      _showFullModal(context);
+                                    } ,
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : darkscaffold
+                                      ),
+                                      // obscureText: true,
+                                      validator: RequiredValidator(errorText: "Bank is required"),
+                                      keyboardType: TextInputType.number,
+                                      autovalidateMode: AutovalidateMode
+                                          .onUserInteraction,
+                                      textInputAction: TextInputAction.done,
+                                      onSaved: (val) {
+                                        // loginstate.login["email"] = val;
+                                      },
+                                      enabled: false,
+                                      controller: bankcontroller,
+                                      
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Text(
+                                    'Account Number ?',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : darkscaffold
+                                    ),
+                                      // obscureText: true,
+                                    validator: MultiValidator([
+                                      RequiredValidator(errorText: "Account number is required"),
+                                      MinLengthValidator(10, errorText: "Account number should be more than 10 digits")
+                                    ]),  
+                                    // validator: 
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      saving.savingwithdrawal["accountnumber"] = val;
+                                    },
+                                    controller: accountno,
+                                    
+                                  ),
+                      
+                                  const SizedBox(height: 15),
+                                  Text(
+                                    'Pin',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : darkscaffold
+                                    ),
+                                      // obscureText: true,
+                                    validator: RequiredValidator(errorText: "Pin is required"),
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      saving.savingwithdrawal["transaction_pin"] = val;
+                                    },
+                                    obscureText: true,
+                                    controller: pincontroller,
+                                    
+                                  ),
+                      
+                                ],
+                              )
+                            )
+                          ],
                         ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'How much do you want to withdraw?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: !CustomTheme.presntstate
-                                      ? inputcolordark
-                                      : getstartedp
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              TextFormField(
-                                style: TextStyle(
-                                  color: !CustomTheme.presntstate ? darkscaffold : whitescaffold,
-                                  fontFamily: GoogleFonts.roboto().toString(),
-                                ),
-                                // obscureText: true,
-                                validator: RequiredValidator(
-                                    errorText: 'Amount is required.'),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  CurrencyTextInputFormatter(
-                                  locale: 'en',
-                                  decimalDigits: 0,
-                                  symbol: '₦',
-                                )],
-                                autovalidateMode:  AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.done,
-                                onSaved: (val) {
-                                  saving.savingwithdrawal["amount"] = saving.goalformatamount(val);
-                                },
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 3.0, horizontal: 10.0),
-                                  fillColor: !CustomTheme.presntstate
-                                      ? inputColor
-                                      : inputcolordark,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder: inputborder,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle:  const TextStyle(color: Colors.red),
-                                )
-                              ),
-                              const SizedBox(height: 15),
-
-                              Text(
-                                'Choose Bank ?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: !CustomTheme.presntstate
-                                      ? inputcolordark
-                                      : getstartedp
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    allbanks = banks;
-                                  });
-                                  allbanks.sort((a,b) =>a["name"].compareTo(b["name"]));
-                                  _showFullModal(context);
-                                } ,
-                                child: TextFormField(
-                                  style: TextStyle(
-                                      color: !CustomTheme.presntstate
-                                          ? darkscaffold
-                                          : whitescaffold),
-                                  // obscureText: true,
-                                  validator: RequiredValidator(errorText: "Bank is required"),
-                                  keyboardType: TextInputType.number,
-                                  autovalidateMode: AutovalidateMode
-                                      .onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  onSaved: (val) {
-                                    // loginstate.login["email"] = val;
-                                  },
-                                  enabled: false,
-                                  controller: bankcontroller,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(
-                                            vertical: 3.0,
-                                            horizontal: 10.0),
-                                    fillColor: !CustomTheme.presntstate
-                                        ? inputColor
-                                        : inputcolordark,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder: inputborder,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(
-                                        color: Colors.red),
-                                  )
-                                ),
-                              ),
-                              SizedBox(height: 15),
-                              Text(
-                                'Account Number ?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: !CustomTheme.presntstate
-                                      ? inputcolordark
-                                      : getstartedp
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              TextFormField(
-                                style: TextStyle(
-                                  color: !CustomTheme.presntstate ? darkscaffold : whitescaffold
-                                ),
-                                  // obscureText: true,
-                                validator: MultiValidator([
-                                  RequiredValidator(errorText: "Account number is required"),
-                                  MinLengthValidator(10, errorText: "Account number should be more than 10 digits")
-                                ]),  
-                                // validator: 
-                                keyboardType: TextInputType.number,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.done,
-                                onSaved: (val) {
-                                  saving.savingwithdrawal["accountnumber"] = val;
-                                },
-                                controller: accountno,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric( vertical: 3.0, horizontal: 10.0),
-                                  fillColor: !CustomTheme.presntstate ? inputColor : inputcolordark,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder: inputborder,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle: const TextStyle(
-                                      color: Colors.red),
-                                )
-                              ),
-
-                              SizedBox(height: 15),
-                              Text(
-                                'Pin',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: !CustomTheme.presntstate
-                                      ? inputcolordark
-                                      : getstartedp
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              TextFormField(
-                                style: TextStyle(
-                                  color: !CustomTheme.presntstate ? darkscaffold : whitescaffold
-                                ),
-                                  // obscureText: true,
-                                validator: RequiredValidator(errorText: "Pin is required"),
-                                keyboardType: TextInputType.number,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.done,
-                                onSaved: (val) {
-                                  saving.savingwithdrawal["transaction_pin"] = val;
-                                },
-                                controller: pincontroller,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric( vertical: 3.0, horizontal: 10.0),
-                                  fillColor: !CustomTheme.presntstate ? inputColor : inputcolordark,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder: inputborder,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle: const TextStyle(
-                                      color: Colors.red),
-                                )
-                              ),
-
-                            ],
-                          )
-                        )
-                      ],
-                    ),
+                      ),
+                      
+                      
+                    ],
                   ),
-                  
-                  
-                ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Align(
-                alignment: Alignment.bottomCenter,
+              Align(
+                alignment: FractionalOffset.bottomCenter,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -1576,8 +1504,8 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

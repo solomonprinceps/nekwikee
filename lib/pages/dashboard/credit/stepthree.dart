@@ -59,7 +59,7 @@ class _NextofkinState extends State<Nextofkin> {
               'Sibling',
               style: TextStyle(
                 fontSize: 20,
-                color: black
+                color: CustomTheme.presntstate ? white :  black
               ),
             ),
             onPressed: () {
@@ -74,7 +74,7 @@ class _NextofkinState extends State<Nextofkin> {
               'Spouse',
               style: TextStyle(
                 fontSize: 20,
-                color: black
+                color: CustomTheme.presntstate ? white :  black
               ),
             ),
             onPressed: () {
@@ -88,7 +88,7 @@ class _NextofkinState extends State<Nextofkin> {
               'Parent',
               style: TextStyle(
                 fontSize: 20,
-                color: black
+                color: CustomTheme.presntstate ? white :  black
               ),
             ),
             onPressed: () {
@@ -102,7 +102,7 @@ class _NextofkinState extends State<Nextofkin> {
               'Colleague',
               style: TextStyle(
                 fontSize: 20,
-                color: black
+                color: CustomTheme.presntstate ? white :  black
               ),
             ),
             onPressed: () {
@@ -116,7 +116,7 @@ class _NextofkinState extends State<Nextofkin> {
               'Neighbour',
               style: TextStyle(
                 fontSize: 20,
-                color: black
+                color: CustomTheme.presntstate ? white :  black
               ),
             ),
             onPressed: () {
@@ -191,335 +191,274 @@ class _NextofkinState extends State<Nextofkin> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       // backgroundColor: ,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: 100.h,
-            child: Column(
-              children: [
-                const Topbar(),
-                 Expanded(
-                   child: Container(
-                     padding: const EdgeInsets.only(left: 33, right: 33, top: 18),
-                     width: 100.w,
-                     
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         InkWell(
-                           onTap: () {
-                                 currentTheme.toggleTheme(CustomTheme.presntstate);
-                               },
-                           child: Text(
-                             "Next of Kin Information",
-                             style: TextStyle(
-                               fontSize: 21,
-                               color: CustomTheme.presntstate ? creditwithdark : primary ,
-                               fontWeight: FontWeight.w400
-                             ),
-                           ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
+            children: [
+              const Topbar(),
+               Expanded(
+                 child: Container(
+                   padding: const EdgeInsets.only(left: 33, right: 33),
+                   width: 100.w,
+                   
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                        Text(
+                         "Next of Kin Information",
+                         style: TextStyle(
+                           fontSize: 21,
+                           color: CustomTheme.presntstate ? creditwithdark : primary,
+                           fontWeight: FontWeight.w400
                          ),
-                         const SizedBox(height: 20),
-                         Row(
-                           children: [
-                             Container(
-                               height: 6,
-                               width: 23,
-                               decoration: BoxDecoration(
-                                 color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                 borderRadius: const BorderRadius.all(Radius.circular(20))
-                               ),
-                             ),
-                             const SizedBox(width: 10),
-                             Container(
-                               height: 6,
-                               width: 61,
-                               decoration: BoxDecoration(
-                                 color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
-                                 borderRadius: const BorderRadius.all(Radius.circular(20))
-                               ),
-                             ),
-                             
-                             const SizedBox(width: 10),
-                             // Container(
-                             //   height: 6,
-                             //   width: 23,
-                             //   decoration: BoxDecoration(
-                             //       color: primary.withOpacity(0.6),
-                             //       borderRadius: const BorderRadius.all(
-                             //           Radius.circular(20))),
-                             // ),
-                             // const SizedBox(width: 10),
-                             Container(
-                               height: 6,
-                               width: 23,
-                               decoration: BoxDecoration(
-                                 color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                 borderRadius: const BorderRadius.all(Radius.circular(20))
-                               ),
-                             ),
-                             const SizedBox(width: 10),
-                             Container(
-                               height: 6,
-                               width: 23,
-                               decoration: BoxDecoration(
-                                 color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                 borderRadius: const BorderRadius.all(Radius.circular(20))
-                               ),
-                             )
-                           ],
-                         ),
-                         const SizedBox(height: 10),
-                         Expanded(
-                           child: SizedBox(
-                             width: 100.w,
-                             child: Form(
-                               key: _formKey,
-                               child: ListView(
-                                //  crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                   Text(
-                                     "Next of Kin's First Name",
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w400,
-                                       fontSize: 12,
-                                       color: getstartedp
-                                     ),
+                       ),
+                       const SizedBox(height: 20),
+                       Row(
+                          children: [
+                            
+                            Container(
+                              height: 6,
+                              width: 23,
+                              decoration: BoxDecoration(
+                                color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                borderRadius: const BorderRadius.all(Radius.circular(20))
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              height: 6,
+                              width: 61,
+                              decoration: BoxDecoration(
+                                color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
+                                borderRadius: const BorderRadius.all(Radius.circular(20))
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            // Container(
+                            //   height: 6,
+                            //   width: 23,
+                            //   decoration: BoxDecoration(
+                            //       color: primary.withOpacity(0.6),
+                            //       borderRadius: const BorderRadius.all(
+                            //           Radius.circular(20))),
+                            // ),
+                            // const SizedBox(width: 10),
+                            Container(
+                              height: 6,
+                              width: 23,
+                              decoration: BoxDecoration(
+                                color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                borderRadius: const BorderRadius.all(Radius.circular(20))
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              height: 6,
+                              width: 23,
+                              decoration: BoxDecoration(
+                                color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                borderRadius: const BorderRadius.all(Radius.circular(20))
+                              ),
+                            )
+                          ],
+                        ),
+                       const SizedBox(height: 10),
+                       Expanded(
+                         child: SizedBox(
+                           width: 100.w,
+                           child: Form(
+                             key: _formKey,
+                             child: ListView(
+                              //  crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(
+                                   "Next of Kin's First Name",
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w400,
+                                     fontSize: 12,
+                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                                    ),
-                                   const SizedBox(height: 5),
-                                   TextFormField( 
+                                 ),
+                                 const SizedBox(height: 5),
+                                 TextFormField( 
+                                   style: TextStyle(
+                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
+                                   ),
+                                   validator: RequiredValidator(errorText: "Next of kin's first name is required."),
+                                   keyboardType: TextInputType.name,
+                                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                                   controller: nextfirstname,
+                                   // onSaved: (val) => backendata["firstname"] = val,
+                                   onSaved: (val) => applystate.nextofkindata["next_kin_firstname"] = val,
+                                   textInputAction: TextInputAction.next,
+                                   
+                                 ),
+                                 const SizedBox(height: 20),
+                                 
+                                 Text(
+                                   "Next of Kin's Last Name",
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w400,
+                                     fontSize: 12,
+                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                   ),
+                                 ),
+                                 const SizedBox(height: 5),
+                                 TextFormField( 
+                                   style: TextStyle(
+                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
+                                   ),
+                                   validator: RequiredValidator(errorText: "Next of kin's last name is required."),
+                                   keyboardType: TextInputType.name,
+                                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                                   controller: nextastname,
+                                   // onSaved: (val) => backendata["firstname"] = val,
+                                   onSaved: (val) => applystate.nextofkindata["next_kin_lastname"] = val,
+                                   textInputAction: TextInputAction.next,
+                                   
+                                 ),
+                                         
+                                 const SizedBox(height: 20),
+                                 Text(
+                                   'Relationship',
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w400,
+                                     fontSize: 12,
+                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                   ),
+                                 ),
+                                 const SizedBox(height: 5),
+                                 GestureDetector(
+                                   onTap: () {
+                                     FocusScope.of(context).requestFocus(FocusNode());
+                                     shoWidget();
+                                   } ,
+                                   child: TextFormField( 
                                      style: TextStyle(
-                                       color: darkscaffold 
+                                       color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
                                      ),
-                                     validator: RequiredValidator(errorText: "Next of kin's first name is required."),
+                                     enabled: false,
+                                     validator: RequiredValidator(errorText: 'Relationship is required.'),
                                      keyboardType: TextInputType.name,
                                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                                     controller: nextfirstname,
+                                     controller: relationship,
                                      // onSaved: (val) => backendata["firstname"] = val,
-                                     onSaved: (val) => applystate.nextofkindata["next_kin_firstname"] = val,
+                                     // onSaved: (val) => savings.createKwikMax["start_date"] = val,
                                      textInputAction: TextInputAction.next,
                                      decoration: InputDecoration(
+                                       hintText: "Select an option",
                                        
-                                       filled: true,
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                       fillColor: inputColor,
-                                       border: inputborder,
-                                       focusedBorder: activeinputborder,
-                                       enabledBorder: inputborder,
-                                       focusedErrorBorder:inputborder ,
-                                       errorBorder: errorborder,
-                                       disabledBorder: inputborder,
-                                       errorStyle: const TextStyle(color: Colors.red),
-                                     )
-                                   ),
-                                   const SizedBox(height: 20),
-                                   
-                                   Text(
-                                     "Next of Kin's Last Name",
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w400,
-                                       fontSize: 12,
-                                       color: getstartedp
-                                     ),
-                                   ),
-                                   const SizedBox(height: 5),
-                                   TextFormField( 
-                                     style: TextStyle(
-                                       color: darkscaffold 
-                                     ),
-                                     validator: RequiredValidator(errorText: "Next of kin's last name is required."),
-                                     keyboardType: TextInputType.name,
-                                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                                     controller: nextastname,
-                                     // onSaved: (val) => backendata["firstname"] = val,
-                                     onSaved: (val) => applystate.nextofkindata["next_kin_lastname"] = val,
-                                     textInputAction: TextInputAction.next,
-                                     decoration: InputDecoration(                    
-                                       filled: true,
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                       fillColor: inputColor,
-                                       border: inputborder,
-                                       focusedBorder: activeinputborder,
-                                       enabledBorder: inputborder,
-                                       focusedErrorBorder:inputborder ,
-                                       errorBorder: errorborder,
-                                       disabledBorder: inputborder,
-                                       errorStyle: const TextStyle(color: Colors.red),
-                                     )
-                                   ),
-                                           
-                                   const SizedBox(height: 20),
-                                   Text(
-                                     'Relationship',
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w400,
-                                       fontSize: 12,
-                                       color: getstartedp
-                                     ),
-                                   ),
-                                   const SizedBox(height: 5),
-                                   GestureDetector(
-                                     onTap: () {
-                                       FocusScope.of(context).requestFocus(FocusNode());
-                                       shoWidget();
-                                     } ,
-                                     child: TextFormField( 
-                                       style: TextStyle(
-                                         color: darkscaffold 
+                                       hintStyle: TextStyle(
+                                         fontSize: 15,
+                                         color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 0.73).withOpacity(0.5),
+                                         fontWeight: FontWeight.w400
                                        ),
-                                       enabled: false,
-                                       validator: RequiredValidator(errorText: 'Relationship is required.'),
-                                       keyboardType: TextInputType.name,
-                                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                                       controller: relationship,
-                                       // onSaved: (val) => backendata["firstname"] = val,
-                                       // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                       textInputAction: TextInputAction.next,
-                                       decoration: InputDecoration(
-                                         hintText: "Select an option",
-                                         
-                                         hintStyle: TextStyle(
-                                           fontSize: 15,
-                                           color: const Color.fromRGBO(53, 49, 48, 0.73).withOpacity(0.5),
-                                           fontWeight: FontWeight.w400
-                                         ),
-                                         suffixIconColor: primary,
-                                         suffix:const Icon(
-                                           FontAwesome.angle_down
-                                         ),
-                                         filled: true,
-                                         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                         fillColor:  inputColor,
-                                         border: inputborder,
-                                         focusedBorder: activeinputborder,
-                                         enabledBorder: inputborder,
-                                         focusedErrorBorder:inputborder ,
-                                         errorBorder: errorborder,
-                                         disabledBorder: inputborder,
-                                         errorStyle: const TextStyle(color: Colors.red),
-                                       )
-                                     ),
-                                   ),
-                                   const SizedBox(height: 20),
-                                   Text(
-                                     'Phone Number',
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w400,
-                                       fontSize: 12,
-                                       color: getstartedp
-                                     ),
-                                   ),
-                                   const SizedBox(height: 5),
-                                   TextFormField( 
-                                     style: TextStyle(
-                                       color: darkscaffold 
-                                     ),
-                                     validator: MultiValidator([
-                                       RequiredValidator(errorText: 'Phone number is required.'),
-                                       MinLengthValidator(11, errorText: "11 characters required.")
-                                     ]),
-                                     keyboardType: TextInputType.phone,
-                                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                                     controller: phone,
-                                     // onSaved: (val) => backendata["firstname"] = val,
-                                     onSaved: (val) => applystate.nextofkindata["next_kin_telephone"] = val,
-                                     // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                     textInputAction: TextInputAction.next,
-                                     decoration: InputDecoration(                            
-                                       filled: true,
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                       fillColor: inputColor,
-                                       border: inputborder,
-                                       focusedBorder: activeinputborder,
-                                       enabledBorder: inputborder,
-                                       focusedErrorBorder:inputborder ,
-                                       errorBorder: errorborder,
-                                       disabledBorder: inputborder,
-                                       errorStyle: const TextStyle(color: Colors.red),
+                                       suffixIconColor: primary,
+                                       suffix:const Icon(
+                                         FontAwesome.angle_down
+                                       ),
+                                       
                                      )
                                    ),
-                                   const SizedBox(height: 20),
-                                   Text(
-                                     'Address',
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w400,
-                                       fontSize: 12,
-                                       color: getstartedp
-                                     ),
+                                 ),
+                                 const SizedBox(height: 20),
+                                 Text(
+                                   'Phone Number',
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w400,
+                                     fontSize: 12,
+                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                                    ),
-                                   const SizedBox(height: 5),
-                                   TextFormField( 
-                                     style: TextStyle(
-                                       color: darkscaffold 
-                                     ),
-                                     validator: RequiredValidator(errorText: 'Next of kin adrress is required.'),
-                                     keyboardType: TextInputType.streetAddress,
-                                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                                     controller: nextofaddreess,
-                                     maxLines: 4,
-                                     onSaved: (val) => applystate.nextofkindata["next_kin_address"] = val,
-                                     // onSaved: (val) => backendata["firstname"] = val,
-                                     // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                     textInputAction: TextInputAction.done,
-                                     decoration: InputDecoration(                            
-                                       filled: true,
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                       fillColor: inputColor,
-                                       border: inputborder,
-                                       focusedBorder: activeinputborder,
-                                       enabledBorder: inputborder,
-                                       focusedErrorBorder:inputborder ,
-                                       errorBorder: errorborder,
-                                       disabledBorder: inputborder,
-                                       errorStyle: const TextStyle(color: Colors.red),
-                                     )
+                                 ),
+                                 const SizedBox(height: 5),
+                                 TextFormField( 
+                                   style: TextStyle(
+                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
                                    ),
-                                   const SizedBox(height: 70)
+                                   validator: MultiValidator([
+                                     RequiredValidator(errorText: 'Phone number is required.'),
+                                     MinLengthValidator(11, errorText: "11 characters required.")
+                                   ]),
+                                   keyboardType: TextInputType.phone,
+                                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                                   controller: phone,
+                                   // onSaved: (val) => backendata["firstname"] = val,
+                                   onSaved: (val) => applystate.nextofkindata["next_kin_telephone"] = val,
+                                   // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                   textInputAction: TextInputAction.next,
+                                  
+                                 ),
+                                 const SizedBox(height: 20),
+                                 Text(
+                                   'Address',
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w400,
+                                     fontSize: 12,
+                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                   ),
+                                 ),
+                                 const SizedBox(height: 5),
+                                 TextFormField( 
+                                   style: TextStyle(
+                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
+                                   ),
+                                   validator: RequiredValidator(errorText: 'Next of kin adrress is required.'),
+                                   keyboardType: TextInputType.streetAddress,
+                                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                                   controller: nextofaddreess,
+                                   maxLines: 4,
+                                   onSaved: (val) => applystate.nextofkindata["next_kin_address"] = val,
+                                   // onSaved: (val) => backendata["firstname"] = val,
+                                   // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                   textInputAction: TextInputAction.done,
                                    
-                                   
-                                 ],
-                               ),
+                                 ),
+                                const SizedBox(height: 70)
+                                 
+                                 
+                               ],
                              ),
                            ),
-                         )
-                  
-                        
-                         
-                       ],
-                     ),
+                         ),
+                       )
+                
+                      
+                       
+                     ],
                    ),
                  ),
-                Align( 
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        // onTap: () => Get.toNamed("credit/four"),
-                        onTap: () => validate(),
-                        child: Container(
-                          width: 100.w,
-                          height: 58,
-                          color: const Color.fromRGBO(66, 213, 121, 1),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Next",
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400
-                            ),
+               ),
+              Align( 
+                alignment: FractionalOffset.bottomCenter,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      // onTap: () => Get.toNamed("credit/four"),
+                      onTap: () => validate(),
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        color: const Color.fromRGBO(66, 213, 121, 1),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Next",
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400
                           ),
                         ),
                       ),
-                      
-                  
-                    ],
-                  ),
+                    ),
+                    
+                
+                  ],
                 ),
-                
-                
-              ],
-            ),
+              ),
+              
+              
+            ],
           ),
         ),
       ),

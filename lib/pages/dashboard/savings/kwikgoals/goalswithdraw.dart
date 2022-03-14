@@ -11,7 +11,8 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:developer';
+import 'package:hexcolor/hexcolor.dart';
+
 
 
 
@@ -94,12 +95,11 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
             final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
             return Scaffold(
               appBar: AppBar(
-                backgroundColor: white,
                 centerTitle: true,
                 leading: IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: black,
+                    color: CustomTheme.presntstate ? white : black,
                   ), 
                   onPressed: (){
                     Navigator.pop(context);
@@ -107,11 +107,10 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                 ),
                 title: Text(
                   "Bank",
-                  style: TextStyle(color: themestate == 'dark' ? white : Colors.black87, fontFamily: 'Overpass', fontSize: 20),
+                  style: TextStyle(color: CustomTheme.presntstate ? white : Colors.black87, fontFamily: 'Overpass', fontSize: 20),
                 ),
                 elevation: 0.0
               ),
-              backgroundColor: white,
               body: Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 decoration: const BoxDecoration(
@@ -146,24 +145,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                             color: black.withOpacity(0.3),
                             fontSize: 16
                           ),
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Icon(
-                              FontAwesome5Solid.piggy_bank,
-                              color: Colors.grey[300],
-                              size: 15,
-                            ),
-                          ),
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor: white,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: activeinputborder,
-                          focusedErrorBorder: errorborder,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
+                          
                         ),
                       ),
                     ),
@@ -228,7 +210,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
               child: Icon(
                 FontAwesome.angle_left,
                 size: 20,
-                color: primary,
+                color: CustomTheme.presntstate ? white : primary,
               ),
             ),
           ),
@@ -248,10 +230,8 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
               ),
             ),
           ],
-          backgroundColor: white,
           elevation: 0,
         ),
-        backgroundColor: white,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -282,7 +262,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 30,
-                          color: primary
+                          color: CustomTheme.presntstate ? creditwithdark : primary 
                         ),
                       ),
                     ],
@@ -295,7 +275,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                       padding: const EdgeInsets.all(20),
                       // alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: greybackground,
+                        color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
                         borderRadius: BorderRadius.circular(5)
                       ),
                       child: Column(
@@ -307,8 +287,8 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                             "GOALS - ${savings["savings_name"].toUpperCase()}",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: primary
+                              fontSize: 12,
+                              color: CustomTheme.presntstate ? white : primary
                             ),
                           ),
                           Text(
@@ -316,7 +296,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                             stringamount(savings["amount_saved"].toString()),
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 42.sp,
+                              fontSize: 42,
                               fontFamily: GoogleFonts.roboto().toString(),
                               color: savingmonth
                             ),
@@ -332,8 +312,8 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   'Amount',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color:  getstartedp
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -358,26 +338,14 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   onSaved: (val) {
                                     saving.savingwithdrawal["amount"] = saving.goalformatamount(val);
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: inputColor ,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
                                 ),
                                 SizedBox(height: 2.h),
                                 Text(
                                   'Bank',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color:  getstartedp
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -393,18 +361,6 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     textInputAction: TextInputAction.done,
                                     controller: bankeditor,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                      fillColor: inputColor ,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder:inputborder ,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle: const TextStyle(color: Colors.red),
-                                    )
                                   ),
                                 ),
                                 SizedBox(height: 2.h),
@@ -412,8 +368,8 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   'Bank Account Number',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12.sp,
-                                    color:  getstartedp
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -430,18 +386,6 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   onSaved: (val) {
                                     saving.savingwithdrawal["accountnumber"] = val;
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: inputColor ,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
                                 ),
 
                                 SizedBox(height: 2.h),
@@ -450,7 +394,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.sp,
-                                    color:  getstartedp
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -468,18 +412,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                                   onSaved: (val) {
                                     saving.savingwithdrawal["transaction_pin"] = val;
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: inputColor ,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
+                                  
                                 ),
                                 
                               ],
@@ -488,9 +421,9 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                           const SizedBox(height: 15),
                           
                           Text(
-                            "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  \n \n Bank Details - Adedayo Adebimpe |GTBank | 3123245354",
+                            "Your Funds will be withdrawn directly to your salary account",
                             style: TextStyle(
-                              color: getstartedp.withOpacity(0.42),
+                              color: CustomTheme.presntstate ? white : getstartedp.withOpacity(0.42),
                               fontSize: 11
                             ),
                           ),

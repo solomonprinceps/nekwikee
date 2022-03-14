@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
     // );
     return Scaffold(
       body: SafeArea(
-          child: Column(
+        child: Column(
         children: [
           Container(
             width: double.infinity,
@@ -227,7 +227,7 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.symmetric( horizontal: 20, vertical: 17),
                     height: 125,
                     decoration: BoxDecoration(
-                      color: HexColor("#F6F6F6"),
+                      color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: Row(
@@ -248,9 +248,9 @@ class _ProfileState extends State<Profile> {
                                     height: 63,
                                     width: 63,
                                     decoration: BoxDecoration(
-                                      color: showsettings!
-                                          ? primary
-                                          : HexColor("#F6F6F6"),
+                                      color: CustomTheme.presntstate ? 
+                                      showsettings! ? HexColor("#5162AB") : HexColor("#353E64") : 
+                                      showsettings! ? primary : HexColor("#F6F6F6"),
                                       borderRadius: BorderRadius.circular(5)
                                     ),
                                     child: Icon(
@@ -268,7 +268,9 @@ class _ProfileState extends State<Profile> {
                                   "Settings",
                                   style: TextStyle(
                                     fontSize: 11,
-                                    color: HexColor("#827F7F"),
+                                    color: CustomTheme.presntstate ? 
+                                    showsettings! ? HexColor("#F6FBFE") : HexColor("#CBD1D8") : 
+                                    showsettings! ? primary : HexColor("#827F7F"),
                                     fontWeight: FontWeight.w400
                                   ),
                                 )
@@ -291,17 +293,20 @@ class _ProfileState extends State<Profile> {
                                     height: 63,
                                     width: 63,
                                     decoration: BoxDecoration(
-                                      color: showtransactions!
-                                          ? primary
-                                          : HexColor("#F6F6F6"),
+                                      color: CustomTheme.presntstate ? 
+                                      showtransactions! ? HexColor("#5162AB") : HexColor("#353E64") : 
+                                      showtransactions! ? primary : HexColor("#F6F6F6"),
                                       borderRadius: BorderRadius.circular(5)
                                     ),
                                     child: Icon(
                                       FontAwesome.money,
                                       size: 34,
-                                      color: showtransactions!
-                                          ? white
-                                          : HexColor("#827F7F"),
+                                      color: CustomTheme.presntstate ? 
+                                      showtransactions! ? white : HexColor("#212845") : 
+                                      showtransactions! ? white : HexColor("#827F7F"),
+                                      // color: showtransactions!
+                                      //     ? white
+                                      //     : HexColor("#827F7F"),
                                     ),
                                     // width: double.infinity
                                   ),
@@ -310,9 +315,12 @@ class _ProfileState extends State<Profile> {
                                 Text(
                                   "Transactions",
                                   style: TextStyle(
-                                      fontSize: 11,
-                                      color: primary,
-                                      fontWeight: FontWeight.w400),
+                                    fontSize: 11,
+                                    color: CustomTheme.presntstate ? 
+                                    showtransactions! ? HexColor("#F6FBFE") : HexColor("#CBD1D8") : 
+                                    showtransactions! ? primary : HexColor("#827F7F"),
+                                    fontWeight: FontWeight.w400
+                                  ),
                                 )
                               ],
                             ),
@@ -325,9 +333,9 @@ class _ProfileState extends State<Profile> {
                                   height: 63,
                                   width: 63,
                                   decoration: BoxDecoration(
-                                      color: HexColor("#F6F6F6"),
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Icon(
+                                    color: CustomTheme.presntstate ? HexColor("#353E64") : HexColor("#F6F6F6"),
+                                    borderRadius: BorderRadius.circular(5)),
+                                    child: Icon(
                                     FontAwesome.file_pdf_o,
                                     size: 34,
                                     color: HexColor("#827F7F"),
@@ -339,117 +347,162 @@ class _ProfileState extends State<Profile> {
                               Text(
                                 "Loan Document",
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: HexColor("#827F7F"),
-                                    fontWeight: FontWeight.w400),
+                                  fontSize: 11,
+                                  color: CustomTheme.presntstate ? HexColor("#CBD1D8") : HexColor("#827F7F"),
+                                  fontWeight: FontWeight.w400
+                                ),
                               )
                             ],
                           )
-                        ]),
+                        ]
+                    ),
                   ),
                   const SizedBox(height: 30),
                   Visibility(
                     visible: showsettings!,
                     child: Expanded(
-                      child: ListView(
-                        children: [
-                          
-                          
-                          GestureDetector(
-                            onTap: () => Get.toNamed("profile/changepass"),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.all(10),
-                              height: 47,
-                              decoration: BoxDecoration(
-                                color: HexColor("#F6F6F6"),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    FontAwesome.lock,
-                                    size: 25,
-                                    color: HexColor("#827F7F"),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    // fit: BoxFit.contain,
-                                    child: Text(
-                                      'Change Password',
-                                      style: TextStyle(
-                                          color: HexColor("#3F465E"),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600),
+                      child: ScrollConfiguration(
+                        behavior: MyBehavior(),
+                        child: ListView(
+                          children: [
+                            
+                            GestureDetector(
+                              onTap: () => Get.toNamed("profile/changepass"),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
+                                height: 47,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      FontAwesome.lock,
+                                      size: 25,
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                     ),
-                                  ))
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          GestureDetector(
-                            onTap: () => Get.toNamed("/profile/changepin"),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.all(10),
-                              height: 47,
-                              decoration: BoxDecoration(
-                                color: HexColor("#F6F6F6"),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    FontAwesome.lock,
-                                    size: 25,
-                                    color: HexColor("#827F7F"),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      padding: const EdgeInsets.only(left: 10),
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 10),
                                       // fit: BoxFit.contain,
                                       child: Text(
-                                        'Change Pin',
+                                        'Change Password',
                                         style: TextStyle(
-                                          color: HexColor("#3F465E"),
+                                          color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600
                                         ),
                                       ),
                                     )
                                   )
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          
-                          GestureDetector(
-                            onTap: () => logout(),
-                            child: Container(
+                      
+                            GestureDetector(
+                              onTap: () => Get.toNamed("/profile/changepin"),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
+                                height: 47,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      FontAwesome.lock,
+                                      size: 25,
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        // fit: BoxFit.contain,
+                                        child: Text(
+                                          'Change Pin',
+                                          style: TextStyle(
+                                            color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600
+                                          ),
+                                        ),
+                                      )
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            
+                            GestureDetector(
+                              onTap: () => logout(),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
+                                height: 47,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      FontAwesome5Solid.long_arrow_alt_right,
+                                      size: 25,
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      // fit: BoxFit.contain,
+                                      child: Text(
+                                        'Sign Out',
+                                        style: TextStyle(
+                                          color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600
+                                        ),
+                                      ),
+                                    ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                      
+                            Container(
                               margin: const EdgeInsets.only(bottom: 10),
                               padding: const EdgeInsets.all(10),
                               height: 47,
                               decoration: BoxDecoration(
-                                color: HexColor("#F6F6F6"),
+                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
                                 borderRadius: BorderRadius.circular(5)
                               ),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    FontAwesome5Solid.long_arrow_alt_right,
-                                    size: 25,
-                                    color: HexColor("#827F7F"),
+                                  Switch(
+                                    activeColor: primary,
+                                    activeTrackColor: primary.withOpacity(0.2),
+                                    inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
+                                    value: themestate,
+                                    onChanged: (bool val)  {
+                                      currentTheme.toggleTheme(CustomTheme.presntstate);
+                                      setState(() {
+                                        themestate = val;
+                                      });
+                                    },
                                   ),
                                   Expanded(
-                                      child: Container(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Container(
+                                    padding: const EdgeInsets.only(left: 3),
                                     // fit: BoxFit.contain,
                                     child: Text(
-                                      'Sign Out',
+                                      'Change Theme',
                                       style: TextStyle(
-                                        color: HexColor("#3F465E"),
+                                        color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600
                                       ),
@@ -457,50 +510,11 @@ class _ProfileState extends State<Profile> {
                                   ))
                                 ],
                               ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.all(10),
-                            height: 47,
-                            decoration: BoxDecoration(
-                              color: HexColor("#F6F6F6"),
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Row(
-                              children: [
-                                Switch(
-                                  activeColor: primary,
-                                  activeTrackColor: primary.withOpacity(0.2),
-                                  inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
-                                  value: themestate,
-                                  onChanged: (bool val)  {
-                                    currentTheme.toggleTheme(CustomTheme.presntstate);
-                                    setState(() {
-                                      themestate = val;
-                                    });
-                                  },
-                                ),
-                                Expanded(
-                                  child: Container(
-                                  padding: const EdgeInsets.only(left: 3),
-                                  // fit: BoxFit.contain,
-                                  child: Text(
-                                    'Change Theme',
-                                    style: TextStyle(
-                                      color: HexColor("#3F465E"),
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600
-                                    ),
-                                  ),
-                                ))
-                              ],
-                            ),
-                          )
-
-
-                        ],
+                            )
+                      
+                      
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -537,9 +551,10 @@ class _ProfileState extends State<Profile> {
                                     "ALL ACTIVITIES",
                                     style: TextStyle(
                                         letterSpacing: 0.57,
-                                        color: notify! == 0
-                                            ? HexColor('#39B7E9')
-                                            : HexColor("#1C1B1B"),
+                                        color: CustomTheme.presntstate ? 
+                                        notify! == 0 ? HexColor('#39B7E9') : HexColor("#CBD1D8") : 
+                                        notify! == 0 ? HexColor('#39B7E9') : HexColor("#1C1B1B"),
+
                                         fontWeight: FontWeight.w500,
                                         fontSize: 9),
                                   ),
@@ -564,12 +579,13 @@ class _ProfileState extends State<Profile> {
                                   child: Text(
                                     "KWIKLITE",
                                     style: TextStyle(
-                                        letterSpacing: 0.57,
-                                        color: notify! == 1
-                                            ? HexColor('#39B7E9')
-                                            : HexColor("#1C1B1B"),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 9),
+                                      letterSpacing: 0.57,
+                                      color: CustomTheme.presntstate ? 
+                                      notify! == 1 ? HexColor('#39B7E9') : HexColor("#CBD1D8") : 
+                                      notify! == 1 ? HexColor('#39B7E9') : HexColor("#1C1B1B"),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 9
+                                    ),
                                   ),
                                   decoration: BoxDecoration(
                                       border: Border(
@@ -593,21 +609,24 @@ class _ProfileState extends State<Profile> {
                                   child: Text(
                                     "GOALS & KWIKMAX",
                                     style: TextStyle(
-                                        letterSpacing: 0.57,
-                                        color: notify! == 2
-                                            ? HexColor('#39B7E9')
-                                            : HexColor("#1C1B1B"),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 9),
+                                      letterSpacing: 0.57,
+                                      color: CustomTheme.presntstate ? 
+                                      notify! == 2 ? HexColor('#39B7E9') : HexColor("#CBD1D8") : 
+                                      notify! == 2 ? HexColor('#39B7E9') : HexColor("#1C1B1B"),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 9
+                                    ),
                                   ),
                                   decoration: BoxDecoration(
                                       border: Border(
-                                          bottom: BorderSide(
-                                    width: 1,
-                                    color: notify! == 2
-                                        ? HexColor('#39B7E9')
-                                        : white,
-                                  ))),
+                                        bottom: BorderSide(
+                                        width: 1,
+                                        color: notify! == 2
+                                            ? HexColor('#39B7E9')
+                                            : white,
+                                      )
+                                    )
+                                  ),
                                 ),
                               ),
                             ],
@@ -622,8 +641,9 @@ class _ProfileState extends State<Profile> {
                               alignment: Alignment.center,
                               // color: prim,
                               decoration: BoxDecoration(
-                                  color: HexColor("#F6F6F6"),
-                                  borderRadius: BorderRadius.circular(5)),
+                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                borderRadius: BorderRadius.circular(5)
+                              ),
                               child: Text(
                                 "No Data",
                                 style: TextStyle(
@@ -699,8 +719,7 @@ class _ProfileState extends State<Profile> {
                                                   children: [
                                                     Text(
                                                       // "Credit Application X728829",
-                                                      displaylist[index]
-                                                              ["narration"]
+                                                      displaylist[index]["narration"]
                                                           .toString(),
                                                       style: TextStyle(
                                                           fontSize: 12,
@@ -709,35 +728,24 @@ class _ProfileState extends State<Profile> {
                                                           color: dashname),
                                                     ),
                                                     Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          displaylist[index][
-                                                                  "giroreference"]
-                                                              .toString(),
+                                                          displaylist[index]["giroreference"].toString(),
                                                           style: TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  listingtextlight),
+                                                            fontSize: 8,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: CustomTheme.presntstate ?  white : black
+                                                          ),
                                                         ),
                                                         Text(
                                                           // "15 Oct, 2022.",
-                                                          dateformater(displaylist[
-                                                                      index]
-                                                                  ["created_at"]
-                                                              .toString()),
+                                                          dateformater(displaylist[index]["created_at"].toString()),
                                                           style: TextStyle(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  listingtextdatelight),
+                                                            fontSize: 8,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: CustomTheme.presntstate ?  white : black
+                                                          ),
                                                         ),
                                                       ],
                                                     )

@@ -693,7 +693,7 @@ class _MaxhomeState extends State<Maxhome> {
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.w400,
-                                                  color: listingtextlight
+                                                  color: CustomTheme.presntstate ?  white : black
                                                 ),
                                               ),
                                               Text(
@@ -702,7 +702,7 @@ class _MaxhomeState extends State<Maxhome> {
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.w400,
-                                                  color: listingtextdatelight
+                                                  color: CustomTheme.presntstate ?  white : black
                                                 ),
                                               ),
                                             ],

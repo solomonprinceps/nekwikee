@@ -15,6 +15,7 @@ import 'dart:io' as Io;
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class Employmentinfo extends StatefulWidget {
   const Employmentinfo({Key? key}) : super(key: key);
@@ -108,31 +109,28 @@ class _EmploymentinfoState extends State<Employmentinfo> {
       pageBuilder: (_, __, ___) {
         // your widget implementation
         return StatefulBuilder(builder: (context, setState) {
-          final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? "light"
-                  : "dark";
+        
           return Scaffold(
             appBar: AppBar(
-                backgroundColor: white,
-                centerTitle: true,
-                leading: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      color: black,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                title: Text(
-                  "Companies",
-                  style: TextStyle(
-                      color: themestate == 'dark' ? white : Colors.black87,
-                      fontFamily: 'Overpass',
-                      fontSize: 20
-                  ),
+              centerTitle: true,
+              leading: IconButton(
+              icon: Icon(
+                Icons.close,
+                color: CustomTheme.presntstate ? white: black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+              title: Text(
+                "Companies",
+                style: TextStyle(
+                    color: CustomTheme.presntstate ? white : Colors.black87,
+                    fontFamily: 'Overpass',
+                    fontSize: 20
                 ),
-                elevation: 0.0),
-            backgroundColor: white,
+              ),
+              elevation: 0.0
+            ),
             body: Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: const BoxDecoration(
@@ -169,26 +167,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                       },
                       decoration: InputDecoration(
                         hintText: "Company List",
-                        hintStyle: TextStyle(color: black.withOpacity(0.3), fontSize: 16),
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Icon(
-                            FontAwesome5Solid.piggy_bank,
-                            color: Colors.grey[300],
-                            size: 15,
-                          ),
-                        ),
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 3.0, horizontal: 10.0),
-                        fillColor: white,
-                        border: inputborder,
-                        focusedBorder: activeinputborder,
-                        enabledBorder: activeinputborder,
-                        focusedErrorBorder: errorborder,
-                        errorBorder: errorborder,
-                        disabledBorder: inputborder,
-                        errorStyle: const TextStyle(color: Colors.red),
+                        hintStyle: TextStyle(color: CustomTheme.presntstate ? black.withOpacity(0.3) : white, fontSize: 16),
                       ),
                     ),
                   ),
@@ -196,9 +175,9 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                     height: 10,
                   ),
                   Expanded(
-                      child: ScrollConfiguration(
+                    child: ScrollConfiguration(
                     behavior: MyBehavior(),
-                    child: ListView.builder(
+                      child: ListView.builder(
                         itemCount: allbanks.length,
                         itemBuilder: (BuildContext ctxt, int index) {
                           return InkWell(
@@ -262,7 +241,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           CupertinoActionSheetAction(
             child: Text(
               'Sibling',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -271,7 +250,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           CupertinoActionSheetAction(
             child: Text(
               'Spouse',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -280,7 +259,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           CupertinoActionSheetAction(
             child: Text(
               'Parent',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -301,9 +280,14 @@ class _EmploymentinfoState extends State<Employmentinfo> {
   }
 
   void _showDatePicker(ctx) {
+    FocusScope.of(context).requestFocus(FocusNode());
     startdate.text = dateformaterY_M_D(DateTime.now().toString());
+    setState(() {
+      _chosenDateTime = dateformaterY_M_D(DateTime.now().toString());      
+    });
+    _chosenDateTime = dateformaterY_M_D(DateTime.now().toString());
     savings.createKwikGoal["employment_start_date"] = dateformaterY_M_D(DateTime.now().toString());
-    // showCupertinoModalPopup is a built-in function of the cupertino library
+  
     showCupertinoModalPopup(
       context: ctx,
       builder: (_) => Container(
@@ -317,16 +301,18 @@ class _EmploymentinfoState extends State<Employmentinfo> {
               child: SizedBox(
                 height: 140,
                 child: CupertinoDatePicker(
-                  // minimumDate: DateTime.now(),
+                  minimumDate: DateTime.now(),
                   initialDateTime: DateTime.now(),
                   mode: CupertinoDatePickerMode.date,
                   onDateTimeChanged: (val) {
+                    // print(val);
                     setState(() {
-                      _chosenDateTime = val.toString();
+                      _chosenDateTime = val;
+                      // print(_chosenDateTime);
                       startdate.text = dateformaterY_M_D(_chosenDateTime.toString());
-                      savings.createKwikGoal["employment_start_date"] = dateformaterY_M_D(_chosenDateTime.toString());
                       // print(dateformaterY_M_D(_chosenDateTime.toString()));
                     });
+                    savings.createKwikGoal["employment_start_date"] = dateformaterY_M_D(_chosenDateTime.toString());
                   }),
               ),
             ),
@@ -381,7 +367,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           CupertinoActionSheetAction(
             child: Text(
               'Employed',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -390,7 +376,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           CupertinoActionSheetAction(
             child: Text(
               'Unemployed',
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -498,7 +484,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           return CupertinoActionSheetAction(
             child: Text(
               item["text"].toString(),
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               // applystate.nextofkindata["next_kin_relationship"] = "Sibling";
@@ -533,7 +519,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
           return CupertinoActionSheetAction(
             child: Text(
               item["text"].toString(),
-              style: TextStyle(fontSize: 20, color: black),
+              style: TextStyle(fontSize: 20, color: CustomTheme.presntstate ? white : black),
             ),
             onPressed: () {
               // applystate.nextofkindata["next_kin_relationship"] = "Sibling";
@@ -615,599 +601,517 @@ class _EmploymentinfoState extends State<Employmentinfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      // backgroundColor: ,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: 20.h,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
+            children: [
+              const Topbar(),
+              Expanded(
+                child: Container(
+                  padding:  const EdgeInsets.only(left: 33, right: 33, top: 10),
                   width: 100.w,
-                  // child: Text("fiosa"),
-                  decoration: BoxDecoration(
-                    color: primary,
-                    image: const DecorationImage(
-                      image: AssetImage("assets/image/credithome.png"),
-                      fit: BoxFit.cover
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding:  const EdgeInsets.only(left: 33, right: 33, top: 28),
-                    width: 100.w,
-                    color: dashboardcard,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Employment Information",
-                          style: TextStyle(
-                              fontSize: 21,
-                              color: primary,
-                              fontWeight: FontWeight.w400),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Employment Information",
+                        style: TextStyle(
+                          fontSize: 21,
+                          color: CustomTheme.presntstate ? creditwithdark : primary,
+                          fontWeight: FontWeight.w400
                         ),
-                        const SizedBox(height: 25),
-                        Row(
-                          children: [
-                           
-                            const SizedBox(width: 10),
-                            Container(
-                              height: 6,
-                              width: 23,
-                              decoration: BoxDecoration(
-                                  color: primary.withOpacity(0.6),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20))),
+                      ),
+                      const SizedBox(height: 25),
+                      Row(
+                        children: [
+                          
+                          Container(
+                            height: 6,
+                            width: 23,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                              borderRadius: const BorderRadius.all(Radius.circular(20))
                             ),
-                            const SizedBox(width: 10),
-                            Container(
-                              height: 6,
-                              width: 23,
-                              decoration: BoxDecoration(
-                                  color: primary.withOpacity(0.6),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20))),
+                          ),
+                          const SizedBox(width: 10),
+                          
+                          Container(
+                            height: 6,
+                            width: 23,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                              borderRadius: const BorderRadius.all(Radius.circular(20))
                             ),
-                            const SizedBox(width: 10),
-                            Container(
-                              height: 6,
-                              width: 61,
-                              decoration: BoxDecoration(
-                                  color: primary,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20))),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            height: 6,
+                            width: 61,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
+                              borderRadius: const BorderRadius.all(Radius.circular(20))
                             ),
-                            const SizedBox(width: 10),
-                            Container(
-                              height: 6,
-                              width: 23,
-                              decoration: BoxDecoration(
-                                  color: primary.withOpacity(0.6),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20))),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 25),
-                        // Visibility(
-                        //   visible: showerror,
-                        //   child: Text(
-                        //     "** Work Id or Offical email is required",
-                        //     style: TextStyle(
-                        //       color: error
-                        //     ),
-                        //   ),
-                        // ),
-                        const SizedBox(height: 10),
-                        Expanded(
-                          child: SizedBox(
-                          width: 100.w,
-                          child: Form(
-                            key: _formKey,
-                            child: ListView(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                               
-                                Text(
-                                  "Official Email",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: getstartedp
-                                  ),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            height: 6,
+                            width: 23,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                              borderRadius: const BorderRadius.all(Radius.circular(20))
+                            ),
+                          )
+                        ],
+                      ),
+                      // const SizedBox(height: 25),
+                      // Visibility(
+                      //   visible: showerror,
+                      //   child: Text(
+                      //     "** Work Id or Offical email is required",
+                      //     style: TextStyle(
+                      //       color: error
+                      //     ),
+                      //   ),
+                      // ),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: SizedBox(
+                        width: 100.w,
+                        child: Form(
+                          key: _formKey,
+                          child: ListView(
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                             
+                              Text(
+                                "Official Email",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                 ),
-                                const SizedBox(height: 5),
-                                TextFormField(
-                                  style: TextStyle(color: darkscaffold),
-                                  // validator: MultiValidator([
-                                  //   RequiredValidator(errorText: "Official email is required."),
-                                  //   EmailValidator(errorText: "Official email is required.")
-                                  // ]),
-                                  
-                                  validator: EmailValidator(
-                                    errorText:  "Official email is required."
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                // validator: MultiValidator([
+                                //   RequiredValidator(errorText: "Official email is required."),
+                                //   EmailValidator(errorText: "Official email is required.")
+                                // ]),
+                                
+                                validator: EmailValidator(
+                                  errorText:  "Official email is required."
+                                ),
+                                keyboardType: TextInputType.emailAddress,
+                                autovalidateMode:  AutovalidateMode.onUserInteraction,
+                                controller: emailController,
+                                onChanged: (val) {
+                                  setState(() {
+                                    showerror = false;
+                                  });
+                                },
+                                onSaved: (val) {
+                                  applycon.employerdata["official_email"] = val;
+                                },
+                                textInputAction: TextInputAction.done,
+                                
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Work ID / CAC Document',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400
+                                    ),
                                   ),
-                                  keyboardType: TextInputType.emailAddress,
-                                  autovalidateMode:  AutovalidateMode.onUserInteraction,
-                                  controller: emailController,
+                                  InkWell(
+                                    onTap: () {
+                                      FocusScope.of(context).requestFocus(FocusNode());
+                                      _showSimpleModalDialog(context);
+                                    },
+                                    child: Visibility(
+                                      visible: imageselected,
+                                      child: Text(
+                                        'Preview',
+                                        style: TextStyle(
+                                          color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              InkWell(
+                                onTap: () => selectImage(),
+                                child: TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: (val) {
+                                    if (val == "" && emailController.text == "") {
+                                      setState(() {
+                                        showerror = true;
+                                      });
+                                    }
+                                    return null;
+                                  },
+                                    // validator: RequiredValidator(
+                                    //     errorText:
+                                    //         "Work ID / CAC Document is required."),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: documentController,
                                   onChanged: (val) {
                                     setState(() {
                                       showerror = false;
                                     });
                                   },
                                   onSaved: (val) {
-                                    applycon.employerdata["official_email"] = val;
+                                    applycon.employerdata["id_card"] = val;
                                   },
                                   textInputAction: TextInputAction.done,
+                                  enabled: false,
                                   decoration: InputDecoration(
                                     filled: true,
-                                    contentPadding:const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: inputColor,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder: inputborder,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle:  const TextStyle(color: Colors.red),
+                                    label: Text(
+                                      "Click to select",
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : Colors.grey.shade700
+                                      ),
+                                    ),
+                                    
                                   )
                                 ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Work ID / CAC Document',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(136, 136, 136, 1),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400
-                                      ),
+                              ),
+                              const SizedBox(height: 20),
+        
+                              Text(
+                                "Employment Start Date",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () => _showDatePicker(context),
+                                child: TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: RequiredValidator(errorText:"Employment start date is required."),
+                                  keyboardType: TextInputType.phone,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: startdate,
+                                  enabled: false,
+                                  
+                                  // onSaved: (val) => backendata["firstname"] = val, applycon.employerdata["other_employer_name"] = val;
+                                  onSaved: (val) =>applycon.employerdata["employment_start_date"] = val,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    suffixIcon: Icon(
+                                      FontAwesome5Regular.calendar_alt,
+                                      color: darkscaffold,
+                                      size: 15,
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        FocusScope.of(context).requestFocus(FocusNode());
-                                        _showSimpleModalDialog(context);
-                                      },
-                                      child: Visibility(
-                                        visible: imageselected,
-                                        child: const Text(
-                                          'Preview',
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  136, 136, 136, 1),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    
+                                  )
                                 ),
-                                const SizedBox(height: 5),
-                                InkWell(
-                                  onTap: () => selectImage(),
-                                  child: TextFormField(
-                                    style: TextStyle(color: darkscaffold),
-                                    validator: (val) {
-                                      if (val == "" && emailController.text == "") {
-                                        setState(() {
-                                          showerror = true;
-                                        });
-                                      }
-                                      return null;
-                                    },
-                                      // validator: RequiredValidator(
-                                      //     errorText:
-                                      //         "Work ID / CAC Document is required."),
-                                    keyboardType: TextInputType.name,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    controller: documentController,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        showerror = false;
-                                      });
-                                    },
-                                    onSaved: (val) {
-                                      applycon.employerdata["id_card"] = val;
-                                    },
-                                    textInputAction: TextInputAction.done,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      label: Text(
-                                        "Click to select",
-                                        style: TextStyle(
-                                          color:Colors.grey.shade700
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric( vertical: 3.0,  horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle: const TextStyle(color: Colors.red),
-                                    )
-                                  ),
+                              ),
+        
+                              const SizedBox(height: 20),
+                              Text(
+                                'Name of Employer / Business',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                 ),
-                                const SizedBox(height: 20),
-
-                                Text(
-                                  "Employment Start Date",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp),
+                              ),
+                              const SizedBox(height: 5),
+                              // _showFullModal
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    allbanks = applycon.companies;
+                                  });
+                                  _showFullModal(context);
+                                },
+                                child: TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: RequiredValidator(errorText: "Employer is required."),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: namecompany,
+                                  enabled: false,
+                                  onSaved: (val) {
+                                    applycon.employerdata["other_employer_name"] = val;
+                                  },
+                                  // onSaved: (val) => backendata["firstname"] = val,
+                                  // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                  textInputAction: TextInputAction.done,
+                                  
                                 ),
-                                const SizedBox(height: 5),
-                                GestureDetector(
-                                  onTap: () => _showDatePicker(context),
-                                  child: TextFormField(
-                                      style: TextStyle(color: darkscaffold),
-                                      validator: RequiredValidator(errorText:"Employment start date is required."),
-                                      keyboardType: TextInputType.phone,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      controller: startdate,
-                                      enabled: false,
-                                      
-                                      // onSaved: (val) => backendata["firstname"] = val, applycon.employerdata["other_employer_name"] = val;
-                                      onSaved: (val) =>applycon.employerdata["employment_start_date"] = val,
-                                      textInputAction: TextInputAction.done,
-                                      decoration: InputDecoration(
-                                        suffixIcon: Icon(
-                                          FontAwesome5Regular.calendar_alt,
-                                          color: darkscaffold,
-                                          size: 15,
-                                        ),
-                                        filled: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 3.0,
-                                                horizontal: 10.0),
-                                        fillColor: inputColor,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle:
-                                            const TextStyle(color: Colors.red),
-                                      )),
-                                ),
-
-                                const SizedBox(height: 20),
-                                Text(
-                                  'Name of Employer / Business',
+                              ),
+                              const SizedBox(height: 20),
+                              Obx(() => Visibility(
+                                visible: applycon.employerdata["employer_name"] ==  '99',
+                                child: Text(
+                                  "Other Employer Name",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
-                                    color: getstartedp
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                   ),
                                 ),
-                                const SizedBox(height: 5),
-                                // _showFullModal
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      allbanks = applycon.companies;
-                                    });
-                                    _showFullModal(context);
+                              )),
+                              const SizedBox(height: 5),
+                              Obx(() => Visibility(
+                                visible: applycon.employerdata["employer_name"] == '99',
+                                child: TextFormField(
+                                  style: TextStyle( 
+                                    color:CustomTheme.presntstate ? white : darkscaffold
+                                  ),
+                                  validator: RequiredValidator(errorText:"Other Employer name is required."),
+                                  keyboardType:  TextInputType.emailAddress,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: otheremployer,
+                                  onSaved: (val) {
+                                    applycon.employerdata["employer_name"] = val;
                                   },
-                                  child: TextFormField(
-                                    style: TextStyle(color: darkscaffold),
-                                    validator: RequiredValidator(errorText: "Employer is required."),
-                                    keyboardType: TextInputType.name,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    controller: namecompany,
-                                    enabled: false,
-                                    onSaved: (val) {
-                                      applycon.employerdata["other_employer_name"] = val;
-                                    },
-                                    // onSaved: (val) => backendata["firstname"] = val,
-                                    // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding: const EdgeInsets.symmetric( vertical: 3.0,  horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle:
-                                          const TextStyle(color: Colors.red),
-                                    )
-                                  ),
+                                  textInputAction: TextInputAction.done,
+                                  
                                 ),
-                                const SizedBox(height: 20),
-                                Obx(() => Visibility(
-                                  visible: applycon.employerdata["employer_name"] ==  '99',
-                                  child: Text(
-                                    "Other Employer Name",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp
-                                    ),
-                                  ),
-                                )),
-                                const SizedBox(height: 5),
-                                Obx(() => Visibility(
+                              )),
+                              Obx(() => 
+                                Visibility(
                                   visible: applycon.employerdata["employer_name"] == '99',
-                                  child: TextFormField(
-                                    style: TextStyle(color: darkscaffold),
-                                    validator: RequiredValidator(errorText:"Other Employer name is required."),
-                                    keyboardType:  TextInputType.emailAddress,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    controller: otheremployer,
-                                    onSaved: (val) {
-                                      applycon.employerdata["employer_name"] = val;
-                                    },
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding: const EdgeInsets.symmetric( vertical: 3.0, horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle: const TextStyle(
-                                        color: Colors.red
-                                      ),
-                                    )
-                                  ),
-                                )),
-                                Obx(() => 
-                                  Visibility(
-                                    visible: applycon.employerdata["employer_name"] == '99',
-                                    child: const SizedBox(height: 20)
+                                  child: const SizedBox(height: 20)
+                                )
+                              ),
+                              Text(
+                                'Pay day',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                validator: RequiredValidator(
+                                    errorText: 'Pay day is required.'),
+                                keyboardType: TextInputType.phone,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: paydayctontroller,
+                                onSaved: (val) {
+                                  applycon.employerdata["pay_date"] = val;
+                                },
+                                // onSaved: (val) => backendata["firstname"] = val,
+                                // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                textInputAction: TextInputAction.done,
+                              ),
+                              const SizedBox(height: 20),
+        
+                              Text(
+                                'Monthly Salary',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? white : darkscaffold, 
+                                  fontFamily: GoogleFonts.roboto().toString(),
+                                ),
+                                validator: RequiredValidator(
+                                  errorText: 'Monthly salary is required.'
+                                ),
+                                keyboardType: TextInputType.phone,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: monthtly,
+                                inputFormatters: [
+                                  CurrencyTextInputFormatter(
+                                    locale: 'en',
+                                    decimalDigits: 0,
+                                    symbol: '₦',
                                   )
+                                ],
+        
+                                // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                onChanged: (val) {
+                                  applycon.formatamount(val);
+                                },
+                                textInputAction: TextInputAction.done,
+                              ),
+        
+                              const SizedBox(height: 20),
+                              Text(
+                                'Employment Details',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                 ),
-                                Text(
-                                  'Pay day',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp),
-                                ),
-                                const SizedBox(height: 5),
-                                TextFormField(
-                                    style: TextStyle(color: darkscaffold),
-                                    validator: RequiredValidator(
-                                        errorText: 'Pay day is required.'),
-                                    keyboardType: TextInputType.phone,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    controller: paydayctontroller,
-                                    onSaved: (val) {
-                                      applycon.employerdata["pay_date"] = val;
-                                    },
-                                    // onSaved: (val) => backendata["firstname"] = val,
-                                    // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 3.0, horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle:
-                                          const TextStyle(color: Colors.red),
-                                    )),
-                                const SizedBox(height: 20),
-
-                                Text(
-                                  'Monthly Salary',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp),
-                                ),
-                                const SizedBox(height: 5),
-                                TextFormField(
-                                    style: TextStyle(color: darkscaffold, fontFamily: GoogleFonts.roboto().toString(),),
-                                    validator: RequiredValidator(
-                                        errorText:
-                                            'Monthly salary is required.'),
-                                    keyboardType: TextInputType.phone,
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    controller: monthtly,
-                                    inputFormatters: [
-                                      CurrencyTextInputFormatter(
-                                        locale: 'en',
-                                        decimalDigits: 0,
-                                        symbol: '₦',
-                                      )
-                                    ],
-
-                                    // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                    onChanged: (val) {
-                                      applycon.formatamount(val);
-                                    },
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle:
-                                          const TextStyle(color: Colors.red),
-                                    )),
-
-                                const SizedBox(height: 20),
-                                Text(
-                                  'Employment Details',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp),
-                                ),
-                                const SizedBox(height: 5),
-                                GestureDetector(
-                                  onTap: () => employmmentWidget(),
-                                  child: TextFormField(
-                                    style: TextStyle(color: darkscaffold),
-                                    validator: RequiredValidator(
-                                      errorText: 'Employment details is required.'
-                                    ),
-                                    keyboardType: TextInputType.name,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    controller: employmentdetailcontrol,
-                                    enabled: false,
-                                    // onSaved: (val) => backendata["firstname"] = val,
-                                    onSaved: (val) => applycon.employerdata["employment_type"] = val,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      contentPadding:const EdgeInsets.symmetric(  vertical: 3.0,  horizontal: 10.0),
-                                      fillColor: inputColor,
-                                      border: inputborder,
-                                      focusedBorder: activeinputborder,
-                                      enabledBorder: inputborder,
-                                      focusedErrorBorder: inputborder,
-                                      errorBorder: errorborder,
-                                      disabledBorder: inputborder,
-                                      errorStyle:
-                                          const TextStyle(color: Colors.red),
-                                    )
+                              ),
+                              const SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () => employmmentWidget(),
+                                child: TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: RequiredValidator(
+                                    errorText: 'Employment details is required.'
                                   ),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: employmentdetailcontrol,
+                                  enabled: false,
+                                  // onSaved: (val) => backendata["firstname"] = val,
+                                  onSaved: (val) => applycon.employerdata["employment_type"] = val,
+                                  textInputAction: TextInputAction.done,
+                                  
                                 ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  'Educational Level',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: getstartedp),
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                'Educational Level',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                 ),
-                                const SizedBox(height: 5),
-                                GestureDetector(
-                                  onTap: () => educationlevelWidget(),
-                                  child: TextFormField(
-                                      style: TextStyle(color: darkscaffold),
-                                      validator: RequiredValidator(
-                                          errorText:
-                                              'Educational level is required.'),
-                                      keyboardType: TextInputType.name,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      controller: educationalcontroller,
-                                      enabled: false,
-                                      onSaved: (val) => applycon
-                                              .employerdata["education_level"] =
-                                          val,
-                                      textInputAction: TextInputAction.done,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 3.0,
-                                                horizontal: 10.0),
-                                        fillColor: inputColor,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle:
-                                            const TextStyle(color: Colors.red),
-                                      )),
+                              ),
+                              const SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () => educationlevelWidget(),
+                                child: TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: RequiredValidator(
+                                    errorText: 'Educational level is required.'
+                                  ),
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: educationalcontroller,
+                                  enabled: false,
+                                  onSaved: (val) => applycon.employerdata["education_level"] = val,
+                                  textInputAction: TextInputAction.done,
                                 ),
-
-                                const SizedBox(height: 80)
-                              ],
-                            ),
+                              ),
+        
+                              const SizedBox(height: 40)
+                            ],
                           ),
-                        ))
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                onTap: () {
-                  // getbank();
-                  // print(applycon.employerdata);
-                  validate();
-                },
-                child: Container(
-                  width: 100.w,
-                  height: 58,
-                  color: const Color.fromRGBO(66, 213, 121, 1),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                        color: white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400),
+                        ),
+                      ))
+                    ],
                   ),
                 ),
               ),
-            ),
-            Positioned(
-                top: 16.h,
-                right: 7.w,
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  padding: const EdgeInsets.all(10),
-                  child: SvgPicture.asset(
-                    "assets/image/Iconmoney-bill.svg",
-                    semanticsLabel: 'Acme Logo',
-                    width: 40,
-                    height: 20,
-                  ),
-                  decoration:
-                      BoxDecoration(color: primary, shape: BoxShape.circle),
-                )),
-            Positioned(
-                top: 6.h,
-                left: 3.w,
+              Align(
+                alignment: FractionalOffset.bottomCenter,
                 child: GestureDetector(
-                  onTap: () => Get.back(),
+                  onTap: () {
+                    // getbank();
+                    // print(applycon.employerdata);
+                    validate();
+                  },
                   child: Container(
-                    width: 42,
-                    height: 42,
-                    padding: const EdgeInsets.all(10),
-                    child: Icon(
-                      FontAwesome.angle_left,
-                      color: black,
+                    width: 100.w,
+                    height: 58,
+                    color: const Color.fromRGBO(66, 213, 121, 1),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        color: white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400
+                      ),
                     ),
                   ),
-                )),
-          ],
+                ),
+              ),
+              
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+
+class Topbar extends StatelessWidget {
+  const Topbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(height: 25.h),
+        Container(
+          height: 20.h,
+          width: 100.w,
+          // child: Text("fiosa"),  
+          decoration: BoxDecoration(
+            color: primary,
+            image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+              fit: BoxFit.cover
+            ),
+          ),
+        ),
+        Positioned(
+          top: 16.h,
+          right: 7.w,
+          child: Container(
+            width: 64,
+            height: 64,
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              "assets/image/Iconmoney-bill.svg",
+              semanticsLabel: 'Acme Logo',
+              width: 40,
+              height: 20,
+            ),
+            decoration: BoxDecoration(
+              color: primary,
+              shape: BoxShape.circle
+            ),
+          )
+        ),
+        Positioned(
+          top: 6.h,
+          left: 3.w,
+          child: GestureDetector(
+            onTap: () =>  Get.back(),
+            child: Container(
+              width: 42,
+              height: 42,
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                FontAwesome.angle_left,
+                color: black,
+              ),
+            
+            ),
+          )
+        ),
+      ],
     );
   }
 }

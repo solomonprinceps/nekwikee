@@ -11,7 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:kwikee1/controllers/applycontroller.dart';
 import 'package:intl/intl.dart';
-
+import 'package:kwikee1/themes/apptheme.dart';
 class ConfirmCashback extends StatefulWidget {
   const ConfirmCashback({ Key? key }) : super(key: key);
 
@@ -92,7 +92,7 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                   child: Container(
                     padding: const EdgeInsets.only(left: 23, right: 23, top: 28),
                     width: 100.w,
-                    color: dashboardcard,
+                    // color: dashboardcard,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,7 +100,7 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                         Text(
                           "Accept Cashback offer",
                           style: TextStyle(
-                            color: primary,
+                            color: CustomTheme.presntstate ? creditwithdark : primary,
                             fontWeight: FontWeight.w400,
                             fontSize: 21
                           ),
@@ -117,7 +117,7 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                         // const SizedBox(height: 27),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             // Column(
                             //   children: [
                             //     Text(
@@ -150,7 +150,7 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                 Text(
                                   "Cashback Amount",
                                   style: TextStyle(
-                                    color: primary,
+                                    color: CustomTheme.presntstate ? creditwithdark : primary,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18
                                   ),
@@ -158,6 +158,9 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                 const SizedBox(height: 5),
                                 Text(
                                   stringamount(cashbackdata["offer_amount"].toString()),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
                                   style: const TextStyle(
                                     fontSize: 36,
                                     fontWeight: FontWeight.w600,
@@ -183,10 +186,10 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                             children: [
                               Column(
                                 children:  [
-                                  const Text(
+                                  Text(
                                     "Start Date",
                                     style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11
                                     ),
@@ -194,8 +197,8 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                   Text(
                                     dateformater(cashbackdata["start_date"].toString()),
                                     // "213 Months",
-                                    style:const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                     ),
@@ -211,8 +214,8 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                   ),
                                   Text(
                                     stringamount(cashbackdata["max_interest"].toString()),
-                                    style: const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                     ),
@@ -233,8 +236,8 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                     // dateformater(savingsdata["maturity_date"].toString()),
                                     dateformater(cashbackdata["end_date"].toString()),
                                     // '$repaymentstartdate',
-                                    style: const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                     ),
@@ -251,8 +254,8 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                   Text(
                                     stringamount(cashbackdata["max_repayment"].toString()),
                                     
-                                    style: const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                     ),

@@ -181,6 +181,7 @@ class _SavingsState extends State<Savings> {
                                   padding: const EdgeInsets.only(left: 20, right: 20),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         "KwikMax",
@@ -261,6 +262,7 @@ class _SavingsState extends State<Savings> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         "KwikGoals",
@@ -415,16 +417,19 @@ class _SavingsState extends State<Savings> {
                                   )
                                 ],
                               ),
-                              GestureDetector(
-                                onTap: () => Get.toNamed('savings/lite/litehome', arguments: lite[0]["investmentid"].toString()),
-                                child: Container(
-                                  height: 50,
-                                  width: 50,
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    FontAwesome.angle_right,
-                                    size: 31,
-                                    color: white,
+                              Visibility(
+                                visible: !loading,
+                                child: GestureDetector(
+                                  onTap: () => Get.toNamed('savings/lite/litehome', arguments: lite[0]["investmentid"].toString()),
+                                  child: Container(
+                                    height: 50,
+                                    width: 50,
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      FontAwesome.angle_right,
+                                      size: 31,
+                                      color: white,
+                                    ),
                                   ),
                                 ),
                               )
@@ -583,7 +588,7 @@ class _SavingsState extends State<Savings> {
                               itemCount: saving.max.length,
                               itemBuilder: (BuildContext ctxt, int index) {
                                 return GestureDetector(
-                                  onTap: () => Get.toNamed('savings/max/maxshome', arguments: saving.max[0]["investmentid"]),
+                                  onTap: () => Get.toNamed('savings/max/maxshome', arguments: saving.max[index]["investmentid"]),
                                     // onTap: () => getsinglesavings(max[index]["investmentid"]),
                                     child: Container(
                                       margin: index == 0 ? const EdgeInsets.only(left: 20) : index == saving.max.length -1 ? const EdgeInsets.only(left: 10, right: 20) : const EdgeInsets.only(left: 10),
@@ -613,7 +618,7 @@ class _SavingsState extends State<Savings> {
                                                           const SizedBox(height: 10),
                                                           Text(
                                                             // "CAMARY",
-                                                            saving.max[0]["savings_name"].toString(),
+                                                            saving.max[index]["savings_name"].toString(),
                                                             softWrap: true,
                                                             overflow: TextOverflow.ellipsis,
                                                             maxLines: 1,
@@ -626,7 +631,7 @@ class _SavingsState extends State<Savings> {
                                                           const SizedBox(height: 5),
                                                           Text(
                                                             // "₦300,000",
-                                                            stringamount(saving.max[0]["deposit_amount"].toString()),
+                                                            stringamount(saving.max[index]["deposit_amount"].toString()),
                                                             softWrap: true,
                                                             overflow: TextOverflow.ellipsis,
                                                             maxLines: 1,
@@ -653,7 +658,7 @@ class _SavingsState extends State<Savings> {
                                                       fit: BoxFit.contain,
                                                       child: Text(
                                                         // "1/3 Months",
-                                                        saving.max[0]["month_spent"].toString(),
+                                                        saving.max[index]["month_spent"].toString(),
                                                        softWrap: true,
                                                         overflow: TextOverflow.ellipsis,
                                                         maxLines: 1,
@@ -683,7 +688,7 @@ class _SavingsState extends State<Savings> {
                                                 alignment: Alignment.center,
                                                 child: Text(
                                                   // "Matures in 310 days",
-                                                  saving.max[0]["matures_in"].toString(),
+                                                  saving.max[index]["matures_in"].toString(),
                                                   softWrap: true,
                                                   overflow: TextOverflow.ellipsis,
                                                   maxLines: 1,
