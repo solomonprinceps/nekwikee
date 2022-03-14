@@ -39,8 +39,8 @@ class CustomTheme with ChangeNotifier {
       ),
       colorScheme: ColorScheme.light(
         // contencolor: HexColor("#f8f8f8"),
-        primary: HexColor("#f8f8f8"),
-        onPrimary: primary,
+        // primary: HexColor("#f8f8f8"),
+        // onPrimary: primary,
         secondary: creditcolordark
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -72,8 +72,8 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       primaryColor: Colors.black,
       colorScheme: ColorScheme.dark(
-        primary: dackmodedashboardcaard,
-        onPrimary: darkwhite,
+        // primary: dackmodedashboardcaard,
+        // onPrimary: darkwhite,
         secondary: creditcolordark
       ),
       textSelectionTheme: const TextSelectionThemeData(
@@ -82,7 +82,7 @@ class CustomTheme with ChangeNotifier {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-        fillColor: inputcolordark,
+        fillColor: inputColor,
         border: inputborder,
         focusedBorder: activeinputborder,
         enabledBorder: inputborder,

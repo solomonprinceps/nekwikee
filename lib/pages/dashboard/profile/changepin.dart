@@ -177,8 +177,8 @@ class _ChangepinState extends State<Changepin> {
                                   // validator: MinLengthValidator(11, errorText: 'phone number must be atleast 11 digits long'),
                                   validator: MultiValidator([
                                     RequiredValidator(errorText: 'Pin is required'),
-                                    MinLengthValidator(5, errorText: "Pin should be 5 characters"),
-                                    MaxLengthValidator(5, errorText: "Pin should be 5 characters")
+                                    MinLengthValidator(4, errorText: "Pin should be 5 characters"),
+                                    MaxLengthValidator(4, errorText: "Pin should be 5 characters")
                                   ]),
                                   obscureText: true,
                                   keyboardType: TextInputType.number,

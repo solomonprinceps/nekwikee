@@ -27,22 +27,23 @@ class _CreateMaxState extends State<CreateMax> {
   AuthController auth = Get.put(AuthController());
   dynamic tranw;
   List transwhere = [
-    {"text": "30 Days", "value": '30'},
-    {"text": "90 Days", "value": '90'},
-    {"text": "180 Days", "value": '180'},
-    {"text": "270 Days", "value": '270'},
-    {"text": "365 Days", "value": '365'},
-    {"text": "730 Days", "value": '730'},
-    {"text": "Others", "value": " "}
+    {"text": "30 to 90 Days - 10%", "value": '30', "startday": 30, "endday": 90},
+    {"text": "91 to 180 Days - 13%", "value": '90', "startday": 91, "endday": 180},
+    {"text": "181 to 365 Days - 15%", "value": '180', "startday": 180, "endday": 365},
+    {"text": "1 to 2 years - 18%", "value": '270', "startday": 366, "endday": 730},
   ];
   dynamic _chosenDateTime;
   TextEditingController startdate = TextEditingController();
+  TextEditingController endate = TextEditingController();
   TextEditingController amount = TextEditingController();
 
 
   void _showDatePicker(ctx) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     FocusScope.of(context).requestFocus(FocusNode());
+    setState(() {
+      _chosenDateTime = DateTime.now();
+    }); 
     startdate.text = dateformaterY_M_D(DateTime.now().toString());
     savings.createKwikMax["start_date"] = dateformaterY_M_D(DateTime.now().toString());
     showCupertinoModalPopup(
@@ -143,6 +144,18 @@ class _CreateMaxState extends State<CreateMax> {
     });
   }
 
+
+  Future<void> _selectDate(BuildContext context, startdate, enddate) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: startdate,
+      firstDate: startdate,
+      lastDate: enddate
+    );
+    // print(picked.toString());
+    
+    endate.text  = dateformaterY_M_D(picked.toString());
+  }
   
 
   @override
@@ -303,6 +316,7 @@ class _CreateMaxState extends State<CreateMax> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: startdate,
                           // onSaved: (val) => backendata["firstname"] = val,
+                          onChanged: (val) => savings.createKwikMax["start_date"] = val,
                           onSaved: (val) => savings.createKwikMax["start_date"] = val,
                           textInputAction: TextInputAction.next,
                         ),
@@ -352,35 +366,62 @@ class _CreateMaxState extends State<CreateMax> {
                           );
                         }).toList(),
                         onChanged: (val) {
-                          setState(() {
-                            tranw = val;
-                          });
-                          // print(val["text"]);
-                          // if (val["value"] == " ") {
-                          //   setState(() {
-                          //     showother = true;
-                          //   });
-                          //   return;
-                          // }
-                          // if (val["value"] != " ") {
-                          //   setState(() {
-                          //     showother = false;
-                          //   });
-                          // }
-                          savings.createKwikMax["duration"] = val["value"].toString();
+                          if (savings.createKwikMax["start_date"] == "" || savings.createKwikMax["start_date"] == null) {
+                            snackbar(message: "Start date is requred", header: "Error", bcolor: error);
+                            return;
+                          } else {
+                            setState(() {
+                              tranw = val;
+                            });
+                            // print(val);
+                            savings.createKwikMax["duration"] = val["value"].toString();
+                            final DateTime datestart1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: val?["startday"]));
+                            final DateTime datend1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: val?["endday"]));
+                            
+                            // // final DateTime start1 = DateTime(datestart1.year, datestart1.month, (datestart1.day + val?["startday"]));
+                            // print(datestart1);
+                            // print(datend1);
+                            _selectDate(context,datestart1, datend1);
+                          }
                         },
                       ),
                       const SizedBox(height: 20),
 
-                      // Text(
-                      //   'Saving Duration',
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w400,
-                      //     fontSize: 12,
-                      //     color: getstartedp
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 5),
+                      Text(
+                        'End Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: getstartedp
+                        ),
+                      ),
+                      const SizedBox(height: 5),  
+                      GestureDetector(
+                        onTap: () {
+                          if (_chosenDateTime == null) {
+                            snackbar(message: "Start date is requred", header: "Error", bcolor: error);
+                            return;
+                          }
+                          savings.createKwikMax["duration"] = tranw?["tranwue"].toString();
+                          final DateTime datestart1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["startday"]));
+                          final DateTime datend1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["endday"]));
+                          _selectDate(context,datestart1, datend1);
+                        },
+                        child: TextFormField( 
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? white : darkscaffold 
+                          ),
+                          enabled: false,
+                          validator: RequiredValidator(errorText: 'End date is required.'),
+                          keyboardType: TextInputType.name,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: endate,
+                          // onSaved: (val) => backendata["firstname"] = val,
+                          onChanged: (val) => savings.createKwikMax["end_date"] = val,
+                          onSaved: (val) => savings.createKwikMax["end_date"] = val,
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
                       // DropdownButtonFormField<dynamic>(
                       //   hint: const Text(
                       //     "Select Savings Duration",

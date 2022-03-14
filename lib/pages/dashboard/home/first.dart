@@ -748,7 +748,7 @@ class _FirstState extends State<First> {
                                         'Apply for Credit',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -758,7 +758,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -829,7 +829,7 @@ class _FirstState extends State<First> {
                                         'Apply for Credit',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -839,7 +839,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -916,7 +916,7 @@ class _FirstState extends State<First> {
                                         'Link Bank',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -926,7 +926,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -1003,7 +1003,7 @@ class _FirstState extends State<First> {
                                         'Link Card',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -1013,7 +1013,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -1075,7 +1075,7 @@ class _FirstState extends State<First> {
                                             style: TextStyle(
                                               fontSize: 9,
                                               fontWeight: FontWeight.w600,
-                                              color: Theme.of(context).colorScheme.onPrimary,
+                                              color: CustomTheme.presntstate ?  darkwhite : primary,
                                             ),
                                           )
                                         ],
@@ -1099,7 +1099,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: 23,
-                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: GoogleFonts.roboto().toString(),
                                         ),
@@ -1123,7 +1123,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 9,
-                                          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.27),
+                                          color: CustomTheme.presntstate ?  darkwhite : primary.withOpacity(0.27),
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -1203,7 +1203,7 @@ class _FirstState extends State<First> {
                                       'Save with Kwik',
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Theme.of(context).colorScheme.onPrimary,
+                                        color: CustomTheme.presntstate ?  darkwhite : primary,
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
@@ -1213,7 +1213,7 @@ class _FirstState extends State<First> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 8.5,
-                                        color: Theme.of(context).colorScheme.onPrimary,
+                                        color: CustomTheme.presntstate ?  darkwhite : primary,
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
@@ -1283,7 +1283,7 @@ class _FirstState extends State<First> {
                           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                           margin: const EdgeInsets.only(bottom: 5),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                             borderRadius: BorderRadius.circular(5)
                           ),
                           child: Row(
@@ -1414,7 +1414,7 @@ class _FirstState extends State<First> {
                     //   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                     //   margin: const EdgeInsets.only(bottom: 5),
                     //   decoration: BoxDecoration(
-                    //     color: Theme.of(context).colorScheme.primary,
+                    //     color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                     //     borderRadius: BorderRadius.circular(5)
                     //   ),
                     //   child: Row(
@@ -1489,7 +1489,7 @@ class _FirstState extends State<First> {
                 //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                 //       margin: const EdgeInsets.only(bottom: 5),
                 //       decoration: BoxDecoration(
-                //         color: Theme.of(context).colorScheme.primary,
+                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                 //         borderRadius: BorderRadius.circular(5)
                 //       ),
                 //       child: Row(
@@ -1564,7 +1564,7 @@ class _FirstState extends State<First> {
                 //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                 //       margin: const EdgeInsets.only(bottom: 5),
                 //       decoration: BoxDecoration(
-                //         color: Theme.of(context).colorScheme.primary,
+                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                 //         borderRadius: BorderRadius.circular(5)
                 //       ),
                 //       child: Row(
@@ -1639,7 +1639,7 @@ class _FirstState extends State<First> {
                 //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                 //       margin: const EdgeInsets.only(bottom: 5),
                 //       decoration: BoxDecoration(
-                //         color: Theme.of(context).colorScheme.primary,
+                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                 //         borderRadius: BorderRadius.circular(5)
                 //       ),
                 //       child: Row(

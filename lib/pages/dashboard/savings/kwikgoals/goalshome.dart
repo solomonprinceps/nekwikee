@@ -11,6 +11,7 @@ import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 
 
@@ -336,7 +337,7 @@ class _GoalshomeState extends State<Goalshome> {
                       width: 100.w,
                       height: 78,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                         borderRadius: BorderRadius.circular(5)
                       ),
                       child: Column(
@@ -599,7 +600,7 @@ class _GoalshomeState extends State<Goalshome> {
                                     padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                     margin: const EdgeInsets.only(bottom: 5),
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).colorScheme.primary,
+                                      color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                                       borderRadius: BorderRadius.circular(5)
                                     ),
                                     child: Row(
