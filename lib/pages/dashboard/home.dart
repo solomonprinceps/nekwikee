@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
         ),
         height: 60,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
