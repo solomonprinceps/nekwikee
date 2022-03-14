@@ -403,7 +403,7 @@ class _LitehomeState extends State<Litehome> {
                             padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             margin: const EdgeInsets.only(bottom: 5),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                               borderRadius: BorderRadius.circular(5)
                             ),
                             child: Row(

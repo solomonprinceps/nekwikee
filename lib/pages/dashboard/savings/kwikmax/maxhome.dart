@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -614,7 +614,7 @@ class _MaxhomeState extends State<Maxhome> {
                               padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               margin: const EdgeInsets.only(bottom: 5),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
+                                color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
                                 borderRadius: BorderRadius.circular(5)
                               ),
                               child: Row(

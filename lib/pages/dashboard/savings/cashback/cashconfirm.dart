@@ -24,7 +24,7 @@ class _CashbackState extends State<Cashback> {
   @override
   void initState() {
     // data = jsonDecode(Get.arguments);
-    // timedown();
+    timedown();
     super.initState();
   }
 

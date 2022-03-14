@@ -78,7 +78,7 @@ class _CashbackhomeState extends State<Cashbackhome> {
     final endate = DateTime.parse(currentStep);
     final Map params = {
       "amount": _currentSliderValue1,
-      "end_date":  DateFormat('yyyy-MM-dd'). format(endate)
+      "end_date":  DateFormat('yyyy-MM-dd').format(endate)
     };
     context.loaderOverlay.show();
     await saving.previewcashback(params).then((value) {

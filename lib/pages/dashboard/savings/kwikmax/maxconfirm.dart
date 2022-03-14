@@ -94,7 +94,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
     await auth.calinkcard(data).then((value) {
       context.loaderOverlay.hide();
       _showMessage('Payment was successful!!!', success);
-      print(value);
+      print(" xnjsm" + value);
     }).catchError((err) {
       print(err);
     });

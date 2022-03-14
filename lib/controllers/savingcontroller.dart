@@ -59,6 +59,7 @@ class SavingController extends GetxController {
 
   Map<String?, dynamic> EditKwikGoal = {
     "savings_name": "",
+    "end_date": "",
     "target_amount": "",
     "start_date": "",
     "saving_frequency": "",
