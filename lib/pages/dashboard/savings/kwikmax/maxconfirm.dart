@@ -375,7 +375,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                             ),
                           ),
                           Text(
-                            "Earn up to 18% per annum when you lock your funds for a minimum of 30 days.",
+                            "Earn upto 18% per annum when you lock your funds for a minimum of 30 days.",
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
