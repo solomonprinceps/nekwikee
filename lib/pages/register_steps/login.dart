@@ -11,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/controllers/logincontroller.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:kwikee1/services/utils.dart';
+import 'package:local_auth/auth_strings.dart';
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -70,7 +71,6 @@ class _LoginState extends State<Login> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   TextEditingController emailfeild = TextEditingController();
   String _message = "Not Authorized";
-  
 
   Future<bool> checkingForBioMetrics() async {
     bool canCheckBiometrics = await _localAuthentication.canCheckBiometrics;
@@ -95,19 +95,31 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> _authenticateMe() async {
-    if (loginstate.finger["email"] == '' || loginstate.finger["email"] == 'null' || loginstate.finger["email"] == null) {
-      snackbar(message: "Manual login required.", header: "Error", bcolor: error);
-      return;
-    }
-    if (loginstate.finger["pin"] == '' || loginstate.finger["pin"] == 'null' || loginstate.finger["pin"] == null) {
-      snackbar(message: "Manual login required.", header: "Error", bcolor: error);
-      return;
-    }
+    // if (loginstate.finger["email"] == '' || loginstate.finger["email"] == 'null' || loginstate.finger["email"] == null) {
+    //   snackbar(message: "Manual login required.", header: "Error", bcolor: error);
+    //   return;
+    // }
+    // if (loginstate.finger["pin"] == '' || loginstate.finger["pin"] == 'null' || loginstate.finger["pin"] == null) {
+    //   snackbar(message: "Manual login required.", header: "Error", bcolor: error);
+    //   return;
+    // }
     bool authenticated = false;
     try {
-      authenticated = await _localAuthentication.authenticate(
-        biometricOnly: true,
-        localizedReason: "Authenticate With finger print", // message for dialog
+      const iosStrings =  IOSAuthMessages(
+        cancelButton: 'cancel',
+        goToSettingsButton: 'settings',
+        goToSettingsDescription: 'Please set up your Biometrics.',
+        lockOut: 'Please reenable your Biometrics'
+      );
+      const andoid = AndroidAuthMessages(
+        signInTitle: "Authenticate Device"
+      );
+      authenticated = await _localAuthentication.authenticate(  
+        biometricOnly: false,
+        localizedReason: "Authenticate With biometrics", 
+        iOSAuthStrings: iosStrings,
+        androidAuthStrings: andoid,
+        // message for dialog
         useErrorDialogs: true, // show error in dialog
         stickyAuth: true, // native process
       );
@@ -129,6 +141,7 @@ class _LoginState extends State<Login> {
     context.loaderOverlay.show();
     await loginstate.fingerlogincustomer().then((resp) {
       context.loaderOverlay.hide();
+      print(resp);
       if (resp["status"] == "success") {
         loginstate.logging(resp["user"], resp["access_token"]);
         Get.offAllNamed('first');
@@ -150,19 +163,19 @@ class _LoginState extends State<Login> {
       }
     }).catchError((err) {
       context.loaderOverlay.hide();
-      Get.snackbar(
-        "Error.", // title
-        "Error Occoured", // message
-        icon: const Icon(Icons.cancel),
-        backgroundColor: error,
-        colorText: Colors.grey.shade300,
-        shouldIconPulse: true,
-        // onTap:(){},
-        barBlur: 20,
-        isDismissible: true,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 2),
-      );
+      // Get.snackbar(
+      //   "Error.", // title
+      //   "Error Occoured", // message
+      //   icon: const Icon(Icons.cancel),
+      //   backgroundColor: error,
+      //   colorText: Colors.grey.shade300,
+      //   shouldIconPulse: true,
+      //   // onTap:(){},
+      //   barBlur: 20,
+      //   isDismissible: true,
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   duration: const Duration(seconds: 2),
+      // );
     });
   }
 
