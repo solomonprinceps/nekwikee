@@ -186,312 +186,310 @@ class _CreditfirstState extends State<Creditfirst> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: SizedBox(
-            height: 100.h,
-            child: Column(
-              children: [
-                const Topbar(),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 33, right: 33),
-                        width: 100.w,
-                        // height: double.infinity,
-                        // color: CustomTheme.presntstate ? applydark : dashboardcard,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Personal Information",
-                              style: TextStyle(
-                                fontSize: 21,
-                                color: CustomTheme.presntstate ? creditwithdark : primary,
-                                fontWeight: FontWeight.w400
-                              ),
+        child: SizedBox(
+          height: 100.h,
+          child: Column(
+            children: [
+              const Topbar(),
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 33, right: 33),
+                      width: 100.w,
+                      // height: double.infinity,
+                      // color: CustomTheme.presntstate ? applydark : dashboardcard,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Personal Information",
+                            style: TextStyle(
+                              fontSize: 21,
+                              color: CustomTheme.presntstate ? creditwithdark : primary,
+                              fontWeight: FontWeight.w400
                             ),
-                            const SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 6,
-                                  width: 61,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
-                                    borderRadius: const BorderRadius.all(Radius.circular(20))
-                                  ),
+                          ),
+                          const SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Container(
+                                height: 6,
+                                width: 61,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? const Color.fromRGBO(83, 209, 255, 1) : primary,
+                                  borderRadius: const BorderRadius.all(Radius.circular(20))
                                 ),
-                                const SizedBox(width: 10),
-                                Container(
-                                  height: 6,
-                                  width: 23,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                    borderRadius: const BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                // Container(
-                                //   height: 6,
-                                //   width: 23,
-                                //   decoration: BoxDecoration(
-                                //       color: primary.withOpacity(0.6),
-                                //       borderRadius: const BorderRadius.all(
-                                //           Radius.circular(20))),
-                                // ),
-                                // const SizedBox(width: 10),
-                                Container(
-                                  height: 6,
-                                  width: 23,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                    borderRadius: const BorderRadius.all(Radius.circular(20))
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Container(
-                                  height: 6,
-                                  width: 23,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
-                                    borderRadius: const BorderRadius.all(Radius.circular(20))
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 15),
-                            Container(
-                              height: 101,
-                              width: 100.w,
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 16, bottom: 10),
-                              decoration: const BoxDecoration(
-                                color: Color.fromRGBO(145, 216, 247, 0.1),
-                                borderRadius: BorderRadius.all(Radius.circular(5))
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: "FULL NAME ",
-                                      style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: 9,
-                                        color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: '(SURNAME, FIRST NAME)',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
-                                          )
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Obx(() => Text(
-                                    "${auth.userdata['firstname']} ${auth.userdata['lastname']}",
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15
-                                    ),
-                                  )),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    "EMAIL ADDRESS",
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  Obx(() => Text(
-                                   "${auth.userdata['email']}",
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15
-                                    ),
-                                  )),
-                                ],
+                              const SizedBox(width: 10),
+                              Container(
+                                height: 6,
+                                width: 23,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                  borderRadius: const BorderRadius.all(Radius.circular(20))
+                                ),
                               ),
+                              const SizedBox(width: 10),
+                              // Container(
+                              //   height: 6,
+                              //   width: 23,
+                              //   decoration: BoxDecoration(
+                              //       color: primary.withOpacity(0.6),
+                              //       borderRadius: const BorderRadius.all(
+                              //           Radius.circular(20))),
+                              // ),
+                              // const SizedBox(width: 10),
+                              Container(
+                                height: 6,
+                                width: 23,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                  borderRadius: const BorderRadius.all(Radius.circular(20))
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Container(
+                                height: 6,
+                                width: 23,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? const Color.fromRGBO(130, 134, 157, 1) : primary.withOpacity(0.6),
+                                  borderRadius: const BorderRadius.all(Radius.circular(20))
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Container(
+                            height: 101,
+                            width: 100.w,
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 16, bottom: 10),
+                            decoration: const BoxDecoration(
+                              color: Color.fromRGBO(145, 216, 247, 0.1),
+                              borderRadius: BorderRadius.all(Radius.circular(5))
                             ),
-                            const SizedBox(height: 7),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 RichText(
                                   text: TextSpan(
-                                    text: "Want to Edit; Go to ",
+                                    text: "FULL NAME ",
                                     style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: 9,
-                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                      color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
                                       fontWeight: FontWeight.w500
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                        text: 'Settings',
+                                        text: '(SURNAME, FIRST NAME)',
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: CustomTheme.presntstate ? creditwithdark : primary 
+                                          fontWeight: FontWeight.w300,
+                                          color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
                                         )
                                       ),
                                     ],
                                   ),
                                 ),
+                                Obx(() => Text(
+                                  "${auth.userdata['firstname']} ${auth.userdata['lastname']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15
+                                  ),
+                                )),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "EMAIL ADDRESS",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1).withOpacity(0.5) : const Color.fromRGBO(53, 49, 48, 1).withOpacity(0.5),
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                Obx(() => Text(
+                                 "${auth.userdata['email']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color:CustomTheme.presntstate ? const Color.fromRGBO(203, 209, 216, 1) : primary,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15
+                                  ),
+                                )),
                               ],
                             ),
-                            const SizedBox(height: 15),
-                            SizedBox(
-                              width: 100.w,
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                          
-                                    Text(
-                                      'Marital Status',
+                          ),
+                          const SizedBox(height: 7),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  text: "Want to Edit; Go to ",
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 9,
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'Settings',
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                                      ),
+                                        fontWeight: FontWeight.w700,
+                                        color: CustomTheme.presntstate ? creditwithdark : primary 
+                                      )
                                     ),
-                          
-                                    const SizedBox(height: 5),
-                                    GestureDetector(
-                                      onTap: () => shoWidget(),
-                                      child: TextFormField(
-                                        style: TextStyle(
-                                          color: CustomTheme.presntstate ? white : darkscaffold,
-                                        ),
-                                        enabled: false,
-                                        validator: RequiredValidator(errorText:'Marital Status required.'),
-                                        keyboardType: TextInputType.name,
-                                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                                        controller: marital,
-                                        // onSaved: (val) => backendata["firstname"] = val,
-                                        // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          hintText: "Select an option",
-                                          hintStyle: TextStyle(
-                                            fontSize: 15,
-                                            color:  CustomTheme.presntstate ? white : const Color.fromRGBO(  53, 49, 48, 0.73).withOpacity(0.5),
-                                            fontWeight: FontWeight.w400
-                                          ),
-                                          suffix: Icon(
-                                            FontAwesome.angle_down,
-                                            color: CustomTheme.presntstate ? white : primary,
-                                            // size: 10,
-                                          ),
-                                        )
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Text(
-                                      'Current Residential Address', 
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    TextFormField(
-                                      style: TextStyle(
-                                        color: CustomTheme.presntstate ? white : darkscaffold,
-                                      ),
-                                      // enabled: false,
-                                      validator: RequiredValidator(
-                                        errorText:  'Current residential is required.'
-                                      ),
-                                      keyboardType: TextInputType.name,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      maxLines: 4,
-                                      controller: address,
-                                      onSaved: (val) => applystate.personalinfo["address"] = val,
-                                      // onSaved: (val) => backendata["firstname"] = val,
-                                      // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                      textInputAction: TextInputAction.next,
-                                      
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Text(
-                                      'Number of Years in above address',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    TextFormField(
-                                      style: TextStyle(
-                                        color: CustomTheme.presntstate ? white : darkscaffold,
-                                      ),
-                                      validator: RequiredValidator( errorText: 'Number of years is required.'),
-                                      keyboardType: TextInputType.number,
-                                      autovalidateMode:  AutovalidateMode.onUserInteraction,
-                                      controller: numberofyear,
-                                      // onSaved: (val) => backendata["firstname"] = val,
-                                      // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                      onSaved: (val) {
-                                        applystate.personalinfo["no_of_years_in_address"] = val;
-                                      },
-                                      textInputAction: TextInputAction.done,
-                                     
-                                    ),
-                                    // const SizedBox(height: 3),
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          SizedBox(
+                            width: 100.w,
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                        
+                                  Text(
+                                    'Marital Status',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                    ),
+                                  ),
+                        
+                                  const SizedBox(height: 5),
+                                  GestureDetector(
+                                    onTap: () => shoWidget(),
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : darkscaffold,
+                                      ),
+                                      enabled: false,
+                                      validator: RequiredValidator(errorText:'Marital Status required.'),
+                                      keyboardType: TextInputType.name,
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                                      controller: marital,
+                                      // onSaved: (val) => backendata["firstname"] = val,
+                                      // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        hintText: "Select an option",
+                                        hintStyle: TextStyle(
+                                          fontSize: 15,
+                                          color:  CustomTheme.presntstate ? white : const Color.fromRGBO(  53, 49, 48, 0.73).withOpacity(0.5),
+                                          fontWeight: FontWeight.w400
+                                        ),
+                                        suffix: Icon(
+                                          FontAwesome.angle_down,
+                                          color: CustomTheme.presntstate ? white : primary,
+                                          // size: 10,
+                                        ),
+                                      )
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    'Current Residential Address', 
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : darkscaffold,
+                                    ),
+                                    // enabled: false,
+                                    validator: RequiredValidator(
+                                      errorText:  'Current residential is required.'
+                                    ),
+                                    keyboardType: TextInputType.name,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    maxLines: 4,
+                                    controller: address,
+                                    onSaved: (val) => applystate.personalinfo["address"] = val,
+                                    // onSaved: (val) => backendata["firstname"] = val,
+                                    // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                    textInputAction: TextInputAction.next,
+                                    
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    'Number of Years in above address',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  TextFormField(
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : darkscaffold,
+                                    ),
+                                    validator: RequiredValidator( errorText: 'Number of years is required.'),
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode:  AutovalidateMode.onUserInteraction,
+                                    controller: numberofyear,
+                                    // onSaved: (val) => backendata["firstname"] = val,
+                                    // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                    onSaved: (val) {
+                                      applystate.personalinfo["no_of_years_in_address"] = val;
+                                    },
+                                    textInputAction: TextInputAction.done,
+                                   
+                                  ),
+                                  // const SizedBox(height: 3),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: GestureDetector(
-                    // onTap: () => Get.toNamed("credit/second"), applystate.personalinfo
-                    onTap: () => validate(),
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      color: const Color.fromRGBO(66, 213, 121, 1),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Next",
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400
-                        ),
+              ),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: GestureDetector(
+                  // onTap: () => Get.toNamed("credit/second"), applystate.personalinfo
+                  onTap: () => validate(),
+                  child: Container(
+                    width: 100.w,
+                    height: 58,
+                    color: const Color.fromRGBO(66, 213, 121, 1),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        color: white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400
                       ),
                     ),
                   ),
                 ),
-                
-              ],
-            ),
+              ),
+              
+            ],
           ),
         ),
       ),

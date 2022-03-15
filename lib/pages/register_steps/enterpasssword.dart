@@ -281,28 +281,6 @@ class _PasswordState extends State<Password> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.offAllNamed('register/getnumber');
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 58,
-                        decoration: BoxDecoration(
-                          color: labelactive
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Previous',
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
                         validate();
                         // Get.toNamed('auth/login');
                       },
@@ -323,7 +301,30 @@ class _PasswordState extends State<Password> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed('register/getnumber');
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: labelactive
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Previous',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    
                   ],
                 ),
               )

@@ -31,7 +31,7 @@ snackbar({@required String? message,@required String? header,@required Color? bc
     barBlur: 20,
     isDismissible: true,
     snackPosition: SnackPosition.TOP,
-    duration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 3),
   );
 }
 

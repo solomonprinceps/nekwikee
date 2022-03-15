@@ -375,7 +375,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                             ),
                           ),
                           Text(
-                            "Lock your funds for a minimum of 3 month Interest rate is 15% per annum. Minimum amount is ₦50,000",
+                            "Earn up to 18% per annum when you lock your funds for a minimum of 30 days.",
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
@@ -504,7 +504,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                           Column(
                             children: [
                               Text(
-                                "TENURE",
+                                "TENOR",
                                 style: TextStyle(
                                   // color:Color.fromRGBO(53, 49, 48, 1),
                                   color: CustomTheme.presntstate ? inputcolordark : const Color.fromRGBO(53, 49, 48, 1),
@@ -583,7 +583,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "This estimate assumes you save N5000 monthly between today and your chosen maturity date",
+                      "Your Kwiklite will be credited with your interest upon confirmation of savings.",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

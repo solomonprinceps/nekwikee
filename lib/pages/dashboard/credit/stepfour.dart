@@ -167,7 +167,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                       },
                       decoration: InputDecoration(
                         hintText: "Company List",
-                        hintStyle: TextStyle(color: CustomTheme.presntstate ? black.withOpacity(0.3) : white, fontSize: 16),
+                        hintStyle: TextStyle(color: CustomTheme.presntstate ? white :  black.withOpacity(0.3), fontSize: 16),
                       ),
                     ),
                   ),
@@ -419,56 +419,58 @@ class _EmploymentinfoState extends State<Employmentinfo> {
 
   _showSimpleModalDialog(context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              // width: 400.h,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-                image: DecorationImage(
-                    image: FileImage(Io.File(applycon.employerdata["id_card"])),
-                    // image: Image.memory(img),
-                    fit: BoxFit.cover),
-              ),
-              height: 300.h,
-              // alignment: Alignment.topRight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      applycon.employerdata["id_card"] = "";
-                      documentController.text = '';
-                      setState(() {
-                        imageselected = false;
-                      });
-                      Get.back();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                          color: primary,
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                  )
-                ],
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            // width: 400.h,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              image: DecorationImage(
+                image: FileImage(Io.File(applycon.employerdata["id_card"])),
+                  // image: Image.memory(img),
+                fit: BoxFit.cover
               ),
             ),
-          );
-        });
+            height: 300.h,
+            // alignment: Alignment.topRight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    applycon.employerdata["id_card"] = "";
+                    documentController.text = '';
+                    setState(() {
+                      imageselected = false;
+                    });
+                    Get.back();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      });
   }
 
   employmmentWidget() {
@@ -570,9 +572,9 @@ class _EmploymentinfoState extends State<Employmentinfo> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      print(applycon.employerdata);
-      employmentApply();
       // print(applycon.employerdata);
+      // print('object');
+      employmentApply();
     } else {}
   }
 
@@ -723,7 +725,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Work ID / CAC Document',
+                                    'Work ID (Optional)',
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp,
                                       fontSize: 15,
@@ -852,7 +854,12 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                   controller: namecompany,
                                   enabled: false,
                                   onSaved: (val) {
-                                    applycon.employerdata["other_employer_name"] = val;
+                                    // applycon.employerdata["other_employer_name"] = val;
+                                    if (val == "Others") {
+                                      applycon.employerdata["other_employer_name"] = '99';
+                                    } else {
+                                      applycon.employerdata["other_employer_name"]  = val;
+                                    }
                                   },
                                   // onSaved: (val) => backendata["firstname"] = val,
                                   // onSaved: (val) => savings.createKwikMax["start_date"] = val,
@@ -884,7 +891,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   controller: otheremployer,
                                   onSaved: (val) {
-                                    applycon.employerdata["employer_name"] = val;
+                                    applycon.employerdata["other_employer_name"] = val;
                                   },
                                   textInputAction: TextInputAction.done,
                                   
@@ -905,23 +912,25 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              TextFormField(
-                                style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
-                                validator: RequiredValidator(
-                                    errorText: 'Pay day is required.'),
-                                keyboardType: TextInputType.phone,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                controller: paydayctontroller,
-                                onSaved: (val) {
-                                  applycon.employerdata["pay_date"] = val;
-                                },
-                                // onSaved: (val) => backendata["firstname"] = val,
-                                // onSaved: (val) => savings.createKwikMax["start_date"] = val,
-                                textInputAction: TextInputAction.done,
-                              ),
+                              Obx(() => 
+                                TextFormField(
+                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                                  validator: RequiredValidator(
+                                  errorText: 'Pay day is required.'),
+                                  enabled: applycon.employerdata["employer_name"] ==  '99' ? true : false,
+                                  keyboardType: TextInputType.phone,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  controller: paydayctontroller,
+                                  onSaved: (val) {
+                                    applycon.employerdata["pay_date"] = val;
+                                  },
+                                  // onSaved: (val) => backendata["firstname"] = val,
+                                  // onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                                  textInputAction: TextInputAction.done,
+                                ),
+                              ),  
                               const SizedBox(height: 20),
-        
+
                               Text(
                                 'Monthly Salary',
                                 style: TextStyle(

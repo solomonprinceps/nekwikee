@@ -32,9 +32,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
       body: Column(
         children: [    
           Hero(
@@ -43,7 +41,7 @@ class _FirstScreenState extends State<FirstScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/image/first.png'),
-                  fit: BoxFit.cover,    // -> 02
+                  fit: BoxFit.cover,
                 ),
               ),
               height: 100.h,

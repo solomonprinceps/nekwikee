@@ -87,6 +87,9 @@ class _FirstState extends State<First> {
     await auth.calinkcard(data).then((value) {
       context.loaderOverlay.hide();
       _showMessage('Payment was successful!!!', success);
+      // refreshkey.currentState?.show(); 
+      Get.offAllNamed('home', arguments: 0);
+      // _showMessage('Payment was successful!!!', success);
       print(value);
     }).catchError((err) {
       print(err);
@@ -202,7 +205,7 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "Lock your funds for a minimum of 3 months Interest rate is 15% per annum. Minimum amount is ₦50,000",
+                                        "Earn upto 18% per annum when your lock your funds for a minimum of 30 days Upfront interest",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 9,
@@ -283,7 +286,7 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "You have access to your funds anytime. Attracts interest of 10% per annum. No minimum amount",
+                                        "Acheive you target, save towards a particular goal. 12% per annum",
                                         style: TextStyle(
                                           fontSize: 9,
                                           fontWeight: FontWeight.w600,
@@ -363,9 +366,6 @@ class _FirstState extends State<First> {
 
     if (response.status == true) {
       updatebackcard(refs);
-      _showMessage('Payment was successful!!!', success);
-      // refreshkey.currentState?.show(); 
-      Get.offAllNamed('home', arguments: 0);
       //you can send some data from the response to an API or use webhook to record the payment on a database
     } else {
       //the payment wasn't successsful or the user cancelled the payment

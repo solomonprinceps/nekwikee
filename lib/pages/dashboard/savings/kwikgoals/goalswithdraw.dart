@@ -34,6 +34,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
   TextEditingController amount = TextEditingController();
   TextEditingController tranpin = TextEditingController();
   dynamic savings;
+  // CustomTheme current
   
 
   Future<bool> _willPopCallback() async {
@@ -421,7 +422,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                           const SizedBox(height: 15),
                           
                           Text(
-                            "Your Funds will be withdrawn directly to your salary account",
+                            "Your Funds will be withdrawn directly to your bank account, penal charge of 5% if your goal hasn't matured.",
                             style: TextStyle(
                               color: CustomTheme.presntstate ? white : getstartedp.withOpacity(0.42),
                               fontSize: 11

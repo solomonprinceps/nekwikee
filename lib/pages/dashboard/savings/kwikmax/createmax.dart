@@ -231,7 +231,7 @@ class _CreateMaxState extends State<CreateMax> {
                           ),
                         ),
                         Text(
-                          "Lock your funds for a minimum of 3 month Interest rate is 15% per annum. Minimum amount is ₦50,000",
+                          "Earn up to 18% per annum when you lock your funds for a minimum of 30 days.",
                           style: TextStyle(
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
@@ -332,14 +332,7 @@ class _CreateMaxState extends State<CreateMax> {
                       ),
                       const SizedBox(height: 5),
                       DropdownButtonFormField<dynamic>(
-                        hint:  Text(
-                          "Select Savings Frequency",
-                          style: TextStyle(
-                            color: CustomTheme.presntstate ? white : const Color.fromRGBO(173,175,176, 1),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14
-                          ),
-                        ),
+                        
                         value: tranw,
                         icon: const Icon(
                           FontAwesome.angle_down
@@ -392,7 +385,7 @@ class _CreateMaxState extends State<CreateMax> {
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          color: getstartedp
+                          color: CustomTheme.presntstate ? inputcolordark : getstartedp
                         ),
                       ),
                       const SizedBox(height: 5),  

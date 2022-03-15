@@ -284,7 +284,7 @@ class _LoginState extends State<Login> {
                               children: [
                                 
                                 Text(
-                                  'Email Address / Phone Number',
+                                  'Email Address',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,

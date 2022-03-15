@@ -337,6 +337,15 @@ class _MaxhomeState extends State<Maxhome> {
                       )
                     ),
                     const SizedBox(height: 10),
+                    Text(
+                      "Get cashback of upto 75% of your Kwikmax fund. 24% per annum",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 1)
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     Container(
                       margin: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                       padding: const EdgeInsets.all(15),
@@ -344,7 +353,7 @@ class _MaxhomeState extends State<Maxhome> {
                       height: 91,
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
                             children: [

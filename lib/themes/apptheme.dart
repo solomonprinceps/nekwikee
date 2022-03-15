@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/styles.dart';
@@ -7,19 +9,38 @@ import 'package:shared_preferences/shared_preferences.dart';
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
-  static bool _isDarkTheme = false; 
+  static bool _isDarkTheme = true; 
   ThemeMode get currentTheme => _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
-
+  CustomTheme() {
+    checkstate();
+  }
   void toggleTheme(bool state) {
     _isDarkTheme = !state;
+    updatethemestorage(!state);
     notifyListeners();
-    // print(_isDarkTheme);
+  }
+
+  updatethemestorage(bool state) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("themestate", state).then((value) => print(value));
   }
 
   checkstate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? themestate = prefs.getBool("themestate");
-    return themestate;
+    bool? themestate =  prefs.getBool("themestate");
+    if (themestate == true) {
+      _isDarkTheme = themestate!;
+      notifyListeners();
+    }
+    if(themestate == null) {
+      _isDarkTheme = false;
+      notifyListeners();
+    }
+    if (themestate == false) {
+      _isDarkTheme = themestate!;
+      notifyListeners();
+    }
+    // print('Theme state $themestate');
   }
 
   static bool get presntstate { 
@@ -43,7 +64,7 @@ class CustomTheme with ChangeNotifier {
         // onPrimary: primary,
         secondary: creditcolordark
       ),
-      inputDecorationTheme: InputDecorationTheme(
+       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
         fillColor: inputColor,
@@ -82,7 +103,7 @@ class CustomTheme with ChangeNotifier {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-        fillColor: inputColor,
+        fillColor: inputcolordark,
         border: inputborder,
         focusedBorder: activeinputborder,
         enabledBorder: inputborder,

@@ -31,9 +31,7 @@ class _SecondState extends State<Second> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
-      backgroundColor: themestate == 'light' ? whitescaffold : darkscaffold,
       body: Column(
         children: [
           Hero(
