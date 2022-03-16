@@ -232,6 +232,26 @@ class _NameandemailState extends State<Nameandemail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+
+                    GestureDetector(
+                      onTap: () {
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: registerActioncolor),
+                        child: Center(
+                          child: Text(
+                            'Next',
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.back();
@@ -253,25 +273,7 @@ class _NameandemailState extends State<Nameandemail> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        validate();
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 58,
-                        decoration: BoxDecoration(color: registerActioncolor),
-                        child: Center(
-                          child: Text(
-                            'Next',
-                            style: TextStyle(
-                                color: white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ),
-                      ),
-                    )
+                    
                   ],
                 ),
               ),

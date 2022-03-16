@@ -5,7 +5,6 @@ import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'dart:async';
 
@@ -22,7 +21,6 @@ class _FinalcreditState extends State<Finalcredit> {
 
   @override
   void initState() {
-    // TODO: implement initState
     data = jsonDecode(Get.arguments);
     timedown();
     super.initState();
@@ -68,18 +66,18 @@ class _FinalcreditState extends State<Finalcredit> {
               ),
             ),
             const SizedBox(height: 38),
-            const Text(
+            Text(
               "SUCCESSFUL!",
               style: TextStyle(
-                color: Color.fromRGBO(62, 64, 149, 1),
+                color: CustomTheme.presntstate ? creditwithdark : primary,
                 fontSize: 28
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'Loan Application Completed',
               style: TextStyle(
-                color: Color.fromRGBO(62, 64, 149, 1),
+                color: CustomTheme.presntstate ? creditwithdark : primary,
                 fontSize: 21,
                 fontWeight: FontWeight.w400
               ),

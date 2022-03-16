@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kwikee1/styles.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,7 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
+    // final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
       // backgroundColor: onboardbackground,
       body: PageView(
@@ -47,7 +48,7 @@ class _OnboardingState extends State<Onboarding> {
           Container(
             height: 100.h,
             width: double.infinity,
-            color: themestate == "dark" ? darkscaffold : onboardbackground,
+            color: CustomTheme.presntstate ? darkscaffold : onboardbackground,
             child: Stack(
               children: [
                 Column(
@@ -59,6 +60,7 @@ class _OnboardingState extends State<Onboarding> {
                         width: double.infinity,
                         // color: Colors.green,
                         decoration: const BoxDecoration(
+                          color: Colors.green,
                           image: DecorationImage(
                             image: AssetImage('assets/image/onboard1.png'),
                             fit: BoxFit.cover,    // -> 02
@@ -151,7 +153,7 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text(
                         "Skip",
                         style: TextStyle(
-                          color: themestate == "dark" ? white : onboardbackground,
+                          color: CustomTheme.presntstate ? white : onboardbackground,
                           fontWeight: FontWeight.w900,
                           fontSize: 16
                         ),
@@ -166,7 +168,7 @@ class _OnboardingState extends State<Onboarding> {
           Container(
             height: 100.h,
             width: double.infinity,
-            color: themestate == "dark" ? darkscaffold : onboardbackground,
+            color: CustomTheme.presntstate ? darkscaffold : onboardbackground,
             child: Stack(
               children: [
                 Column(
@@ -245,7 +247,7 @@ class _OnboardingState extends State<Onboarding> {
                           child: Container(
                             height: double.infinity,
                             width: 20.w,
-                            color: themestate == "dark" ? onboardaction : white,
+                            color: CustomTheme.presntstate ? onboardaction : white,
                             child: Center(
                               child:Icon(
                                 FontAwesome.angle_left,
@@ -289,7 +291,7 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text(
                         "Skip",
                         style: TextStyle(
-                          color: themestate == "dark" ? white : onboardbackground,
+                          color: CustomTheme.presntstate ? white : onboardbackground,
                           fontWeight: FontWeight.w900,
                           fontSize: 16
                         ),
@@ -304,7 +306,7 @@ class _OnboardingState extends State<Onboarding> {
           Container(
             height: 100.h,
             width: double.infinity,
-            color: themestate == "dark" ? darkscaffold : onboardbackground,
+            color: CustomTheme.presntstate ? darkscaffold : onboardbackground,
             child: Stack(
               children: [
                 Column(
@@ -316,9 +318,10 @@ class _OnboardingState extends State<Onboarding> {
                         width: double.infinity,
                         // color: Colors.green,
                         decoration: const BoxDecoration(
+                          color: Colors.green,
                           image: DecorationImage(
                             image: AssetImage('assets/image/onboard3.png'),
-                            fit: BoxFit.fitHeight,    // -> 02
+                            fit: BoxFit.cover,    // -> 02
                           ),
                         ),
                       ),
@@ -383,7 +386,7 @@ class _OnboardingState extends State<Onboarding> {
                           child: Container(
                             height: double.infinity,
                             width: 90,
-                            color: themestate == "dark" ? onboardaction : white,
+                            color: CustomTheme.presntstate ? onboardaction : white,
                             child: Center(
                               child:Icon(
                                 FontAwesome.angle_left,
@@ -426,7 +429,7 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text(
                         "Skip",
                         style: TextStyle(
-                          color: themestate == "dark" ? white : onboardbackground,
+                          color: CustomTheme.presntstate ? white : onboardbackground,
                           fontWeight: FontWeight.w900,
                           fontSize: 16
                         ),

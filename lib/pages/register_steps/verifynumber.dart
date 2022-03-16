@@ -305,10 +305,31 @@ class _VerifynumberState extends State<Verifynumber> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    
                     GestureDetector(
                       onTap: () {
-                        Get.offAndToNamed('register/getnumber');
-                        
+                        validate();
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        decoration: BoxDecoration(color: registerActioncolor),
+                        child: Center(
+                          child: Text(
+                            'Verify My Number',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('register/getnumber');  
                       },
                       child: Container(
                         width: 100.w,
@@ -326,25 +347,6 @@ class _VerifynumberState extends State<Verifynumber> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        validate();
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 58,
-                        decoration: BoxDecoration(color: registerActioncolor),
-                        child: Center(
-                          child: Text(
-                            'Verify My Number',
-                            style: TextStyle(
-                                color: white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),

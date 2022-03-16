@@ -192,7 +192,7 @@ class _SavingsState extends State<Savings> {
                                         ),
                                       ),
                                       const Text(
-                                        "Lock your funds for a minimum of 3 months Interest rate is 15% per annum. Minimum amount is ₦50,000",
+                                        "Earn upto 18% per annum when your lock your funds for a minimum of 30 days. Upfront interest.",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 9,
@@ -273,7 +273,7 @@ class _SavingsState extends State<Savings> {
                                         ),
                                       ),
                                       const Text(
-                                        "You have access to your funds anytime. Attracts interest of 10% per annum. No minimum amount",
+                                        "Acheive you target, save towards a particular goal. 12% per annum",
                                         style: TextStyle(
                                           fontSize: 9,
                                           fontWeight: FontWeight.w600,
@@ -470,7 +470,7 @@ class _SavingsState extends State<Savings> {
                       const SizedBox(height: 20),
                       //rgba(53, 49, 48, 0.6)
                       Text(
-                        "Your Kwiklite is directly connected to a bank account which could be funded using the above ${lite[0]["payment_bank_name"]} Account Number.",
+                        "Your kiwiklite works like a regular bank account. Your can fund it directly and withdraw anytime you want. 10% per annum \n It is directly connected to a unique wema bank account which could be funded using the Account Number.",
                         style: TextStyle(
                           color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  const Color.fromRGBO(246, 251, 254, 1).withOpacity(0.42),
                           fontSize: 10,

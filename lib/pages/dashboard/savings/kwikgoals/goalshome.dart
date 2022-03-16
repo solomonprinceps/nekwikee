@@ -358,11 +358,11 @@ class _GoalshomeState extends State<Goalshome> {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            'Your Kwiklite is directly connected to a bank account which could be funded using the above Wema Bank Account Number.',
-                             style: TextStyle(
-                               color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
-                               fontSize: 9
-                             ),   
+                            "Save and earn towards your goal. penal charge for breaking your goal before maturity is 5% of withdrawn amount.",
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
+                              fontSize: 9
+                            ),   
                           )
                         ],
                       ),

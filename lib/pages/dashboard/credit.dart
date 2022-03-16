@@ -420,53 +420,53 @@ class _CreditState extends State<Credit> {
                 ),
               ),
               const SizedBox(height: 20),
-              Card(
-                color: HexColor("#0000000F"),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: primary,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor("#0000000F"),
-                        blurRadius: 3,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Fund With Kwiklite',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: white
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            SvgPicture.asset(
-                              'assets/image/feather-right1.svg',
-                              semanticsLabel: 'Action Button',
-                              width: 20,
-                              height: 20,
-                              color: white,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // Card(
+              //   color: HexColor("#0000000F"),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: 50,
+              //     alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //       color: primary,
+              //       borderRadius: BorderRadius.circular(5),
+              //       boxShadow: [
+              //         BoxShadow(
+              //           color: HexColor("#0000000F"),
+              //           blurRadius: 3,
+              //           offset:
+              //               const Offset(0, 3), // changes position of shadow
+              //         ),
+              //       ],
+              //     ),
+              //     child: Center(
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Row(
+              //             children: [
+              //               Text(
+              //                 'Fund With Kwiklite',
+              //                 style: TextStyle(
+              //                     fontSize: 18,
+              //                     fontWeight: FontWeight.w400,
+              //                     color: white
+              //                 ),
+              //               ),
+              //               const SizedBox(width: 10),
+              //               SvgPicture.asset(
+              //                 'assets/image/feather-right1.svg',
+              //                 semanticsLabel: 'Action Button',
+              //                 width: 20,
+              //                 height: 20,
+              //                 color: white,
+              //               ),
+              //             ],
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () =>  Get.toNamed("credit/withdraw"),

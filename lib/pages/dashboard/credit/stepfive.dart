@@ -148,14 +148,13 @@ class _EmploymentbankState extends State<Employmentbank> {
       pageBuilder: (_, __, ___) { // your widget implementation 
         return StatefulBuilder(
           builder:  (context, setState) {
-            final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
                 leading: IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: black,
+                    color: CustomTheme.presntstate ? white : black,
                   ), 
                   onPressed: (){
                     Navigator.pop(context);
@@ -167,7 +166,6 @@ class _EmploymentbankState extends State<Employmentbank> {
                 ),
                 elevation: 0.0
               ),
-              backgroundColor: white,
               body: Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 decoration: const BoxDecoration(
@@ -184,15 +182,15 @@ class _EmploymentbankState extends State<Employmentbank> {
                     SizedBox(
                       child: TextField(
                         style: TextStyle(
-                          color: CustomTheme.presntstate ? black  : const Color.fromRGBO(136, 136, 136, 1),
+                          color: CustomTheme.presntstate ? white : const Color.fromRGBO(136, 136, 136, 1),
                         ),
                         onChanged: (String value) {
                           final allbks = banklist.where((bank) {
                             // return;
                             print(bank);
 
-                            final bankname = bank["name"] != null  ? bank["name"].toLowerCase()  : "";
-                            final searchname = value.toLowerCase();
+                            final String bankname = bank["name"] != null  ? bank["name"].toLowerCase()  : "";
+                            final String searchname = value.toLowerCase();
                             return bankname.contains(searchname);
                           }).toList();
                           setState(() {
@@ -220,24 +218,6 @@ class _EmploymentbankState extends State<Employmentbank> {
                             color: black.withOpacity(0.3),
                             fontSize: 16
                           ),
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Icon(
-                              FontAwesome5Solid.piggy_bank,
-                              color: Colors.grey.shade400,
-                              size: 15,
-                            ),
-                          ),
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                          fillColor: white,
-                          border: inputborder,
-                          focusedBorder: activeinputborder,
-                          enabledBorder: activeinputborder,
-                          focusedErrorBorder: errorborder,
-                          errorBorder: errorborder,
-                          disabledBorder: inputborder,
-                          errorStyle: const TextStyle(color: Colors.red),
                         ),
                       ),
                     ),
@@ -310,7 +290,7 @@ class _EmploymentbankState extends State<Employmentbank> {
       print(value);
       if (value["status"] == "success") {
         Get.toNamed('credit/preview', arguments: Get.arguments);
-        snackbar(message: value["message"], header: "Success", bcolor: success);
+        // snackbar(message: value["message"], header: "Success", bcolor: success);
         return;
        
       }

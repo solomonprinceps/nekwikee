@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:kwikee1/services/datstruct.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -101,6 +102,12 @@ class _ProfileState extends State<Profile> {
       print(err);
     });
   }
+
+  // child:  SvgPicture.asset(
+  // 'assets/image/maxcircle.svg',
+  // semanticsLabel: 'Target',
+  // // color: white,
+  // ),
 
   @override
   Widget build(BuildContext context) {
@@ -292,22 +299,31 @@ class _ProfileState extends State<Profile> {
                                   child: Container(
                                     height: 63,
                                     width: 63,
+                                    padding: const EdgeInsets.all(17),
                                     decoration: BoxDecoration(
                                       color: CustomTheme.presntstate ? 
                                       showtransactions! ? HexColor("#5162AB") : HexColor("#353E64") : 
                                       showtransactions! ? primary : HexColor("#F6F6F6"),
                                       borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Icon(
-                                      FontAwesome.money,
-                                      size: 34,
+                                    child: SvgPicture.asset(
+                                      'assets/image/nountransaction.svg',
+                                      semanticsLabel: 'Transactions',
                                       color: CustomTheme.presntstate ? 
                                       showtransactions! ? white : HexColor("#212845") : 
                                       showtransactions! ? white : HexColor("#827F7F"),
-                                      // color: showtransactions!
-                                      //     ? white
-                                      //     : HexColor("#827F7F"),
+                                      // color: white,
                                     ),
+                                    // child: Icon(
+                                    //   FontAwesome.money,
+                                    //   size: 34,
+                                      // color: CustomTheme.presntstate ? 
+                                      // showtransactions! ? white : HexColor("#212845") : 
+                                      // showtransactions! ? white : HexColor("#827F7F"),
+                                    //   // color: showtransactions!
+                                    //   //     ? white
+                                    //   //     : HexColor("#827F7F"),
+                                    // ),
                                     // width: double.infinity
                                   ),
                                 ),
@@ -332,13 +348,22 @@ class _ProfileState extends State<Profile> {
                                 child: Container(
                                   height: 63,
                                   width: 63,
+                                  padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? HexColor("#353E64") : HexColor("#F6F6F6"),
-                                    borderRadius: BorderRadius.circular(5)),
-                                    child: Icon(
-                                    FontAwesome.file_pdf_o,
-                                    size: 34,
-                                    color: HexColor("#827F7F"),
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  // child: Icon(
+                                  //   FontAwesome.file_pdf_o,
+                                  //   size: 34,
+                                  //   color: HexColor("#827F7F"),
+                                  // ),
+                                  child: SvgPicture.asset(
+                                    'assets/image/loandocument.svg',
+                                    semanticsLabel: 'Loan document',
+                                    color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
+                                    
+                                    // color: white,
                                   ),
                                   // width: double.infinity
                                 ),
@@ -378,11 +403,12 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Icon(
-                                      FontAwesome.lock,
-                                      size: 25,
+                                    SvgPicture.asset(
+                                      'assets/image/changepassword.svg',
+                                      semanticsLabel: 'Change Password',
                                       color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                     ),
+                                   
                                     Expanded(
                                       child: Container(
                                         padding: const EdgeInsets.only(left: 10),
@@ -416,7 +442,7 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Icon(
                                       FontAwesome.lock,
-                                      size: 25,
+                                      size: 18,
                                       color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                     ),
                                     Expanded(
@@ -450,9 +476,9 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Icon(
-                                      FontAwesome5Solid.long_arrow_alt_right,
-                                      size: 25,
+                                    SvgPicture.asset(
+                                      'assets/image/logoutnoun.svg',
+                                      semanticsLabel: 'Logout Noun',
                                       color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                     ),
                                     Expanded(
@@ -664,11 +690,8 @@ class _ProfileState extends State<Profile> {
                                           horizontal: 20, vertical: 10),
                                       margin: const EdgeInsets.only(bottom: 5),
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
+                                        color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                        borderRadius: BorderRadius.circular(5)),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
