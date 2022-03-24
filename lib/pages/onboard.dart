@@ -60,7 +60,7 @@ class _OnboardingState extends State<Onboarding> {
                         width: double.infinity,
                         // color: Colors.green,
                         decoration: const BoxDecoration(
-                          color: Colors.green,
+                          // color: Colors.green,
                           image: DecorationImage(
                             image: AssetImage('assets/image/onboard1.png'),
                             fit: BoxFit.cover,    // -> 02
@@ -318,7 +318,7 @@ class _OnboardingState extends State<Onboarding> {
                         width: double.infinity,
                         // color: Colors.green,
                         decoration: const BoxDecoration(
-                          color: Colors.green,
+                          // color: Colors.green,
                           image: DecorationImage(
                             image: AssetImage('assets/image/onboard3.png'),
                             fit: BoxFit.cover,    // -> 02

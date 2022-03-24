@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 
@@ -39,7 +38,7 @@ class _SecondState extends State<Second> {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/image/first.png'),
+                  image: AssetImage('assets/image/first1.png'),
                   fit: BoxFit.cover,    // -> 02
                 ),
               ),

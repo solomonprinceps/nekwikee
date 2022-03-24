@@ -38,9 +38,9 @@ class _FirstScreenState extends State<FirstScreen> {
           Hero(
             tag: "rain",
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/image/first.png'),
+                  image: AssetImage('assets/image/first11.png'),
                   fit: BoxFit.cover,
                 ),
               ),

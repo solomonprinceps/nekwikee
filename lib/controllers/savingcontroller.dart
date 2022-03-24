@@ -81,14 +81,15 @@ class SavingController extends GetxController {
     "narration": "",
     "bankcode": "",
     "accountnumber": "",
-    "transaction_pin": ""
+    "transaction_pin": "",
+    "beneficiary": ""
   };
 
-maxadd(List data) {
+  maxadd(List data) {
 
-}
+  }
 
-sortsaving(List savings) {
+  sortsaving(List savings) {
     final lit = [];
     final ma = [];
     final go = [];
@@ -146,7 +147,7 @@ sortsaving(List savings) {
     createKwikMax["target_amount"] = repdata;
   }
 
-   String goalformatamount(String? amountSign) {
+  String goalformatamount(String? amountSign) {
     try {
       List stringarry = amountSign != null ? amountSign.split('₦') : [];
       String numbpart = stringarry[1];

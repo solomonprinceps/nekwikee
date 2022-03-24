@@ -499,44 +499,44 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                       
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.all(10),
-                              height: 47,
-                              decoration: BoxDecoration(
-                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Row(
-                                children: [
-                                  Switch(
-                                    activeColor: primary,
-                                    activeTrackColor: primary.withOpacity(0.2),
-                                    inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
-                                    value: themestate,
-                                    onChanged: (bool val)  {
-                                      currentTheme.toggleTheme(CustomTheme.presntstate);
-                                      setState(() {
-                                        themestate = val;
-                                      });
-                                    },
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                    padding: const EdgeInsets.only(left: 3),
-                                    // fit: BoxFit.contain,
-                                    child: Text(
-                                      'Change Theme',
-                                      style: TextStyle(
-                                        color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600
-                                      ),
-                                    ),
-                                  ))
-                                ],
-                              ),
-                            )
+                            // Container(
+                            //   margin: const EdgeInsets.only(bottom: 10),
+                            //   padding: const EdgeInsets.all(10),
+                            //   height: 47,
+                            //   decoration: BoxDecoration(
+                            //     color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                            //     borderRadius: BorderRadius.circular(5)
+                            //   ),
+                            //   child: Row(
+                            //     children: [
+                            //       Switch(
+                            //         activeColor: primary,
+                            //         activeTrackColor: primary.withOpacity(0.2),
+                            //         inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
+                            //         value: themestate,
+                            //         onChanged: (bool val)  {
+                            //           currentTheme.toggleTheme(CustomTheme.presntstate);
+                            //           setState(() {
+                            //             themestate = val;
+                            //           });
+                            //         },
+                            //       ),
+                            //       Expanded(
+                            //         child: Container(
+                            //         padding: const EdgeInsets.only(left: 3),
+                            //         // fit: BoxFit.contain,
+                            //         child: Text(
+                            //           'Change Theme',
+                            //           style: TextStyle(
+                            //             color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                            //             fontSize: 13,
+                            //             fontWeight: FontWeight.w600
+                            //           ),
+                            //         ),
+                            //       ))
+                            //     ],
+                            //   ),
+                            // )
                       
                       
                           ],

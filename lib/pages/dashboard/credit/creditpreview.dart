@@ -101,7 +101,7 @@ class _CreditpreviewState extends State<Creditpreview> {
   }
 
   acceptloanoffer() async {
-    if (otheremployer != false) {
+    if (otheremployer == false) {
       snackbar(message: "No loan offer for you.", header: "Informaion", bcolor: error);
       return;
     }

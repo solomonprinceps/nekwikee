@@ -18,6 +18,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'dart:ui';
 
+
 class First extends StatefulWidget {
   const First({ Key? key }) : super(key: key);
 
@@ -95,6 +96,7 @@ class _FirstState extends State<First> {
       print(err);
     });
   }
+
 
   addsaving(BuildContext context) {
     return showGeneralDialog(
@@ -262,7 +264,7 @@ class _FirstState extends State<First> {
                                     shape: BoxShape.circle,
                                     color: Color.fromRGBO(246, 251, 254, 1)
                                   ),
-                                  child:  SvgPicture.asset(
+                                  child: SvgPicture.asset(
                                     'assets/image/maxcircle.svg',
                                     semanticsLabel: 'Target',
                                     // color: white,
@@ -754,7 +756,7 @@ class _FirstState extends State<First> {
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
-                                        'Reach your goals quicker and easier with savings and investment with Kwikee.',
+                                        'Get your kwikee credit card funded and withdraw at will.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
@@ -857,6 +859,7 @@ class _FirstState extends State<First> {
                             visible: auth.showbankstatementsetup.value,
                             child: GestureDetector(
                               onTap: () => _launchInBrowser(dashboards["bank_statement_setup_link"]),
+                              // onTap: () => okrowigdet(),
                               child: Card(
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
@@ -922,7 +925,7 @@ class _FirstState extends State<First> {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        'Reach your goals quicker and easier with savings and investment with Kwikee.',
+                                        'Link your acccount to increase your credit score.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,
@@ -1009,7 +1012,7 @@ class _FirstState extends State<First> {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        'Reach your goals quicker and easier with savings and investment with Kwikee.',
+                                        'Link your bank card to get funds disbursed into your wallet.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 8.5,

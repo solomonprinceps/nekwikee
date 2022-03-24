@@ -590,42 +590,44 @@ class _MaxconfirmState extends State<Maxconfirm> {
                         color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 1)
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked,
-                            activeColor: const Color.fromRGBO(53, 49, 48, 1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isChecked = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                            "I agree to the terms and conditions.",
-                            style: TextStyle(
-                              color: CustomTheme.presntstate ? white : const Color.fromRGBO(28, 27, 27, 1),   
-                              fontSize: 15 
-                            )
-                          )  
-                        ],
-                      ),
-                    ),
+                    SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    //   child: Row(
+                    //     children: [
+                    //       Checkbox(
+                    //         value: isChecked,
+                    //         activeColor: const Color.fromRGBO(53, 49, 48, 1),
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(5),
+                    //         ),
+                    //         onChanged: (value) {
+                    //           setState(() {
+                    //             isChecked = value!;
+                    //           });
+                    //         },
+                    //       ),
+                    //       Text(
+                    //         "I agree to the terms and conditions.",
+                    //         style: TextStyle(
+                    //           color: CustomTheme.presntstate ? white : const Color.fromRGBO(28, 27, 27, 1),   
+                    //           fontSize: 15 
+                    //         )
+                    //       )  
+                    //     ],
+                    //   ),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         // chargeCard();
-                        if (!isChecked) {
-                          snackbar(message: "Accept our terms and conditions", header: "Error", bcolor: error);
-                        }
-                        if (isChecked) {
-                          // savingMAX();
-                          showModal(context);
-                        }
+                        // if (!isChecked) {
+                        //   snackbar(message: "Accept our terms and conditions", header: "Error", bcolor: error);
+                        // }
+                        // if (isChecked) {
+                        //   // savingMAX();
+                        //   showModal(context);
+                        // }
+                        showModal(context);
                       },
                       child: Card(
                         color: HexColor("#0000000F"),

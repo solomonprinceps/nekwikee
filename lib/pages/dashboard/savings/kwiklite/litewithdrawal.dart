@@ -1176,7 +1176,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () => Get.back(),
                       child: SizedBox(
                         // color: black,
@@ -1202,8 +1202,9 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                 ),
               ),
               Expanded(
+                flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1222,33 +1223,33 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                         "Enter the Amount you would like to withdraw today and the payment destination.",
                         style: TextStyle(color: creditwithdark, fontSize: 15),
                       ),
-                      const SizedBox(height: 12),
+                      // const SizedBox(height: 12)/,
                       SizedBox(
                         child: Column(
                           children: [
                             Visibility(
                               visible: beneficiaries.isNotEmpty,
                               child: Container(
-                                margin: const EdgeInsets.only(left: 10, right: 10,bottom: 10),
-                                padding: const EdgeInsets.all(10),
+                                margin: const EdgeInsets.only(bottom: 10),
+                                // padding: const EdgeInsets.all(10),
                                 width: double.infinity,
-                                height: 120,
+                                height: 100,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: beneficiaries.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        withdraw.withform["beneficiary"] = '1';
+                                        saving.savingwithdrawal["beneficiary"] = '1';
                                         modecontroller.text = "Other Account";
                                         accountno.text = beneficiaries[index]["account_number"];
+                                        saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
+                                        print(beneficiaries[index]);
                                         banks.forEach((data) {
-                                          if (data["bankcode"] ==
-                                              beneficiaries[index]
-                                                  ["bank_code"]) {
-                                            withdraw.withform["bankcode"] =
-                                                data["bankcode"];
+                                          if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
+                                            // withdraw.withform["bankcode"] = data["bankcode"];
                                             bankcontroller.text = data["name"];
+                                            // saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
                                           }
                                         });
                                       },
@@ -1452,6 +1453,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                   ),
                 ),
               ),
+              // SizedBox(height: 10),
               Align(
                 alignment: FractionalOffset.bottomCenter,
                 child: Column(

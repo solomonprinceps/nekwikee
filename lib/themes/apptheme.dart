@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/styles.dart';
@@ -9,10 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
-  static bool _isDarkTheme = true; 
+  static bool _isDarkTheme = false; 
   ThemeMode get currentTheme => _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   CustomTheme() {
-    checkstate();
+    // checkstate();
   }
   void toggleTheme(bool state) {
     _isDarkTheme = !state;
@@ -50,7 +48,6 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      
       primaryColor: Colors.lightBlue,
       // accentColor: primary,
       backgroundColor: Colors.white,

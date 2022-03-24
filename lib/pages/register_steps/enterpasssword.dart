@@ -64,10 +64,10 @@ class _PasswordState extends State<Password> {
   }
 
   void validate() {
-    if(!isChecked) {
-      _showMessage("Accept Terms and condition.", error);
-      return;
-    }
+    // if(!isChecked) {
+    //   _showMessage("Accept Terms and condition.", error);
+    //   return;
+    // }
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
@@ -224,46 +224,46 @@ class _PasswordState extends State<Password> {
                                   
                                 ),
                                 const SizedBox(height: 20),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Checkbox(
-                                      activeColor: Colors.grey.shade400,
-                                      value: isChecked,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          isChecked = value!;
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(
+                                // Row(
+                                //   crossAxisAlignment: CrossAxisAlignment.end,
+                                //   children: [
+                                //     Checkbox(
+                                //       activeColor: Colors.grey.shade400,
+                                //       value: isChecked,
+                                //       onChanged: (value) {
+                                //         setState(() {
+                                //           isChecked = value!;
+                                //         });
+                                //       },
+                                //     ),
+                                //     SizedBox(
                                       
-                                      child: RichText(
-                                        text: TextSpan(
-                                          text: 'I agree with the',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 15,
-                                            color: CustomTheme.presntstate ? inputcolordark : getstartedp   
-                                          ),
-                                          children:  const <TextSpan>[
-                                            TextSpan(
-                                              text: ' Terms and Conditions \n', 
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15,
-                                                color: Color.fromRGBO(0, 175, 239, 1)
-                                              )
-                                            ),
-                                            TextSpan(
-                                              text: 'of the kwikee Platform.', 
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                //       child: RichText(
+                                //         text: TextSpan(
+                                //           text: 'I agree with the',
+                                //           style: TextStyle(
+                                //             fontWeight: FontWeight.w300,
+                                //             fontSize: 15,
+                                //             color: CustomTheme.presntstate ? inputcolordark : getstartedp   
+                                //           ),
+                                //           children:  const <TextSpan>[
+                                //             TextSpan(
+                                //               text: ' Terms and Conditions \n', 
+                                //               style: TextStyle(
+                                //                 fontWeight: FontWeight.w500,
+                                //                 fontSize: 15,
+                                //                 color: Color.fromRGBO(0, 175, 239, 1)
+                                //               )
+                                //             ),
+                                //             TextSpan(
+                                //               text: 'of the kwikee Platform.', 
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             )
                           )

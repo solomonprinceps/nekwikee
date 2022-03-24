@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:intl/intl.dart';
 import 'package:kwikee1/services/backend.dart';
 
 class SignupController extends GetxController {

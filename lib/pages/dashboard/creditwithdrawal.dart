@@ -1226,7 +1226,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () => Get.back(),
                       child: SizedBox(
                         width: 50,
