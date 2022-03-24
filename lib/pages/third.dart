@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';

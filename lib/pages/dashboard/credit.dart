@@ -166,7 +166,7 @@ class _CreditState extends State<Credit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
+        leading: InkWell(
           onTap: () => Get.back(),
           child: SizedBox(
             width: 40,

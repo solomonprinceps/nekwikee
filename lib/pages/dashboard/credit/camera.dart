@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:kwikee1/services/utils.dart';
+// import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'dart:io' as Io;
 import 'package:kwikee1/controllers/applycontroller.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+// import 'package:loader_overlay/loader_overlay.dart';
+// import 'package:google_ml_kit/google_ml_kit.dart';
 // import 'package:kwikee/controllers/applycontroller.dart';
 
 
@@ -177,6 +178,40 @@ class _CameraState extends State<Camera> with WidgetsBindingObserver {
     _showSimpleModalDialog(context);
   }
 
+
+  // checkface(String _imageFile) async {
+  //   final inputImage = InputImage.fromFilePath(_imageFile);
+  //   final dector = GoogleMlKit.vision.faceDetector( const FaceDetectorOptions(
+  //     enableClassification: true,
+  //     enableContours: true,
+  //     enableTracking: true
+  //   ));
+  //   // print("sending");
+  //   context.loaderOverlay.show();
+  //   dector.processImage(inputImage).then((value) {
+  //     context.loaderOverlay.hide();
+  //     // print("faces ${value}");
+  //     if (value.length > 1) {
+  //       snackbar(message: "Multiple faces detected.", header: "Face Detection Error", bcolor: error);
+  //       return;
+  //     }
+  //     if (value.length == 0) {
+  //       snackbar(message: "No face detected.", header: "Face Detection Error", bcolor: error);
+  //       return;
+  //     }
+  //     if (value.length == 1) {
+  //       // snackbar(message: "Face Confirmed.", header: "Face Detection Successful", bcolor: success);
+  //       Get.offAndToNamed('credit/confirmselfie', arguments: jsonEncode([loandata, img]));
+  //       return;
+  //     }
+  //     // print("sending end");
+  //   }).catchError((err) {
+  //     context.loaderOverlay.hide();
+  //     snackbar(message: "Unknow error.", header: "Face Detection Error", bcolor: error);
+  //     return;
+  //   });
+  //   print("reciveing");
+  // }
   
 
   _showSimpleModalDialog(context){
@@ -212,12 +247,8 @@ class _CameraState extends State<Camera> with WidgetsBindingObserver {
                       InkWell(
                         onTap: () { 
                           Get.back();
-                          // jsonEncode([loandata, img]
-                          // uploadselfie();
-                          // print(loandata);
-                          // print(img);
-                          Get.offAndToNamed('credit/confirmselfie', arguments: jsonEncode([loandata, img]));
-                          // Get.toNamed('credit/confirmselfie', arguments: jsonEncode([loandata, img])); 
+                          // checkface(img);
+                          Get.toNamed('credit/confirmselfie', arguments: jsonEncode([loandata, img])); 
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),

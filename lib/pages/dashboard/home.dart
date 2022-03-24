@@ -31,18 +31,6 @@ class _HomeState extends State<Home> {
     // ),
   ];
 
-  // void logout() async {
-  //   // Get.back();
-  //   SharedPreferences authstorage = await SharedPreferences.getInstance();
-  //   authstorage.remove('user');
-  //   authstorage.remove('accessToken');
-  //   authstorage.remove('fingeremail');
-  //   authstorage.remove('fingerpassword');
-  //   authstorage.remove('passgetstarted');
-  //   // authstorage.remove('firstmail');
-  //   Get.offAllNamed("third");
-  // }
-
   void onChangedTab(int index) {
     setState(() {
       this.index = index;

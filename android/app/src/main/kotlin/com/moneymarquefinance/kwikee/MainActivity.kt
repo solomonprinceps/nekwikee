@@ -1,4 +1,4 @@
-package com.example.kwikee1
+package com.moneymarquefinance.kwikee
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterFragmentActivity
