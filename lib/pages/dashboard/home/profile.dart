@@ -362,7 +362,6 @@ class _ProfileState extends State<Profile> {
                                     'assets/image/loandocument.svg',
                                     semanticsLabel: 'Loan document',
                                     color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
-                                    
                                     // color: white,
                                   ),
                                   // width: double.infinity
@@ -451,6 +450,42 @@ class _ProfileState extends State<Profile> {
                                         // fit: BoxFit.contain,
                                         child: Text(
                                           'Change Pin',
+                                          style: TextStyle(
+                                            color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600
+                                          ),
+                                        ),
+                                      )
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: () => Get.toNamed("/terms"),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(10),
+                                height: 47,
+                                decoration: BoxDecoration(
+                                  color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Ionicons.terminal,
+                                      size: 18,
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        // fit: BoxFit.contain,
+                                        child: Text(
+                                          'Terms and conditions',
                                           style: TextStyle(
                                             color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                             fontSize: 13,

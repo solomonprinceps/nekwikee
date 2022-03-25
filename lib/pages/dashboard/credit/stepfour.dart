@@ -45,7 +45,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
   bool isChecked = false;
   final ImagePicker _picker = ImagePicker();
 
-  dynamic _dateTime;
+  // dynamic _dateTime;
 
   List educationlevel = [
     {"text": "BSc", "value": "Bsc"},

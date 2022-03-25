@@ -87,7 +87,6 @@ class _ChangepasswordState extends State<Changepassword> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(

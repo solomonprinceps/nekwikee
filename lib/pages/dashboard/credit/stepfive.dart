@@ -22,7 +22,7 @@ class Employmentbank extends StatefulWidget {
 class _EmploymentbankState extends State<Employmentbank> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   dynamic tranw;
-  dynamic _chosenDateTime;
+  // dynamic _chosenDateTime;
   SavingController saving  = Get.put(SavingController());
   ApplyController applycon = Get.put(ApplyController());
   List transwhere = [

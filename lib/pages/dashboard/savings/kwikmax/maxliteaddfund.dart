@@ -3,7 +3,6 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:kwikee1/themes/apptheme.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hexcolor/hexcolor.dart';
 

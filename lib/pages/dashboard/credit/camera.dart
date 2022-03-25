@@ -62,7 +62,7 @@ class _CameraState extends State<Camera> with WidgetsBindingObserver {
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
-      // print('Error initializing camera: $e');
+      print('Error initializing camera: $e');
     }
 
     // Update the boolean

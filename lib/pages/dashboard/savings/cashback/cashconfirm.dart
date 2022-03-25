@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'dart:async';
 

@@ -10,7 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/controllers/logincontroller.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:kwikee1/services/utils.dart';
 import 'package:local_auth/auth_strings.dart';
 
 class Login extends StatefulWidget {
