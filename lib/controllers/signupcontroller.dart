@@ -4,7 +4,7 @@ import 'package:kwikee1/services/backend.dart';
 class SignupController extends GetxController {
   Backend backend = Backend();
   Map<String?, String?> sendotp = {
-    'message': 'Use {{code}} to access your account',
+    'message': 'Use  {{code}} to access your kwikee account',
     'duration': '10',
     'length': '4',
     'type': '2',

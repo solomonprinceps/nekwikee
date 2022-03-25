@@ -64,110 +64,106 @@ class _CreditbvnState extends State<Creditbvn> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: ,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: 100.h,
-            child: Column(
-              children: [
-                const Topbar(),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 33, right: 33, ),
-                    
-                    width: 100.w,
-                    color: CustomTheme.presntstate ? applydark : dashboardcard,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Add Bvn",
-                          style: TextStyle(
-                            fontSize: 21,
-                            color: CustomTheme.presntstate ? creditwithdark : primary,
-                            fontWeight: FontWeight.w400
-                          ),
-                        ),
-                        // const SizedBox(height: 25),
-                        
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 20),
-                              Text(
-                                'Enter BVN',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
-                                ),
-                              ),
-                        
-                              
-                              const SizedBox(height: 5),
-                              
-                              TextFormField( 
-                                style: TextStyle(
-                                  color: CustomTheme.presntstate ? whitescaffold : darkscaffold
-                                ),
-                                validator: MultiValidator([
-                                  RequiredValidator(errorText: 'BVN is required.'),
-                                  MinLengthValidator(11, errorText: "BVN whould be more than 10 characters.")
-                                ]),
-                                keyboardType: TextInputType.number,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                onSaved: (val) => applystate.bvndata["bvn"] = val,
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                  fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder:inputborder ,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle: const TextStyle(color: Colors.red),
-                                )
-                              ),
-                            ],
-                          ),
-                        )
-        
-                       
-                        
-                      ],
-                    ),
-                  ),
-                ),
-                Align( 
-                  alignment: FractionalOffset.bottomCenter,
-                  child: GestureDetector(
-                    // onTap: () => Get.toNamed("credit/second"),
-                    onTap: () => validate(),
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      color: const Color.fromRGBO(66, 213, 121, 1),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Next",
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400
-                        ),
+      body: SizedBox(
+        height: 100.h,
+        child: Column(
+          children: [
+            const Topbar(),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(left: 33, right: 33, ),
+                
+                width: 100.w,
+                color: CustomTheme.presntstate ? applydark : dashboardcard,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Add Bvn",
+                      style: TextStyle(
+                        fontSize: 21,
+                        color: CustomTheme.presntstate ? creditwithdark : primary,
+                        fontWeight: FontWeight.w400
                       ),
                     ),
+                    // const SizedBox(height: 25),
+                    
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            'Enter BVN',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                            ),
+                          ),
+                    
+                          
+                          const SizedBox(height: 5),
+                          
+                          TextFormField( 
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                            ),
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'BVN is required.'),
+                              MinLengthValidator(11, errorText: "BVN whould be more than 10 characters.")
+                            ]),
+                            keyboardType: TextInputType.number,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            onSaved: (val) => applystate.bvndata["bvn"] = val,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              filled: true,
+                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                              fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
+                              border: inputborder,
+                              focusedBorder: activeinputborder,
+                              enabledBorder: inputborder,
+                              focusedErrorBorder:inputborder ,
+                              errorBorder: errorborder,
+                              disabledBorder: inputborder,
+                              errorStyle: const TextStyle(color: Colors.red),
+                            )
+                          ),
+                        ],
+                      ),
+                    )
+      
+                   
+                    
+                  ],
+                ),
+              ),
+            ),
+            Align( 
+              alignment: FractionalOffset.bottomCenter,
+              child: GestureDetector(
+                // onTap: () => Get.toNamed("credit/second"),
+                onTap: () => validate(),
+                child: Container(
+                  width: 100.w,
+                  height: 58,
+                  color: const Color.fromRGBO(66, 213, 121, 1),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                      color: white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400
+                    ),
                   ),
                 ),
-                
-              ],
+              ),
             ),
-          ),
+            
+          ],
         ),
       ),
     );
@@ -217,7 +213,7 @@ class Topbar extends StatelessWidget {
         Positioned(
           top: 6.h,
           left: 3.w,
-          child: GestureDetector(
+          child: InkWell(
             onTap: () =>  Get.back(),
             child: Container(
               width: 42,

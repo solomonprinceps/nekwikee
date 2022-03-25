@@ -10,6 +10,10 @@ import 'package:get/get.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'home/profile.dart';
+import 'package:upgrader/upgrader.dart';
+import 'package:new_version/new_version.dart';
+
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -19,6 +23,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   AuthController auth = Get.find<AuthController>();
+  final newVersion = NewVersion(
+    androidId: 'com.moneymarquefinance.kwikee',
+  );
   dynamic passedid;
   int? index = 0;
   final pages =  <Widget>[
@@ -49,12 +56,40 @@ class _HomeState extends State<Home> {
       passedid = Get.arguments;
     });
     if (passedid != null) {
-    setState(() {
-      index = passedid;
-    });
+      setState(() {
+        index = passedid;
+      });
     }
+    // const simpleBehavior = true;
+
+   basicStatusCheck(newVersion);
+    
     super.initState();
   }
+
+
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: context);
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      debugPrint(status.releaseNotes);
+      debugPrint(status.appStoreLink);
+      debugPrint(status.localVersion);
+      debugPrint(status.storeVersion);
+      debugPrint(status.canUpdate.toString());
+      newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: 'Custom Title',
+        dialogText: 'Custom Text',
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +223,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: pages[index!],
+      body: UpgradeAlert(child: pages[index!]),
     );
   }
 }

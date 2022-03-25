@@ -93,7 +93,6 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
       pageBuilder: (_, __, ___) { // your widget implementation 
         return StatefulBuilder(
           builder:  (context, setState) {
-            final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,

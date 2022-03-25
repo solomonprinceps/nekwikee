@@ -377,14 +377,6 @@ class _FirstState extends State<First> {
 
   void _launchInBrowser(String url) async {
     await launch(url);
-    // if (await canLaunch(url.toString())) {
-    //   await launch(
-    //     url.toString(),
-    //   );
-    //   Get.toNamed('althome');
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
   }
 
   Future loadashboard() async {

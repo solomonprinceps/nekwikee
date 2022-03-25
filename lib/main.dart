@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
               themeMode: currentTheme.currentTheme,     
               // themeMode: ThemeMode.light,
               initialRoute: '/first',
-              // initialRoute: '/onboard',
+              // initialRoute: '/terms',
               getPages: approutlist
             ),
           );

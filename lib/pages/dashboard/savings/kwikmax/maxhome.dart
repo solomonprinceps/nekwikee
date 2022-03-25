@@ -348,12 +348,12 @@ class _MaxhomeState extends State<Maxhome> {
                     const SizedBox(height: 20),
                     Container(
                       margin: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.only(top:15, bottom: 15),
                       width: 100.w,
                       height: 91,
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
                             children: [
@@ -377,19 +377,33 @@ class _MaxhomeState extends State<Maxhome> {
                                 child: GestureDetector(
                                   // onTap: () => Get.toNamed("cashback/home"),
                                   onTap: () {
-                                    startCashback(savings["investmentid"]);
+                                    // startCashback(savings["investmentid"]);
+                                    if (int.parse(savings["amount_saved"]) > 1000) {
+                                      startCashback(savings["investmentid"]);
+                                    } else {
+                                      snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
+                                    }
                                   },
                                   child: Container(
                                     width: 42,
                                     height: 42,
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       color: cashbackbackground,
                                       borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Icon(
-                                      FontAwesome.plus_square,
+                                    child: SvgPicture.asset(
+                                      'assets/image/nountransaction.svg',
+                                      semanticsLabel: 'Transactions',
                                       color: goalstext,
+                                      width: 10,
+                                      height: 10,
+                                      // color: white,
                                     ),
+                                    // child: Icon(
+                                    //   FontAwesome.plus_square,
+                                    //   color: goalstext,
+                                    // ),
                                   ),
                                 ),
                               ),
@@ -404,7 +418,7 @@ class _MaxhomeState extends State<Maxhome> {
                               )
                             ],
                           ),
-
+                          SizedBox(width: 15),
                           // Column(
                           //   children: [
                           //     Visibility(
@@ -484,15 +498,22 @@ class _MaxhomeState extends State<Maxhome> {
                                   child: Container(
                                     width: 42,
                                     height: 42,
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       color: savings["can_withdraw"] != 1  ? iconcolorselected.withOpacity(0.4) : iconcolorselected,
                                       borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Icon(
-                                      // FontAwesome.money,
-                                      savings["can_withdraw"] != 1  ? FontAwesome.lock  : FontAwesome.money,
-                                      color: goalstext,
+                                    child: SvgPicture.asset(
+                                      'assets/image/loandocument.svg',
+                                      semanticsLabel: 'Loan document',
+                                      color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
+                                        // color: white,
                                     ),
+                                    // child: Icon(
+                                    //   // FontAwesome.money,
+                                    //   savings["can_withdraw"] != 1  ? FontAwesome.lock  : FontAwesome.money,
+                                    //   color: goalstext,
+                                    // ),
                                   ),
                                 ),
                               ),

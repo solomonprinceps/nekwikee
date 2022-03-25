@@ -4,7 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:kwikee1/themes/apptheme.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';

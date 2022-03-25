@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:kwikee1/controllers/withdrawalcontroller.dart';
+import 'package:kwikee1/pages/terms.dart';
 import 'package:kwikee1/pages/dashboard/credit.dart';
 import 'package:kwikee1/pages/dashboard/credit/camera.dart';
 import 'package:kwikee1/pages/dashboard/credit/stepthree.dart';
@@ -22,7 +23,6 @@ import 'package:kwikee1/pages/dashboard/savings/kwikmax/maxwithdraw.dart';
 import 'package:kwikee1/pages/onboard.dart';
 import 'package:kwikee1/pages/register_steps/enterpasssword.dart';
 import 'package:kwikee1/pages/second.dart';
-import '../pages/homer.dart';
 import '../pages/first.dart';
 import '../pages/second.dart';
 import '../pages/third.dart';
@@ -55,6 +55,12 @@ import '../pages/dashboard/homenav.dart';
 import '../pages/dashboard/savings/kwikgoals/editgoal.dart';
 
 List<GetPage> approutlist = [
+  GetPage(
+    name: '/terms',
+    page: () => const Terms(),
+    transition: Transition.fadeIn,
+    transitionDuration: const Duration(seconds: 1)
+  ),
   GetPage(
     name: '/first',
     page: () => const FirstScreen(),
