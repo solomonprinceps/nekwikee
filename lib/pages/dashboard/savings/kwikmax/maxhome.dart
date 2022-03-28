@@ -378,11 +378,12 @@ class _MaxhomeState extends State<Maxhome> {
                                   // onTap: () => Get.toNamed("cashback/home"),
                                   onTap: () {
                                     // startCashback(savings["investmentid"]);
-                                    if (int.parse(savings["amount_saved"]) > 1000) {
-                                      startCashback(savings["investmentid"]);
-                                    } else {
-                                      snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
-                                    }
+                                    // if (int.parse(savings["amount_saved"]) > 1000) {
+                                    //   startCashback(savings["investmentid"]);
+                                    // } else {
+                                    //   snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
+                                    // }
+                                    Get.toNamed("cashback/list", arguments: savings);
                                   },
                                   child: Container(
                                     width: 42,
@@ -694,6 +695,40 @@ class _MaxhomeState extends State<Maxhome> {
                                       child: Icon(
                                         FontAwesome.angle_down,
                                         size: 25.0,
+                                        color: white,
+                                      )
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: item["transaction_type"] == "4",
+                                    child: Container(
+                                      width: 27,
+                                      height: 27,
+                                      decoration: BoxDecoration(
+                                        color: error,
+                                        shape: BoxShape.circle
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Ionicons.close_outline,
+                                        size: 15.0,
+                                        color: white,
+                                      )
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: item["transaction_type"] == "3",
+                                    child: Container(
+                                      width: 27,
+                                      height: 27,
+                                      decoration: BoxDecoration(
+                                        color: error,
+                                        shape: BoxShape.circle
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Ionicons.close_outline,
+                                        size: 15.0,
                                         color: white,
                                       )
                                     ),

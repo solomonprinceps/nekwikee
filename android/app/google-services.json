@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "472000664666",
+    "project_id": "kwikee-dc3c4",
+    "storage_bucket": "kwikee-dc3c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472000664666:android:d7f0e395994a23426bb463",
+        "android_client_info": {
+          "package_name": "com.moneymarquefinance.kwikee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472000664666-ftvu3ku9i35uj2ls56786mjtnl5f7orc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmEVkdfARIXyGjgrXumnM_9EPPdqvHzDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472000664666-ftvu3ku9i35uj2ls56786mjtnl5f7orc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

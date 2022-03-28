@@ -1218,7 +1218,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                               : creditwithdark,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 5),
                       Text(
                         "Enter the Amount you would like to withdraw today and the payment destination.",
                         style: TextStyle(color: creditwithdark, fontSize: 15),
@@ -1230,7 +1230,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                             Visibility(
                               visible: beneficiaries.isNotEmpty,
                               child: Container(
-                                margin: const EdgeInsets.only(bottom: 10),
+                                // margin: const EdgeInsets.only(bottom: 10),
                                 // padding: const EdgeInsets.all(10),
                                 width: double.infinity,
                                 height: 100,
@@ -1240,19 +1240,27 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
+                                        print(beneficiaries[index]);
                                         saving.savingwithdrawal["beneficiary"] = '1';
                                         modecontroller.text = "Other Account";
+                                        saving.savingwithdrawal["bankcode"] = beneficiaries[index]["bank_code"];
                                         accountno.text = beneficiaries[index]["account_number"];
-                                        saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
-                                        print(beneficiaries[index]);
-                                        banks.forEach((data) {
-                                          if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
-                                            // withdraw.withform["bankcode"] = data["bankcode"];
-                                            bankcontroller.text = data["name"];
-                                            // saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
-                                          }
-                                        });
+                                        bankcontroller.text = beneficiaries[index]["name"];
                                       },
+                                      // onTap: () {
+                                      //   saving.savingwithdrawal["beneficiary"] = '1';
+                                      //   modecontroller.text = "Other Account";
+                                      //   accountno.text = beneficiaries[index]["account_number"];
+                                      //   saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
+                                      //   print(beneficiaries[index]);
+                                      //   banks.forEach((data) {
+                                      //     if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
+                                      //       // withdraw.withform["bankcode"] = data["bankcode"];
+                                      //       bankcontroller.text = data["name"];
+                                      //       // saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
+                                      //     }
+                                      //   });
+                                      // },
                                       child: Container(
                                         margin: const EdgeInsets.only(top: 8, bottom: 8),
                                         padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -1347,7 +1355,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                     },
                                     
                                   ),
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                       
                                   Text(
                                     'Choose Bank ?',
@@ -1384,7 +1392,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                       
                                     ),
                                   ),
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                                   Text(
                                     'Account Number ?',
                                     style: TextStyle(
@@ -1414,7 +1422,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                     
                                   ),
                       
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                                   Text(
                                     'Pin',
                                     style: TextStyle(
@@ -1465,7 +1473,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                       },
                       child: Container(
                         width: 100.w,
-                        height: 58,
+                        height: 48,
                         decoration: BoxDecoration(
                           color: labelactive
                         ),
@@ -1487,7 +1495,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                       },
                       child: Container(
                         width: 100.w,
-                        height: 58,
+                        height: 48,
                         decoration: BoxDecoration(
                           color: registerActioncolor
                         ),

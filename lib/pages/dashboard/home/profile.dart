@@ -42,9 +42,9 @@ class _ProfileState extends State<Profile> {
     authstorage.remove('accessToken');
     authstorage.remove('fingeremail');
     authstorage.remove('fingerpassword');
-    authstorage.remove('passgetstarted');
+    // authstorage.remove('passgetstarted');
     // authstorage.remove('firstmail');
-    Get.offAllNamed("third");
+    Get.offAllNamed("newsplash");
   }
 
   sortsaving() {
@@ -632,7 +632,7 @@ class _ProfileState extends State<Profile> {
                                 onTap: () {
                                   setState(() {
                                     notify = 1;
-                                    displaylist = lite;
+                                    displaylist = lite.reversed.toList();
                                   });
                                 },
                                 child: Container(
@@ -662,7 +662,7 @@ class _ProfileState extends State<Profile> {
                                 onTap: () {
                                   setState(() {
                                     notify = 2;
-                                    displaylist = others;
+                                    displaylist = others.reversed.toList();
                                   });
                                 },
                                 child: Container(
@@ -764,6 +764,38 @@ class _ProfileState extends State<Profile> {
                                                   size: 25.0,
                                                   color: white,
                                                 )),
+                                          ),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] ==  "3",
+                                            child: Container(
+                                              width: 27,
+                                              height: 27,
+                                              decoration: BoxDecoration(
+                                                  color: error,
+                                                  shape: BoxShape.circle),
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                size: 15.0,
+                                                color: white,
+                                              )
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] ==  "4",
+                                            child: Container(
+                                              width: 27,
+                                              height: 27,
+                                              decoration: BoxDecoration(
+                                                  color: error,
+                                                  shape: BoxShape.circle),
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                size: 15.0,
+                                                color: white,
+                                              )
+                                            ),
                                           ),
                                           const SizedBox(width: 20),
                                           Expanded(

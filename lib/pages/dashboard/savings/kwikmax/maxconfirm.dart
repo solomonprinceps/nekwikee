@@ -39,8 +39,8 @@ class _MaxconfirmState extends State<Maxconfirm> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       
       plugin.initialize(publicKey: publicKeyTest);
-      // loadashboard();
-      print('${savingsdata["user"]["card_authorizations"]}');
+      loadashboard();
+      // print('${savingsdata["user"]["card_authorizations"]}');
     });
     super.initState();
   }
@@ -619,7 +619,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        chargeCard();
+                        // chargeCard();
                         if (!isChecked) {
                           snackbar(message: "Accept our terms and conditions", header: "Error", bcolor: error);
                         }

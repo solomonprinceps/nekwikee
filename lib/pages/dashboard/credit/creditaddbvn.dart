@@ -45,10 +45,8 @@ class _CreditbvnState extends State<Creditbvn> {
       // print(value);   
       if (value["status"] == "success") {
         snackbar(message:  value["message"], header: "Success", bcolor: success);
-        
-
         // Get.toNamed('dashboard/apply/one');
-        Get.toNamed('credit/takeselfie', arguments: value["loan_id"]);
+        Get.toNamed('home', arguments: 0);
       }
       if (value["status"] == "error") {
         snackbar(message:  value["message"], header: "Error", bcolor: error);
@@ -152,7 +150,7 @@ class _CreditbvnState extends State<Creditbvn> {
                   color: const Color.fromRGBO(66, 213, 121, 1),
                   alignment: Alignment.center,
                   child: Text(
-                    "Next",
+                    "Submit",
                     style: TextStyle(
                       color: white,
                       fontSize: 15,

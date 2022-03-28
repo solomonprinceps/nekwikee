@@ -10,7 +10,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:kwikee1/themes/apptheme.dart';
-
+import 'package:kwikee1/themes/apptheme.dart';
 class Verifynumber extends StatefulWidget {
   const Verifynumber({Key? key}) : super(key: key);
 
@@ -103,6 +103,7 @@ class _VerifynumberState extends State<Verifynumber> {
         snackbar(message: value?["message"], header: "Success", bcolor: success);  
         // signupstate.verification["otp_id"] = value["otp_id"];
         value["phone_number"] = signup.sendotp["phone_number"];
+        signup.verification["otp_id"] = value["otp_id"];
         // Get.toNamed('register/verifynumber', arguments: value);
       }
       if (value?["status"] == "error") {
@@ -124,10 +125,7 @@ class _VerifynumberState extends State<Verifynumber> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate =
-        MediaQuery.of(context).platformBrightness != Brightness.light
-            ? "light"
-            : "dark";
+    
     return Scaffold(
       backgroundColor: CustomTheme.presntstate ? darkscaffold :  whitescaffold,
       body: SingleChildScrollView(
@@ -160,8 +158,8 @@ class _VerifynumberState extends State<Verifynumber> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 5.h),
                           Text(
@@ -199,7 +197,7 @@ class _VerifynumberState extends State<Verifynumber> {
                                         '${verificationData["phone_number"]}',
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: themestate == "dark"
+                                          color: CustomTheme.presntstate
                                               ? labelactive
                                               : primary,
                                           fontWeight: FontWeight.w500
@@ -221,7 +219,7 @@ class _VerifynumberState extends State<Verifynumber> {
                                     color: CustomTheme.presntstate ? white : black,
                                     fontSize: 25.0,
                                   ),
-                                  autovalidateMode: AutovalidateMode.always,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
                                   withCursor: true,
                                   fieldsCount: 4,
                                   validator: MinLengthValidator(4, errorText: "Pin must be four characters"),
@@ -271,7 +269,7 @@ class _VerifynumberState extends State<Verifynumber> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 13,
-                                        color: themestate == "dark"
+                                        color:CustomTheme.presntstate
                                             ? inputcolordark
                                             : primary
                                       ),
@@ -327,26 +325,26 @@ class _VerifynumberState extends State<Verifynumber> {
                       ),
                     ),
 
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAndToNamed('register/getnumber');  
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 58,
-                        decoration: BoxDecoration(color: labelactive),
-                        child: Center(
-                          child: Text(
-                              'Previous',
-                              style: TextStyle(
-                              color: white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Get.offAndToNamed('register/getnumber');  
+                    //   },
+                    //   child: Container(
+                    //     width: 100.w,
+                    //     height: 58,
+                    //     decoration: BoxDecoration(color: labelactive),
+                    //     child: Center(
+                    //       child: Text(
+                    //           'Previous',
+                    //           style: TextStyle(
+                    //           color: white,
+                    //           fontSize: 18,
+                    //           fontWeight: FontWeight.w300
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

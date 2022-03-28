@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:kwikee1/pages/dashboard/home.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:kwikee1/services/datstruct.dart';
+import 'package:flutterwave/flutterwave.dart';
 import 'dart:ui';
 
 
@@ -33,11 +35,13 @@ class _FirstState extends State<First> {
   bool inital = true;
   bool loading = false;
   bool showbankstatementsetup = false;
+  bool showbvn = false;
   bool showapplyforcredit = false;
   bool continuecreditapply = false;
   bool showsetpin = false;
   bool hasloan = false;
   dynamic paymentcard;
+  String totalsaving = "0"; 
   Map<String, dynamic> loandata = {
     "wallet_balance" : "0",
     "wallet_history": {''
@@ -82,6 +86,47 @@ class _FirstState extends State<First> {
     });
     super.initState();
   }
+
+
+
+
+
+
+
+   _handlePaymentInitialization() async {
+    final flutterwave = Flutterwave.forUIPayment(
+      amount: "10000",
+      currency: "NG",
+      context: this.context,
+      publicKey: "FLWPUBK-8d61486747c22e0f25bc78dd7fd195c7-X",
+      encryptionKey: "35b35441528bc479e5725a1f",
+      email: "ahambasolomon800@gmail.com",
+      fullName: "Test User",
+      txRef: DateTime.now().toIso8601String(),
+      narration: "Example Project",
+      isDebugMode: true,
+      phoneNumber: "2349034426192",
+      acceptAccountPayment: true,
+      acceptCardPayment: true,
+      acceptUSSDPayment: true
+    );
+    final response = await flutterwave.initializeForUiPayments();
+    print(response.data!.status);
+    // if (response != null) {
+    //   this.showLoading(response.data.status);
+    // } else {
+    //   this.showLoading("No Response!");
+    // }
+  }
+
+
+
+
+
+
+
+
+  
 
   Future updatebackcard(String data) async {
     context.loaderOverlay.show();
@@ -207,7 +252,7 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "Earn upto 18% per annum when your lock your funds for a minimum of 30 days Upfront interest",
+                                        "Earn up to 18% per annum when your lock your funds for a minimum of 30 days Upfront interest",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 9,
@@ -346,21 +391,36 @@ class _FirstState extends State<First> {
     }
     return  "kuser-${auth.userdata["id"]}-cardsetup-$numstring";
   }
+  // PaymentCard _getCardFromUI() {
+  //   // Using just the must-required parameters.
+  //   return PaymentCard(
+  //     number: "5555582938475861",
+  //     cvc: "234",
+  //     expiryMonth: 03,
+  //     expiryYear: 25,
+  //   );
+  // }
 
   //async method to charge users card and return a response card_setup_link
   chargeCard() async {
-    
     String refs = _getReference();
     var charge = Charge()
       ..amount = 50 * 100
       ..reference = refs
-      // ..putCustomField('custom_id',
-      //     '846gey6w') //to pass extra parameters to be retrieved on the response from Paystack
+      // ..card = _getCardFromUI()
+      ..putCustomField('custom_id',
+          '846gey6w') //to pass extra parameters to be retrieved on the response from Paystack
       ..email =  auth.userdata["email"];
     CheckoutResponse response = await plugin.checkout(
       context,
       method: CheckoutMethod.card,
+      fullscreen: true,
       charge: charge,
+      logo: Image.asset(
+        "assets/image/newappicon.png",
+        height: 50,
+        width: 50,
+      )
     );
 
     // print(response);
@@ -394,7 +454,26 @@ class _FirstState extends State<First> {
       setState(() {
         dashboards = value;
       });
-      
+      if (value["update_bvn"].toString() == "1") {
+        setState(() {
+          showbvn = true;
+        });
+      }
+
+      // if (value["update_bvn"] == 1) {
+      //   setState(() {
+      //     showbvn = true;
+      //   });
+      // }
+
+      print(value["update_bvn"]);
+
+      print(value["total_savings"].toString());
+      setState(() {
+        totalsaving = value["total_savings"].toString();
+      });
+
+
       if (dashboards["latest_goal"] != null) {
         latestgoal = dashboards["latest_goal"];
         setState(() {
@@ -682,6 +761,186 @@ class _FirstState extends State<First> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           const SizedBox(width: 20),
+                          // Visibility(
+                          //   visible: showgoals,
+                          //   child: GestureDetector(
+                          //     // onTap: () => Get.toNamed('savings/goals/goalshome', arguments: latestgoal["investmentid"]),
+                          //     onTap: () {
+                          //       // addsaving(context);
+                          //       Get.toNamed("home/mov", arguments: 1);
+                          //       print("object");
+                          //     },
+                          //     child: Card(
+                          //       shadowColor: HexColor("#0000000F"),
+                          //       // margin: const EdgeInsets.only(right: 5, left: 5),
+                          //       margin: const EdgeInsets.only(right: 10),
+                          //       child: Container(
+                          //         padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
+                          //         height: 180,
+                          //         width: 150,
+                          //         decoration: BoxDecoration(
+                          //           color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                          //           borderRadius: BorderRadius.circular(5.0),
+                          //           boxShadow: [
+                          //             BoxShadow(
+                          //               color: HexColor("#0000000F"),
+                          //               blurRadius: 3,
+                          //               offset: const Offset(0, 3), // changes position of shadow
+                          //             ),
+                          //           ],
+                          //         ),
+                          //         child: Column(
+                          //           crossAxisAlignment: CrossAxisAlignment.start,
+                          //           children: [
+                          //             // const SizedBox(height: 10),
+                          //             Row(
+                          //               mainAxisAlignment: MainAxisAlignment.start,
+                          //               children: [
+                          //                 Container(
+                          //                   width: 24,
+                          //                   height: 24,
+                          //                   decoration: BoxDecoration(
+                          //                     color: kwikeegoals,
+                          //                     borderRadius: BorderRadius.circular(100)
+                          //                   ),
+                          //                   alignment: Alignment.center,
+                          //                   child: SvgPicture.asset(
+                          //                     'assets/image/goalsicons.svg',
+                          //                     semanticsLabel: 'Target',
+                          //                   ),
+                          //                 ),
+                          //                 const SizedBox(width: 10),
+                          //                 Text(
+                          //                   "Total Savings",
+                          //                   style: TextStyle(
+                          //                     fontSize: 9,
+                          //                     fontWeight: FontWeight.w600,
+                          //                     color: CustomTheme.presntstate ?  darkwhite : primary,
+                          //                   ),
+                          //                 )
+                          //               ],
+                          //             ),
+                                      
+                          //             const SizedBox(height: 30),
+                          //             Text(
+                          //               stringamount(totalsaving.toString()),
+                          //               softWrap: true,
+                          //               overflow: TextOverflow.ellipsis,
+                          //               maxLines: 2,
+                          //               style: TextStyle(
+                          //                 overflow: TextOverflow.ellipsis,
+                          //                 fontSize: 16,
+                          //                 color: CustomTheme.presntstate ?  darkwhite : primary,
+                          //                 fontWeight: FontWeight.w600,
+                          //                 fontFamily: GoogleFonts.roboto().toString(),
+                          //               ),
+                          //             ),
+                                      
+                                      
+                                    
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Visibility(
+                          //   child: Card(
+                          //     shadowColor: HexColor("#0000000F"),
+                          //     margin: const EdgeInsets.only( right: 20),
+                          //     child: GestureDetector(
+                          //       onTap: () {
+                          //         // addsaving(context);
+                          //         Get.toNamed("home/mov", arguments: 1);
+                          //         print("object");
+                          //       },
+                          //       child: Container(
+                          //         padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
+                          //         height: 180,
+                          //         width: 150,
+                          //         decoration: BoxDecoration(
+                          //           // color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                          //           color: registerActioncolor,
+                          //           borderRadius: BorderRadius.circular(5.0),
+                          //           boxShadow: [
+                          //             BoxShadow(
+                          //               color: HexColor("#0000000F"),
+                          //               blurRadius: 3,
+                          //               offset: const Offset(0, 3), // changes position of shadow
+                          //             ),
+                          //           ],
+                          //         ),
+                          //         child: Column(
+                          //           crossAxisAlignment: CrossAxisAlignment.start,
+                          //           children: [
+                          //             Row(
+                          //               mainAxisAlignment: MainAxisAlignment.end,
+                          //               children: [
+                          //                 SvgPicture.asset(
+                          //                   'assets/image/feather-right.svg',
+                          //                   semanticsLabel: 'Action Button',
+                          //                   color: primary,
+                          //                   width: 20,
+                          //                   height: 20,
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //             // const SizedBox(height: 10),
+                          //             const SizedBox(height: 10),
+                          //             Row(
+                          //               mainAxisAlignment: MainAxisAlignment.start,
+                          //               children: [
+                          //                 Container(
+                          //                   width: 46,
+                          //                   height: 46,
+                          //                   decoration: BoxDecoration(
+                          //                     color: registerActioncolor,
+                          //                     borderRadius: BorderRadius.circular(100)
+                          //                   ),
+                          //                   alignment: Alignment.center,
+                          //                   child: SvgPicture.asset(
+                          //                     'assets/image/goalsicons.svg',
+                          //                     semanticsLabel: 'money bill',
+                          //                     width: 40,
+                          //                     height: 40,
+                          //                   ),
+                          //                 )
+                          //               ],
+                          //             ),
+                                      
+                          //             const SizedBox(height: 10),
+                          //             Text(
+                          //               'Total Savings',
+                          //               style: TextStyle(
+                          //                 fontSize: 15,
+                          //                 // color: CustomTheme.presntstate ?  darkwhite : primary,
+                          //                 color: white,
+                          //                 fontWeight: FontWeight.w800
+                          //               ),
+                          //             ),
+                          //             const SizedBox(height: 10),
+                          //             Text(
+                          //               // stringamount(totalsaving),
+                          //               stringamount("9999999"),
+                          //               maxLines: 2,
+                          //               textAlign: TextAlign.left,
+                          //               softWrap: true,
+                          //               overflow: TextOverflow.clip,
+                          //               style: TextStyle(
+                          //                 fontSize: 16.5,
+                          //                 fontFamily: GoogleFonts.roboto().toString(),
+                          //                 // color: CustomTheme.presntstate ?  darkwhite : primary,
+                          //                 color: white,
+                          //                 fontWeight: FontWeight.w600
+                          //               ),
+                          //             ),
+                                    
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Visibility(
                             visible: auth.showapplyforcredit.value,
                             child: GestureDetector(
@@ -844,8 +1103,87 @@ class _FirstState extends State<First> {
                               ),
                             ),
                           ),    
-                
-                          
+                          Visibility(
+                            // visible: auth.showapplyforcredit.value,
+                            visible: showbvn,
+                            child: GestureDetector(
+                              onTap: () => Get.toNamed("credit/addbvn"),
+                              child: Card(
+                                shadowColor: HexColor("#0000000F"),
+                                margin: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
+                                  height: 180,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: HexColor("#0000000F"),
+                                        blurRadius: 3,
+                                        offset: const Offset(0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/image/feather-right.svg',
+                                            semanticsLabel: 'Action Button',
+                                            width: 20,
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 46,
+                                            height: 46,
+                                            decoration: BoxDecoration(
+                                              color: primary,
+                                              borderRadius: BorderRadius.circular(100)
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Ionicons.person_add,
+                                              color: white,
+                                            )
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        'Update Profile',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        'Add your Bank Verification Number to update your acccount.',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 8.5,
+                                          color: CustomTheme.presntstate ?  darkwhite : primary,
+                                          fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           
                           Visibility(
                             visible: auth.showbankstatementsetup.value,
@@ -939,6 +1277,7 @@ class _FirstState extends State<First> {
                             // visible: true,
                             child: GestureDetector(
                               onTap: () => chargeCard(),
+                              // onTap: () => _handlePaymentInitialization(),
                               child: Card(
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
@@ -1138,14 +1477,10 @@ class _FirstState extends State<First> {
                             margin: const EdgeInsets.only( right: 20),
                             child: GestureDetector(
                               onTap: () {
-                                // print('object');
-                                // Get.toNamed('home/mov', arguments: 1);
                                 addsaving(context);
-                                // Get.to(const Homenav(id: 1));
-                                // chargeCard();
                               },
                               child: Container(
-                              padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
+                                padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
                                 height: 180,
                                 width: 150,
                                 decoration: BoxDecoration(
@@ -1218,6 +1553,7 @@ class _FirstState extends State<First> {
                               ),
                             ),
                           ),
+
                         ],
                       ),
                     ),
@@ -1315,6 +1651,40 @@ class _FirstState extends State<First> {
                                   child: Icon(
                                     FontAwesome.angle_down,
                                     size: 25.0,
+                                    color: white,
+                                  )
+                                ),
+                              ),
+                              Visibility(
+                                visible: item["transaction_type"] == "3",
+                                child: Container(
+                                  width: 27,
+                                  height: 27,
+                                  decoration: BoxDecoration(
+                                    color: error,
+                                    shape: BoxShape.circle
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Ionicons.close_outline,
+                                    size: 15.0,
+                                    color: white,
+                                  )
+                                ),
+                              ),
+                              Visibility(
+                                visible: item["transaction_type"] == "4",
+                                child: Container(
+                                  width: 27,
+                                  height: 27,
+                                  decoration: BoxDecoration(
+                                    color: error,
+                                    shape: BoxShape.circle
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Ionicons.close_outline,
+                                    size: 15.0,
                                     color: white,
                                   )
                                 ),

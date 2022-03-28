@@ -124,6 +124,7 @@ class _ChangepasswordState extends State<Changepassword> {
               ),
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 2.h, left: 20, right: 20),
@@ -133,8 +134,8 @@ class _ChangepasswordState extends State<Changepassword> {
                         children: [
                           // SizedBox(height: 15.h),
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 2.h),
                           Text(
@@ -211,7 +212,7 @@ class _ChangepasswordState extends State<Changepassword> {
                                     color: CustomTheme.presntstate ? white : black
                                   ),
                                   validator: RequiredValidator(errorText: "Password is required."),
-                                  keyboardType: TextInputType.name,
+                                  // keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.done,
                                   obscureText: true,
@@ -251,7 +252,7 @@ class _ChangepasswordState extends State<Changepassword> {
                                     }
                                     return null;
                                   },
-                                  keyboardType: TextInputType.name,
+                                  // keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.done,
                                   obscureText: true,

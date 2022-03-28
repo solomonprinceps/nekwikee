@@ -29,7 +29,7 @@ class Logging extends dio.Interceptor {
       SharedPreferences authstorage = await SharedPreferences.getInstance();
       authstorage.remove('user');
       authstorage.remove('accessToken');
-      Get.offAllNamed("/third");
+      Get.offAllNamed("/newsplash");
     }
     return super.onError(err, handler);
   }

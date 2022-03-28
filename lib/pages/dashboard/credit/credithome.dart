@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class Credithome extends StatefulWidget {
   const Credithome({ Key? key }) : super(key: key);
@@ -54,15 +55,7 @@ class _CredithomeState extends State<Credithome> {
         children: [
           Column(
             children: [
-              Container(
-                height: 20.h,
-                width: 100.w,
-                // child: Text("fiosa"),  
-                decoration: BoxDecoration(
-                  color: primary,
-                  image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), fit: BoxFit.cover),
-                ),
-              ),
+              Topbar(),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(left: 33, right: 33, top: 41),
@@ -167,6 +160,68 @@ class _CredithomeState extends State<Credithome> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Topbar extends StatelessWidget {
+  const Topbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(height: 25.h),
+        Container(
+          height: 20.h,
+          width: 100.w,
+          // child: Text("fiosa"),  
+          decoration: BoxDecoration(
+            color: primary,
+            image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+              fit: BoxFit.cover
+            ),
+          ),
+        ),
+        Positioned(
+          top: 16.h,
+          right: 7.w,
+          child: Container(
+            width: 64,
+            height: 64,
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              "assets/image/Iconmoney-bill.svg",
+              semanticsLabel: 'Acme Logo',
+              width: 40,
+              height: 20,
+            ),
+            decoration: BoxDecoration(
+              color: primary,
+              shape: BoxShape.circle
+            ),
+          )
+        ),
+        Positioned(
+          top: 6.h,
+          left: 3.w,
+          child: InkWell(
+            onTap: () =>  Get.back(),
+            child: Container(
+              width: 42,
+              height: 42,
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                FontAwesome.angle_left,
+                color: black,
+              ),
+            
+            ),
+          )
+        ),
+      ],
     );
   }
 }

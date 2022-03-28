@@ -3,6 +3,7 @@ import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:kwikee1/controllers/withdrawalcontroller.dart';
 import 'package:kwikee1/pages/terms.dart';
+import 'package:kwikee1/pages/newsplash1.dart';
 import 'package:kwikee1/pages/dashboard/credit.dart';
 import 'package:kwikee1/pages/dashboard/credit/camera.dart';
 import 'package:kwikee1/pages/dashboard/credit/stepthree.dart';
@@ -50,16 +51,28 @@ import '../pages/dashboard/credit/creditaddbvn.dart';
 import '../pages/dashboard/creditwithdrawal.dart';
 import '../pages/dashboard/savings/kwiklite/litewithdrawal.dart';
 import '../pages/dashboard/savings/cashback/cashbackhome.dart';
+import '../pages/dashboard/savings/cashback/cashbacklisthome.dart';
+import '../pages/dashboard/savings/cashback/cashbackrepay.dart';
 import '../pages/dashboard/savings/cashback/cashconfirm.dart';
 import '../pages/dashboard/homenav.dart';
 import '../pages/dashboard/savings/kwikgoals/editgoal.dart';
+import '../pages/verify.dart';
 
 List<GetPage> approutlist = [
   GetPage(
     name: '/terms',
     page: () => const Terms(),
     transition: Transition.fadeIn,
-    transitionDuration: const Duration(seconds: 1)
+  ),
+  GetPage(
+    name: '/verify',
+    page: () => const Verify(),
+    transition: Transition.fadeIn,
+  ),
+  GetPage(
+    name: '/newsplash',
+    page: () => const Newsplash(),
+    transition: Transition.fadeIn,
   ),
   GetPage(
     name: '/first',
@@ -515,6 +528,29 @@ List<GetPage> approutlist = [
   ),
   //
 
+   GetPage(
+    name: '/cashback/repayment', 
+    page: () => const CashbackRepayment(),
+    binding: BindingsBuilder(
+      () => {
+        Get.put(ApplyController()),
+        Get.put(SavingController()),
+        Get.put(AuthController())
+      },
+    ),
+  ),
+
+  GetPage(
+    name: '/cashback/list', 
+    page: () => const Cashbacklist(),
+    binding: BindingsBuilder(
+      () => {
+        Get.put(ApplyController()),
+        Get.put(SavingController()),
+        Get.put(AuthController())
+      },
+    ),
+  ),
 
   GetPage(
     name: '/cashback/home', 
