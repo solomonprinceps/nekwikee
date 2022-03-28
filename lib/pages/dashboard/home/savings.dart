@@ -192,7 +192,7 @@ class _SavingsState extends State<Savings> {
                                         ),
                                       ),
                                       const Text(
-                                        "Earn upto 18% per annum when your lock your funds for a minimum of 30 days. Upfront interest.",
+                                        "Earn up to 18% per annum when your lock your funds for a minimum of 30 days. Upfront interest.",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 9,

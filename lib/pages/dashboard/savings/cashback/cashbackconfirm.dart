@@ -202,10 +202,10 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                     ),
                                   ),
                                   const SizedBox(height: 30),
-                                  const Text(
+                                  Text(
                                     "Maximum Interest",
                                     style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      color:CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11
                                     ),
@@ -222,10 +222,10 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                               ),
                               Column(
                                 children: [
-                                  const Text(
+                                   Text(
                                     'End Date',
                                     style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      color: CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11
                                     ),
@@ -241,10 +241,10 @@ class _ConfirmCashbackState extends State<ConfirmCashback> {
                                     ),
                                   ),
                                   const SizedBox(height: 30),
-                                  const Text(
+                                  Text(
                                     "Maximum Repayment",
                                     style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      color:CustomTheme.presntstate ? inputcolordark :const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11
                                     ),

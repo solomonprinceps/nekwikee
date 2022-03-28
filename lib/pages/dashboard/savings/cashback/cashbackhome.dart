@@ -330,7 +330,6 @@ class _CashbackhomeState extends State<Cashbackhome> {
                   children:  [
                     Text(
                       stringamount('1000'),
-                      // '',
                       style: const TextStyle(
                         color:Color.fromRGBO(0, 0, 0, 0.08),
                         fontSize: 10,
@@ -338,7 +337,6 @@ class _CashbackhomeState extends State<Cashbackhome> {
                       ),
                     ),
                     Text(
-                      // "N4000",
                       stringamount(cashback["offer_amount"].toString()),
                       style: const TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 0.08),

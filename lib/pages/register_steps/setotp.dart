@@ -86,7 +86,6 @@ class _SetotpState extends State<Setotp> {
 
   @override
   Widget build(BuildContext context) {
-    final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -118,22 +117,16 @@ class _SetotpState extends State<Setotp> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 6.h),
-                          InkWell(
-                            onTap: () {
-                              print(themestate);
-                              currentheme.toggleTheme(CustomTheme.presntstate);
-                            },
-                            child: Text(
-                              'Create PIN',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
-                                color: themestate == "dark" ? white : onboardbackground
-                              ),
+                          Text(
+                            'Create PIN',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              color: CustomTheme.presntstate ? creditwithdark : primary
                             ),
                           ),
                           SizedBox(height: 2.h),
@@ -142,7 +135,7 @@ class _SetotpState extends State<Setotp> {
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
-                              color: themestate == "dark" ? inputcolordark : getstartedp    
+                              color: CustomTheme.presntstate ? inputcolordark : getstartedp 
                             ),
                           ),
                           SizedBox(height: 6.h),
@@ -157,20 +150,20 @@ class _SetotpState extends State<Setotp> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.sp,
-                                    color: resolvePhonecolor(themestate)
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp   
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 TextFormField(
                                   
                                   style: TextStyle(
-                                    color: themestate == "dark" ? whitescaffold : darkscaffold
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
                                   ),
                                   // validator: MinLengthValidator(11, errorText: 'phone number must be atleast 11 digits long'),
                                   validator: MultiValidator([
                                     RequiredValidator(errorText: 'Pin is required'),
-                                    MinLengthValidator(4, errorText: "Pin should be 5 characters"),
-                                    MaxLengthValidator(4, errorText: "Pin should be 5 characters")
+                                    MinLengthValidator(4, errorText: "Pin should be 4 characters"),
+                                    MaxLengthValidator(4, errorText: "Pin should be 4 characters")
                                   ]),
                                   obscureText: true,
                                   keyboardType: TextInputType.number,
@@ -186,18 +179,7 @@ class _SetotpState extends State<Setotp> {
                                       data["pin"] = val;
                                     });
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
+                                  
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
@@ -205,14 +187,14 @@ class _SetotpState extends State<Setotp> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.sp,
-                                    color: resolvePhonecolor(themestate)
+                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp   
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 TextFormField(
                                   
                                   style: TextStyle(
-                                    color: themestate == "dark" ? whitescaffold : darkscaffold
+                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
                                   ),
                                   // validator: MinLengthValidator(11, errorText: 'phone number must be atleast 11 digits long'),
                                   validator: (val) {
@@ -243,18 +225,7 @@ class _SetotpState extends State<Setotp> {
                                       data["pin_confirmation"] = val;
                                     }); 
                                   },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: themestate == 'dark' ? inputcolordark : inputColor,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder:inputborder ,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
+                                 
                                 ),
                                 SizedBox(height: 5.h),
                                 // Text(

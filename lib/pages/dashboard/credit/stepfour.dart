@@ -301,8 +301,9 @@ class _EmploymentinfoState extends State<Employmentinfo> {
               child: SizedBox(
                 height: 140,
                 child: CupertinoDatePicker(
-                  minimumDate: DateTime.now(),
+                  minimumDate: DateTime(1914),
                   initialDateTime: DateTime.now(),
+                  maximumDate: DateTime.now(),
                   mode: CupertinoDatePickerMode.date,
                   onDateTimeChanged: (val) {
                     // print(val);

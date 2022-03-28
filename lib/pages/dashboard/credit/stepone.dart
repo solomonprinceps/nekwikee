@@ -328,31 +328,31 @@ class _CreditfirstState extends State<Creditfirst> {
                             ),
                           ),
                           const SizedBox(height: 7),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: "Want to Edit; Go to ",
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 9,
-                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                                    fontWeight: FontWeight.w500
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: 'Settings',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: CustomTheme.presntstate ? creditwithdark : primary 
-                                      )
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     RichText(
+                          //       text: TextSpan(
+                          //         text: "Want to Edit; Go to ",
+                          //         style: TextStyle(
+                          //           overflow: TextOverflow.ellipsis,
+                          //           fontSize: 9,
+                          //           color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                          //           fontWeight: FontWeight.w500
+                          //         ),
+                          //         children: <TextSpan>[
+                          //           TextSpan(
+                          //             text: 'Settings',
+                          //             style: TextStyle(
+                          //               fontWeight: FontWeight.w700,
+                          //               color: CustomTheme.presntstate ? creditwithdark : primary 
+                          //             )
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(height: 15),
                           SizedBox(
                             width: 100.w,

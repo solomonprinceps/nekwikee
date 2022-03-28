@@ -132,8 +132,8 @@ class _ChangepinState extends State<Changepin> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 6.h),
                           Text(
@@ -254,7 +254,7 @@ class _ChangepinState extends State<Changepin> {
                                   ),
                                   validator: RequiredValidator(errorText: 'Password is required.'),
                                   
-                                  keyboardType: TextInputType.name,
+                                  // keyboardType: TextInputType.visiblePassword,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.done,
                                   obscureText: true,

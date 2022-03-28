@@ -144,8 +144,8 @@ class _PasswordState extends State<Password> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 7.h),
                           Text(
@@ -188,7 +188,7 @@ class _PasswordState extends State<Password> {
                                   ),
                                   obscureText: true,
                                   validator: RequiredValidator(errorText: 'Password is required.'),
-                                  keyboardType: TextInputType.name,
+                                  // keyboardType: TextInputType.,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.next,
                                   onChanged: (val) => backendata["pin"] = val,
@@ -219,7 +219,7 @@ class _PasswordState extends State<Password> {
                                     }
                                     return null;
                                   },
-                                  keyboardType: TextInputType.name,
+                                  // keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   textInputAction: TextInputAction.done,
                                   

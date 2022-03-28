@@ -167,6 +167,23 @@ class SavingController extends GetxController {
     return bodydata;
   }
 
+
+  Future <dynamic> paycashbacklite({required Map data}) async {
+    dynamic bodydata;
+    await dioclient.paycashbacklite(data: data).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
+
+
+  Future <dynamic> paycashbackcard({required Map data}) async {
+    dynamic bodydata;
+    await dioclient.paycashbackcard(data: data).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
   
 
   Future<dynamic> addfundGoals(Map data) async {

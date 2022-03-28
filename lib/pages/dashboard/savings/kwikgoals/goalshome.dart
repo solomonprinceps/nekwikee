@@ -654,6 +654,40 @@ class _GoalshomeState extends State<Goalshome> {
                                             )
                                           ),
                                         ),
+                                        Visibility(
+                                          visible: item["transaction_type"] == "4",
+                                          child: Container(
+                                            width: 27,
+                                            height: 27,
+                                            decoration: BoxDecoration(
+                                              color: error,
+                                              shape: BoxShape.circle
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Ionicons.close_outline,
+                                              size: 15.0,
+                                              color: white,
+                                            )
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: item["transaction_type"] == "3",
+                                          child: Container(
+                                            width: 27,
+                                            height: 27,
+                                            decoration: BoxDecoration(
+                                              color: error,
+                                              shape: BoxShape.circle
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Ionicons.close_outline,
+                                              size: 15.0,
+                                              color: white,
+                                            )
+                                          ),
+                                        ),
                                         const SizedBox(width: 20),
                                         Expanded(
                                           flex: 1,

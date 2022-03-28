@@ -371,7 +371,7 @@ class _LitehomeState extends State<Litehome> {
                 ),
                 const SizedBox(height: 20),
                 Visibility(
-                    visible: loading,
+                  visible: loading,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Shimmer.fromColors(
@@ -453,6 +453,40 @@ class _LitehomeState extends State<Litehome> {
                                     child: Icon(
                                       FontAwesome.angle_down,
                                       size: 25.0,
+                                      color: white,
+                                    )
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: item["transaction_type"] == "4",
+                                  child: Container(
+                                    width: 27,
+                                    height: 27,
+                                    decoration: BoxDecoration(
+                                      color: error,
+                                      shape: BoxShape.circle
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Ionicons.close_outline,
+                                      size: 15.0,
+                                      color: white,
+                                    )
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: item["transaction_type"] == "3",
+                                  child: Container(
+                                    width: 27,
+                                    height: 27,
+                                    decoration: BoxDecoration(
+                                      color: error,
+                                      shape: BoxShape.circle
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Ionicons.close_outline,
+                                      size: 15.0,
                                       color: white,
                                     )
                                   ),

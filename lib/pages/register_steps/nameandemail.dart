@@ -109,8 +109,8 @@ class _NameandemailState extends State<Nameandemail> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 3.h),
                           Text(
@@ -204,18 +204,18 @@ class _NameandemailState extends State<Nameandemail> {
                                   onSaved: (val) => backendata["email"] = val,
                                 ),
                                 SizedBox(height: 2.h),
-                                Text(
-                                  'Ensure to put in accurate information that tallies with the information on your Salary Bank Account.',
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    height: 1.2,
-                                    fontSize: 12,
-                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
-                                  ),
-                                ),
+                                // Text(
+                                //   'Ensure to put in accurate information that tallies with the information on your Salary Bank Account.',
+                                //   maxLines: 2,
+                                //   softWrap: true,
+                                //   overflow: TextOverflow.ellipsis,
+                                //   style: TextStyle(
+                                //     fontWeight: FontWeight.w300,
+                                //     height: 1.2,
+                                //     fontSize: 12,
+                                //     color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                //   ),
+                                // ),
                               ],
                             )
                           )

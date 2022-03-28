@@ -11,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/controllers/logincontroller.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
+import 'package:kwikee1/services/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -94,14 +95,14 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> _authenticateMe() async {
-    // if (loginstate.finger["email"] == '' || loginstate.finger["email"] == 'null' || loginstate.finger["email"] == null) {
-    //   snackbar(message: "Manual login required.", header: "Error", bcolor: error);
-    //   return;
-    // }
-    // if (loginstate.finger["pin"] == '' || loginstate.finger["pin"] == 'null' || loginstate.finger["pin"] == null) {
-    //   snackbar(message: "Manual login required.", header: "Error", bcolor: error);
-    //   return;
-    // }
+    if (loginstate.finger["email"] == '' || loginstate.finger["email"] == 'null' || loginstate.finger["email"] == null) {
+      snackbar(message: "Manual login required.", header: "Error", bcolor: error);
+      return;
+    }
+    if (loginstate.finger["pin"] == '' || loginstate.finger["pin"] == 'null' || loginstate.finger["pin"] == null) {
+      snackbar(message: "Manual login required.", header: "Error", bcolor: error);
+      return;
+    }
     bool authenticated = false;
     try {
       const iosStrings =  IOSAuthMessages(
@@ -203,7 +204,7 @@ class _LoginState extends State<Login> {
         print(resp?["user"]);
         loginstate.savefingerdata(loginstate.login["email"].toString(), loginstate.login["pin"].toString());
         loginstate.logging(resp?["user"], resp?["access_token"]);
-        Get.offAllNamed('third');
+        Get.offAllNamed('home');
         return;
       }
     }).catchError((err) {
@@ -266,8 +267,8 @@ class _LoginState extends State<Login> {
                         children: [
                           const SizedBox(height: 30),
                           Image.asset(
-                            'assets/image/reglogo.png',
-                            // width: 60.w,
+                            'assets/image/newlogo1.png',
+                            width: 60.w,
                           ),
                           SizedBox(height: 7.h),
                           Text(
@@ -340,7 +341,7 @@ class _LoginState extends State<Login> {
                                         ),
                                         obscureText: true,
                                         validator: RequiredValidator(errorText: 'Password is required.'),
-                                        keyboardType: TextInputType.name,
+                                        // keyboardType: TextInputType.name,
                                         autovalidateMode: AutovalidateMode.onUserInteraction,
                                         textInputAction: TextInputAction.done,
                                         onSaved: (val) {
@@ -380,7 +381,6 @@ class _LoginState extends State<Login> {
                                 ),
                                 const SizedBox(height: 20),
                                 SizedBox(
-                                  
                                   child: RichText(
                                     text: TextSpan(
                                       children:  <TextSpan>[
@@ -460,7 +460,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                    )            
+                    )
                   ],
                 ),
               ),

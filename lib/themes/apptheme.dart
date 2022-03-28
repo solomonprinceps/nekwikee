@@ -50,6 +50,7 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       primaryColor: Colors.lightBlue,
       // accentColor: primary,
+      primarySwatch: Colors.blue,
       backgroundColor: Colors.white,
       // cursorColor: Colors.red,
       textSelectionTheme: const TextSelectionThemeData(
@@ -61,7 +62,7 @@ class CustomTheme with ChangeNotifier {
         // onPrimary: primary,
         secondary: creditcolordark
       ),
-       inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
         fillColor: inputColor,
@@ -88,7 +89,8 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      primaryColor: Colors.black,
+      primaryColor: Colors.white,
+      primarySwatch: Colors.blue,
       colorScheme: ColorScheme.dark(
         // primary: dackmodedashboardcaard,
         // onPrimary: darkwhite,
