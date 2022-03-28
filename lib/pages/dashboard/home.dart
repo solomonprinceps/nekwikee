@@ -200,88 +200,90 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: !CustomTheme.presntstate ? HexColor('#CCCCCC').withOpacity(0.46) : darkbottomtype
-        ),
-        height: 60,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10, ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () => changetab(1),
-                child: Column(
-                  children: [
-                    SvgPicture.asset(
-                      index == 1
-                          ? 'assets/image/savingactive.svg'
-                          : 'assets/image/savinginactive.svg',
-                      semanticsLabel: 'Savings',
-                      // color: index == 1 ? iconcolorselected : iconcolor,
-                      // color: Colors.red,
-                    ),
-                    Text(
-                      "Savings",
-                      style: TextStyle(
-                        color: !CustomTheme.presntstate ? index == 1 ? iconcolorselected : black : index == 1 ? iconcolorselected : white,
-                        fontWeight: index == 1 ? FontWeight.w600 : FontWeight.w500,
-                        fontSize: 10
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: !CustomTheme.presntstate ? HexColor('#CCCCCC').withOpacity(0.46) : darkbottomtype
+          ),
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () => changetab(1),
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        index == 1
+                            ? 'assets/image/savingactive.svg'
+                            : 'assets/image/savinginactive.svg',
+                        semanticsLabel: 'Savings',
+                        // color: index == 1 ? iconcolorselected : iconcolor,
+                        // color: Colors.red,
                       ),
-                    )
-                  ],
+                      Text(
+                        "Savings",
+                        style: TextStyle(
+                          color: !CustomTheme.presntstate ? index == 1 ? iconcolorselected : black : index == 1 ? iconcolorselected : white,
+                          fontWeight: index == 1 ? FontWeight.w600 : FontWeight.w500,
+                          fontSize: 10
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () => changetab(0),
-                child: Column(
-                  children: [
-                    SvgPicture.asset(
-                      index == 0
-                          ? 'assets/image/homeIconactive.svg'
-                          : 'assets/image/homeIcon.svg',
-                      semanticsLabel: 'Home Icon',
-                      // color: index == 0 ? iconcolorselected : iconcolor,
-                    ),
-                    Text(
-                      "Home",
-                      style: TextStyle(
-                        color: !CustomTheme.presntstate ? index == 0 ? iconcolorselected : black : index == 0 ? iconcolorselected : white,
-                        fontWeight: index == 0 ? FontWeight.w600 : FontWeight.w500,
-                        fontSize: 10
-                    ),
-                    )
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () => changetab(2),
-                child: Column(
-                  children: [
-                    SvgPicture.asset(
-                      index == 2
-                          ?
-                          // profileIconactive.svg
-                          'assets/image/profileIconactive.svg'
-                          : 'assets/image/profileIcon.svg',
-                      semanticsLabel: 'money bill',
-                      // color: index == 2 ? iconcolorselected : iconcolor,
-                    ),
-                    Text(
-                      "Profile",
-                      style: TextStyle(
-                       color: !CustomTheme.presntstate ? index == 2 ? iconcolorselected : black : index == 2 ? iconcolorselected : white,
-                        fontWeight: index == 2 ? FontWeight.w600 : FontWeight.w500,
-                        fontSize: 10
+                InkWell(
+                  onTap: () => changetab(0),
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        index == 0
+                            ? 'assets/image/homeIconactive.svg'
+                            : 'assets/image/homeIcon.svg',
+                        semanticsLabel: 'Home Icon',
+                        // color: index == 0 ? iconcolorselected : iconcolor,
                       ),
-                    )
-                  ],
+                      Text(
+                        "Home",
+                        style: TextStyle(
+                          color: !CustomTheme.presntstate ? index == 0 ? iconcolorselected : black : index == 0 ? iconcolorselected : white,
+                          fontWeight: index == 0 ? FontWeight.w600 : FontWeight.w500,
+                          fontSize: 10
+                      ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                InkWell(
+                  onTap: () => changetab(2),
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        index == 2
+                            ?
+                            // profileIconactive.svg
+                            'assets/image/profileIconactive.svg'
+                            : 'assets/image/profileIcon.svg',
+                        semanticsLabel: 'money bill',
+                        // color: index == 2 ? iconcolorselected : iconcolor,
+                      ),
+                      Text(
+                        "Profile",
+                        style: TextStyle(
+                         color: !CustomTheme.presntstate ? index == 2 ? iconcolorselected : black : index == 2 ? iconcolorselected : white,
+                          fontWeight: index == 2 ? FontWeight.w600 : FontWeight.w500,
+                          fontSize: 10
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
