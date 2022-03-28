@@ -5,13 +5,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'styles.dart';
+import 'package:kwikee1/services/notification.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -24,30 +23,31 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  // print('A bg message just showed up :  ${message.messageId}');
-  print('background message ${message.notification!.body}');
-  // Get.toNamed("/profile/changepin", arguments: 0);
-  // Navigator.pushNamed(context, routeName)
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   // print('A bg message just showed up :  ${message.messageId}');
+//   print('background message ${message.notification!.body}');
+//   // Get.toNamed("/profile/changepin", arguments: 0);
+//   // Navigator.pushNamed(context, routeName)
+// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await PushNotificationService().setupInteractedMessage();
+  // await Firebase.initializeApp();
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
+  // await flutterLocalNotificationsPlugin
+  //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+  //     ?.createNotificationChannel(channel);
 
       
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
   runApp(const MyApp());
 }
 
@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: CustomTheme.presntstate ? Colors.white : Colors.black,
       systemNavigationBarColor: CustomTheme.presntstate ? HexColor('#303753') : Colors.white,
     ));
     return GlobalLoaderOverlay(

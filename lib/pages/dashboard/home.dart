@@ -98,26 +98,8 @@ class _HomeState extends State<Home> {
       }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            title: Text(notification.title!),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(notification.body!)],
-              ),
-            ),
-          );
-        });
-      }
-    });
+    
+
     setState(() {
       passedid = Get.arguments;
     });
@@ -203,7 +185,7 @@ class _HomeState extends State<Home> {
                 
                 InkWell(
                   // onTap: () => logout(),
-                  // onTap: () => showNotification(),
+                  onTap: () => showNotification(),
                   child: Icon(
                     FontAwesome.bell,
                     color: registerActioncolor,
