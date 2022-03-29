@@ -117,169 +117,167 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
           ],
           elevation: 0,
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-            child: Center(
-              child: ListView(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // SizedBox(height: 3.h),
-                  Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: savingmonth,
-                          shape: BoxShape.circle
-                        ),
-                        child: SvgPicture.asset(
-                          'assets/image/circlemax.svg',
-                          semanticsLabel: 'Target',
-                          // color: white,
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        "Add Fund",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 30,
-                          color: CustomTheme.presntstate ? creditwithdark : primary 
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 2.h),
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      // height: ,
-                      padding: const EdgeInsets.all(20),
-                      // alignment: Alignment.center,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          child: Center(
+            child: ListView(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // SizedBox(height: 3.h),
+                Row(
+                  children: [
+                    Container(
+                      width: 45,
+                      height: 45,
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
-                        borderRadius: BorderRadius.circular(5)
+                        color: savingmonth,
+                        shape: BoxShape.circle
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 30),
-                          Text(
-                            "KWIK GOALS",
-                            // "GOALS - ${savings["savings_name"].toUpperCase()}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: primary
-                            ),
-                          ),
-                          Text(
-                            stringamount(savings?["amount_saved"].toString()),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 42,
-                              fontFamily: GoogleFonts.roboto().toString(),
-                              color: savingmonth
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                
-                                Text(
-                                  'Amount',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                TextFormField( 
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold,
-                                    fontFamily: GoogleFonts.roboto().toString(),
-                                  ),
-                                  // obscureText: true,
-                                  controller: amount,
-                                  validator: RequiredValidator(errorText: 'Amount is required.'),
-                                  keyboardType: TextInputType.number,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  // initialValue: savings["amount_saved"].toString(),
-                                  inputFormatters: [
-                                    CurrencyTextInputFormatter(
-                                    locale: 'en',
-                                    decimalDigits: 0,
-                                    symbol: '₦',
-                                  )],
-                                  onSaved: (val) {
-                                    // saving.savingwithdrawal["amount"] = saving.goalformatamount(val);
-                                    setState(() {
-                                      data["amount"] = saving.goalformatamount(val);
-                                    });
-                                  },
-                                  
-                                ),
-                                SizedBox(height: 2.h),
-                                Text(
-                                  'FUND KWIKLITE',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp
-                                  ),
-                                ),
-                                
-                              ],
-                            )
-                          ),
-                          const SizedBox(height: 15),
-                          
-                          Text(
-                            "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to this savings",
-                            style: TextStyle(
-                              // color: getstartedp.withOpacity(0.42),
-                              color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp,
-                              fontSize: 11
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          GestureDetector(
-                            onTap: () => validate(),
-                            child: Container(
-                              height: 44,
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: registerActioncolor,
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Text(
-                                "Add Fund",
-                                style: TextStyle(
-                                  color: white,
-                                  fontSize: 18
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                      child: SvgPicture.asset(
+                        'assets/image/circlemax.svg',
+                        semanticsLabel: 'Target',
+                        // color: white,
                       ),
                     ),
+                    const SizedBox(width: 20),
+                    Text(
+                      "Add Fund",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 30,
+                        color: CustomTheme.presntstate ? creditwithdark : primary 
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 2.h),
+                SingleChildScrollView(
+                  child: Container(
+                    width: double.infinity,
+                    // height: ,
+                    padding: const EdgeInsets.all(20),
+                    // alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30),
+                        Text(
+                          "KWIK GOALS",
+                          // "GOALS - ${savings["savings_name"].toUpperCase()}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                            color: primary
+                          ),
+                        ),
+                        Text(
+                          stringamount(savings?["amount_saved"].toString()),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 42,
+                            fontFamily: GoogleFonts.roboto().toString(),
+                            color: savingmonth
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              
+                              Text(
+                                'Amount',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField( 
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ? whitescaffold : darkscaffold,
+                                  fontFamily: GoogleFonts.roboto().toString(),
+                                ),
+                                // obscureText: true,
+                                controller: amount,
+                                validator: RequiredValidator(errorText: 'Amount is required.'),
+                                keyboardType: TextInputType.number,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                textInputAction: TextInputAction.done,
+                                // initialValue: savings["amount_saved"].toString(),
+                                inputFormatters: [
+                                  CurrencyTextInputFormatter(
+                                  locale: 'en',
+                                  decimalDigits: 0,
+                                  symbol: '₦',
+                                )],
+                                onSaved: (val) {
+                                  // saving.savingwithdrawal["amount"] = saving.goalformatamount(val);
+                                  setState(() {
+                                    data["amount"] = saving.goalformatamount(val);
+                                  });
+                                },
+                                
+                              ),
+                              SizedBox(height: 2.h),
+                              Text(
+                                'FUND KWIKLITE',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp
+                                ),
+                              ),
+                              
+                            ],
+                          )
+                        ),
+                        const SizedBox(height: 15),
+                        
+                        Text(
+                          "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to this savings",
+                          style: TextStyle(
+                            // color: getstartedp.withOpacity(0.42),
+                            color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp,
+                            fontSize: 11
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () => validate(),
+                          child: Container(
+                            height: 44,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: registerActioncolor,
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Text(
+                              "Add Fund",
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 18
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

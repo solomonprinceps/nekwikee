@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:uni_links/uni_links.dart';
+import 'package:lottie/lottie.dart';
 
 class Newsplash extends StatefulWidget {
   const Newsplash({ Key? key }) : super(key: key);
@@ -34,7 +35,7 @@ class _NewsplashState extends State<Newsplash> {
     print(token);
     print("statebool");
     print(statebool);
-    Timer(const Duration(milliseconds: 2000), () {
+    Timer(const Duration(milliseconds: 4000), () {
       if (token != null) {
         // Get.offAllNamed("onboard");
         Get.offAllNamed('home');
@@ -66,7 +67,8 @@ class _NewsplashState extends State<Newsplash> {
       width: 100.w,
       color: white,
       child: Center(
-        child: Image.asset('assets/image/newsplash3.jpeg')
+        // child: Image.asset('assets/image/newsplash3.jpeg')
+        child: Lottie.asset('assets/image/Kwikee_Splash.json'),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 CustomTheme currentTheme = CustomTheme();
 
@@ -78,7 +79,8 @@ class CustomTheme with ChangeNotifier {
       textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
-        elevation: 0
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark, // 2
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
         shape: CircularNotchedRectangle(),
@@ -106,7 +108,7 @@ class CustomTheme with ChangeNotifier {
         border: inputborder,
         focusedBorder: activeinputborder,
         enabledBorder: inputborder,
-        focusedErrorBorder:inputborder ,
+        focusedErrorBorder:inputborder,
         errorBorder: errorborder,
         disabledBorder: inputborder,
         errorStyle: const TextStyle(color: Colors.red),
@@ -117,6 +119,7 @@ class CustomTheme with ChangeNotifier {
       textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0
       ),
       bottomAppBarTheme: BottomAppBarTheme(

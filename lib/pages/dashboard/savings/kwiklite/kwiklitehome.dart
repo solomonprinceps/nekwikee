@@ -514,7 +514,7 @@ class _LitehomeState extends State<Litehome> {
                                             Text(
                                               item["giroreference"].toString(),
                                               style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 9.5,
                                                 fontWeight: FontWeight.w400,
                                                 color: CustomTheme.presntstate ? white : listingtextlight
                                               ),
@@ -523,7 +523,7 @@ class _LitehomeState extends State<Litehome> {
                                               // "15 Oct, 2022.",
                                               dateformater(item["created_at"].toString()),
                                               style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 9.5,
                                                 fontWeight: FontWeight.w400,
                                                 color: CustomTheme.presntstate ? white : listingtextdatelight
                                               ),

@@ -254,7 +254,7 @@ class _FirstState extends State<First> {
                                         "Earn up to 18% per annum when your lock your funds for a minimum of 30 days Upfront interest",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           // letterSpacing: 13,
                                           fontWeight: FontWeight.w600,
                                           color: Color.fromRGBO(246, 251, 254, 0.42),
@@ -334,7 +334,7 @@ class _FirstState extends State<First> {
                                       const Text(
                                         "Acheive you target, save towards a particular goal. 12% per annum",
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                           color:Color.fromRGBO(246, 251, 254, 0.42)
                                         ),
@@ -812,7 +812,7 @@ class _FirstState extends State<First> {
                           //                 Text(
                           //                   "Total Savings",
                           //                   style: TextStyle(
-                          //                     fontSize: 9,
+                          //                     fontSize: 10,
                           //                     fontWeight: FontWeight.w600,
                           //                     color: CustomTheme.presntstate ?  darkwhite : primary,
                           //                   ),
@@ -1009,7 +1009,7 @@ class _FirstState extends State<First> {
                                         'Get your kwikee credit card funded and withdraw at will.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 8.5,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1090,7 +1090,7 @@ class _FirstState extends State<First> {
                                         'Reach your goals quicker and easier with savings and investment with Kwikee.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 8.5,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1149,7 +1149,7 @@ class _FirstState extends State<First> {
                                               color: primary,
                                               borderRadius: BorderRadius.circular(100)
                                             ),
-                                            alignment: Alignment.center,
+                                            // alignment: Alignment.center,
                                             child: Icon(
                                               Ionicons.person_add,
                                               color: white,
@@ -1171,7 +1171,7 @@ class _FirstState extends State<First> {
                                         'Add your Bank Verification Number to update your acccount.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 8.5,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1234,7 +1234,7 @@ class _FirstState extends State<First> {
                                               shape: BoxShape.circle
                                               // borderRadius: BorderRadius.circular(100)
                                             ),
-                                            alignment: Alignment.center,
+                                            // alignment: Alignment.center,
                                             child: Icon(
                                               FontAwesome5Solid.piggy_bank,
                                               color: white,
@@ -1257,7 +1257,7 @@ class _FirstState extends State<First> {
                                         'Link your acccount to increase your credit score.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 8.5,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1322,7 +1322,7 @@ class _FirstState extends State<First> {
                                               shape: BoxShape.circle
                                               // borderRadius: BorderRadius.circular(100)
                                             ),
-                                            alignment: Alignment.center,
+                                            // alignment: Alignment.center,
                                             child: Icon(
                                               FontAwesome.cc_mastercard,
                                               color: white,
@@ -1345,7 +1345,7 @@ class _FirstState extends State<First> {
                                         'Link your bank card to get funds disbursed into your wallet.',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 8.5,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1406,7 +1406,7 @@ class _FirstState extends State<First> {
                                           Text(
                                             "Goals",
                                             style: TextStyle(
-                                              fontSize: 9,
+                                              fontSize: 10,
                                               fontWeight: FontWeight.w600,
                                               color: CustomTheme.presntstate ?  darkwhite : primary,
                                             ),
@@ -1455,7 +1455,7 @@ class _FirstState extends State<First> {
                                         '${latestgoal["matures_in"].toString()}',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           color: CustomTheme.presntstate ?  darkwhite : primary.withOpacity(0.27),
                                           fontWeight: FontWeight.w400
                                         ),
@@ -1541,7 +1541,7 @@ class _FirstState extends State<First> {
                                       'Reach your goals quicker & easier with savings and investment with Kwikee.',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        fontSize: 8.5,
+                                        fontSize: 10,
                                         color: CustomTheme.presntstate ?  darkwhite : primary,
                                         fontWeight: FontWeight.w400
                                       ),
@@ -1711,7 +1711,7 @@ class _FirstState extends State<First> {
                                           Text(
                                             item["giroreference"].toString(),
                                             style: TextStyle(
-                                              fontSize: 8,
+                                              fontSize: 9.5,
                                               fontWeight: FontWeight.w400,
                                               color: CustomTheme.presntstate ?  white : black
                                             ),
@@ -1720,7 +1720,7 @@ class _FirstState extends State<First> {
                                             // "15 Oct, 2022.",
                                             dateformater(item["created_at"].toString()),
                                             style: TextStyle(
-                                              fontSize: 8,
+                                              fontSize: 9.5,
                                               fontWeight: FontWeight.w400,
                                               color: CustomTheme.presntstate ?  white : black
                                             ),
@@ -1819,7 +1819,7 @@ class _FirstState extends State<First> {
                     //                   Text(
                     //                     "TRNX928292768303;",
                     //                     style: TextStyle(
-                    //                       fontSize: 8,
+                    //                       fontSize: 9.5,
                     //                       fontWeight: FontWeight.w400,
                     //                       color: listingtextlight
                     //                     ),
@@ -1827,7 +1827,7 @@ class _FirstState extends State<First> {
                     //                   Text(
                     //                     "15 Oct, 2022.",
                     //                     style: TextStyle(
-                    //                       fontSize: 8,
+                    //                       fontSize: 9.5,
                     //                       fontWeight: FontWeight.w400,
                     //                       color: listingtextdatelight
                     //                     ),
@@ -1894,7 +1894,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "TRNX928292768303;",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextlight
                 //                         ),
@@ -1902,7 +1902,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "15 Oct, 2022.",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextdatelight
                 //                         ),
@@ -1969,7 +1969,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "TRNX928292768303;",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextlight
                 //                         ),
@@ -1977,7 +1977,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "15 Oct, 2022.",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextdatelight
                 //                         ),
@@ -2044,7 +2044,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "TRNX928292768303;",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextlight
                 //                         ),
@@ -2052,7 +2052,7 @@ class _FirstState extends State<First> {
                 //                       Text(
                 //                         "15 Oct, 2022.",
                 //                         style: TextStyle(
-                //                           fontSize: 8,
+                //                           fontSize: 9.5,
                 //                           fontWeight: FontWeight.w400,
                 //                           color: listingtextdatelight
                 //                         ),

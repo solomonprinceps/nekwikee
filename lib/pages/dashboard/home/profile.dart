@@ -823,7 +823,7 @@ class _ProfileState extends State<Profile> {
                                                         Text(
                                                           displaylist[index]["giroreference"].toString(),
                                                           style: TextStyle(
-                                                            fontSize: 8,
+                                                            fontSize: 9.5,
                                                             fontWeight: FontWeight.w400,
                                                             color: CustomTheme.presntstate ?  white : black
                                                           ),
@@ -832,7 +832,7 @@ class _ProfileState extends State<Profile> {
                                                           // "15 Oct, 2022.",
                                                           dateformater(displaylist[index]["created_at"].toString()),
                                                           style: TextStyle(
-                                                            fontSize: 8,
+                                                            fontSize: 9.5,
                                                             fontWeight: FontWeight.w400,
                                                             color: CustomTheme.presntstate ?  white : black
                                                           ),
