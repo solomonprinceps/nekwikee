@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
+      statusBarColor: CustomTheme.presntstate ?  HexColor('#303753') : white,
       systemNavigationBarColor: CustomTheme.presntstate ? HexColor('#303753') : Colors.white,
     ));
     return GlobalLoaderOverlay(

@@ -71,7 +71,6 @@ class _LoginState extends State<Login> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   TextEditingController emailfeild = TextEditingController();
   String _message = "Not Authorized";
-
   Future<bool> checkingForBioMetrics() async {
     bool canCheckBiometrics = await _localAuthentication.canCheckBiometrics;
     // print(canCheckBiometrics);
@@ -144,7 +143,7 @@ class _LoginState extends State<Login> {
       print(resp);
       if (resp["status"] == "success") {
         loginstate.logging(resp["user"], resp["access_token"]);
-        Get.offAllNamed('first');
+        Get.offAllNamed('newsplash');
       }
       if (resp["status"] == "error") {
         Get.snackbar(
@@ -178,6 +177,7 @@ class _LoginState extends State<Login> {
       // );
     });
   }
+
 
   login() async {
     context.loaderOverlay.show();
@@ -280,13 +280,28 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           SizedBox(height: 2.h),
-                          Text(
-                            'Enter your credentials to log in to your Kwikee account.',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              height: 1.3,
-                              fontSize: 15,
-                              color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                          Visibility(
+                            visible: premail == null,
+                            child: Text(
+                              'Enter your credentials to log in to your Kwikee account.',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                height: 1.3,
+                                fontSize: 15,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: premail != null,
+                            child: Text(
+                              premail.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                height: 1.3,
+                                fontSize: 15,
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                              ),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -296,32 +311,49 @@ class _LoginState extends State<Login> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 
-                                Text(
-                                  'Email Address',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                Visibility(
+                                  visible: premail == null,
+                                  child: Text(
+                                    'Email Address',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(height: 5),
-                                TextFormField( 
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? whitescaffold : darkscaffold
-                                  ),
-                                  // obscureText: true,
-                                  validator: MultiValidator([
-                                    RequiredValidator(errorText: 'Valid email is required.'),
-                                    EmailValidator(errorText: 'Valid email is required.'),    
-                                  ]),
-                                  keyboardType: TextInputType.emailAddress,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  onSaved: (val) {
-                                    loginstate.login["email"] = val;
-                                  },
+                                Visibility(
+                                  visible: premail == null,
+                                  child: const SizedBox(height: 5)
                                 ),
-                                SizedBox(height: 2.h),
+                                Visibility(
+                                  visible: premail == null,
+                                  child: TextFormField( 
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                    ),
+                                    // obscureText: true,
+                                    validator: MultiValidator([
+                                      RequiredValidator(errorText: 'Valid email is required.'),
+                                      EmailValidator(errorText: 'Valid email is required.'),    
+                                    ]),
+                                    keyboardType: TextInputType.emailAddress,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      loginstate.login["email"] = val;
+                                    },
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: premail == null,
+                                  child: SizedBox(height: 2.h)
+                                ),
+                                Visibility(
+                                  visible: premail == null,
+                                  child: SizedBox(height: 2.h)
+                                ),
+                                
                                 Text(
                                   'Password',
                                   style: TextStyle(
@@ -380,27 +412,58 @@ class _LoginState extends State<Login> {
                                   ],
                                 ),
                                 const SizedBox(height: 20),
-                                SizedBox(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      children:  <TextSpan>[
-                                        TextSpan(
-                                          recognizer: TapGestureRecognizer()..onTap = () {
-                                            // print('Terms and Conditions Single Tap');
-                                            Get.toNamed('auth/password/reset');
-                                          },
-                                          text: ' Forgot Password?', 
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15,
-                                            color: Color.fromRGBO(0, 175, 239, 1)
-                                          )
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children:  <TextSpan>[
+                                            TextSpan(
+                                              recognizer: TapGestureRecognizer()..onTap = () {
+                                                Get.toNamed('auth/password/reset');
+                                              },
+                                              text: 'Forgot Password?', 
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                                color: Color.fromRGBO(0, 175, 239, 1)
+                                              )
+                                            ),
+                                            
+                                          ],
                                         ),
-                                        
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    Visibility(
+                                      visible: premail != null,
+                                      child: SizedBox(
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children:  <TextSpan>[
+                                              TextSpan(
+                                                recognizer: TapGestureRecognizer()..onTap = () {
+                                                  setState(() {
+                                                    premail = null;
+                                                  });
+                                                },
+                                                text: 'Switch Account', 
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15,
+                                                  color: Color.fromRGBO(0, 175, 239, 1)
+                                                )
+                                              ),
+                                              
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                                
+                                
                               ],
                             )
                           )

@@ -251,152 +251,150 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
           elevation: 0,
         ),
         backgroundColor: white,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 3.h),
-                  Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: primary,
-                          shape: BoxShape.circle
-                        ),
-                        child: SvgPicture.asset(
-                          'assets/image/maxwithdraw.svg',
-                          semanticsLabel: 'Target',
-                          // color: white,
-                        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 3.h),
+                Row(
+                  children: [
+                    Container(
+                      width: 45,
+                      height: 45,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: primary,
+                        shape: BoxShape.circle
                       ),
-                      const SizedBox(width: 20),
+                      child: SvgPicture.asset(
+                        'assets/image/maxwithdraw.svg',
+                        semanticsLabel: 'Target',
+                        // color: white,
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      "Withdrawal",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 30,
+                        color: primary
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4.h),
+                Container(
+                  width: double.infinity,
+                  height: 482,
+                  padding: const EdgeInsets.all(20),
+                  // alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: greybackground,
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
                       Text(
-                        "Withdrawal",
+                        "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 30,
-                          color: primary
+                          fontSize: 12,
+                          letterSpacing: 1.6,
+                          color: HexColor("#3E4095")
                         ),
                       ),
+                      Text(
+                        stringamount(savings["amount_saved"].toString()),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 42,
+                          color: primary,
+                          fontFamily: GoogleFonts.roboto().toString(),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            
+                            Text(
+                              'Enter amount',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color:  getstartedp
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormField( 
+                              style: TextStyle(
+                                color: darkscaffold
+                              ),
+                              // obscureText: true,
+                              validator: RequiredValidator(errorText: 'Amount'),
+                              keyboardType: TextInputType.emailAddress,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              textInputAction: TextInputAction.done,
+                              controller: amount,
+                              decoration: InputDecoration(
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                fillColor: inputColor ,
+                                border: inputborder,
+                                focusedBorder: activeinputborder,
+                                enabledBorder: inputborder,
+                                focusedErrorBorder:inputborder ,
+                                errorBorder: errorborder,
+                                disabledBorder: inputborder,
+                                errorStyle: const TextStyle(color: Colors.red),
+                              )
+                            ),
+                            SizedBox(height: 2.h),
+                            
+                          ],
+                        )
+                      ),
+                      const SizedBox(height: 15),
+                      
+                      Text(
+                        "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  \n \n Bank Details - Adedayo Adebimpe |GTBank | 3123245354",
+                        style: TextStyle(
+                          color: getstartedp.withOpacity(0.42),
+                          fontSize: 11
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      InkWell(
+                        onTap: ()=> validate(),
+                        child: Container(
+                          height: 44,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: registerActioncolor,
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Text(
+                            "Withdraw",
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 18
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                  SizedBox(height: 4.h),
-                  Container(
-                    width: double.infinity,
-                    height: 482,
-                    padding: const EdgeInsets.all(20),
-                    // alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: greybackground,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 30),
-                        Text(
-                          "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            letterSpacing: 1.6,
-                            color: HexColor("#3E4095")
-                          ),
-                        ),
-                        Text(
-                          stringamount(savings["amount_saved"].toString()),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 42,
-                            color: primary,
-                            fontFamily: GoogleFonts.roboto().toString(),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              
-                              Text(
-                                'Enter amount',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color:  getstartedp
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              TextFormField( 
-                                style: TextStyle(
-                                  color: darkscaffold
-                                ),
-                                // obscureText: true,
-                                validator: RequiredValidator(errorText: 'Amount'),
-                                keyboardType: TextInputType.emailAddress,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.done,
-                                controller: amount,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                  fillColor: inputColor ,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder:inputborder ,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle: const TextStyle(color: Colors.red),
-                                )
-                              ),
-                              SizedBox(height: 2.h),
-                              
-                            ],
-                          )
-                        ),
-                        const SizedBox(height: 15),
-                        
-                        Text(
-                          "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  \n \n Bank Details - Adedayo Adebimpe |GTBank | 3123245354",
-                          style: TextStyle(
-                            color: getstartedp.withOpacity(0.42),
-                            fontSize: 11
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        InkWell(
-                          onTap: ()=> validate(),
-                          child: Container(
-                            height: 44,
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: registerActioncolor,
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Text(
-                              "Withdraw",
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 18
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

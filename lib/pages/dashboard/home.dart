@@ -185,7 +185,8 @@ class _HomeState extends State<Home> {
                 
                 InkWell(
                   // onTap: () => logout(),
-                  onTap: () => showNotification(),
+                  // onTap: () => showNotification(),
+                  onTap: () {},
                   child: Icon(
                     FontAwesome.bell,
                     color: registerActioncolor,

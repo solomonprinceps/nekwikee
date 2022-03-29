@@ -195,7 +195,7 @@ class _SavingsState extends State<Savings> {
                                         "Earn up to 18% per annum when your lock your funds for a minimum of 30 days. Upfront interest.",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           // letterSpacing: 13,
                                           fontWeight: FontWeight.w600,
                                           color: Color.fromRGBO(246, 251, 254, 0.42),
@@ -275,7 +275,7 @@ class _SavingsState extends State<Savings> {
                                       const Text(
                                         "Acheive you target, save towards a particular goal. 12% per annum",
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                           color:Color.fromRGBO(246, 251, 254, 0.42)
                                         ),
@@ -624,7 +624,7 @@ class _SavingsState extends State<Savings> {
                                                             maxLines: 1,
                                                             style: TextStyle(
                                                               color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6) :  const Color.fromRGBO(246, 251, 254, 1),
-                                                              fontSize: 9,
+                                                              fontSize: 12,
                                                               fontWeight: FontWeight.w500
                                                             ),
                                                           ),
@@ -693,7 +693,7 @@ class _SavingsState extends State<Savings> {
                                                   overflow: TextOverflow.ellipsis,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                    fontSize: 9,
+                                                    fontSize: 10,
                                                     color: white,
                                                   ),
                                                 ),
@@ -791,7 +791,7 @@ class _SavingsState extends State<Savings> {
                                                           maxLines: 1,
                                                           style: TextStyle(
                                                             color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6) :  const Color.fromRGBO(246, 251, 254, 1),
-                                                            fontSize: 9,
+                                                            fontSize: 12,
                                                             fontWeight: FontWeight.w500
                                                           ),
                                                         ),
@@ -858,7 +858,7 @@ class _SavingsState extends State<Savings> {
                                                 // "Matures in 310 days",
                                                 saving.goals[index]["matures_in"].toString(),
                                                 style: TextStyle(
-                                                  fontSize: 9,
+                                                  fontSize: 10,
                                                   color: white,
                                                 ),
                                               ),
