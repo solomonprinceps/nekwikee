@@ -96,6 +96,7 @@ flutter_icons:
   ios: true
   image_path: "assets/image/newappicon.png"
   adaptive_icon_background: '#2376b0'
+  remove_alpha_ios: true
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
