@@ -68,7 +68,10 @@ class _NewsplashState extends State<Newsplash> {
       color: white,
       child: Center(
         // child: Image.asset('assets/image/newsplash3.jpeg')
-        child: Lottie.asset('assets/image/Kwikee_Splash.json', repeat: false),
+        child: Lottie.asset(
+          'assets/image/Kwikee_Splash.json',
+          repeat: false
+        ),
       ),
     );
   }
