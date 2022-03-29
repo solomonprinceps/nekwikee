@@ -40,10 +40,10 @@ class _ProfileState extends State<Profile> {
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     authstorage.remove('user');
     authstorage.remove('accessToken');
-    // authstorage.remove('fingeremail');
-    // authstorage.remove('fingerpassword');
+    authstorage.remove('fingeremail');
+    authstorage.remove('fingerpassword');
     // authstorage.remove('passgetstarted');
-    // authstorage.remove('firstmail');
+    authstorage.remove('firstmail');
     Get.offAllNamed("newsplash");
   }
 

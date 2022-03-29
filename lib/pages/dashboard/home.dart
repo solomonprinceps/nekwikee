@@ -162,132 +162,194 @@ class _HomeState extends State<Home> {
     //         : "dark";
 
     return Scaffold(
-      appBar: AppBar(
-        title: Obx(() => Text(
-            "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
-
-            // "Yo! ${auth.userdata["firstname"].capitalize()}",
-            // 'Hi ${auth.userdata["lastname"]},',
-            softWrap: false,
-            style: TextStyle(
-              color: CustomTheme.presntstate ? white : primary,
-              fontSize: 15,
-              fontWeight: FontWeight.w600
-            ),
-          )
+      appBar: index == 2 ? PreferredSize(preferredSize: Size(0.0, 0.0),child: Container(),) : AppBar(
+        title: Visibility(
+          visible: index != 2,
+          child: Obx(() => Text(
+              "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
+        
+              // "Yo! ${auth.userdata["firstname"].capitalize()}",
+              // 'Hi ${auth.userdata["lastname"]},',
+              softWrap: false,
+              style: TextStyle(
+                color: CustomTheme.presntstate ? white : primary,
+                fontSize: 15,
+                fontWeight: FontWeight.w600
+              ),
+            )
+          ),
         ),
         automaticallyImplyLeading: false,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Row(
-              children: [
-                
-                InkWell(
-                  // onTap: () => logout(),
-                  // onTap: () => showNotification(),
-                  onTap: () {},
-                  child: Icon(
-                    FontAwesome.bell,
-                    color: registerActioncolor,
-                    size: 20.0,
-                    textDirection: TextDirection.ltr,
-                    semanticLabel:
-                        'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+          Visibility(
+            visible: index != 2,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  
+                  InkWell(
+                    // onTap: () => logout(),
+                    // onTap: () => showNotification(),
+                    onTap: () {},
+                    child: Icon(
+                      FontAwesome.bell,
+                      color: registerActioncolor,
+                      size: 20.0,
+                      textDirection: TextDirection.ltr,
+                      semanticLabel:
+                          'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: !CustomTheme.presntstate ? HexColor('#CCCCCC').withOpacity(0.46) : darkbottomtype
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: index!,
+        selectedItemColor: iconcolorselected,
+        onTap: (val) {
+          // print(val);
+          if (val == 0) {
+            setState(() {
+              index = 0;
+            });
+          }
+          if (val == 1) {
+            setState(() {
+              index = 1;
+            });
+          }
+          if (val == 2) {
+            setState(() {
+              index = 2;
+            });
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+          icon:  SvgPicture.asset(
+            index == 0
+                ? 'assets/image/savingactive.svg'
+                : 'assets/image/savinginactive.svg',
+            semanticsLabel: 'Savings',
+            // color: index == 1 ? iconcolorselected : iconcolor,
+            // color: Colors.red,
           ),
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () => changetab(1),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        index == 1
-                            ? 'assets/image/savingactive.svg'
-                            : 'assets/image/savinginactive.svg',
-                        semanticsLabel: 'Savings',
-                        // color: index == 1 ? iconcolorselected : iconcolor,
-                        // color: Colors.red,
-                      ),
-                      Text(
-                        "Savings",
-                        style: TextStyle(
-                          color: !CustomTheme.presntstate ? index == 1 ? iconcolorselected : black : index == 1 ? iconcolorselected : white,
-                          fontWeight: index == 1 ? FontWeight.w600 : FontWeight.w500,
-                          fontSize: 10
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () => changetab(0),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        index == 0
-                            ? 'assets/image/homeIconactive.svg'
-                            : 'assets/image/homeIcon.svg',
-                        semanticsLabel: 'Home Icon',
-                        // color: index == 0 ? iconcolorselected : iconcolor,
-                      ),
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                          color: !CustomTheme.presntstate ? index == 0 ? iconcolorselected : black : index == 0 ? iconcolorselected : white,
-                          fontWeight: index == 0 ? FontWeight.w600 : FontWeight.w500,
-                          fontSize: 10
-                      ),
-                      )
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () => changetab(2),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        index == 2
-                            ?
-                            // profileIconactive.svg
-                            'assets/image/profileIconactive.svg'
-                            : 'assets/image/profileIcon.svg',
-                        semanticsLabel: 'money bill',
-                        // color: index == 2 ? iconcolorselected : iconcolor,
-                      ),
-                      Text(
-                        "Profile",
-                        style: TextStyle(
-                         color: !CustomTheme.presntstate ? index == 2 ? iconcolorselected : black : index == 2 ? iconcolorselected : white,
-                          fontWeight: index == 2 ? FontWeight.w600 : FontWeight.w500,
-                          fontSize: 10
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          label: 'Savings',
         ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            index == 1
+                ? 'assets/image/homeIconactive.svg'
+                : 'assets/image/homeIcon.svg',
+            semanticsLabel: 'Home Icon',
+            // color: index == 0 ? iconcolorselected : iconcolor,
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            index == 2
+                ?
+                // profileIconactive.svg
+                'assets/image/profileIconactive.svg'
+                : 'assets/image/profileIcon.svg',
+            semanticsLabel: 'money bill',
+            // color: index == 2 ? iconcolorselected : iconcolor,
+          ),
+          label: 'Profile',
+        ),
+        ],
       ),
+      // bottomNavigationBar: Container(
+      //   decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.circular(5),
+      //     color: !CustomTheme.presntstate ? HexColor('#CCCCCC').withOpacity(0.46) : darkbottomtype
+      //   ),
+      //   height: 60,
+      //   child: Padding(
+      //     padding: const EdgeInsets.only(left: 20, right: 20, top: 10, ),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         InkWell(
+      //           onTap: () => changetab(1),
+      //           child: Column(
+      //             children: [
+                    // SvgPicture.asset(
+                    //   index == 1
+                    //       ? 'assets/image/savingactive.svg'
+                    //       : 'assets/image/savinginactive.svg',
+                    //   semanticsLabel: 'Savings',
+                    //   // color: index == 1 ? iconcolorselected : iconcolor,
+                    //   // color: Colors.red,
+                    // ),
+      //               Text(
+      //                 "Savings",
+      //                 style: TextStyle(
+      //                   color: !CustomTheme.presntstate ? index == 1 ? iconcolorselected : black : index == 1 ? iconcolorselected : white,
+      //                   fontWeight: index == 1 ? FontWeight.w600 : FontWeight.w500,
+      //                   fontSize: 10
+      //                 ),
+      //               )
+      //             ],
+      //           ),
+      //         ),
+      //         InkWell(
+      //           onTap: () => changetab(0),
+      //           child: Column(
+      //             children: [
+                    // SvgPicture.asset(
+                    //   index == 0
+                    //       ? 'assets/image/homeIconactive.svg'
+                    //       : 'assets/image/homeIcon.svg',
+                    //   semanticsLabel: 'Home Icon',
+                    //   // color: index == 0 ? iconcolorselected : iconcolor,
+                    // ),
+      //               Text(
+      //                 "Home",
+      //                 style: TextStyle(
+      //                   color: !CustomTheme.presntstate ? index == 0 ? iconcolorselected : black : index == 0 ? iconcolorselected : white,
+      //                   fontWeight: index == 0 ? FontWeight.w600 : FontWeight.w500,
+      //                   fontSize: 10
+      //               ),
+      //               )
+      //             ],
+      //           ),
+      //         ),
+      //         InkWell(
+      //           onTap: () => changetab(2),
+      //           child: Column(
+      //             children: [
+                    // SvgPicture.asset(
+                    //   index == 2
+                    //       ?
+                    //       // profileIconactive.svg
+                    //       'assets/image/profileIconactive.svg'
+                    //       : 'assets/image/profileIcon.svg',
+                    //   semanticsLabel: 'money bill',
+                    //   // color: index == 2 ? iconcolorselected : iconcolor,
+                    // ),
+      //               Text(
+      //                 "Profile",
+      //                 style: TextStyle(
+      //                  color: !CustomTheme.presntstate ? index == 2 ? iconcolorselected : black : index == 2 ? iconcolorselected : white,
+      //                   fontWeight: index == 2 ? FontWeight.w600 : FontWeight.w500,
+      //                   fontSize: 10
+      //                 ),
+      //               )
+      //             ],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: UpgradeAlert(child: pages[index!]),
     );
   }

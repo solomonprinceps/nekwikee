@@ -596,7 +596,7 @@ class _FirstState extends State<First> {
                   ],
                 ),
               ),
-              const SizedBox(height: 15),
+              // const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: GestureDetector(
@@ -606,7 +606,7 @@ class _FirstState extends State<First> {
                     // findfirstGoal();
                   },
                   child: Container(
-                    padding: const EdgeInsets.only(top: 20, right: 20, bottom: 15, left: 20),
+                    padding: const EdgeInsets.only(right: 20, left: 20),
                     // width: 50.w,
                     height: 190,
                     decoration: BoxDecoration(
@@ -676,7 +676,7 @@ class _FirstState extends State<First> {
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Withdraw',
+                                  'WITHDRAW',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: white
@@ -970,8 +970,8 @@ class _FirstState extends State<First> {
                                           SvgPicture.asset(
                                             'assets/image/feather-right.svg',
                                             semanticsLabel: 'Action Button',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         ],
                                       ),
@@ -1051,8 +1051,8 @@ class _FirstState extends State<First> {
                                           SvgPicture.asset(
                                             'assets/image/feather-right.svg',
                                             semanticsLabel: 'Action Button',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         ],
                                       ),
@@ -1133,8 +1133,8 @@ class _FirstState extends State<First> {
                                           SvgPicture.asset(
                                             'assets/image/feather-right.svg',
                                             semanticsLabel: 'Action Button',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         ],
                                       ),
@@ -1216,8 +1216,8 @@ class _FirstState extends State<First> {
                                           SvgPicture.asset(
                                             'assets/image/feather-right.svg',
                                             semanticsLabel: 'Action Button',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         ],
                                       ),
@@ -1304,8 +1304,8 @@ class _FirstState extends State<First> {
                                           SvgPicture.asset(
                                             'assets/image/feather-right.svg',
                                             semanticsLabel: 'Action Button',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         ],
                                       ),
@@ -1501,8 +1501,8 @@ class _FirstState extends State<First> {
                                         SvgPicture.asset(
                                           'assets/image/feather-right.svg',
                                           semanticsLabel: 'Action Button',
-                                          width: 20,
-                                          height: 20,
+                                          // width: 20,
+                                          // height: 20,
                                         ),
                                       ],
                                     ),
@@ -1521,8 +1521,8 @@ class _FirstState extends State<First> {
                                           child: SvgPicture.asset(
                                             'assets/image/goalsicons.svg',
                                             semanticsLabel: 'money bill',
-                                            width: 20,
-                                            height: 20,
+                                            // width: 20,
+                                            // height: 20,
                                           ),
                                         )
                                       ],

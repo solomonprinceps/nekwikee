@@ -11,6 +11,10 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'styles.dart';
 import 'package:kwikee1/services/notification.dart';
+import 'dart:async';
+
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -57,15 +61,85 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
+enum ConfirmAction { Cancel, Accept}  
 class _MyAppState extends State<MyApp> {
+  Timer? _timer;
   @override
   void initState() {
     super.initState();
+    _initializeTimer(context);
     currentTheme.addListener(() {
       setState(() {});
     });
   }
+
+  void _initializeTimer(BuildContext context) {
+    _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+    print("set timer");
+  }
+
+  void _logOutUser(BuildContext context) async {
+    // Log out the user if they're logged in, then cancel the timer.
+    // You'll have to make sure to cancel the timer if the user manually logs out
+    //   and to call _initializeTimer once the user logs in
+    print("logout");
+    // _asyncConfirmDialog(context);
+     print('I am 401');
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    String? token  = authstorage.getString("accessToken");
+    if (token != null) {
+      authstorage.remove('user');
+      authstorage.remove('accessToken');
+      Get.offAllNamed("/newsplash");
+      _timer?.cancel();
+      _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+    }
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+  }
+
+  // You'll probably want to wrap this function in a debounce
+  
+  void _handleUserInteraction([_]) {
+    if (!_timer!.isActive) {
+      // This means the user has been logged out
+      return;
+    }
+
+    _timer!.cancel();
+    _initializeTimer(context);
+    
+  }
+
+  Future<ConfirmAction?> _asyncConfirmDialog(BuildContext context) async {  
+    return showDialog<ConfirmAction>(  
+      context: context,  
+      barrierDismissible: false, // user must tap button for close dialog!  
+      builder: (BuildContext context) {  
+        return MaterialApp(
+          home: AlertDialog(  
+            title: Text('Are you still here?'),  
+            content: const Text('You will be logout if you click Accept'),  
+            actions: <Widget>[  
+              TextButton(  
+                child: const Text('Cancel'),  
+                onPressed: () {  
+                  Navigator.of(context).pop(ConfirmAction.Cancel);  
+                },  
+              ),  
+              TextButton(  
+                child: const Text('Accept'),  
+                onPressed: () {  
+                  Navigator.of(context).pop(ConfirmAction.Accept);  
+                },  
+              )  
+            ],  
+          ),
+        );  
+      },  
+    );  
+  } 
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +190,10 @@ class _MyAppState extends State<MyApp> {
         builder: (context, orientation, deviceType) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
+            onPanDown:  _handleUserInteraction,
+            onScaleStart: _handleUserInteraction,
             onTap: () {
+              _handleUserInteraction();
               FocusScopeNode currentFocus = FocusScope.of(context);
               if (!currentFocus.hasPrimaryFocus &&
                   currentFocus.focusedChild != null) {

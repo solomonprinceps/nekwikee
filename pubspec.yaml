@@ -65,6 +65,7 @@ dependencies:
   firebase_messaging: 10.0.0
   flutter_local_notifications: ^9.4.0
   firebase_core: ^1.13.1
+  easy_debounce: ^2.0.2+1
   # google_ml_kit: ^0.7.3  
   
   

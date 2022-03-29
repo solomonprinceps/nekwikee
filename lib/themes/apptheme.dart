@@ -78,12 +78,14 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: HexColor('#ffffff'),
       textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.dark, // 2
       ),
-      bottomAppBarTheme: const BottomAppBarTheme(
+      bottomAppBarTheme: BottomAppBarTheme(
         shape: CircularNotchedRectangle(),
+        color: HexColor('#CCCCCC').withOpacity(0.46)
         
       ),
     );
@@ -118,13 +120,28 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: HexColor('#131B39'),
       textTheme: GoogleFonts.livvicTextTheme(),
       appBarTheme: const AppBarTheme(
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0
       ),
-      bottomAppBarTheme: BottomAppBarTheme(
-        shape: const CircularNotchedRectangle(),
-        color: HexColor('#303753')
+      // bottomAppBarTheme: BottomAppBarTheme(
+      //   shape: const CircularNotchedRectangle(),
+      //   color: white
+      // ),
+  
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: darkbottomtype,
+        selectedLabelStyle: TextStyle(
+          color: iconcolorselected,
+          fontWeight: FontWeight.w600,
+          fontSize: 10
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: white,
+          fontWeight: FontWeight.w600,
+          fontSize: 10
+        ),
       ),
       checkboxTheme: CheckboxThemeData(
         // fillColor: Colors.blue
