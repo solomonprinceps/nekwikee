@@ -12,6 +12,7 @@ import 'package:kwikee1/controllers/logincontroller.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:kwikee1/services/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -442,10 +443,13 @@ class _LoginState extends State<Login> {
                                           text: TextSpan(
                                             children:  <TextSpan>[
                                               TextSpan(
-                                                recognizer: TapGestureRecognizer()..onTap = () {
+                                                recognizer: TapGestureRecognizer()..onTap = () async {
                                                   setState(() {
                                                     premail = null;
                                                   });
+                                                  SharedPreferences authstorage = await SharedPreferences.getInstance();
+                                                  authstorage.remove('fingeremail');
+                                                  authstorage.remove('fingerpassword');
                                                 },
                                                 text: 'Switch Account', 
                                                 style: const TextStyle(
