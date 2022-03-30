@@ -910,7 +910,7 @@ class _FirstState extends State<First> {
               () => Visibility(
                 visible: !auth.inital.value,
                 child: SizedBox(
-                  height: 150,
+                  height: 160,
                   width: 100.w,
                   child: ScrollConfiguration(
                     behavior: MyBehavior(),
@@ -1108,7 +1108,7 @@ class _FirstState extends State<First> {
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 150,
+                                  height: 160,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1122,6 +1122,7 @@ class _FirstState extends State<First> {
                                     ],
                                   ),
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -1160,7 +1161,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w400
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -1169,8 +1170,8 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
+                                          color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
+                                          fontWeight: FontWeight.w300
                                         ),
                                       ),
                                     
@@ -1184,78 +1185,90 @@ class _FirstState extends State<First> {
                             visible: auth.continuecreditapply.value,
                             child: GestureDetector(
                               onTap: () => Get.toNamed("credit/home"),
-                              child: Card(
-                                shadowColor: HexColor("#0000000F"),
-                                margin: const EdgeInsets.only(right: 10),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 18, top: 9, right: 18),
-                                  height: 150,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: HexColor("#0000000F"),
-                                        blurRadius: 3,
-                                        offset: const Offset(0, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/image/feather-right.svg',
-                                            semanticsLabel: 'Action Button',
-                                            // width: 20,
-                                            // height: 20,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: HexColor("#0000000F"),
+                                      blurRadius: 3,
+                                      offset: const Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Card(
+                                  shadowColor: HexColor("#0000000F"),
+                                  margin: const EdgeInsets.only(right: 10),
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 18, top: 9, right: 18),
+                                    height: 160,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: HexColor("#0000000F"),
+                                          blurRadius: 3,
+                                          offset: const Offset(0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/image/feather-right.svg',
+                                              semanticsLabel: 'Action Button',
+                                              // width: 20,
+                                              // height: 20,
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 3),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 46,
+                                              height: 46,
+                                              decoration: BoxDecoration(
+                                                color: primary,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: SvgPicture.asset(
+                                                'assets/image/money-bill.svg',
+                                                semanticsLabel: 'money bill',
+                                                color: white,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          'Apply for Credit',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: CustomTheme.presntstate ?  darkwhite : primary,
+                                            fontWeight: FontWeight.w600
                                           ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 3),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 46,
-                                            height: 46,
-                                            decoration: BoxDecoration(
-                                              color: primary,
-                                              borderRadius: BorderRadius.circular(100)
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: SvgPicture.asset(
-                                              'assets/image/money-bill.svg',
-                                              semanticsLabel: 'money bill',
-                                              color: white,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'Apply for Credit',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w500
                                         ),
-                                      ),
-                                      const SizedBox(height: 3),
-                                      Text(
-                                        'Reach your goals quicker and easier with savings and investment with Kwikee.',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
+                                        const SizedBox(height: 3),
+                                        Text(
+                                          'Get your kwikee credit card funded and withdraw at will.',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
+                                            fontWeight: FontWeight.w200
+                                          ),
                                         ),
-                                      ),
-                                    
-                                    ],
+                                      
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -1323,7 +1336,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w600
                                         ),
                                       ),
                                       const SizedBox(height: 5),
@@ -1332,8 +1345,8 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
+                                          color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
+                                          fontWeight: FontWeight.w200
                                         ),
                                       ),
                                     
@@ -1409,7 +1422,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w600
                                         ),
                                       ),
                                       const SizedBox(height: 4),
@@ -1418,8 +1431,8 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
+                                          color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
+                                          fontWeight: FontWeight.w200
                                         ),
                                       ),
                                     
@@ -1497,7 +1510,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w600
                                         ),
                                       ),
                                       const SizedBox(height: 4),
@@ -1506,7 +1519,7 @@ class _FirstState extends State<First> {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
+                                          color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),
@@ -1694,7 +1707,7 @@ class _FirstState extends State<First> {
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: CustomTheme.presntstate ?  darkwhite : primary,
-                                        fontWeight: FontWeight.w400
+                                        fontWeight: FontWeight.w600
                                       ),
                                     ),
                                     const SizedBox(height: 5),
@@ -1703,7 +1716,7 @@ class _FirstState extends State<First> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 10,
-                                        color: CustomTheme.presntstate ?  darkwhite : primary,
+                                        color: CustomTheme.presntstate ?  darkwhite : dasboardtextcard,
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
@@ -1793,6 +1806,8 @@ class _FirstState extends State<First> {
                                 child: SvgPicture.asset(
                                   'assets/image/dashboardmax.svg',
                                   semanticsLabel: 'Target',
+                                  width: 25,
+                                  height: 25,
                                 )
                               ),
                               Visibility(
@@ -1800,6 +1815,8 @@ class _FirstState extends State<First> {
                                 child: SvgPicture.asset(
                                   'assets/image/dashboardgoals.svg',
                                   semanticsLabel: 'Target',
+                                  width: 25,
+                                  height: 25,
                                 ),
                               ),
 
@@ -1840,46 +1857,30 @@ class _FirstState extends State<First> {
                               ),
                               Visibility(
                                 visible: item["product_mode"] == "3" && (item["transaction_type"] == "2" || item["transaction_type"] == "4"),
-                                child: Container(
+                                child: SvgPicture.asset(
+                                  'assets/image/dashboardmax.svg',
+                                  semanticsLabel: 'Target',
                                   width: 25,
                                   height: 25,
-                                  decoration: BoxDecoration(
-                                    color: success,
-                                    shape: BoxShape.circle
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    FontAwesome.angle_down,
-                                    size: 20.0,
-                                    color: white,
-                                  )
-                                ),
+                                )
                               ),
                               Visibility(
                                 visible: item["product_mode"] == "3" && (item["transaction_type"] == "1" || item["transaction_type"] == "3"),
-                                child: Container(
+                                child: SvgPicture.asset(
+                                  'assets/image/dashboardmax.svg',
+                                  semanticsLabel: 'Target',
                                   width: 25,
                                   height: 25,
-                                  decoration: BoxDecoration(
-                                    color: error,
-                                    shape: BoxShape.circle
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    FontAwesome.angle_up,
-                                    size: 20.0,
-                                    color: white,
-                                  )
-                                ),
+                                )
                               ),
-                              
-
 
                               Visibility(
                                 visible: item["product_mode"] == "5" && (item["transaction_type"] == "2" || item["transaction_type"] == "4"),
                                 child: SvgPicture.asset(
                                   'assets/image/cashback.svg',
                                   semanticsLabel: 'Target',
+                                  width: 25,
+                                  height: 25,
                                 ),
                               ),
                               Visibility(
@@ -1887,6 +1888,8 @@ class _FirstState extends State<First> {
                                 child: SvgPicture.asset(
                                   'assets/image/cashback.svg',
                                   semanticsLabel: 'Target',
+                                  width: 25,
+                                  height: 25,
                                 ),
                               ),
                               const SizedBox(width: 20),
@@ -1902,7 +1905,7 @@ class _FirstState extends State<First> {
                                         item["narration"].toString(),
                                         maxLines: 1,
                                         softWrap: true,
-                                        overflow: TextOverflow.fade,
+                                        overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,

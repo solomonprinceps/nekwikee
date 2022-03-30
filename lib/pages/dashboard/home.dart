@@ -246,8 +246,8 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
           icon:  SvgPicture.asset(
             index == 0
-                ? 'assets/image/savingactive.svg'
-                : 'assets/image/savinginactive.svg',
+                ? 'assets/image/lightnavicon/savingsactive.svg'
+                : 'assets/image/lightnavicon/savings.svg',
             semanticsLabel: 'Savings',
             // color: index == 1 ? iconcolorselected : iconcolor,
             // color: Colors.red,
@@ -257,8 +257,8 @@ class _HomeState extends State<Home> {
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             index == 1
-                ? 'assets/image/homeIconactive.svg'
-                : 'assets/image/homeIcon.svg',
+                ? 'assets/image/lightnavicon/homeactive.svg'
+                : 'assets/image/lightnavicon/home.svg',
             semanticsLabel: 'Home Icon',
             // color: index == 0 ? iconcolorselected : iconcolor,
           ),
@@ -269,8 +269,8 @@ class _HomeState extends State<Home> {
             index == 2
                 ?
                 // profileIconactive.svg
-                'assets/image/profileIconactive.svg'
-                : 'assets/image/profileIcon.svg',
+                'assets/image/lightnavicon/profileactive.svg'
+                : 'assets/image/lightnavicon/profile.svg',
             semanticsLabel: 'money bill',
             // color: index == 2 ? iconcolorselected : iconcolor,
           ),

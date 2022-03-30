@@ -26,6 +26,7 @@ Color kwiklightcolor = HexColor("#353130");
 Color kwikmaxcolor = const Color.fromRGBO(62, 64, 149, 0.11);
 Color savingmonth = HexColor("#00AFEF");
 Color kwikgoals = HexColor("#e5f6fd"); 
+Color dasboardtextcard = HexColor("#3E4095BF");
 
 Color listingtextlight = HexColor('#3E409545');
 Color listingtextdatelight = HexColor("#3E4095B3");

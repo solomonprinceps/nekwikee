@@ -27,7 +27,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
   AuthController auth = Get.put(AuthController());
   final _formKey = GlobalKey<FormState>();
   dynamic cashback;
-  List? cards;
+  List? cards = [];
   TextEditingController amount = TextEditingController();
   Future<bool> _willPopCallback() async {
     return false; // return true if the route to be popped
@@ -56,7 +56,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       if (value?["status"] == "error") {
         snackbar(message: "", header: value["message"], bcolor: error);
         return;
-        // Get.offAllNamed('home', arguments: 1);                       saving.paycashbackcard(data: datacashback);
+        // Get.offAllNamed('home', arguments: 1);    saving.paycashbackcard(data: datacashback);
       }
       
     });
@@ -74,7 +74,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       if (value?["status"] == "error") {
         snackbar(message: "", header: value["message"], bcolor: error);
         return;
-        // Get.offAllNamed('home', arguments: 1);                       saving.paycashbackcard(data: datacashback);
+        // Get.offAllNamed('home', arguments: 1);   saving.paycashbackcard(data: datacashback);
       }
       
     }); 
@@ -83,6 +83,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
   @override
   void initState() {
     print(auth.userdata["card_authorizations"]);
+    print("cards");
     if (auth.userdata["card_authorizations"] != null) {
       cards = auth.userdata["card_authorizations"];
     }
@@ -124,26 +125,45 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                 margin: EdgeInsets.only(bottom: 10),
                 height: 200,
-                child: ListView.builder (
-                  itemCount: cards!.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                  return  InkWell(
-                    onTap: () {
-                      datacashback["last4"] = cards![index]['last4'];
-                      Get.back();
-                      print(datacashback);
-                      // paycashbackcard();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(cards![index]['bank']),
-                        Text(cards![index]['last4']),
-                      ],
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: cards!.isNotEmpty,
+                      child: ListView.builder (
+                      itemCount: cards!.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return  InkWell(
+                          onTap: () {
+                            datacashback["last4"] = cards![index]['last4'];
+                            Get.back();
+                            print(datacashback);
+                            // paycashbackcard();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(cards![index]['bank']),
+                              Text(cards![index]['last4']),
+                            ],
+                          ),
+                        );
+                        }
+                      ),
                     ),
-                  );
-                  }
+                    Visibility(
+                      visible: cards!.isEmpty,
+                      child: Text(
+                        "No Card",
+                        style: TextStyle(
+                          color: primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
+                
+
               ),
               // Wrap(
               //   children: cards!.map(
@@ -307,7 +327,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                                 ),
                                 // obscureText: true,
                                 validator: RequiredValidator(errorText: 'Amount'),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.number,
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 textInputAction: TextInputAction.done,
                                 controller: amount,
