@@ -86,6 +86,8 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
     if (auth.userdata["card_authorizations"] != null) {
       cards = auth.userdata["card_authorizations"];
     }
+    // print(cashback["loan_history"]["balance"]);
+    
     setState(() {
       cashback = Get.arguments;
       data["loanid"] = cashback["loanid"];
@@ -93,6 +95,8 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       data["amount"] = (cashback["loan_history"]["balance"]).toString();
       datacashback["amount"] = (cashback["loan_history"]["balance"]).toString();
     });
+    // print(cashback);
+    // print("balance");
     amount.text = (cashback["loan_history"]["balance"]).toString();
     super.initState();
   }
@@ -249,7 +253,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                   SizedBox(height: 4.h),
                   Container(
                     width: double.infinity,
-                    height: 482,
+                    height: 400,
                     padding: const EdgeInsets.all(20),
                     // alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -258,15 +262,15 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 30),
+                        // const SizedBox(height: 30),
                         Text(
                           // "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
-                          "Amount: ${stringamount(cashback["amount"])}",
+                          "Amount: ${stringamount(cashback["amount"].toString())}",
                           style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
                             color: primary,
                             fontFamily: GoogleFonts.roboto().toString(),
                           ),
@@ -276,7 +280,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                           "Maximum Repayment: ${stringamount(cashback["max_repayment"])}",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 12,
+                            fontSize: 18,
                             color: primary,
                             fontFamily: GoogleFonts.roboto().toString(),
                           ),

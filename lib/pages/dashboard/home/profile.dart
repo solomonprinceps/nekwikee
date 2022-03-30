@@ -68,6 +68,28 @@ class _ProfileState extends State<Profile> {
     print(other);
   }
 
+  listransaction() async {
+    setState(() {
+      loading = true;
+    });
+    final Map data = {};
+    await auth.listransaction(data: data).then((value) {
+      setState(() {
+        loading = false;
+      });
+      if (value?["status"] == "error") {
+        snackbar(message: "Error", header: value["message"], bcolor: error);
+      }
+      if(value?["status"] == "success") {
+        setState(() {
+          transactions = value["transactions"]["data"];
+          displaylist = value["transactions"]["data"];
+        });  
+      }
+
+    });
+  }
+
   Future loadashboard() async {
     setState(() {
       loading = true;
@@ -289,7 +311,7 @@ class _ProfileState extends State<Profile> {
                               showsettings = false;
                               showtransactions = true;
                             });
-                            loadashboard();
+                            listransaction();
                           },
                           child: Column(
                             children: [
@@ -533,44 +555,44 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                     
-                          // Container(
-                          //   margin: const EdgeInsets.only(bottom: 10),
-                          //   padding: const EdgeInsets.all(10),
-                          //   height: 47,
-                          //   decoration: BoxDecoration(
-                          //     color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
-                          //     borderRadius: BorderRadius.circular(5)
-                          //   ),
-                          //   child: Row(
-                          //     children: [
-                          //       Switch(
-                          //         activeColor: primary,
-                          //         activeTrackColor: primary.withOpacity(0.2),
-                          //         inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
-                          //         value: themestate,
-                          //         onChanged: (bool val)  {
-                          //           currentTheme.toggleTheme(CustomTheme.presntstate);
-                          //           setState(() {
-                          //             themestate = val;
-                          //           });
-                          //         },
-                          //       ),
-                          //       Expanded(
-                          //         child: Container(
-                          //         padding: const EdgeInsets.only(left: 3),
-                          //         // fit: BoxFit.contain,
-                          //         child: Text(
-                          //           'Change Theme',
-                          //           style: TextStyle(
-                          //             color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
-                          //             fontSize: 13,
-                          //             fontWeight: FontWeight.w600
-                          //           ),
-                          //         ),
-                          //       ))
-                          //     ],
-                          //   ),
-                          // )
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(10),
+                            height: 47,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Row(
+                              children: [
+                                Switch(
+                                  activeColor: primary,
+                                  activeTrackColor: primary.withOpacity(0.2),
+                                  inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
+                                  value: themestate,
+                                  onChanged: (bool val)  {
+                                    currentTheme.toggleTheme(CustomTheme.presntstate);
+                                    setState(() {
+                                      themestate = val;
+                                    });
+                                  },
+                                ),
+                                Expanded(
+                                  child: Container(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  // fit: BoxFit.contain,
+                                  child: Text(
+                                    'Change Theme',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          )
                     
                     
                         ],
@@ -717,182 +739,233 @@ class _ProfileState extends State<Profile> {
                           visible: displaylist.isNotEmpty,
                           child: Expanded(
                             child: ListView.builder(
-                                itemCount: displaylist.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    margin: const EdgeInsets.only(bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                                      borderRadius: BorderRadius.circular(5)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Visibility(
-                                          visible: displaylist[index]
-                                                  ["transaction_type"] ==
-                                              "1",
-                                          child: Container(
-                                              width: 27,
-                                              height: 27,
-                                              decoration: BoxDecoration(
-                                                  color: error,
-                                                  shape: BoxShape.circle),
-                                              alignment: Alignment.center,
-                                              child: Icon(
-                                                FontAwesome.angle_up,
-                                                size: 25.0,
-                                                color: white,
-                                              )),
+                              itemCount: displaylist.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                                  margin: const EdgeInsets.only(bottom: 5),
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "1",
+                                        child: SvgPicture.asset(
+                                          'assets/image/dashboardmax.svg',
+                                          semanticsLabel: 'Target',
+                                        )
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "2",
+                                        child: SvgPicture.asset(
+                                          'assets/image/dashboardgoals.svg',
+                                          semanticsLabel: 'Target',
                                         ),
-                                        Visibility(
-                                          visible: displaylist[index]
-                                                  ["transaction_type"] ==
-                                              "2",
-                                          child: Container(
-                                              width: 27,
-                                              height: 27,
-                                              decoration: BoxDecoration(
-                                                  color: success,
-                                                  shape: BoxShape.circle),
-                                              alignment: Alignment.center,
-                                              child: Icon(
-                                                FontAwesome.angle_down,
-                                                size: 25.0,
-                                                color: white,
-                                              )),
-                                        ),
-                                        Visibility(
-                                          visible: displaylist[index]["transaction_type"] ==  "3",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                                color: error,
-                                                shape: BoxShape.circle),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Ionicons.close_outline,
-                                              size: 15.0,
-                                              color: white,
-                                            )
+                                      ),
+
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "4" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
+                                        // visible: true,
+                                        child: Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: error,
+                                            shape: BoxShape.circle
                                           ),
+                                          // alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_up,
+                                            size: 20.0,
+                                            color: white,
+                                          )
                                         ),
-                                        Visibility(
-                                          visible: displaylist[index]["transaction_type"] ==  "4",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                                color: error,
-                                                shape: BoxShape.circle),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Ionicons.close_outline,
-                                              size: 15.0,
-                                              color: white,
-                                            )
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "4" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
+                                        child: Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: success,
+                                            shape: BoxShape.circle
                                           ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_down,
+                                            size: 20.0,
+                                            color: white,
+                                          )
                                         ),
-                                        const SizedBox(width: 20),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
+                                        child: Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: success,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_down,
+                                            size: 20.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
+                                        child: Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: error,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_up,
+                                            size: 20.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      
+
+
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
+                                        child: SvgPicture.asset(
+                                          'assets/image/cashback.svg',
+                                          semanticsLabel: 'Target',
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
+                                        child: SvgPicture.asset(
+                                          'assets/image/cashback.svg',
+                                          semanticsLabel: 'Target',
+                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 5, right: 5),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                // "Credit Application X728829",
+                                                displaylist[index]["narration"].toString(),
+                                                maxLines: 1,
+                                                softWrap: true,
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: dashname
+                                                ),
+                                              ),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    // "Credit Application X728829",
-                                                    displaylist[index]["narration"]
-                                                        .toString(),
+                                                    displaylist[index]["giroreference"].toString(),
                                                     style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: dashname),
+                                                      fontSize: 9.5,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: CustomTheme.presntstate ?  white : black
+                                                    ),
                                                   ),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        displaylist[index]["giroreference"].toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 9.5,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: CustomTheme.presntstate ?  white : black
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        // "15 Oct, 2022.",
-                                                        dateformater(displaylist[index]["created_at"].toString()),
-                                                        style: TextStyle(
-                                                          fontSize: 9.5,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: CustomTheme.presntstate ?  white : black
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
+                                                  Text(
+                                                    // "15 Oct, 2022.",
+                                                    dateformater(displaylist[index]["created_at"].toString()),
+                                                    style: TextStyle(
+                                                      fontSize: 9.5,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: CustomTheme.presntstate ?  white : black
+                                                    ),
+                                                  ),
                                                 ],
-                                              ),
-                                            )),
-                                        Visibility(
-                                          visible: displaylist[index]
-                                                  ["transaction_type"] ==
-                                              "2",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(
-                                                displaylist[index]["amount"]),
-                                            style: TextStyle(
-                                              color: success,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto()
-                                                  .toString(),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: displaylist[index]
-                                                  ["transaction_type"] ==
-                                              "1",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(
-                                                displaylist[index]["amount"]),
-                                            style: TextStyle(
-                                              color: error,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto()
-                                                  .toString(),
-                                            ),
+                                              )
+                                            ],
                                           ),
                                         )
-                                        // Text(
-                                        //   // '₦1,500',
-                                        //   stringamount(displaylist["amount"]),
-                                        //   style: TextStyle(
-                                        //     color: listmoneylight,
-                                        //     fontWeight: FontWeight.w600,
-                                        //     fontSize: 15
-                                        //   ),
-                                        // )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                            // child: LisView(  displaylist
-                            //   children: [
-                            //     Text('data')
-                            //   ],
-                            // )
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["transaction_type"] == "2",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(displaylist[index]["amount"]),
+                                          style: TextStyle(
+                                            color: success,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["transaction_type"] == "1",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(displaylist[index]["amount"]),
+                                          style: TextStyle(
+                                            color: error,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+
+                                      Visibility(
+                                        visible: displaylist[index]["transaction_type"] == "3",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(displaylist[index]["amount"]),
+                                          style: TextStyle(
+                                            color: error,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: displaylist[index]["transaction_type"] == "4",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(displaylist[index]["amount"]),
+                                          style: TextStyle(
+                                            color: error,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      )
+                                      // Text(
+                                      //   // '₦1,500',
+                                      //   stringamount(displaylist[index]["amount"]),
+                                      //   style: TextStyle(
+                                      //     color: listmoneylight,
+                                      //     fontWeight: FontWeight.w600,
+                                      //     fontSize: 15
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
+                                );      
+                            }),
+                            
                           ),
                         )
                       ],

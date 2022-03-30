@@ -78,10 +78,8 @@ class _FirstState extends State<First> {
   DateTime? selectEndDate;
 
   dynamic data = {
-    "start_date": "",
-    "saver_id": Get.arguments,
-    "end_date":"",
-    "amount": ""
+    "start": "",
+    "end":"",
   };
 
   @override
@@ -99,19 +97,32 @@ class _FirstState extends State<First> {
     super.initState();
   }
 
+  listransaction() async {
+    context.loaderOverlay.show();
+    await auth.listransaction(data: data).then((value) {
+      context.loaderOverlay.hide();
+      if (value!["status"] == "error") {
+        snackbar(message: "Error", header: value!["message"], bcolor: error);
+      }
+      if(value!["status"] == "success") {
+        auth.transactions.assignAll(value!["transactions"]["data"]);
+      }
+    });
+  }
+
 
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 800))
+      firstDate: DateTime(2017),
+      lastDate: DateTime.now().add(const Duration(days: 300))
     );
     if (picked != null && picked != DateTime.now()) {
       setState(() {
         selectedDate = picked;
-        data["start_date"] = selectedDate.toString();
+        data["start"] = dateformaterY_M_D(selectedDate.toString());
         data["end_date"] = "";
       });
       startdate.text = dateformater(selectedDate.toString());
@@ -122,14 +133,14 @@ class _FirstState extends State<First> {
   Future<void> _enddate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate!.add(const Duration(days: 15)),
-      firstDate: selectedDate!.add(const Duration(days: 15)),
-      lastDate: selectedDate!.add(const Duration(days: 800))
+      initialDate: selectedDate!.add(const Duration(days: 1)),
+      firstDate: selectedDate!.add(const Duration(days: 1)),
+      lastDate: selectedDate!.add(const Duration(days: 900))
     );
     if (picked != null && picked != DateTime.now()) {
       setState(() {
         selectEndDate = picked;
-        data["end_date"] = selectEndDate.toString();
+        data["end"] = dateformaterY_M_D(selectEndDate.toString());
       });
       enddate.text = dateformater(selectEndDate.toString());
     }  
@@ -497,12 +508,6 @@ class _FirstState extends State<First> {
         });
       }
 
-      // if (value["update_bvn"] == 1) {
-      //   setState(() {
-      //     showbvn = true;
-      //   });
-      // }
-
       print(value["update_bvn"]);
 
       print(value["total_savings"].toString());
@@ -603,7 +608,9 @@ class _FirstState extends State<First> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      print(data);
+      Get.back();
+      listransaction();
+      // print(data);
     } else {
       // _showMessage("Error Occoured.", error);
     }
@@ -613,125 +620,116 @@ class _FirstState extends State<First> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius:BorderRadius.circular(20.0)),
-            child: Container(
-            constraints: BoxConstraints(maxHeight: 300),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ListView(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Sort by date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Start Date",
-                          style: TextStyle(
-                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            height: 0.19
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius:BorderRadius.circular(20.0)),
+              child: Container(
+                constraints: BoxConstraints(maxHeight: 300),
+                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F8F8F8"),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ListView(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sort by date",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: primary
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Start Date",
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                height: 0.19
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () => _selectDate(context),
+                              child: TextFormField( 
+                                validator: MultiValidator([
+                                  RequiredValidator(errorText: 'Start date is required.'),  
+                                ]),
+                                enabled: false,
+                                controller: startdate,
+                                keyboardType: TextInputType.name,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            Text(
+                              "End Date",
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                height: 0.19
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () {
+                                if (selectedDate == null) {
+                                  snackbar(message: "Error", header: "Start date required", bcolor: error);
+                                  return;
+                                }
+                                _enddate(context);
+                              },
+                              child: TextFormField( 
+                                validator: MultiValidator([
+                                  RequiredValidator(errorText: 'End date is required.'),  
+                                ]),
+                                controller: enddate,
+                                enabled: false,
+                                keyboardType: TextInputType.name,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ),
+                              
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      InkWell(
+                        onTap: () => validate(),
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          width: 100.w,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: primary,
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w800
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => _selectDate(context),
-                          child: TextFormField( 
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'Start date is required.'),  
-                            ]),
-                            enabled: false,
-                            controller: startdate,
-                            // onSaved: (val) {
-                            //   setState(() {
-                            //     data["start_date"] = val;
-                            //   });
-                            // },
-                            keyboardType: TextInputType.name,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.next,
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        Text(
-                          "End Date",
-                          style: TextStyle(
-                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            height: 0.19
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            if (selectedDate == null) {
-                              snackbar(message: "Error", header: "Start date required", bcolor: error);
-                              return;
-                            }
-                            _enddate(context);
-                          },
-                          child: TextFormField( 
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'End date is required.'),  
-                            ]),
-                            controller: enddate,
-                            enabled: false,
-                            // onSaved: (val) => saver.stepnamedata["lastname"] = val,
-                            // onSaved: (val) {
-                            //   setState(() {
-                            //     data["end_date"] = val;
-                            //   });
-                            // },
-                            keyboardType: TextInputType.name,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            textInputAction: TextInputAction.next,
-                          ),
-                        ),
-                          
+                      ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
-                  InkWell(
-                    onTap: () => validate(),
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      width: 100.w,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(4)
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Continue",
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w800
-                        ),
-                      ),
-                    ),
-                  ),
-                  ],
                 ),
-              ),
-            ),
-        );
-    });
+          );
+      });
   }
 
   @override
@@ -1136,7 +1134,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 5),
+                                      // const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1156,7 +1154,7 @@ class _FirstState extends State<First> {
                                           )
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Apply for Credit',
                                         style: TextStyle(
@@ -1190,7 +1188,7 @@ class _FirstState extends State<First> {
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 18, top: 9, right: 18),
                                   height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
@@ -1217,7 +1215,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 5),
+                                      const SizedBox(height: 3),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1237,7 +1235,7 @@ class _FirstState extends State<First> {
                                           )
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 4),
                                       Text(
                                         'Apply for Credit',
                                         style: TextStyle(
@@ -1246,7 +1244,7 @@ class _FirstState extends State<First> {
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
+                                      const SizedBox(height: 3),
                                       Text(
                                         'Reach your goals quicker and easier with savings and investment with Kwikee.',
                                         textAlign: TextAlign.left,
@@ -1287,6 +1285,7 @@ class _FirstState extends State<First> {
                                     ],
                                   ),
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -1781,7 +1780,7 @@ class _FirstState extends State<First> {
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                           margin: const EdgeInsets.only(bottom: 5),
-                          height: 47,
+                          height: 50,
                           decoration: BoxDecoration(
                             color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                             borderRadius: BorderRadius.circular(5)
@@ -1789,29 +1788,44 @@ class _FirstState extends State<First> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              
                               Visibility(
-                                visible: item["transaction_type"] == "1",
+                                visible: item["product_mode"] == "1",
+                                child: SvgPicture.asset(
+                                  'assets/image/dashboardmax.svg',
+                                  semanticsLabel: 'Target',
+                                )
+                              ),
+                              Visibility(
+                                visible: item["product_mode"] == "2",
+                                child: SvgPicture.asset(
+                                  'assets/image/dashboardgoals.svg',
+                                  semanticsLabel: 'Target',
+                                ),
+                              ),
+
+                              Visibility(
+                                visible: item["product_mode"] == "4" && (item["transaction_type"] == "1" || item["transaction_type"] == "3"),
+                                // visible: true,
                                 child: Container(
-                                  width: 27,
-                                  height: 27,
+                                  width: 25,
+                                  height: 25,
                                   decoration: BoxDecoration(
                                     color: error,
                                     shape: BoxShape.circle
                                   ),
-                                  alignment: Alignment.center,
+                                  // alignment: Alignment.center,
                                   child: Icon(
                                     FontAwesome.angle_up,
-                                    size: 25.0,
+                                    size: 20.0,
                                     color: white,
                                   )
                                 ),
                               ),
                               Visibility(
-                                visible: item["transaction_type"] == "2",
+                                visible: item["product_mode"] == "4" && (item["transaction_type"] == "2" || item["transaction_type"] == "4"),
                                 child: Container(
-                                  width: 27,
-                                  height: 27,
+                                  width: 25,
+                                  height: 25,
                                   decoration: BoxDecoration(
                                     color: success,
                                     shape: BoxShape.circle
@@ -1819,43 +1833,60 @@ class _FirstState extends State<First> {
                                   alignment: Alignment.center,
                                   child: Icon(
                                     FontAwesome.angle_down,
-                                    size: 25.0,
+                                    size: 20.0,
                                     color: white,
                                   )
                                 ),
                               ),
                               Visibility(
-                                visible: item["transaction_type"] == "3",
+                                visible: item["product_mode"] == "3" && (item["transaction_type"] == "2" || item["transaction_type"] == "4"),
                                 child: Container(
-                                  width: 27,
-                                  height: 27,
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: success,
+                                    shape: BoxShape.circle
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    FontAwesome.angle_down,
+                                    size: 20.0,
+                                    color: white,
+                                  )
+                                ),
+                              ),
+                              Visibility(
+                                visible: item["product_mode"] == "3" && (item["transaction_type"] == "1" || item["transaction_type"] == "3"),
+                                child: Container(
+                                  width: 25,
+                                  height: 25,
                                   decoration: BoxDecoration(
                                     color: error,
                                     shape: BoxShape.circle
                                   ),
                                   alignment: Alignment.center,
                                   child: Icon(
-                                    Ionicons.close_outline,
-                                    size: 15.0,
+                                    FontAwesome.angle_up,
+                                    size: 20.0,
                                     color: white,
                                   )
                                 ),
                               ),
+                              
+
+
                               Visibility(
-                                visible: item["transaction_type"] == "4",
-                                child: Container(
-                                  width: 27,
-                                  height: 27,
-                                  decoration: BoxDecoration(
-                                    color: error,
-                                    shape: BoxShape.circle
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Ionicons.close_outline,
-                                    size: 15.0,
-                                    color: white,
-                                  )
+                                visible: item["product_mode"] == "5" && (item["transaction_type"] == "2" || item["transaction_type"] == "4"),
+                                child: SvgPicture.asset(
+                                  'assets/image/cashback.svg',
+                                  semanticsLabel: 'Target',
+                                ),
+                              ),
+                              Visibility(
+                                visible: item["product_mode"] == "5" && (item["transaction_type"] == "1" || item["transaction_type"] == "3"),
+                                child: SvgPicture.asset(
+                                  'assets/image/cashback.svg',
+                                  semanticsLabel: 'Target',
                                 ),
                               ),
                               const SizedBox(width: 20),
@@ -1919,6 +1950,33 @@ class _FirstState extends State<First> {
                               ),
                               Visibility(
                                 visible: item["transaction_type"] == "1",
+                                child: Text(
+                                  // '₦1,500',
+                                  stringamount(item["amount"]),
+                                  style: TextStyle(
+                                    color: error,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.roboto().toString(),
+                                  ),
+                                ),
+                              ),
+
+                              Visibility(
+                                visible: item["transaction_type"] == "3",
+                                child: Text(
+                                  // '₦1,500',
+                                  stringamount(item["amount"]),
+                                  style: TextStyle(
+                                    color: error,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.roboto().toString(),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: item["transaction_type"] == "4",
                                 child: Text(
                                   // '₦1,500',
                                   stringamount(item["amount"]),

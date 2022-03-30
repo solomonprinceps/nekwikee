@@ -166,56 +166,59 @@ class _HomeState extends State<Home> {
     //         : "dark";
 
     return Scaffold(
-      appBar: index == 2 ? PreferredSize(preferredSize: Size(0.0, 0.0),child: Container(),) : AppBar(
-        title: Obx(() => Text(
-            "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
-        
-            // "Yo! ${auth.userdata["firstname"].capitalize()}",
-            // 'Hi ${auth.userdata["lastname"]},',
-            softWrap: false,
-            style: TextStyle(
-              color: CustomTheme.presntstate ? white : primary,
-              fontSize: 15,
-              fontWeight: FontWeight.w600
-            ),
-          )
-        ),
-        automaticallyImplyLeading: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Row(
-              children: [
-
-                InkWell(
-                  onTap: () => _callNumber(),
-                  child: SvgPicture.asset(
-                    'assets/image/support.svg',
-                    semanticsLabel: 'Target',
-                    width: 20,
-                    height: 20,
-                    // color: white,
-                  ),
-                ),
-                SizedBox(width: 20),
-                
-                InkWell(
-                  // onTap: () => logout(),
-                  // onTap: () => showNotification(),
-                  onTap: () {},
-                  child: Icon(
-                    FontAwesome.bell,
-                    color: registerActioncolor,
-                    size: 20.0,
-                    textDirection: TextDirection.ltr,
-                    semanticLabel:
-                        'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
-                  ),
-                ),
-              ],
-            ),
+      appBar: index == 2 ? PreferredSize(preferredSize: Size(0.0, 0.0),child: Container(),) : PreferredSize(
+        preferredSize: Size.fromHeight(40.0),
+        child: AppBar(
+          title: Obx(() => Text(
+              "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
+          
+              // "Yo! ${auth.userdata["firstname"].capitalize()}",
+              // 'Hi ${auth.userdata["lastname"]},',
+              softWrap: false,
+              style: TextStyle(
+                color: CustomTheme.presntstate ? white : primary,
+                fontSize: 15,
+                fontWeight: FontWeight.w600
+              ),
+            )
           ),
-        ],
+          automaticallyImplyLeading: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+      
+                  InkWell(
+                    onTap: () => _callNumber(),
+                    child: SvgPicture.asset(
+                      'assets/image/support.svg',
+                      semanticsLabel: 'Target',
+                      width: 20,
+                      height: 20,
+                      // color: white,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  
+                  InkWell(
+                    // onTap: () => logout(),
+                    // onTap: () => showNotification(),
+                    onTap: () {},
+                    child: Icon(
+                      FontAwesome.bell,
+                      color: registerActioncolor,
+                      size: 20.0,
+                      textDirection: TextDirection.ltr,
+                      semanticLabel:
+                          'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index!,

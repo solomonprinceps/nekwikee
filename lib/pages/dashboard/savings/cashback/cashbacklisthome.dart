@@ -40,6 +40,7 @@ class _CashbacklistState extends State<Cashbacklist> {
                   onPressed: () {
                     Get.back();
                     // Get.toNamed("cashback/repayment", arguments: data);
+                    print(data["status"]);
                     if (data["status"].toString() == "0") {
                       snackbar(message: "Error", header: "Cashback is still awaiting approval", bcolor: error);
                       return;
@@ -103,12 +104,12 @@ class _CashbacklistState extends State<Cashbacklist> {
     await saving.applycashback(id).then((value) {
       context.loaderOverlay.hide();
       print(value);
-      if (value?["status"] == "success") {
-        Get.toNamed("cashback/home", arguments: value); 
-      }
-      if (value?["status"] == "error") {
-        snackbar(message: value?["message"], header: "Error", bcolor: error); 
-      }
+      // if (value?["status"] == "success") {
+      //   Get.toNamed("cashback/home", arguments: value); 
+      // }
+      // if (value?["status"] == "error") {
+      //   snackbar(message: value?["message"], header: "Error", bcolor: error); 
+      // }
     }).catchError((err) {
       context.loaderOverlay.hide();
       print(err);
@@ -152,11 +153,11 @@ class _CashbacklistState extends State<Cashbacklist> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // print(savings["amount_saved"]);
-          if (int.parse(savings["amount_saved"]) > 999.99) {
+          // if (int.parse(savings["amount_saved"])  999.99) {
             startCashback(savings["investmentid"]);
-          } else {
-            snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
-          }
+          // } else {
+          //   snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
+          // }
         },
         child: Icon(
           Ionicons.add,

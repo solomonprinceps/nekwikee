@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 
 Color whitescaffold = Colors.white;
-Color success = Colors.green;
+Color success = HexColor("#42d579");
 Color white = Colors.white;
 Color black = Colors.black;
 Color onboardaction = HexColor('#91d8f7');
@@ -16,7 +16,7 @@ Color inputColor = const Color.fromRGBO(53, 49, 48, 0.06);
 Color inputcolordark = const Color.fromRGBO(63,70,94, 1);
 Color labelactive = const Color.fromRGBO(0, 175, 239, 1);
 Color registerActioncolor = HexColor('#53E88B');
-Color error = Colors.red;
+Color error = HexColor("#f75c35");
 Color dashboardbackground = HexColor('#f5f6fb');
 Color dashname = HexColor('#3E4095');
 Color dashboardcard = HexColor('#F8F8F8');

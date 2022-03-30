@@ -12,8 +12,6 @@ import 'package:get/get.dart';
 import 'styles.dart';
 import 'package:kwikee1/services/notification.dart';
 import 'dart:async';
-
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -147,7 +145,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: CustomTheme.presntstate ?  HexColor('#303753') : white,
+      statusBarColor: Colors.transparent,
       systemNavigationBarColor: CustomTheme.presntstate ? HexColor('#303753') : Colors.white,
     ));
     return GlobalLoaderOverlay(

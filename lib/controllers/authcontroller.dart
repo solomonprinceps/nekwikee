@@ -86,7 +86,14 @@ class AuthController extends GetxController {
     });
     return bodydata;
   }
-  
+
+  Future <dynamic> listransaction({required Map data}) async {
+    dynamic bodydata;
+    await dioclient.listransaction(data: data).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
 
   Future <dynamic> litetocredit(Map data) async {
     dynamic bodydata;
