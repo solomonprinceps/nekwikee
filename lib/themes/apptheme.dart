@@ -8,10 +8,10 @@ import 'package:flutter/services.dart';
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
-  static bool _isDarkTheme = false; 
+  static bool _isDarkTheme = true; 
   ThemeMode get currentTheme => _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   CustomTheme() {
-    // checkstate();
+    checkstate();
   }
   void toggleTheme(bool state) {
     _isDarkTheme = !state;

@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _initializeTimer(BuildContext context) {
-    _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+    _timer = Timer.periodic(const Duration(minutes: 3), (_) => _logOutUser(context));
     print("set timer");
   }
 
@@ -90,12 +90,12 @@ class _MyAppState extends State<MyApp> {
     if (token != null) {
       authstorage.remove('user');
       authstorage.remove('accessToken');
-      Get.offAllNamed("/newsplash");
+      Get.offAllNamed("/auth/login");
       _timer?.cancel();
-      _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+      _timer = Timer.periodic(const Duration(minutes: 3), (_) => _logOutUser(context));
     }
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(minutes: 10), (_) => _logOutUser(context));
+    _timer = Timer.periodic(const Duration(minutes: 3), (_) => _logOutUser(context));
   }
 
   // You'll probably want to wrap this function in a debounce

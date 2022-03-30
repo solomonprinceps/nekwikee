@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -32,16 +32,20 @@ class _HomeState extends State<Home> {
     androidId: 'com.moneymarquefinance.kwikee',
   );
   dynamic passedid;
-  int? index = 0;
+  int? index = 1;
   final pages =  <Widget>[
-    const First(),
     const Savings(),
+    const First(),
     const Profile()
     // TextButton(
     //   onPressed: () { currentTheme.toggleTheme(CustomTheme.presntstate); },
     //   child: const Text("change theme")
     // ),
   ];
+  _callNumber() async {
+    const number = '2348143881300'; //set the number here
+    await FlutterPhoneDirectCaller.callNumber(number);
+  }
   getoken() async {
     await _firebaseMessaging.getToken().then((value) {
       print("firebase ");
@@ -163,46 +167,52 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: index == 2 ? PreferredSize(preferredSize: Size(0.0, 0.0),child: Container(),) : AppBar(
-        title: Visibility(
-          visible: index != 2,
-          child: Obx(() => Text(
-              "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
+        title: Obx(() => Text(
+            "Yo! ${makecapitalize(auth.userdata["firstname"].toString())},",
         
-              // "Yo! ${auth.userdata["firstname"].capitalize()}",
-              // 'Hi ${auth.userdata["lastname"]},',
-              softWrap: false,
-              style: TextStyle(
-                color: CustomTheme.presntstate ? white : primary,
-                fontSize: 15,
-                fontWeight: FontWeight.w600
-              ),
-            )
-          ),
+            // "Yo! ${auth.userdata["firstname"].capitalize()}",
+            // 'Hi ${auth.userdata["lastname"]},',
+            softWrap: false,
+            style: TextStyle(
+              color: CustomTheme.presntstate ? white : primary,
+              fontSize: 15,
+              fontWeight: FontWeight.w600
+            ),
+          )
         ),
         automaticallyImplyLeading: false,
         actions: [
-          Visibility(
-            visible: index != 2,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  
-                  InkWell(
-                    // onTap: () => logout(),
-                    // onTap: () => showNotification(),
-                    onTap: () {},
-                    child: Icon(
-                      FontAwesome.bell,
-                      color: registerActioncolor,
-                      size: 20.0,
-                      textDirection: TextDirection.ltr,
-                      semanticLabel:
-                          'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
-                    ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Row(
+              children: [
+
+                InkWell(
+                  onTap: () => _callNumber(),
+                  child: SvgPicture.asset(
+                    'assets/image/support.svg',
+                    semanticsLabel: 'Target',
+                    width: 20,
+                    height: 20,
+                    // color: white,
                   ),
-                ],
-              ),
+                ),
+                SizedBox(width: 20),
+                
+                InkWell(
+                  // onTap: () => logout(),
+                  // onTap: () => showNotification(),
+                  onTap: () {},
+                  child: Icon(
+                    FontAwesome.bell,
+                    color: registerActioncolor,
+                    size: 20.0,
+                    textDirection: TextDirection.ltr,
+                    semanticLabel:
+                        'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                  ),
+                ),
+              ],
             ),
           ),
         ],

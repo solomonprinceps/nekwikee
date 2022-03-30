@@ -18,6 +18,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'package:flutterwave/flutterwave.dart';
 import 'dart:ui';
+import 'package:form_field_validator/form_field_validator.dart';
 
 
 class First extends StatefulWidget {
@@ -39,6 +40,7 @@ class _FirstState extends State<First> {
   bool continuecreditapply = false;
   bool showsetpin = false;
   bool hasloan = false;
+  final _formKey = GlobalKey<FormState>();
   dynamic paymentcard;
   String totalsaving = "0"; 
   Map<String, dynamic> loandata = {
@@ -70,6 +72,17 @@ class _FirstState extends State<First> {
   };
   String publicKeyTest = 'pk_live_6ac0e9de3f66c6954ac5484df48f10d98e9adc5f'; //pass in the public test key obtained from paystack dashboard here
   final plugin = PaystackPlugin();
+  TextEditingController startdate = TextEditingController();
+  TextEditingController enddate = TextEditingController();
+  DateTime? selectedDate;
+  DateTime? selectEndDate;
+
+  dynamic data = {
+    "start_date": "",
+    "saver_id": Get.arguments,
+    "end_date":"",
+    "amount": ""
+  };
 
   @override
   void initState() {
@@ -88,7 +101,39 @@ class _FirstState extends State<First> {
 
 
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 800))
+    );
+    if (picked != null && picked != DateTime.now()) {
+      setState(() {
+        selectedDate = picked;
+        data["start_date"] = selectedDate.toString();
+        data["end_date"] = "";
+      });
+      startdate.text = dateformater(selectedDate.toString());
+      enddate.text = "";
+    }  
+  }
 
+  Future<void> _enddate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate!.add(const Duration(days: 15)),
+      firstDate: selectedDate!.add(const Duration(days: 15)),
+      lastDate: selectedDate!.add(const Duration(days: 800))
+    );
+    if (picked != null && picked != DateTime.now()) {
+      setState(() {
+        selectEndDate = picked;
+        data["end_date"] = selectEndDate.toString();
+      });
+      enddate.text = dateformater(selectEndDate.toString());
+    }  
+  }
 
 
 
@@ -117,13 +162,6 @@ class _FirstState extends State<First> {
     //   this.showLoading("No Response!");
     // }
   }
-
-
-
-
-
-
-
 
   
 
@@ -561,200 +599,323 @@ class _FirstState extends State<First> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // final String themestate = MediaQuery.of(context).platformBrightness == Brightness.light ? "light" : "dark";
-    // final bool cutomtheme = CustomTheme.presntstate;
-    return SafeArea(
-      child: ScrollConfiguration(
-        behavior: MyBehavior(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(6)
-                      ), 
-                    ),
-                    const SizedBox(width: 5),
-                    Container(
-                      width: 9,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: primary.withOpacity(0.60),
-                        borderRadius: BorderRadius.circular(6)
-                      ), 
-                    )
-                  ],
-                ),
-              ),
-              // const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed('credit');
-                    // print(auth.userdata["firstname"]);
-                    // findfirstGoal();
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.only(right: 20, left: 20),
-                    // width: 50.w,
-                    height: 190,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/image/homecard.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: RefreshIndicator(
-                      onRefresh: () => loadashboard(),
-                      key: refreshkey,
-                      color: primary,
-                      child: ListView(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/image/feather-right1.svg',
-                                    semanticsLabel: 'Action Button',
-                                    width: 20,
-                                    height: 20,
-                                    color: primary,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.h),
-                              Text(
-                                'KWIKEE CARD BALANCE',
-                                style: TextStyle(
-                                  color: white,
-                                  fontSize: 10,
-                                  letterSpacing: 1.4,
-                                  fontWeight: FontWeight.w200
-                                ),
-                              ),
-                              SizedBox(height: 1.h),
-                              
-                              Text(
-                                stringamount(loandata["wallet_balance"].toString()),
-                                style: TextStyle(
-                                  fontSize: 29,
-                                  color: white,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: GoogleFonts.roboto().toString(),
-                                ),
-                               
-                              ),
-                              const SizedBox(height: 10),
-                              // Container(
-                              //   height: 10,
-                              //   width: 30,
-                              //   color: primary,
-                              // ),
-                              Container(
-                                width: 110,
-                                height: 24,
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color: registerActioncolor,
-                                  borderRadius: BorderRadius.circular(3)
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'WITHDRAW',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: white
-                                  )
-                                ),
-                              )
-                            ]
-                          ),
-                        ],
-                      ),
+  void validate() {
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (_formKey.currentState?.validate() != false) {
+      _formKey.currentState?.save();
+      print(data);
+    } else {
+      // _showMessage("Error Occoured.", error);
+    }
+  }
+
+  _loadatepicker(context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius:BorderRadius.circular(20.0)),
+            child: Container(
+            constraints: BoxConstraints(maxHeight: 300),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sort by date",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Obx(
-                () => Visibility(
-                  visible: auth.inital.value && loading,
-                  child: SizedBox(
-                    // padding: const EdgeInsets.all(10),
-                    height: 180,
-                    width: 100.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  SizedBox(height: 30),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Shimmer.fromColors(
-                            baseColor: Colors.grey.shade200,
-                            highlightColor: Colors.white,
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 20, right: 10),
-                              child: Card(
-                                child: Container(
-                                  height: 180,
-                                  // width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        Text(
+                          "Start Date",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            height: 0.19
                           ),
                         ),
-                      
-                        Expanded(
-                          child: Shimmer.fromColors(
-                            baseColor: Colors.grey.shade200,
-                            highlightColor: Colors.white,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 20),
-                              child: Card(
-                                child: Container(
-                                  height: 180,
-                                  // width: 100.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => _selectDate(context),
+                          child: TextFormField( 
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'Start date is required.'),  
+                            ]),
+                            enabled: false,
+                            controller: startdate,
+                            // onSaved: (val) {
+                            //   setState(() {
+                            //     data["start_date"] = val;
+                            //   });
+                            // },
+                            keyboardType: TextInputType.name,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            textInputAction: TextInputAction.next,
                           ),
                         ),
-                
+                        const SizedBox(height: 30),
+                        Text(
+                          "End Date",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? inputcolordark : getstartedp,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            height: 0.19
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            if (selectedDate == null) {
+                              snackbar(message: "Error", header: "Start date required", bcolor: error);
+                              return;
+                            }
+                            _enddate(context);
+                          },
+                          child: TextFormField( 
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'End date is required.'),  
+                            ]),
+                            controller: enddate,
+                            enabled: false,
+                            // onSaved: (val) => saver.stepnamedata["lastname"] = val,
+                            // onSaved: (val) {
+                            //   setState(() {
+                            //     data["end_date"] = val;
+                            //   });
+                            // },
+                            keyboardType: TextInputType.name,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                          
                       ],
                     ),
                   ),
+                  SizedBox(height: 15),
+                  InkWell(
+                    onTap: () => validate(),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      width: 100.w,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: primary,
+                        borderRadius: BorderRadius.circular(4)
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800
+                        ),
+                      ),
+                    ),
+                  ),
+                  ],
                 ),
               ),
-              Obx(
-                () => Visibility(
-                  visible: !auth.inital.value,
-                  child: SizedBox(
-                    height: 180,
-                    width: 100.w,
-                    child: ScrollConfiguration(
-                      behavior: MyBehavior(),
+            ),
+        );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: MyBehavior(),
+      child: SizedBox(
+        height: 100.h,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(6)
+                    ), 
+                  ),
+                  const SizedBox(width: 5),
+                  Container(
+                    width: 9,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: primary.withOpacity(0.60),
+                      borderRadius: BorderRadius.circular(6)
+                    ), 
+                  )
+                ],
+              ),
+            ),
+            // const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed('credit');
+                  // print(auth.userdata["firstname"]);
+                  // findfirstGoal();
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(right: 20, left: 20, top: 10),
+                  // width: 50.w,
+                  height: 160,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: const DecorationImage(
+                      image: AssetImage("assets/image/homecard.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/image/feather-right1.svg',
+                            semanticsLabel: 'Action Button',
+                            width: 20,
+                            height: 20,
+                            color: primary,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        'KWIKEE CARD BALANCE',
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 10,
+                          letterSpacing: 1.4,
+                          fontWeight: FontWeight.w200
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      
+                      Text(
+                        stringamount(loandata["wallet_balance"].toString()),
+                        style: TextStyle(
+                          fontSize: 29,
+                          color: white,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: GoogleFonts.roboto().toString(),
+                        ),
+                       
+                      ),
+                      const SizedBox(height: 10),
+                      // Container(
+                      //   height: 10,
+                      //   width: 30,
+                      //   color: primary,
+                      // ),
+                      Container(
+                        width: 110,
+                        height: 24,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          color: registerActioncolor,
+                          borderRadius: BorderRadius.circular(3)
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'WITHDRAW',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: white
+                          )
+                        ),
+                      )
+                    ]
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            Obx(
+              () => Visibility(
+                visible: auth.inital.value && loading,
+                child: SizedBox(
+                  // padding: const EdgeInsets.all(10),
+                  height: 180,
+                  width: 100.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey.shade200,
+                          highlightColor: Colors.white,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 20, right: 10),
+                            child: Card(
+                              child: Container(
+                                height: 180,
+                                // width: 100.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    
+                      Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey.shade200,
+                          highlightColor: Colors.white,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 20),
+                            child: Card(
+                              child: Container(
+                                height: 180,
+                                // width: 100.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+              
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Obx(
+              () => Visibility(
+                visible: !auth.inital.value,
+                child: SizedBox(
+                  height: 150,
+                  width: 100.w,
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
                       child: ListView(
                         // clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
@@ -949,7 +1110,7 @@ class _FirstState extends State<First> {
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 180,
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -975,7 +1136,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1030,7 +1191,7 @@ class _FirstState extends State<First> {
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
                                   padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 180,
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1056,7 +1217,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1111,8 +1272,8 @@ class _FirstState extends State<First> {
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 180,
+                                  padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1138,7 +1299,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1157,7 +1318,7 @@ class _FirstState extends State<First> {
                                           )
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Update Profile',
                                         style: TextStyle(
@@ -1166,7 +1327,7 @@ class _FirstState extends State<First> {
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add your Bank Verification Number to update your acccount.',
                                         textAlign: TextAlign.left,
@@ -1193,8 +1354,8 @@ class _FirstState extends State<First> {
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 180,
+                                  padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1221,7 +1382,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1243,7 +1404,7 @@ class _FirstState extends State<First> {
                                           )
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Link Bank',
                                         style: TextStyle(
@@ -1270,7 +1431,7 @@ class _FirstState extends State<First> {
                             ),
                           ),   
                 
-
+        
                           Visibility(
                             visible: auth.linkcard.value,
                             // visible: true,
@@ -1281,8 +1442,8 @@ class _FirstState extends State<First> {
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                  height: 180,
+                                  padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1309,7 +1470,7 @@ class _FirstState extends State<First> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -1331,7 +1492,7 @@ class _FirstState extends State<First> {
                                           )
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Link Card',
                                         style: TextStyle(
@@ -1357,7 +1518,7 @@ class _FirstState extends State<First> {
                               ),
                             ),
                           ),   
-
+        
                           
                           Visibility(
                             visible: showgoals,
@@ -1368,8 +1529,8 @@ class _FirstState extends State<First> {
                                 // margin: const EdgeInsets.only(right: 5, left: 5),
                                 margin: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
-                                  height: 180,
+                                  padding: const EdgeInsets.only(left: 20, top: 10, right: 10),
+                                  height: 150,
                                   width: 150,
                                   decoration: BoxDecoration(
                                     color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1468,9 +1629,9 @@ class _FirstState extends State<First> {
                               ),
                             ),
                           ),
-
+        
                           
-
+        
                           Card(
                             shadowColor: HexColor("#0000000F"),
                             margin: const EdgeInsets.only( right: 20),
@@ -1479,8 +1640,8 @@ class _FirstState extends State<First> {
                                 addsaving(context);
                               },
                               child: Container(
-                                padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
-                                height: 180,
+                                padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
+                                height: 150,
                                 width: 150,
                                 decoration: BoxDecoration(
                                   color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
@@ -1494,6 +1655,7 @@ class _FirstState extends State<First> {
                                   ],
                                 ),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -1506,7 +1668,7 @@ class _FirstState extends State<First> {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 5),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
@@ -1527,7 +1689,7 @@ class _FirstState extends State<First> {
                                         )
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 5),
                                     Text(
                                       'Save with Kwik',
                                       style: TextStyle(
@@ -1536,7 +1698,7 @@ class _FirstState extends State<First> {
                                         fontWeight: FontWeight.w400
                                       ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 5),
                                     Text(
                                       'Reach your goals quicker & easier with savings and investment with Kwikee.',
                                       textAlign: TextAlign.left,
@@ -1552,66 +1714,74 @@ class _FirstState extends State<First> {
                               ),
                             ),
                           ),
-
+        
                         ],
                       ),
-                    ),
                   ),
                 ),
               ),
-              
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/image/arrows.svg',
-                          semanticsLabel: 'money bill',
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/image/arrows.svg',
+                        semanticsLabel: 'money bill',
+                        color: !CustomTheme.presntstate ? primary : darkactivity,
+                      ),
+                      const SizedBox(width: 7.6),
+                      Text(
+                        'ACTIVITY',
+                        style: TextStyle(
                           color: !CustomTheme.presntstate ? primary : darkactivity,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10
                         ),
-                        const SizedBox(width: 7.6),
-                        Text(
-                          'ACTIVITY',
-                          style: TextStyle(
-                            color: !CustomTheme.presntstate ? primary : darkactivity,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        
-                        Icon(
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      
+                      InkWell(
+                        onTap: () {
+                          startdate.text = '';
+                          enddate.text = '';
+                          _loadatepicker(context);
+                        },
+                        child: Icon(
                           FontAwesome5Regular.calendar,
                           color: !CustomTheme.presntstate ? primary : darkactivity,
                           size: 20,
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              const SizedBox(height: 15),
-              Container(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                width: double.infinity,
-                // color: Colors.red,
-                constraints: const BoxConstraints(
-                  minHeight: 40
-                ),
-                child: 
-                  Obx(() => 
-                    Column(
+            ),
+            const SizedBox(height: 15),
+            Expanded(
+              child: Obx(
+                () => Container(
+                  padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  width: double.infinity,
+                  // color: error,
+                  child: RefreshIndicator(
+                    onRefresh: () => loadashboard(),
+                    key: refreshkey,
+                    color: primary,
+                    child: ListView(
                       children: auth.transactions.map<Widget>((item) {
                         return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                           margin: const EdgeInsets.only(bottom: 5),
+                          height: 47,
                           decoration: BoxDecoration(
                             color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                             borderRadius: BorderRadius.circular(5)
@@ -1699,6 +1869,9 @@ class _FirstState extends State<First> {
                                       Text(
                                         // "Credit Application X728829",
                                         item["narration"].toString(),
+                                        maxLines: 1,
+                                        softWrap: true,
+                                        overflow: TextOverflow.fade,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -1771,315 +1944,12 @@ class _FirstState extends State<First> {
                         );
                       }).toList(),
                     ),
-                  )  
-                // child: Column(
-                //   children: [
-                    // Container(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                    //   margin: const EdgeInsets.only(bottom: 5),
-                    //   decoration: BoxDecoration(
-                    //     color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                    //     borderRadius: BorderRadius.circular(5)
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //     children: [
-                    //       Container(
-                    //         width: 27,
-                    //         height: 27,
-                    //         decoration: BoxDecoration(
-                    //           color: primary,
-                    //           borderRadius: BorderRadius.circular(100)
-                    //         ),
-                    //         alignment: Alignment.center,
-                    //         child: SvgPicture.asset(
-                    //           'assets/image/targ.svg',
-                    //           semanticsLabel: 'money bill',
-                    //           // color: white,
-                    //         ),
-                    //       ),
-                    //       const SizedBox(width: 20),
-                    //       Expanded(
-                    //         flex: 1,
-                    //         child: Container(
-                    //           margin: const EdgeInsets.only(left: 5, right: 5),
-                    //           child: Column(
-                    //             crossAxisAlignment: CrossAxisAlignment.start,
-                    //             children: [
-                    //               Text(
-                    //                 "Credit Application X728829",
-                    //                 style: TextStyle(
-                    //                   fontSize: 12,
-                    //                   fontWeight: FontWeight.w400,
-                    //                   color: dashname
-                    //                 ),
-                    //               ),
-                    //               Row(
-                    //                 children: [
-                    //                   Text(
-                    //                     "TRNX928292768303;",
-                    //                     style: TextStyle(
-                    //                       fontSize: 9.5,
-                    //                       fontWeight: FontWeight.w400,
-                    //                       color: listingtextlight
-                    //                     ),
-                    //                   ),
-                    //                   Text(
-                    //                     "15 Oct, 2022.",
-                    //                     style: TextStyle(
-                    //                       fontSize: 9.5,
-                    //                       fontWeight: FontWeight.w400,
-                    //                       color: listingtextdatelight
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               )
-                    //             ],
-                    //           ),
-                    //         )
-                    //       ),
-                    //       Text(
-                    //         '₦1,500',
-                    //         style: TextStyle(
-                    //           color: listmoneylight,
-                    //           fontWeight: FontWeight.w600,
-                    //           fontSize: 15
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                //     Container(
-                //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                //       margin: const EdgeInsets.only(bottom: 5),
-                //       decoration: BoxDecoration(
-                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                //         borderRadius: BorderRadius.circular(5)
-                //       ),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //         children: [
-                //           Container(
-                //             width: 27,
-                //             height: 27,
-                //             decoration: BoxDecoration(
-                //               color: kwikeegoals,
-                //               borderRadius: BorderRadius.circular(100)
-                //             ),
-                //             alignment: Alignment.center,
-                //             child: SvgPicture.asset(
-                //               'assets/image/targ.svg',
-                //               semanticsLabel: 'money bill',
-                //               // color: white,
-                //             ),
-                //           ),
-                //           const SizedBox(width: 20),
-                //           Expanded(
-                //             flex: 1,
-                //             child: Container(
-                //               margin: const EdgeInsets.only(left: 5, right: 5),
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(
-                //                     "Credit Application X728829",
-                //                     style: TextStyle(
-                //                       fontSize: 12,
-                //                       fontWeight: FontWeight.w400,
-                //                       color: dashname
-                //                     ),
-                //                   ),
-                //                   Row(
-                //                     children: [
-                //                       Text(
-                //                         "TRNX928292768303;",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextlight
-                //                         ),
-                //                       ),
-                //                       Text(
-                //                         "15 Oct, 2022.",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextdatelight
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   )
-                //                 ],
-                //               ),
-                //             )
-                //           ),
-                //           Text(
-                //             '₦1,500',
-                //             style: TextStyle(
-                //               color: listmoneylight,
-                //               fontWeight: FontWeight.w600,
-                //               fontSize: 15
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //     Container(
-                //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                //       margin: const EdgeInsets.only(bottom: 5),
-                //       decoration: BoxDecoration(
-                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                //         borderRadius: BorderRadius.circular(5)
-                //       ),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //         children: [
-                //           Container(
-                //             width: 27,
-                //             height: 27,
-                //             decoration: BoxDecoration(
-                //               color: error,
-                //               shape: BoxShape.circle
-                //             ),
-                //             alignment: Alignment.center,
-                //             child: Icon(
-                //               FontAwesome.angle_up,
-                //               size: 25.0,
-                //               color: white,
-                //             )
-                //           ),
-                //           const SizedBox(width: 20),
-                //           Expanded(
-                //             flex: 1,
-                //             child: Container(
-                //               margin: const EdgeInsets.only(left: 5, right: 5),
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(
-                //                     "Credit Application X728829",
-                //                     style: TextStyle(
-                //                       fontSize: 12,
-                //                       fontWeight: FontWeight.w400,
-                //                       color: dashname
-                //                     ),
-                //                   ),
-                //                   Row(
-                //                     children: [
-                //                       Text(
-                //                         "TRNX928292768303;",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextlight
-                //                         ),
-                //                       ),
-                //                       Text(
-                //                         "15 Oct, 2022.",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextdatelight
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   )
-                //                 ],
-                //               ),
-                //             )
-                //           ),
-                //           Text(
-                //             '₦1,500',
-                //             style: TextStyle(
-                //               color: error,
-                //               fontWeight: FontWeight.w600,
-                //               fontSize: 15
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //     Container(
-                //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                //       margin: const EdgeInsets.only(bottom: 5),
-                //       decoration: BoxDecoration(
-                //         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                //         borderRadius: BorderRadius.circular(5)
-                //       ),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //         children: [
-                //           Container(
-                //             width: 27,
-                //             height: 27,
-                //             decoration: BoxDecoration(
-                //               color: success,
-                //               shape: BoxShape.circle
-                //             ),
-                //             alignment: Alignment.center,
-                //             child: Icon(
-                //               FontAwesome.angle_down,
-                //               size: 25.0,
-                //               color: white,
-                //             )
-                //           ),
-                //           const SizedBox(width: 20),
-                //           Expanded(
-                //             flex: 1,
-                //             child: Container(
-                //                margin: const EdgeInsets.only(left: 5, right: 5),
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(
-                //                     "Credit Application X728829",
-                //                     style: TextStyle(
-                //                       fontSize: 12,
-                //                       fontWeight: FontWeight.w400,
-                //                       color: dashname
-                //                     ),
-                //                   ),
-                //                   Row(
-                //                     children: [
-                //                       Text(
-                //                         "TRNX928292768303;",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextlight
-                //                         ),
-                //                       ),
-                //                       Text(
-                //                         "15 Oct, 2022.",
-                //                         style: TextStyle(
-                //                           fontSize: 9.5,
-                //                           fontWeight: FontWeight.w400,
-                //                           color: listingtextdatelight
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   )
-                //                 ],
-                //               ),
-                //             )
-                //           ),
-                //           Text(
-                //             '₦1,500',
-                //             style: TextStyle(
-                //               color: listmoneylight,
-                //               fontWeight: FontWeight.w600,
-                //               fontSize: 15
-                //             ),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
-              ),
-              SizedBox(height: 10.h)
-            ],
-          ),
+                  ),
+                ),
+              )
+            )
+            // SizedBox(height: 10.h)
+          ],
         ),
       ),
     );
