@@ -474,14 +474,14 @@ class _EmploymentbankState extends State<Employmentbank> {
                   children: [
                     GestureDetector(
                       // onTap: () => Get.toNamed("credit/preview"),
-                      onTap: () =>  Get.toNamed('credit/preview', arguments: Get.arguments),
+                      onTap: () =>  validate(),
                       child: Container(
                         width: 100.w,
                         height: 58,
-                        color: primary,
+                        color: const Color.fromRGBO(66, 213, 121, 1),
                         alignment: Alignment.center,
                         child: Text(
-                          "Skip",
+                          "Next",
                           style: TextStyle(
                             color: white,
                             fontSize: 15,
@@ -492,14 +492,14 @@ class _EmploymentbankState extends State<Employmentbank> {
                     ),
                     GestureDetector(
                       // onTap: () => Get.toNamed("credit/preview"),
-                      onTap: () =>  validate(),
+                      onTap: () =>  Get.toNamed('credit/preview', arguments: Get.arguments),
                       child: Container(
                         width: 100.w,
                         height: 58,
-                        color: const Color.fromRGBO(66, 213, 121, 1),
+                        color: primary,
                         alignment: Alignment.center,
                         child: Text(
-                          "Next",
+                          "Skip",
                           style: TextStyle(
                             color: white,
                             fontSize: 15,

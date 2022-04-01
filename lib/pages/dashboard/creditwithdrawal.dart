@@ -1032,6 +1032,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       loadashboard();
+      withdraw.withform["mode"] = "2";
     });
   }
 
@@ -1421,45 +1422,45 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              GestureDetector(
-                                onTap: () => shoWidget(),
-                                child: TextFormField(
-                                  style: TextStyle(
-                                      color: !CustomTheme.presntstate
-                                          ? darkscaffold
-                                          : whitescaffold),
-                                  // obscureText: true,
-                                  validator: (String? value) {
-                                    if (value == null) {
-                                      return 'Mode is required';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  onSaved: (val) {
-                                    // loginstate.login["email"] = val;
-                                  },
-                                  enabled: false,
-                                  controller: modecontroller,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: !CustomTheme.presntstate
-                                        ? inputColor
-                                        : inputcolordark,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder: inputborder,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle: const TextStyle(color: Colors.red),
-                                  )
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () => shoWidget(),
+                              //   child: TextFormField(
+                              //     style: TextStyle(
+                              //         color: !CustomTheme.presntstate
+                              //             ? darkscaffold
+                              //             : whitescaffold),
+                              //     // obscureText: true,
+                              //     validator: (String? value) {
+                              //       if (value == null) {
+                              //         return 'Mode is required';
+                              //       }
+                              //       return null;
+                              //     },
+                              //     keyboardType: TextInputType.number,
+                              //     autovalidateMode:
+                              //         AutovalidateMode.onUserInteraction,
+                              //     textInputAction: TextInputAction.done,
+                              //     onSaved: (val) {
+                              //       // loginstate.login["email"] = val;
+                              //     },
+                              //     enabled: false,
+                              //     controller: modecontroller,
+                              //     decoration: InputDecoration(
+                              //       filled: true,
+                              //       contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                              //       fillColor: !CustomTheme.presntstate
+                              //           ? inputColor
+                              //           : inputcolordark,
+                              //       border: inputborder,
+                              //       focusedBorder: activeinputborder,
+                              //       enabledBorder: inputborder,
+                              //       focusedErrorBorder: inputborder,
+                              //       errorBorder: errorborder,
+                              //       disabledBorder: inputborder,
+                              //       errorStyle: const TextStyle(color: Colors.red),
+                              //     )
+                              //   ),
+                              // ),
                               Obx(() => Visibility(
                                   visible: withdraw.withform["mode"] == "2",
                                   child: const SizedBox(height: 20))),

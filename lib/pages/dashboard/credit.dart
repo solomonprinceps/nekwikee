@@ -182,14 +182,19 @@ class _CreditState extends State<Credit> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Row(
-              children: const [
-                Icon(
-                  FontAwesome.bell,
-                  color: Color.fromRGBO(66, 213, 121, 1),
-                  size: 20.0,
-                  textDirection: TextDirection.ltr,
-                  semanticLabel:
-                      'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.toNamed("notification");
+                  },
+                  child: Icon(
+                    FontAwesome.bell,
+                    color: Color.fromRGBO(66, 213, 121, 1),
+                    size: 20.0,
+                    textDirection: TextDirection.ltr,
+                    semanticLabel:
+                        'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                  ),
                 ),
               ],
             ),

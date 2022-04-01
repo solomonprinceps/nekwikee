@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
     // ),
   ];
   _callNumber() async {
-    const number = '2348143881300'; //set the number here
+    const number = '012299997'; //set the number here
     await FlutterPhoneDirectCaller.callNumber(number);
   }
   getoken() async {

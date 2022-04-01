@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/styles.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Notification extends StatefulWidget {
   const Notification({ Key? key }) : super(key: key);
@@ -108,7 +109,7 @@ class _NotificationState extends State<Notification> {
                           height: 100,
                           width: 100.w,
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(238, 238, 238, 0.67),
+                            color: CustomTheme.presntstate ? HexColor("#212845") : Color.fromRGBO(238, 238, 238, 0.67),
                             borderRadius: BorderRadius.circular(5)
                           ),
                           padding: EdgeInsets.all(15),
@@ -166,7 +167,7 @@ class _NotificationState extends State<Notification> {
                       height: 100,
                       width: 100.w,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(238, 238, 238, 0.67),
+                        color: CustomTheme.presntstate ? HexColor("#212845") :Color.fromRGBO(238, 238, 238, 0.67),
                         borderRadius: BorderRadius.circular(5)
                       ),
                       padding: EdgeInsets.all(15),

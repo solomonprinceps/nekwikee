@@ -379,30 +379,30 @@ class _CreditpreviewState extends State<Creditpreview> {
               alignment: FractionalOffset.bottomCenter,
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      // print(otheremployer);
-                      // if (otheremployer) {
-                      //   acceptloanoffer();
-                      // }
-                      Get.offAllNamed("home");
-                    },
-                    // onTap: () => acceptloanoffer(),
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      color: primary,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Dashboard",
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400
-                        ),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     // print(otheremployer);
+                  //     // if (otheremployer) {
+                  //     //   acceptloanoffer();
+                  //     // }
+                  //     Get.offAllNamed("home");
+                  //   },
+                  //   // onTap: () => acceptloanoffer(),
+                  //   child: Container(
+                  //     width: 100.w,
+                  //     height: 58,
+                  //     color: primary,
+                  //     alignment: Alignment.center,
+                  //     child: Text(
+                  //       "Dashboard",
+                  //       style: TextStyle(
+                  //         color: white,
+                  //         fontSize: 15,
+                  //         fontWeight: FontWeight.w400
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   GestureDetector(
                     onTap: () {
                       print(otheremployer);
