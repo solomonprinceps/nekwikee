@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/controllers/savingcontroller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Cashbacklist extends StatefulWidget {
   const Cashbacklist({ Key? key }) : super(key: key);
@@ -20,6 +21,7 @@ class Cashbacklist extends StatefulWidget {
 class _CashbacklistState extends State<Cashbacklist> {
   dynamic savings;
   List? cashbackloans = [];
+  dynamic investmentid;
   SavingController saving = Get.put(SavingController());
 
   showmodel({required Map data}) {
@@ -40,7 +42,7 @@ class _CashbacklistState extends State<Cashbacklist> {
                   onPressed: () {
                     Get.back();
                     // Get.toNamed("cashback/repayment", arguments: data);
-                    print(data["status"]);
+                    // print(data["status"]);
                     if (data["status"].toString() == "0") {
                       snackbar(message: "Error", header: "Cashback is still awaiting approval", bcolor: error);
                       return;
@@ -120,7 +122,8 @@ class _CashbacklistState extends State<Cashbacklist> {
   void initState() {
     setState(() {
       savings = Get.arguments;
-      cashbackloans = savings["cash_back_loans"];
+      cashbackloans = savings["data"];
+      investmentid = savings["savings"];
     });
     super.initState();
   }
@@ -150,138 +153,304 @@ class _CashbacklistState extends State<Cashbacklist> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // print(savings["amount_saved"]);
-          // if (int.parse(savings["amount_saved"])  999.99) {
-            startCashback(savings["investmentid"]);
-          // } else {
-          //   snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
-          // }
-        },
-        child: Icon(
-          Ionicons.add,
-          color: white,
-        ),
-        backgroundColor: primary,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: SizedBox(
-          height: 100.h,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                savings["savings_name"].toString(),
-                style: TextStyle(
-                  color: CustomTheme.presntstate ? white : primary 
-                ),
-              ),
-              SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cashbackloans!.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    return GestureDetector(
-                      onTap: () => showmodel(data: cashbackloans![index]),
-                      child: Container(
-                        height: 100,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: primary.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10)
+        child: Column(
+          children: [
+            Visibility(
+              visible: cashbackloans!.isNotEmpty,
+              // visible: false,
+              child: Card(
+                shadowColor: primary.withOpacity(0.5),
+                // color: primary.withOpacity(0.5),
+                borderOnForeground: false,
+                child: Container(
+                  height: 75.h,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: CustomTheme.presntstate ? primary.withOpacity(0.5) : white,
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          // investmentid["savings_name"].toString(),
+                          "REPAYMENT HISTORY",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? white : primary 
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 100,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                // color: dates![i]["status"].toString() == '1' ? primary : error,
-                                color: primary,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10)
-                                )
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: cashbackloans!.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return Container(
+                              height: 65,
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(bottom: 5),
+                              padding: const EdgeInsets.all(10),
+                              
+                              child: Row(
                                 children: [
-                                  Text(
-                                    "Day",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                  Text(
-                                    cashbackloans![index]["max_days_between"].toString(),
-                                    style: TextStyle(
-                                      color: white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w800
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Amount",
+                                              style: TextStyle(
+                                                color: CustomTheme.presntstate ? white : black,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "2",
+                                              child: Text(
+                                                // '₦1,500',
+                                                stringamount(cashbackloans![index]["amount"]),
+                                                style: TextStyle(
+                                                  color: listmoneylight,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "1",
+                                              child: Text(
+                                                // '₦1,500',
+                                                stringamount(cashbackloans![index]["amount"]),
+                                                style: TextStyle(
+                                                  color: listmoneylight,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                          
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "3",
+                                              child: Text(
+                                                // '₦1,500',
+                                                stringamount(cashbackloans![index]["amount"]),
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "4",
+                                              child: Text(
+                                                // '₦1,500',
+                                                stringamount(cashbackloans![index]["amount"]),
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "5",
+                                              child: Text(
+                                                // '₦1,500',
+                                                stringamount(cashbackloans![index]["amount"]),
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            )
+                                            
+                                          ],
+                                        ),
+                          
+                          
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Date",
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: CustomTheme.presntstate ? white : black,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "2",
+                                              child: Text(
+                                                // '₦1,500',
+                                                dateformater(cashbackloans![index]["transaction_date"]),
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: listmoneylight,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "1",
+                                              child: Text(
+                                                // '₦1,500',
+                                                dateformater(cashbackloans![index]["transaction_date"]),
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: listmoneylight,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                          
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "3",
+                                              child: Text(
+                                                // '₦1,500',
+                                                dateformater(cashbackloans![index]["transaction_date"]),
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "4",
+                                              child: Text(
+                                                // '₦1,500',
+                                                dateformater(cashbackloans![index]["transaction_date"]),
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: cashbackloans![index]["transaction_type"] == "5",
+                                              child: Text(
+                                                // '₦1,500',
+                                                dateformater(cashbackloans![index]["transaction_date"]),
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: error,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  fontFamily: GoogleFonts.roboto().toString(),
+                                                ),
+                                              ),
+                                            )
+                                            
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   )
                                 ],
                               ),
+                            );
+                          }
+                        ),
+                        
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: cashbackloans!.isEmpty,
+              // visible: true,
+              child: SizedBox(
+                height: 75.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      investmentid["savings_name"].toString(),
+                      style: TextStyle(
+                        color: CustomTheme.presntstate ? white : primary 
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          Container(
+                            height: 100,
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(10)
                             ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    // stringamount(amount),
-                                    "Start Date",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                  Text(
-                                    dateformaterY_M_D(cashbackloans![index]["start_date"].toString()),
-                                    // "ceijekd",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    // stringamount(amount),
-                                    "End Date",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                  Text(
-                                    dateformaterY_M_D(cashbackloans![index]["end_date"].toString()),
-                                    // "ceijekd",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800
-                                    ),
-                                  ),
-                                  
-                                ],
+                            child: Center(
+                              child: Text(
+                                "No Cashback Repayment.",
+                                style: TextStyle(
+                                  color: white
+                                ),
                               ),
                             )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                    );
-                  }
+                    )
+                  ],
                 ),
-                
-              )
-            ],
-          ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                // print(investmentid["cash_back_loans"][0]);
+                Get.toNamed("cashback/repayment", arguments: investmentid["cash_back_loans"][0]); 
+              },
+              child: Container(
+                height: 44,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: registerActioncolor,
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                child: Text(
+                  "Repay",
+                  style: TextStyle(
+                    color: white,
+                    fontSize: 18
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

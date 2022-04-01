@@ -164,7 +164,7 @@ class _MaxliteaddfundState extends State<Maxliteaddfund> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            "Your Kwiklite is directly connected to a bank account which could be funded using the above Wema Bank Account Number.",
+                            "Your Kwiklite will be debited and the fund will be dent to this kwik max.",
                             style: TextStyle(
                               color: getstartedp.withOpacity(0.42),
                               fontSize: 11

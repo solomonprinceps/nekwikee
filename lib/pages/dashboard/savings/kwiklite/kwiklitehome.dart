@@ -355,13 +355,13 @@ class _LitehomeState extends State<Litehome> {
                       SvgPicture.asset(
                         'assets/image/arrows.svg',
                         semanticsLabel: 'money bill',
-                        // color: white,
+                        color: CustomTheme.presntstate ? white : primary,
                       ),
                       Row(
                         children: [    
                           Icon(
                             FontAwesome.calendar_check_o,
-                            color: primary,
+                            color: CustomTheme.presntstate ? white : primary,
                             size: 20,
                           ),
                         ],
@@ -540,7 +540,7 @@ class _LitehomeState extends State<Litehome> {
                                     // '₦1,500',
                                     stringamount(item["amount"]),
                                     style: TextStyle(
-                                      color: success,
+                                      color: savingmonth,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15
                                     ),
@@ -548,6 +548,30 @@ class _LitehomeState extends State<Litehome> {
                                 ),
                                 Visibility(
                                   visible: item["transaction_type"] == "1",
+                                  child: Text(
+                                    // '₦1,500',
+                                    stringamount(item["amount"]),
+                                    style: TextStyle(
+                                      color: savingmonth,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                    ),
+                                  ),
+                                ),
+                                 Visibility(
+                                  visible: item["transaction_type"] == "3",
+                                  child: Text(
+                                    // '₦1,500',
+                                    stringamount(item["amount"]),
+                                    style: TextStyle(
+                                      color: error,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: item["transaction_type"] == "4",
                                   child: Text(
                                     // '₦1,500',
                                     stringamount(item["amount"]),

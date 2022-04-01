@@ -106,7 +106,7 @@ class CustomTheme with ChangeNotifier {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-        fillColor: inputcolordark,
+        fillColor: inputdarkcool,
         border: inputborder,
         focusedBorder: activeinputborder,
         enabledBorder: inputborder,

@@ -116,6 +116,7 @@ class _PasswordresetState extends State<Passwordreset> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),
@@ -182,7 +183,7 @@ class _PasswordresetState extends State<Passwordreset> {
                                       ),
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                    fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
+                                    // fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
                                     border: inputborder,
                                     focusedBorder: activeinputborder,
                                     enabledBorder: inputborder,

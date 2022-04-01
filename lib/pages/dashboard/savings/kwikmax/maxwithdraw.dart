@@ -11,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 
 class Maxwithdrawal extends StatefulWidget {
   const Maxwithdrawal({ Key? key }) : super(key: key);
@@ -247,10 +248,8 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
               ),
             ),
           ],
-          backgroundColor: white,
           elevation: 0,
         ),
-        backgroundColor: white,
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           child: Center(
@@ -292,7 +291,7 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
                   padding: const EdgeInsets.all(20),
                   // alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: greybackground,
+                    color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
                     borderRadius: BorderRadius.circular(5)
                   ),
                   child: Column(
@@ -306,7 +305,7 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           letterSpacing: 1.6,
-                          color: HexColor("#3E4095")
+                          color: CustomTheme.presntstate ? HexColor("#3E4095") : white,
                         ),
                       ),
                       Text(
@@ -339,23 +338,12 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
                                 color: darkscaffold
                               ),
                               // obscureText: true,
-                              validator: RequiredValidator(errorText: 'Amount'),
-                              keyboardType: TextInputType.emailAddress,
+                              validator: RequiredValidator(errorText: 'Amount Requiredment'),
+                              keyboardType: TextInputType.number,
                               autovalidateMode: AutovalidateMode.onUserInteraction,
                               textInputAction: TextInputAction.done,
                               controller: amount,
-                              decoration: InputDecoration(
-                                filled: true,
-                                contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                fillColor: inputColor ,
-                                border: inputborder,
-                                focusedBorder: activeinputborder,
-                                enabledBorder: inputborder,
-                                focusedErrorBorder:inputborder ,
-                                errorBorder: errorborder,
-                                disabledBorder: inputborder,
-                                errorStyle: const TextStyle(color: Colors.red),
-                              )
+                              
                             ),
                             SizedBox(height: 2.h),
                             
@@ -365,9 +353,9 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
                       const SizedBox(height: 15),
                       
                       Text(
-                        "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  \n \n Bank Details - Adedayo Adebimpe |GTBank | 3123245354",
+                        "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  Bank",
                         style: TextStyle(
-                          color: getstartedp.withOpacity(0.42),
+                          color: CustomTheme.presntstate ? black : getstartedp.withOpacity(0.42),
                           fontSize: 11
                         ),
                       ),

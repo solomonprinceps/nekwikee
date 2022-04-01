@@ -5,7 +5,7 @@ import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:kwikee1/themes/apptheme.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/services/datstruct.dart';
@@ -45,6 +45,13 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
   };
 
   paycashbacklite() async {
+    print(datacashback["amount"]);
+    print("vjn");
+    if (datacashback["amount"] == "" || data["amount"] == "" || datacashback["amount"] == "0" || data["amount"] == "0") {
+      snackbar(message: "", header: "amount is required", bcolor: error);   
+      return;
+    }
+
     context.loaderOverlay.show();
     await saving.paycashbacklite(data: data).then((value) {
       context.loaderOverlay.hide();
@@ -63,6 +70,13 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
   }
 
   paycashbackcard() async {
+    print(datacashback["amount"]);
+    print("vjn");
+    if (datacashback["amount"] == "" || data["amount"] == "" || datacashback["amount"] == "0" || data["amount"] == "0") {
+      snackbar(message: "", header: "amount is required", bcolor: error);   
+      return;
+    }
+    
     context.loaderOverlay.show();
     await saving.paycashbackcard(data: data).then((value) {
       context.loaderOverlay.hide();
@@ -82,8 +96,8 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
 
   @override
   void initState() {
-    print(auth.userdata["card_authorizations"]);
-    print("cards");
+    // print(auth.userdata["card_authorizations"]);
+    // print("cards");
     if (auth.userdata["card_authorizations"] != null) {
       cards = auth.userdata["card_authorizations"];
     }
@@ -93,8 +107,8 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       cashback = Get.arguments;
       data["loanid"] = cashback["loanid"];
       datacashback["loanid"] = cashback["loanid"];
-      data["amount"] = (cashback["loan_history"]["balance"]).toString();
-      datacashback["amount"] = (cashback["loan_history"]["balance"]).toString();
+      // data["amount"] = (cashback["loan_history"]["balance"]).toString();
+      // datacashback["amount"] = (cashback["loan_history"]["balance"]).toString();
     });
     // print(cashback);
     // print("balance");
@@ -231,177 +245,176 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
               ),
             ),
           ],
-          backgroundColor: white,
           elevation: 0,
         ),
-        backgroundColor: white,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 3.h),
-                  Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: primary,
-                          shape: BoxShape.circle
-                        ),
-                        child: SvgPicture.asset(
-                          'assets/image/maxwithdraw.svg',
-                          semanticsLabel: 'Target',
-                          // color: white,
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        "Repay Cashback",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 30,
-                          color: primary
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4.h),
-                  Container(
-                    width: double.infinity,
-                    height: 400,
-                    padding: const EdgeInsets.all(20),
-                    // alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: greybackground,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 3.h),
+                    Row(
                       children: [
-                        // const SizedBox(height: 30),
-                        Text(
-                          // "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
-                          "Amount: ${stringamount(cashback["amount"].toString())}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
+                        Container(
+                          width: 45,
+                          height: 45,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
                             color: primary,
-                            fontFamily: GoogleFonts.roboto().toString(),
+                            shape: BoxShape.circle
+                          ),
+                          child: SvgPicture.asset(
+                            'assets/image/maxwithdraw.svg',
+                            semanticsLabel: 'Target',
+                            // color: white,
                           ),
                         ),
+                        const SizedBox(width: 20),
                         Text(
-                          // stringamount(savings["amount_saved"].toString()),
-                          "Maximum Repayment: ${stringamount(cashback["max_repayment"])}",
+                          "Repay Cashback",
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                            color: primary,
-                            fontFamily: GoogleFonts.roboto().toString(),
+                            fontSize: 30,
+                            color: primary
                           ),
                         ),
-                        const SizedBox(height: 15),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              
-                              Text(
-                                'Enter amount',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color:  getstartedp
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              TextFormField( 
-                                style: TextStyle(
-                                  color: darkscaffold
-                                ),
-                                // obscureText: true,
-                                validator: RequiredValidator(errorText: 'Amount'),
-                                keyboardType: TextInputType.number,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.done,
-                                controller: amount,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                  fillColor: inputColor ,
-                                  border: inputborder,
-                                  focusedBorder: activeinputborder,
-                                  enabledBorder: inputborder,
-                                  focusedErrorBorder:inputborder ,
-                                  errorBorder: errorborder,
-                                  disabledBorder: inputborder,
-                                  errorStyle: const TextStyle(color: Colors.red),
-                                )
-                              ),
-                              SizedBox(height: 2.h),
-                              
-                            ],
-                          )
-                        ),
-                        const SizedBox(height: 15),
-                        
-                        Text(
-                          "You are about to payback this cashback.",
-                          style: TextStyle(
-                            color: getstartedp.withOpacity(0.42),
-                            fontSize: 11
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        InkWell(
-                          onTap: ()=> showcard(),
-                          child: Container(
-                            height: 44,
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: registerActioncolor,
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Text(
-                              "Pay With Card",
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 18
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        InkWell(
-                          onTap: ()=> paycashbacklite(),
-                          child: Container(
-                            height: 44,
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: registerActioncolor,
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Text(
-                              "Pay Kwilite",
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 18
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: 4.h),
+                    Container(
+                      width: double.infinity,
+                      height: 400,
+                      padding: const EdgeInsets.all(20),
+                      // alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: CustomTheme.presntstate ? HexColor("#212845") : greybackground,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // const SizedBox(height: 30),
+                          Text(
+                            // "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
+                            "Amount: ${stringamount(cashback["balance"].toString())}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: primary,
+                              fontFamily: GoogleFonts.roboto().toString(),
+                            ),
+                          ),
+                          Text(
+                            // stringamount(savings["amount_saved"].toString()),
+                            "Repayment: ${stringamount(cashback["amount_withdrawn"])}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              color: primary,
+                              fontFamily: GoogleFonts.roboto().toString(),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                
+                                Text(
+                                  'Enter amount',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: CustomTheme.presntstate ? white : getstartedp
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                TextFormField( 
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? white : darkscaffold
+                                  ),
+                                  // obscureText: true,
+                                  
+                                  onChanged: (String? val) {
+                                    setState(() {
+                                      datacashback["amount"] = val;
+                                      data["amount"] = val;
+                                    });
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  textInputAction: TextInputAction.done,
+                                  // controller: amount,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                    errorStyle: const TextStyle(color: Colors.red),
+                                  )
+                                ),
+                                SizedBox(height: 2.h),
+                                
+                              ],
+                            )
+                          ),
+                          const SizedBox(height: 15),
+                          
+                          Text(
+                            "You are about to payback this cashback.",
+                            style: TextStyle(
+                              color: CustomTheme.presntstate ? white: getstartedp.withOpacity(0.42),
+                              fontSize: 11
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          InkWell(
+                            onTap: ()=> showcard(),
+                            child: Container(
+                              height: 44,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: registerActioncolor,
+                                borderRadius: BorderRadius.circular(5)
+                              ),
+                              child: Text(
+                                "Pay With Card",
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          InkWell(
+                            onTap: ()=> paycashbacklite(),
+                            child: Container(
+                              height: 44,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: registerActioncolor,
+                                borderRadius: BorderRadius.circular(5)
+                              ),
+                              child: Text(
+                                "Pay Kwilite",
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

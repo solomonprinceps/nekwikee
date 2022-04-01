@@ -176,7 +176,7 @@ class _GoalshomeState extends State<Goalshome> {
                 child: Column(
                   children: [
                     Container(
-                      height: 40.h,
+                      height: 38.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: savingmonth,
@@ -185,7 +185,7 @@ class _GoalshomeState extends State<Goalshome> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 35),
+                          const SizedBox(height: 30),
                           Padding(
                             padding: const EdgeInsets.only(left:20.0),
                             child: Row(
@@ -200,10 +200,18 @@ class _GoalshomeState extends State<Goalshome> {
                                         shape: BoxShape.circle,
                                         color: Color.fromRGBO(246, 251, 254, 1)
                                       ),
-                                      child: Icon(
-                                        FontAwesome5Solid.piggy_bank,
-                                        color: savingmonth,
-                                      )
+                                      alignment: Alignment.center,
+                                      child: SvgPicture.asset(
+                                        'assets/image/goaldashcon.svg',
+                                        semanticsLabel: 'money bill',
+                                        width: 40,
+                                        height: 40,
+                                        // color: white,
+                                      ),
+                                      // child: Icon(
+                                      //   FontAwesome5Solid.piggy_bank,
+                                      //   color: savingmonth,
+                                      // )
                                     ),
                                     const SizedBox(width: 20),
                                     Text(
@@ -415,7 +423,7 @@ class _GoalshomeState extends State<Goalshome> {
                               Text(
                                 'Add Funds',
                                 style: TextStyle(
-                                  color: iconcolorselected,
+                                  color: CustomTheme.presntstate ? white : iconcolorselected,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600
                                 ),
@@ -468,7 +476,7 @@ class _GoalshomeState extends State<Goalshome> {
                               Text(
                                 'Withdraw',
                                 style: TextStyle(
-                                  color: iconcolorselected,
+                                  color: CustomTheme.presntstate ? white : iconcolorselected,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600
                                 ),
@@ -514,7 +522,7 @@ class _GoalshomeState extends State<Goalshome> {
                               Text(
                                 'Edit',
                                 style: TextStyle(
-                                  color: iconcolorselected,
+                                  color: CustomTheme.presntstate ? white : iconcolorselected,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600
                                 ),
@@ -534,13 +542,13 @@ class _GoalshomeState extends State<Goalshome> {
                               SvgPicture.asset(
                                 'assets/image/arrows.svg',
                                 semanticsLabel: 'money bill',
-                                // color: white,
+                                color: CustomTheme.presntstate ? white : primary,
                               ),
                               const SizedBox(width: 15),
                               Text(
                                 'ACTIVITY',
                                 style: TextStyle(
-                                  color: primary,
+                                  color: CustomTheme.presntstate ? white : primary,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 10
                                 ),
@@ -551,7 +559,7 @@ class _GoalshomeState extends State<Goalshome> {
                             children: [    
                               Icon(
                                 FontAwesome.calendar_check_o,
-                                color: primary,
+                                color: CustomTheme.presntstate ? white : primary,
                                 size: 20,
                               ),
                             ],
@@ -597,8 +605,9 @@ class _GoalshomeState extends State<Goalshome> {
                               child: Column(
                                 children: transactions.map<Widget>((item) {
                                   return Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                                     margin: const EdgeInsets.only(bottom: 5),
+                                    height: 50,
                                     decoration: BoxDecoration(
                                       color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                                       borderRadius: BorderRadius.circular(5)
@@ -606,20 +615,6 @@ class _GoalshomeState extends State<Goalshome> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        // Container(
-                                        //   width: 27,
-                                        //   height: 27,
-                                        //   decoration: BoxDecoration(
-                                        //     color: primary,
-                                        //     borderRadius: BorderRadius.circular(100)
-                                        //   ),
-                                        //   alignment: Alignment.center,
-                                        //   child: SvgPicture.asset(
-                                        //     'assets/image/targ.svg',
-                                        //     semanticsLabel: 'money bill',
-                                        //     // color: white,
-                                        //   ),
-                                        // ),
                                         Visibility(
                                           visible: item["transaction_type"] == "1",
                                           child: Container(
@@ -699,10 +694,13 @@ class _GoalshomeState extends State<Goalshome> {
                                                 Text(
                                                   // "Credit Application X728829",
                                                   item["narration"].toString(),
+                                                  maxLines: 1,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.clip,
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w400,
-                                                    color: dashname
+                                                    color: CustomTheme.presntstate ? goalstext : dashname
                                                   ),
                                                 ),
                                                 Column(
@@ -737,10 +735,10 @@ class _GoalshomeState extends State<Goalshome> {
                                             // '₦1,500',
                                             stringamount(item["amount"]),
                                             style: TextStyle(
-                                              color: success,
-                                              fontFamily: GoogleFonts.roboto().toString(),
+                                              color: listmoneylight,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 15
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.roboto().toString(),
                                             ),
                                           ),
                                         ),
@@ -750,14 +748,49 @@ class _GoalshomeState extends State<Goalshome> {
                                             // '₦1,500',
                                             stringamount(item["amount"]),
                                             style: TextStyle(
-                                              color: error,
-                                              fontFamily: GoogleFonts.roboto().toString(),
+                                              color: listmoneylight,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 15
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.roboto().toString(),
+                                            ),
+                                          ),
+                                        ),
+
+                                        Visibility(
+                                          visible: item["transaction_type"] == "3",
+                                          child: Text(
+                                            // '₦1,500',
+                                            stringamount(item["amount"]),
+                                            style: TextStyle(
+                                              color: error,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.roboto().toString(),
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: item["transaction_type"] == "4",
+                                          child: Text(
+                                            // '₦1,500',
+                                            stringamount(item["amount"]),
+                                            style: TextStyle(
+                                              color: error,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.roboto().toString(),
                                             ),
                                           ),
                                         )
-                                    
+                                        // Text(
+                                        //   // '₦1,500',
+                                        //   stringamount(item["amount"]),
+                                        //   style: TextStyle(
+                                        //     color: listmoneylight,
+                                        //     fontWeight: FontWeight.w600,
+                                        //     fontSize: 15
+                                        //   ),
+                                        // )
                                       ],
                                     ),
                                   );

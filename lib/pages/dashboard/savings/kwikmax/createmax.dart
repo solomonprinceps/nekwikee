@@ -263,7 +263,7 @@ class _CreateMaxState extends State<CreateMax> {
                       // Text("data"),
                       
                       Text(
-                        'How much do you want to save?',
+                        'How much do you want to save',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
@@ -323,7 +323,7 @@ class _CreateMaxState extends State<CreateMax> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'How long do you want to save for?',
+                        'How long do you want to save for',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

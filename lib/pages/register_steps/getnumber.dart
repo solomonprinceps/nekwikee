@@ -119,6 +119,7 @@ class _GetnumberState extends State<Getnumber> {
                         children: [
                           SizedBox(height: 1.h),
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),

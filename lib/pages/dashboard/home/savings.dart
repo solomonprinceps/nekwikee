@@ -470,9 +470,10 @@ class _SavingsState extends State<Savings> {
                       const SizedBox(height: 20),
                       //rgba(53, 49, 48, 0.6)
                       Text(
-                        "Your kiwiklite works like a regular bank account. Your can fund it directly and withdraw anytime you want. 10% per annum \n It is directly connected to a unique wema bank account which could be funded using the Account Number.",
+                        "Your kwiklite works like a regular bank account. Your can fund it directly and withdraw anytime you want. 10% per annum \n It is directly connected to a unique wema bank account which could be funded using the Account Number.",
                         style: TextStyle(
-                          color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  const Color.fromRGBO(246, 251, 254, 1).withOpacity(0.42),
+                          // color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  const Color.fromRGBO(246, 251, 254, 1).withOpacity(0.42),
+                          color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  white,
                           fontSize: 10,
                           fontWeight: FontWeight.w600
                         ),

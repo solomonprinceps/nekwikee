@@ -132,6 +132,7 @@ class _ChangepinState extends State<Changepin> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),
@@ -146,7 +147,7 @@ class _ChangepinState extends State<Changepin> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a new five-digit pin to authorise transactions within the Kwikie App',
+                            'Kindly provide a new four-digit pin to authorise transactions within the Kwikie App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,

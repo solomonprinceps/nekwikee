@@ -188,7 +188,7 @@ class SavingController extends GetxController {
 
   Future<dynamic> addfundGoals(Map data) async {
     dynamic bodydata;
-    await dioclient.addfundGoals(data: data).then((value) {
+    await dioclient.transferlitetogoals(data: data).then((value) {
       bodydata = value;
     });
     return bodydata;

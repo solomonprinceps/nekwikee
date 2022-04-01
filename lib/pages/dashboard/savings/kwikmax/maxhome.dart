@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -29,6 +30,7 @@ class _MaxhomeState extends State<Maxhome> {
     });
   }
   SavingController saving = Get.put(SavingController());
+  AuthController auth = Get.put(AuthController());
   final GlobalKey<RefreshIndicatorState> refreshkey = GlobalKey<RefreshIndicatorState>();
   dynamic savings =  {
     "target_amount": "0",
@@ -45,6 +47,30 @@ class _MaxhomeState extends State<Maxhome> {
   bool loading = false;
   Future<bool> _willPopCallback() async {
     return false; // return true if the route to be popped
+  }
+
+  listransaction() async {
+    //investmentid.toString()
+    context.loaderOverlay.show();
+    final Map data = {
+      "product_type": '5',
+      "loanid": savings["cashbacks"]
+    };
+    await auth.listransaction(data: data).then((value) {
+      print(value);
+      context.loaderOverlay.hide();
+      if (value?["status"] == "error") {
+        snackbar(message: "Error", header: value["message"], bcolor: error);
+      }
+      if(value?["status"] == "success") {
+        final Map data = {
+          "data": value["transactions"]["data"],
+          "savings": savings
+        };
+        Get.toNamed("cashback/list", arguments: data);
+        // print(value["transactions"]["data"]);
+      }
+    });
   }
 
   Future moveKwimax() async {
@@ -105,6 +131,7 @@ class _MaxhomeState extends State<Maxhome> {
       }
     });
   }
+  
 
   Future startCashback(String id) async {
     context.loaderOverlay.show();
@@ -211,10 +238,19 @@ class _MaxhomeState extends State<Maxhome> {
                                       shape: BoxShape.circle,
                                       color: Color.fromRGBO(246, 251, 254, 1)
                                     ),
-                                    child: Icon(
-                                      FontAwesome5Solid.piggy_bank,
-                                      color: iconcolorselected,
-                                    )
+                                    // child: Icon(
+                                    //   FontAwesome5Solid.piggy_bank, maxhomepig.svg
+                                    //   color: iconcolorselected,
+                                    // )
+                                    padding: EdgeInsets.all(5),
+                                    child: SvgPicture.asset(
+                                      'assets/image/maxhomepig.svg',
+                                      semanticsLabel: 'Transactions',
+                                      // color: goalstext,
+                                      width: 8,
+                                      height: 8,
+                                      // color: white,
+                                    ),
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
@@ -346,13 +382,13 @@ class _MaxhomeState extends State<Maxhome> {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    margin: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+                    margin: const EdgeInsets.only(left: 40, right: 40, bottom: 5),
                     padding: const EdgeInsets.only(top:15, bottom: 15),
                     width: 100.w,
-                    height: 91,
+                    height: 100,
                     alignment: Alignment.center,
                     child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: [
@@ -374,16 +410,11 @@ class _MaxhomeState extends State<Maxhome> {
                             Visibility(
                               visible: !loading,
                               child: GestureDetector(
-                                // onTap: () => Get.toNamed("cashback/home"),
-                                onTap: () {
-                                  // startCashback(savings["investmentid"]);
-                                  // if (int.parse(savings["amount_saved"]) > 1000) {
-                                  //   startCashback(savings["investmentid"]);
-                                  // } else {
-                                  //   snackbar(message: "Low Balance", header: "Cashback minimum amount is N1000", bcolor: error);
-                                  // }
-                                  Get.toNamed("cashback/list", arguments: savings);
-                                },
+                                onTap: () => startCashback(investmentid.toString()),
+                                // onTap: () {
+                                 
+                                //   Get.toNamed("cashback/list", arguments: savings);
+                                // },
                                 child: Container(
                                   width: 42,
                                   height: 42,
@@ -393,7 +424,7 @@ class _MaxhomeState extends State<Maxhome> {
                                     borderRadius: BorderRadius.circular(5)
                                   ),
                                   child: SvgPicture.asset(
-                                    'assets/image/nountransaction.svg',
+                                    'assets/image/cashback.svg',
                                     semanticsLabel: 'Transactions',
                                     color: goalstext,
                                     width: 10,
@@ -409,9 +440,9 @@ class _MaxhomeState extends State<Maxhome> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Cash Back',
+                              'CashBack',
                               style: TextStyle(
-                                color: iconcolorselected,
+                                color: CustomTheme.presntstate ? white : iconcolorselected,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600
                               ),
@@ -521,10 +552,86 @@ class _MaxhomeState extends State<Maxhome> {
                             Text(
                               'Withdraw',
                               style: TextStyle(
-                                color: iconcolorselected,
+                                color: CustomTheme.presntstate ? white : iconcolorselected,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600
                               ),
+                            )
+                          ],
+                        ),
+                        SizedBox(width: 15),
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: loading,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: !loading,
+                              child: GestureDetector(
+                                // onTap: () => Get.toNamed("cashback/home"),
+                                onTap: () => listransaction(),
+                                // onTap: () {
+                                 
+                                //   Get.toNamed("cashback/list", arguments: savings);
+                                // },
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: cashbackbackground,
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/image/cashback.svg',
+                                    semanticsLabel: 'Transactions',
+                                    color: goalstext,
+                                    width: 10,
+                                    height: 10,
+                                    // color: white,
+                                  ),
+                                  // child: Icon(
+                                  //   FontAwesome.plus_square,
+                                  //   color: goalstext,
+                                  // ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Column(
+                              children: [
+                                Visibility(
+                                  visible: !loading,
+                                  child: Text(
+                                    'Cashback',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? white : iconcolorselected,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Repayment',
+                                  style: TextStyle(
+                                    color: CustomTheme.presntstate ? white : iconcolorselected,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
                             )
                           ],
                         ),
@@ -585,13 +692,14 @@ class _MaxhomeState extends State<Maxhome> {
                             SvgPicture.asset(
                               'assets/image/arrows.svg',
                               semanticsLabel: 'money bill',
+                              color: CustomTheme.presntstate ? white : primary,
                               // color: white,
                             ),
                             const SizedBox(width: 15),
                             Text(
                               'ACTIVITY',
                               style: TextStyle(
-                                color: primary,
+                                color: CustomTheme.presntstate ? white : primary,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 10
                               ),
@@ -602,7 +710,7 @@ class _MaxhomeState extends State<Maxhome> {
                           children: [    
                             Icon(
                               FontAwesome.calendar_check_o,
-                              color: primary,
+                              color: CustomTheme.presntstate ? white : primary,
                               size: 20,
                             ),
                           ],
@@ -641,29 +749,16 @@ class _MaxhomeState extends State<Maxhome> {
                       child: Column(
                         children: transactions.map<Widget>((item) {
                           return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                             margin: const EdgeInsets.only(bottom: 5),
+                            height: 50,
                             decoration: BoxDecoration(
-                              color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                              color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                               borderRadius: BorderRadius.circular(5)
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                // Container(
-                                //   width: 27,
-                                //   height: 27,
-                                //   decoration: BoxDecoration(
-                                //     color: primary,
-                                //     borderRadius: BorderRadius.circular(100)
-                                //   ),
-                                //   alignment: Alignment.center,
-                                //   child: SvgPicture.asset(
-                                //     'assets/image/targ.svg',
-                                //     semanticsLabel: 'money bill',
-                                //     // color: white,
-                                //   ),
-                                // ),
                                 Visibility(
                                   visible: item["transaction_type"] == "1",
                                   child: Container(
@@ -743,10 +838,13 @@ class _MaxhomeState extends State<Maxhome> {
                                         Text(
                                           // "Credit Application X728829",
                                           item["narration"].toString(),
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          overflow: TextOverflow.clip,
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,
-                                            color: dashname
+                                            color: CustomTheme.presntstate ? goalstext : dashname
                                           ),
                                         ),
                                         Column(
@@ -781,10 +879,10 @@ class _MaxhomeState extends State<Maxhome> {
                                     // '₦1,500',
                                     stringamount(item["amount"]),
                                     style: TextStyle(
-                                      color: success,
-                                      fontFamily: GoogleFonts.roboto().toString(),
+                                      color: listmoneylight,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15
+                                      fontSize: 15,
+                                      fontFamily: GoogleFonts.roboto().toString(),
                                     ),
                                   ),
                                 ),
@@ -794,10 +892,37 @@ class _MaxhomeState extends State<Maxhome> {
                                     // '₦1,500',
                                     stringamount(item["amount"]),
                                     style: TextStyle(
-                                      color: error,
-                                      fontFamily: GoogleFonts.roboto().toString(),
+                                      color: listmoneylight,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15
+                                      fontSize: 15,
+                                      fontFamily: GoogleFonts.roboto().toString(),
+                                    ),
+                                  ),
+                                ),
+
+                                Visibility(
+                                  visible: item["transaction_type"] == "3",
+                                  child: Text(
+                                    // '₦1,500',
+                                    stringamount(item["amount"]),
+                                    style: TextStyle(
+                                      color: error,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontFamily: GoogleFonts.roboto().toString(),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: item["transaction_type"] == "4",
+                                  child: Text(
+                                    // '₦1,500',
+                                    stringamount(item["amount"]),
+                                    style: TextStyle(
+                                      color: error,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontFamily: GoogleFonts.roboto().toString(),
                                     ),
                                   ),
                                 )

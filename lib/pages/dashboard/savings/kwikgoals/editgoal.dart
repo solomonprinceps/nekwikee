@@ -646,7 +646,7 @@ class _EditGoalsState extends State<EditGoals> {
                         ),
                       ),
                       Text(
-                        "You have access to your funds anytime. Attracts interest of 10% per annum. No minimum amount",
+                        "Acheive you target, save towards a particular goal. 12% per annum",
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w400,
@@ -679,7 +679,7 @@ class _EditGoalsState extends State<EditGoals> {
                     children:  [
                       // Text("data"),
                       Text(
-                        'What are you saving for ?',
+                        'What are you saving for',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
@@ -915,7 +915,7 @@ class _EditGoalsState extends State<EditGoals> {
                 
                 
                       Text(
-                        'How often do you want to save?',
+                        'How often do you want to save',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

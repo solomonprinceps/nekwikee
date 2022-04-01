@@ -24,6 +24,7 @@ class _CreditbvnState extends State<Creditbvn> {
   ApplyController  applystate =  Get.put(ApplyController());
   AuthController  auth =  Get.put(AuthController());
   CustomTheme customTheme = CustomTheme();
+  int? bvnfrom;
 
   void validate() {
     if (_formKey.currentState?.validate() != false) {
@@ -39,6 +40,8 @@ class _CreditbvnState extends State<Creditbvn> {
 
   submitbvn() async {
     FocusScope.of(context).requestFocus(FocusNode());
+    // print(bvnfrom!);
+    // return
     context.loaderOverlay.show();
     await applystate.addbvnapplication().then((value) {
       context.loaderOverlay.hide();
@@ -46,7 +49,13 @@ class _CreditbvnState extends State<Creditbvn> {
       if (value["status"] == "success") {
         snackbar(message:  value["message"], header: "Success", bcolor: success);
         // Get.toNamed('dashboard/apply/one');
-        Get.toNamed('home', arguments: 0);
+        if (bvnfrom == 0) {
+          Get.toNamed('home', arguments: 1);
+        }
+        if (bvnfrom == 1) {
+          Get.toNamed('dashboard/apply/one');
+        }
+        
       }
       if (value["status"] == "error") {
         snackbar(message:  value["message"], header: "Error", bcolor: error);
@@ -56,6 +65,15 @@ class _CreditbvnState extends State<Creditbvn> {
       // print(err);
       // snackbar(message:"An Error Occoured.", header: "Error", bcolor: error);
     });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      bvnfrom = Get.arguments;
+    });
+    print(bvnfrom);
+    super.initState();
   }
   
   @override
@@ -69,8 +87,7 @@ class _CreditbvnState extends State<Creditbvn> {
             const Topbar(),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 33, right: 33, ),
-                
+                padding: const EdgeInsets.only(left: 33, right: 33),
                 width: 100.w,
                 color: CustomTheme.presntstate ? applydark : dashboardcard,
                 child: Column(
@@ -141,23 +158,45 @@ class _CreditbvnState extends State<Creditbvn> {
             ),
             Align( 
               alignment: FractionalOffset.bottomCenter,
-              child: GestureDetector(
-                // onTap: () => Get.toNamed("credit/second"),
-                onTap: () => validate(),
-                child: Container(
-                  width: 100.w,
-                  height: 58,
-                  color: const Color.fromRGBO(66, 213, 121, 1),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                      color: white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400
+              child: Column(
+                children: [
+                  GestureDetector(
+                    // onTap: () => Get.toNamed("credit/second"),
+                    onTap: () => validate(),
+                    child: Container(
+                      width: 100.w,
+                      height: 58,
+                      color: primary,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  GestureDetector(
+                    // onTap: () => Get.toNamed("credit/second"),
+                    onTap: () => validate(),
+                    child: Container(
+                      width: 100.w,
+                      height: 58,
+                      color: const Color.fromRGBO(66, 213, 121, 1),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             
@@ -175,57 +214,60 @@ class Topbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(height: 25.h),
-        Container(
-          height: 20.h,
-          width: 100.w,
-          // child: Text("fiosa"),  
-          decoration: BoxDecoration(
-            color: primary,
-            image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
-              fit: BoxFit.cover
-            ),
-          ),
-        ),
-        Positioned(
-          top: 16.h,
-          right: 7.w,
-          child: Container(
-            width: 64,
-            height: 64,
-            padding: const EdgeInsets.all(10),
-            child: SvgPicture.asset(
-              "assets/image/Iconmoney-bill.svg",
-              semanticsLabel: 'Acme Logo',
-              width: 40,
-              height: 20,
-            ),
+    return Container(
+      color: CustomTheme.presntstate ? applydark : dashboardcard,
+      child: Stack(
+        children: [
+          SizedBox(height: 25.h),
+          Container(
+            height: 20.h,
+            width: 100.w,
+            // child: Text("fiosa"),  
             decoration: BoxDecoration(
               color: primary,
-              shape: BoxShape.circle
-            ),
-          )
-        ),
-        Positioned(
-          top: 6.h,
-          left: 3.w,
-          child: InkWell(
-            onTap: () =>  Get.back(),
-            child: Container(
-              width: 42,
-              height: 42,
-              padding: const EdgeInsets.all(10),
-              child: Icon(
-                FontAwesome.angle_left,
-                color: black,
+              image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+                fit: BoxFit.cover
               ),
-            
             ),
-          )
-        ),
-      ],
+          ),
+          Positioned(
+            top: 16.h,
+            right: 7.w,
+            child: Container(
+              width: 64,
+              height: 64,
+              padding: const EdgeInsets.all(10),
+              child: SvgPicture.asset(
+                "assets/image/Iconmoney-bill.svg",
+                semanticsLabel: 'Acme Logo',
+                width: 40,
+                height: 20,
+              ),
+              decoration: BoxDecoration(
+                color: primary,
+                shape: BoxShape.circle
+              ),
+            )
+          ),
+          Positioned(
+            top: 6.h,
+            left: 3.w,
+            child: InkWell(
+              onTap: () =>  Get.back(),
+              child: Container(
+                width: 42,
+                height: 42,
+                padding: const EdgeInsets.all(10),
+                child: Icon(
+                  FontAwesome.angle_left,
+                  color: black,
+                ),
+              
+              ),
+            )
+          ),
+        ],
+      ),
     );
   }
 }

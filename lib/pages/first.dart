@@ -16,7 +16,7 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      timedown();
+      Get.offAllNamed('newsplash');
     });
     super.initState();
   }

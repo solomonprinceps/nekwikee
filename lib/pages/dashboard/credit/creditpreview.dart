@@ -32,6 +32,7 @@ class _CreditpreviewState extends State<Creditpreview> {
   dynamic rate = 0.0;
   bool isChecked = false;
   bool otheremployer = true;
+  dynamic message;
 
   @override
   void initState() {
@@ -59,10 +60,19 @@ class _CreditpreviewState extends State<Creditpreview> {
         setState(() {
           otheremployer = false;
         });
+        setState(() {
+          message = value["message"];
+          loanamount = value["loan_amount"];
+          repaymentstartdate = dateformater(value["repayment_start_date"]);
+          loantenor = value["loan_tenor"];
+          monthlyrepayment = value["monthly_repayment"];
+          rate = value["rate"];
+        });
         snackbar(message: value["message"], header: "Informaion", bcolor: error);
         return;
       }
       setState(() {
+        message = value["message"];
         loanamount = value["loan_amount"];
         repaymentstartdate = dateformater(value["repayment_start_date"]);
         loantenor = value["loan_tenor"];
@@ -101,10 +111,10 @@ class _CreditpreviewState extends State<Creditpreview> {
   }
 
   acceptloanoffer() async {
-    if (otheremployer == false) {
-      snackbar(message: "No loan offer for you.", header: "Informaion", bcolor: error);
-      return;
-    }
+    // if (otheremployer == false) {
+    //   snackbar(message: "No loan offer for you.", header: "Informaion", bcolor: error);
+    //   return;
+    // }
     context.loaderOverlay.show();
     applycon.acceptloanoffer(data: {
       "loan_id": Get.arguments,
@@ -113,13 +123,14 @@ class _CreditpreviewState extends State<Creditpreview> {
       "monthly_repayment": monthlyrepayment
     }).then((value) {
       context.loaderOverlay.hide();
+      submitacceptloanoffer();
       // print('ds $value');
-      if (value["status"] == "success") {
-        submitacceptloanoffer();
-      }
-      if (value["status"] == "error") {
-        snackbar(message: value["message"], header: "Informaion", bcolor: error);
-      }
+      // if (value["status"] == "success") {
+      //   submitacceptloanoffer();
+      // }
+      // if (value["status"] == "error") {
+      //   snackbar(message: value["message"], header: "Informaion", bcolor: error);
+      // }
     }).catchError((onError) {
       snackbar(message: "Error occoured.", header: "Error", bcolor: error);
       // print(onError);
@@ -131,75 +142,70 @@ class _CreditpreviewState extends State<Creditpreview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       // backgroundColor: ,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Container(
-                height: 20.h,
+      backgroundColor: CustomTheme.presntstate ? applydark : dashboardcard,
+      body: SizedBox(
+        height: 100.h,
+        child: Column(
+          children: [   
+            Topbar(),   
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(left: 23, right: 23, top: 28),
                 width: 100.w,
-                // child: Text("fiosa"),  
-                decoration: BoxDecoration(
-                  color: primary,
-                  image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), fit: BoxFit.cover),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 23, right: 23, top: 28),
-                  width: 100.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10),
-                      Text(
-                        "Select your loan offering",
-                        style: TextStyle(
-                          color: CustomTheme.presntstate ? creditwithdark : primary,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 21
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      "Credit Offer",
+                      style: TextStyle(
+                        color: CustomTheme.presntstate ? creditwithdark : primary,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 21
                       ),
-                      const SizedBox(height: 17),
-                      Text(
-                        "Link Your bank card to access your available credit.",
-                        style: TextStyle(
-                          color: CustomTheme.presntstate ? HexColor("#CBD1D8") :const Color.fromRGBO(53, 49, 48, 1),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400
-                        ),
+                    ),
+                    // const SizedBox(height: 17),
+                    Text(
+                      "Link Your bank card to access your available credit.",
+                      style: TextStyle(
+                        color: CustomTheme.presntstate ? HexColor("#CBD1D8") :const Color.fromRGBO(53, 49, 48, 1),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400
                       ),
-                      const SizedBox(height: 27),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Column(
-                          //   children: [
-                          //     Text(
-                          //       "Loan Amount",
-                          //       style: TextStyle(
-                          //         color: primary,
-                          //         fontWeight: FontWeight.w600,
-                          //         fontSize: 18
-                          //       ),
-                          //     ),
-                          //     const SizedBox(height: 5),
-                          //     const Text(
-                          //       "₦4,000,000",
-                          //       style: TextStyle(
-                          //         fontSize: 36,
-                          //         fontWeight: FontWeight.w600,
-                          //         color: Color.fromRGBO(66, 213, 121, 1)
-                          //       ),
-                          //     )  
-                          //   ],
-                          // ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
+                    ),
+                    const SizedBox(height: 27),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Column(
+                        //   children: [
+                        //     Text(
+                        //       "Loan Amount",
+                        //       style: TextStyle(
+                        //         color: primary,
+                        //         fontWeight: FontWeight.w600,
+                        //         fontSize: 18
+                        //       ),
+                        //     ),
+                        //     const SizedBox(height: 5),
+                        //     const Text(
+                        //       "₦4,000,000",
+                        //       style: TextStyle(
+                        //         fontSize: 36,
+                        //         fontWeight: FontWeight.w600,
+                        //         color: Color.fromRGBO(66, 213, 121, 1)
+                        //       ),
+                        //     )  
+                        //   ],
+                        // ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: otheremployer,
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(
@@ -227,8 +233,14 @@ class _CreditpreviewState extends State<Creditpreview> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      Container(
+                    ),
+                    Visibility(
+                      visible: otheremployer,
+                      child: const SizedBox(height: 20)
+                    ),
+                    Visibility(
+                      visible: otheremployer,
+                      child: Container(
                         width: 100.w,
                         height: 166,
                         decoration: BoxDecoration(
@@ -320,20 +332,137 @@ class _CreditpreviewState extends State<Creditpreview> {
                           ],
                         ),
                       ),
-                      // const SizedBox(height: 27),
+                    ),
+                    const SizedBox(height: 27),
 
+                    Visibility(
+                      visible: !otheremployer,
+                      child: Container(
+                        width: 100.w,
+                        height: 166,
+                        decoration: BoxDecoration(
+                          color: CustomTheme.presntstate ? HexColor("#212845") : const Color.fromRGBO(62, 64, 149, 0.03),
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              // dateformater(savingsdata["maturity_date"].toString()),
+                              message.toString(),
+                              textAlign: TextAlign.center,
+                              maxLines: 4,
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
 
-
-
-
-                    ],
-                  ),
-                  
+          
+          
+          
+          
+          
+                  ],
                 ),
-              )
-            ],
+                
+              ),
+            ),
+            Align( 
+              alignment: FractionalOffset.bottomCenter,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // print(otheremployer);
+                      // if (otheremployer) {
+                      //   acceptloanoffer();
+                      // }
+                      Get.offAllNamed("home");
+                    },
+                    // onTap: () => acceptloanoffer(),
+                    child: Container(
+                      width: 100.w,
+                      height: 58,
+                      color: primary,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Dashboard",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print(otheremployer);
+                      acceptloanoffer();
+                      // if (otheremployer) {
+                      //   acceptloanoffer();
+                      // } else {
+                      //   snackbar(message: "", header: "No Credit Offer Available", bcolor: error);
+                      // }
+                    },
+                    // onTap: () => acceptloanoffer(),
+                    child: Container(
+                      width: 100.w,
+                      height: 58,
+                      color: const Color.fromRGBO(66, 213, 121, 1),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Apply for Credit",
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class Topbar extends StatelessWidget {
+  const Topbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: CustomTheme.presntstate ? applydark : dashboardcard,
+      child: Stack(
+        children: [
+          SizedBox(height: 25.h),
+          Container(
+            height: 20.h,
+            width: 100.w,
+            // child: Text("fiosa"),  
+            decoration: BoxDecoration(
+              color: primary,
+              image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+                fit: BoxFit.cover
+              ),
+            ),
           ),
-         
           Positioned(
             top: 16.h,
             right: 7.w,
@@ -353,7 +482,6 @@ class _CreditpreviewState extends State<Creditpreview> {
               ),
             )
           ),
-
           Positioned(
             top: 6.h,
             left: 3.w,
@@ -367,37 +495,10 @@ class _CreditpreviewState extends State<Creditpreview> {
                   FontAwesome.angle_left,
                   color: black,
                 ),
-               
+              
               ),
             )
           ),
-          Align( 
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {
-                print(otheremployer);
-                if (otheremployer) {
-                  acceptloanoffer();
-                }
-              },
-              // onTap: () => acceptloanoffer(),
-              child: Container(
-                width: 100.w,
-                height: 58,
-                color: const Color.fromRGBO(66, 213, 121, 1),
-                alignment: Alignment.center,
-                child: Text(
-                  "Apply for Loan",
-                  style: TextStyle(
-                    color: white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400
-                  ),
-                ),
-              ),
-            ),
-          ),
-          
         ],
       ),
     );

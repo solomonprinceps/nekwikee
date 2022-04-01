@@ -109,6 +109,7 @@ class _NameandemailState extends State<Nameandemail> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),

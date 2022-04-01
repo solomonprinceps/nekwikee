@@ -9,12 +9,15 @@ class AuthController extends GetxController {
   Backend dioclient = Backend();
   var userdata = {}.obs;
   var inital = true.obs;
+  var pagenumber = 15.obs;
   var showbankstatementsetup = false.obs;
   var showapplyforcredit = false.obs;
   var continuecreditapply = false.obs;
   var showsetpin = false.obs;
   var hasloan = false.obs;
   var linkcard = false.obs;
+  RxBool loading = false.obs;
+  RxBool alloaded = false.obs;
   
 
   List transactions = [].obs;
@@ -61,6 +64,22 @@ class AuthController extends GetxController {
     });
     return bodydata;
   }
+  
+  Future<dynamic> notificateList() async {
+    dynamic bodydata;
+    await dioclient.notificateList().then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
+
+  Future <dynamic> updateToken(pindata) async {
+    dynamic bodydata;
+    await dioclient.updateToken(data: pindata).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
 
   Future <dynamic> updatepassword(data) async {
     dynamic bodydata;
@@ -89,8 +108,12 @@ class AuthController extends GetxController {
 
   Future <dynamic> listransaction({required Map data}) async {
     dynamic bodydata;
+    loading.value = true;
+    update();
     await dioclient.listransaction(data: data).then((value) {
       bodydata = value;
+      loading.value = false;
+      update();
     });
     return bodydata;
   }

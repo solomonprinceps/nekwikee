@@ -134,6 +134,7 @@ class _ChangepasswordState extends State<Changepassword> {
                         children: [
                           // SizedBox(height: 15.h),
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),

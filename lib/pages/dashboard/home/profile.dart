@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:loader_overlay/loader_overlay.dart';
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -23,11 +23,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool? showsettings = true;
   bool? showtransactions = false;
+  bool? nexturl = false;
   int? notify = 0;
   bool isChecked = false;
   bool loading = false;
   bool themestate = CustomTheme.presntstate;
   AuthController auth = Get.put(AuthController());
+  final ScrollController _scrollController = ScrollController();
   CustomTheme theme = CustomTheme();
   dynamic dashboards;
   List transactions = [];
@@ -51,10 +53,10 @@ class _ProfileState extends State<Profile> {
     final lit = [];
     final other = [];
     transactions.forEach((v) {
-      if (v?["type"] == "3") {
+      if (v?["product_mode"] == "3") {
         lit.add(v);
       }
-      if (v?["type"] != "3") {
+      if (v?["product_mode"] == "2" || v?["product_mode"] == "1") {
         other.add(v);
       }
     });
@@ -72,6 +74,7 @@ class _ProfileState extends State<Profile> {
     setState(() {
       loading = true;
     });
+    
     final Map data = {};
     await auth.listransaction(data: data).then((value) {
       setState(() {
@@ -85,7 +88,59 @@ class _ProfileState extends State<Profile> {
           transactions = value["transactions"]["data"];
           displaylist = value["transactions"]["data"];
         });  
+        print(transactions);
+        print('asm');
       }
+
+      sortsaving();
+
+    });
+  }
+
+
+
+  listloadmore() async {
+    // setState(() {
+    //   loading = true;
+    // });
+    if (nexturl!) {
+      snackbar(message: "", header: "No more transactions", bcolor: error);
+      return;
+    }
+    context.loaderOverlay.show();
+    print("auth.pagenumber.value * 2");
+    print(auth.pagenumber.value);
+    print(auth.pagenumber.value * 2);
+    auth.pagenumber.value = auth.pagenumber.value * 2;
+    final Map data = {
+      "page_size": (auth.pagenumber).toString()
+    };
+    auth.loading.value = true;
+    await auth.listransaction(data: data).then((value) {
+      context.loaderOverlay.hide();
+      auth.loading.value = false;
+      // setState(() {
+      //   loading = false;
+      // });
+      if (value?["status"] == "error") {
+        snackbar(message: "Error", header: value["message"], bcolor: error);
+      }
+      if(value?["status"] == "success") {
+        setState(() {
+          transactions = value["transactions"]["data"];
+          displaylist = value["transactions"]["data"];
+        });  
+        // 
+        if (value["next_page_url"] == null) {
+          setState(() {
+            nexturl = true;
+          });
+        }
+        print(value["next_page_url"]);
+        print("next url");
+      }
+
+      sortsaving();
 
     });
   }
@@ -125,11 +180,37 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  // child:  SvgPicture.asset(
-  // 'assets/image/maxcircle.svg',
-  // semanticsLabel: 'Target',
-  // // color: white,
-  // ),
+  // loadmore() async {
+  //   saver.listdata["page_number"] = saver.pagenumber.value.toString();
+  //   await saver.listsavingsmore().then((value) {
+  //     // print();
+  //     if (value?["status"] == "error") {
+  //       snackbar(message: value?["message"], header: "Error", bcolor: error);
+  //       return;
+  //     }
+  //     if (value?["status"] == "success") {
+  //       // snackbar(message: value?["message"], header: "success", bcolor: success);
+  //       saver.loadsaving(value?["savers"]["data"]);
+  //       return;
+  //     }
+  //   }).catchError((err) {
+  //     print(err);
+  //   });
+  // }
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && auth.loading.value == false) {
+        setState(() {
+          notify = 0;
+        });
+        listloadmore();
+        // print("andkc");
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +391,9 @@ class _ProfileState extends State<Profile> {
                             setState(() {
                               showsettings = false;
                               showtransactions = true;
+                              notify = 0;
                             });
+                            auth.alloaded.value = false;
                             listransaction();
                           },
                           child: Column(
@@ -615,7 +698,7 @@ class _ProfileState extends State<Profile> {
                   child: Expanded(
                     child: SizedBox(
                         // margin: const EdgeInsets.only(top: 10),
-                        child: Column(
+                      child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -738,233 +821,382 @@ class _ProfileState extends State<Profile> {
                         Visibility(
                           visible: displaylist.isNotEmpty,
                           child: Expanded(
-                            child: ListView.builder(
-                              itemCount: displaylist.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                                  margin: const EdgeInsets.only(bottom: 5),
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                                    borderRadius: BorderRadius.circular(5)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "1",
-                                        child: SvgPicture.asset(
-                                          'assets/image/dashboardmax.svg',
-                                          semanticsLabel: 'Target',
-                                        )
+                            child: Stack(
+                              children: [
+                                ListView.builder(
+                                  itemCount: displaylist.length,
+                                  controller: _scrollController,
+                                  itemBuilder: (BuildContext ctxt, int index) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                                      margin: const EdgeInsets.only(bottom: 5),
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                        borderRadius: BorderRadius.circular(5)
                                       ),
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "2",
-                                        child: SvgPicture.asset(
-                                          'assets/image/dashboardgoals.svg',
-                                          semanticsLabel: 'Target',
-                                        ),
-                                      ),
-
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "4" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
-                                        // visible: true,
-                                        child: Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: error,
-                                            shape: BoxShape.circle
-                                          ),
-                                          // alignment: Alignment.center,
-                                          child: Icon(
-                                            FontAwesome.angle_up,
-                                            size: 20.0,
-                                            color: white,
-                                          )
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "4" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
-                                        child: Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: success,
-                                            shape: BoxShape.circle
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            FontAwesome.angle_down,
-                                            size: 20.0,
-                                            color: white,
-                                          )
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
-                                        child: Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: success,
-                                            shape: BoxShape.circle
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            FontAwesome.angle_down,
-                                            size: 20.0,
-                                            color: white,
-                                          )
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
-                                        child: Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: error,
-                                            shape: BoxShape.circle
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            FontAwesome.angle_up,
-                                            size: 20.0,
-                                            color: white,
-                                          )
-                                        ),
-                                      ),
-                                      
-
-
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "2" || displaylist[index]["transaction_type"] == "4"),
-                                        child: SvgPicture.asset(
-                                          'assets/image/cashback.svg',
-                                          semanticsLabel: 'Target',
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "3"),
-                                        child: SvgPicture.asset(
-                                          'assets/image/cashback.svg',
-                                          semanticsLabel: 'Target',
-                                        ),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(left: 5, right: 5),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                // "Credit Application X728829",
-                                                displaylist[index]["narration"].toString(),
-                                                maxLines: 1,
-                                                softWrap: true,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: dashname
-                                                ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "1" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "2"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: primary,
+                                                borderRadius: BorderRadius.circular(100)
                                               ),
-                                              Column(
+                                              child: SvgPicture.asset(
+                                                'assets/image/maxedited.svg',
+                                                semanticsLabel: 'Target',
+                                                width: 15,
+                                                height: 15,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "1" && (displaylist[index]["transaction_type"] == "3" || displaylist[index]["transaction_type"] == "4"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "2" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "2"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: kwikeegoals,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/image/goalsicons.svg',
+                                                semanticsLabel: 'Target',
+                                                width: 15,
+                                                height: 15,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "2" && (displaylist[index]["transaction_type"] == "3" || displaylist[index]["transaction_type"] == "4"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "2"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: registerActioncolor,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/image/goalsappicon.svg',
+                                                semanticsLabel: 'Target',
+                                                width: 15,
+                                                height: 15,
+                                              ),
+                                            )
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "3" || displaylist[index]["transaction_type"] == "4"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "2"),
+                                            child: Container(
+                                              child: SvgPicture.asset(
+                                                'assets/image/cashback.svg',
+                                                semanticsLabel: 'Target',
+                                                width: 25,
+                                                height: 25,
+                                                color: error,
+                                              ),
+                                            ),
+                                          ),
+
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "5" && (displaylist[index]["transaction_type"] == "3" || displaylist[index]["transaction_type"] == "4"),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "4" && displaylist[index]["transaction_type"] == "2",
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                color: success,
+                                                shape: BoxShape.circle
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                FontAwesome.angle_down,
+                                                size: 20.0,
+                                                color: white,
+                                              )
+                                            ),
+                                          ),
+
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "4" && displaylist[index]["transaction_type"] == "1",
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                color: success,
+                                                shape: BoxShape.circle
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                FontAwesome.angle_down,
+                                                size: 20.0,
+                                                color: white,
+                                              )
+                                            ),
+                                          ),
+
+
+                                          Visibility(
+                                            visible: displaylist[index]["product_mode"] == "4" && displaylist[index]["transaction_type"] == "3",
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                            Visibility(
+                                            visible: displaylist[index]["product_mode"] == "4" && displaylist[index]["transaction_type"] == "4",
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          const SizedBox(width: 20),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              margin: const EdgeInsets.only(left: 5, right: 5),
+                                              child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    displaylist[index]["giroreference"].toString(),
+                                                    // "Credit Application X728829",
+                                                    displaylist[index]["narration"].toString(),
+                                                    maxLines: 1,
+                                                    softWrap: true,
+                                                    overflow: TextOverflow.clip,
                                                     style: TextStyle(
-                                                      fontSize: 9.5,
+                                                      fontSize: 12,
                                                       fontWeight: FontWeight.w400,
-                                                      color: CustomTheme.presntstate ?  white : black
+                                                      color: CustomTheme.presntstate ? goalstext : dashname
                                                     ),
                                                   ),
-                                                  Text(
-                                                    // "15 Oct, 2022.",
-                                                    dateformater(displaylist[index]["created_at"].toString()),
-                                                    style: TextStyle(
-                                                      fontSize: 9.5,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: CustomTheme.presntstate ?  white : black
-                                                    ),
-                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        displaylist[index]["giroreference"].toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 9.5,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: CustomTheme.presntstate ?  white : black
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        // "15 Oct, 2022.",
+                                                        dateformater(displaylist[index]["created_at"].toString()),
+                                                        style: TextStyle(
+                                                          fontSize: 9.5,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: CustomTheme.presntstate ?  white : black
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
                                                 ],
-                                              )
-                                            ],
+                                              ),
+                                            )
                                           ),
-                                        )
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["transaction_type"] == "2",
-                                        child: Text(
-                                          // '₦1,500',
-                                          stringamount(displaylist[index]["amount"]),
-                                          style: TextStyle(
-                                            color: success,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15,
-                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] == "2",
+                                            child: Text(
+                                              // '₦1,500',
+                                              stringamount(displaylist[index]["amount"]),
+                                              style: TextStyle(
+                                                color: listmoneylight,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                fontFamily: GoogleFonts.roboto().toString(),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: displaylist[index]["transaction_type"] == "1",
-                                        child: Text(
-                                          // '₦1,500',
-                                          stringamount(displaylist[index]["amount"]),
-                                          style: TextStyle(
-                                            color: error,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15,
-                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] == "1",
+                                            child: Text(
+                                              // '₦1,500',
+                                              stringamount(displaylist[index]["amount"]),
+                                              style: TextStyle(
+                                                color: error,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                fontFamily: GoogleFonts.roboto().toString(),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
 
-                                      Visibility(
-                                        visible: displaylist[index]["transaction_type"] == "3",
-                                        child: Text(
-                                          // '₦1,500',
-                                          stringamount(displaylist[index]["amount"]),
-                                          style: TextStyle(
-                                            color: error,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15,
-                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] == "3",
+                                            child: Text(
+                                              // '₦1,500',
+                                              stringamount(displaylist[index]["amount"]),
+                                              style: TextStyle(
+                                                color: error,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                fontFamily: GoogleFonts.roboto().toString(),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] == "4",
+                                            child: Text(
+                                              // '₦1,500',
+                                              stringamount(displaylist[index]["amount"]),
+                                              style: TextStyle(
+                                                color: listmoneylight,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                fontFamily: GoogleFonts.roboto().toString(),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: displaylist[index]["transaction_type"] == "5",
+                                            child: Text(
+                                              // '₦1,500',
+                                              stringamount(displaylist[index]["amount"]),
+                                              style: TextStyle(
+                                                color: error,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                fontFamily: GoogleFonts.roboto().toString(),
+                                              ),
+                                            ),
+                                          )
+                                          // Text(
+                                          //   // '₦1,500',
+                                          //   stringamount(displaylist[index]["amount"]),
+                                          //   style: TextStyle(
+                                          //     color: listmoneylight,
+                                          //     fontWeight: FontWeight.w600,
+                                          //     fontSize: 15
+                                          //   ),
+                                          // )
+                                        ],
                                       ),
-                                      Visibility(
-                                        visible: displaylist[index]["transaction_type"] == "4",
-                                        child: Text(
-                                          // '₦1,500',
-                                          stringamount(displaylist[index]["amount"]),
-                                          style: TextStyle(
-                                            color: error,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15,
-                                            fontFamily: GoogleFonts.roboto().toString(),
-                                          ),
-                                        ),
-                                      )
-                                      // Text(
-                                      //   // '₦1,500',
-                                      //   stringamount(displaylist[index]["amount"]),
-                                      //   style: TextStyle(
-                                      //     color: listmoneylight,
-                                      //     fontWeight: FontWeight.w600,
-                                      //     fontSize: 15
-                                      //   ),
-                                      // )
-                                    ],
-                                  ),
-                                );      
-                            }),
+                                    );
+                                  }),
+                                // Container(color: success, width: 100.w, height: 80), 
+                                //Positioned(child: Container(color: success, width: 100.w, height: 80), bottom: 0,),
+                                // true ? Positioned(
+                                //   left: 0,
+                                //   bottom: 0,
+                                //   child: Column(
+                                //     children: [
+                                //       Container(color: success, width: 100.w, height: 80),
+                                //       Container(
+                                //         height: 10,
+                                //         width: 100.w,
+                                //         alignment: Alignment.center,
+                                //         child: Center(
+                                //           child: CircularProgressIndicator.adaptive(
+                                //             valueColor: AlwaysStoppedAnimation<Color>(primary),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ) : Container()
+                            ],
+                          ),
                             
                           ),
                         )

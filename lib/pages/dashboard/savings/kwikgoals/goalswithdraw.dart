@@ -420,7 +420,7 @@ class _GoalswithdrawState extends State<Goalswithdraw> {
                         const SizedBox(height: 15),
                         
                         Text(
-                          "Your Funds will be withdrawn directly to your bank account, penal charge of 5% if your goal hasn't matured.",
+                          "Your Funds will be withdrawn from you kwiklite and credited in this kwikmax.",
                           style: TextStyle(
                             color: CustomTheme.presntstate ? white : getstartedp.withOpacity(0.42),
                             fontSize: 11

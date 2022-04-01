@@ -10,6 +10,7 @@ import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/services/datstruct.dart';
+import 'package:clipboard/clipboard.dart';
 
 class Credit extends StatefulWidget {
   const Credit({Key? key}) : super(key: key);
@@ -297,6 +298,66 @@ class _CreditState extends State<Credit> {
                 ],
               ),
               const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "WEMA BANK",
+                          // lite[0]["payment_bank_name"].toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: !CustomTheme.presntstate ? primary : white,
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () {
+                            FlutterClipboard.copy(auth.userdata["payment_account_number"].toString()).then(( value ) => snackbar(message: "Account number copied ${auth.userdata["payment_account_number"].toString().toString()}", header: "Copied", bcolor: success));
+                          },
+                          child: Container(
+                            height: 34,
+                            width: 45.w,
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.copy,
+                                      color: white,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      auth.userdata["payment_account_number"].toString(),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: white
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
                 decoration: BoxDecoration(

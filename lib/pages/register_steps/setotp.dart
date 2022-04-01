@@ -117,6 +117,7 @@ class _SetotpState extends State<Setotp> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),
@@ -131,7 +132,7 @@ class _SetotpState extends State<Setotp> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a five-digit pin to authorise transactions within the Kwikie App',
+                            'Kindly provide a four-digit pin to authorise transactions within the Kwikie App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,

@@ -57,6 +57,7 @@ import '../pages/dashboard/savings/cashback/cashconfirm.dart';
 import '../pages/dashboard/homenav.dart';
 import '../pages/dashboard/savings/kwikgoals/editgoal.dart';
 import '../pages/verify.dart';
+import '../pages/dashboard/notifications.dart';
 
 List<GetPage> approutlist = [
   GetPage(
@@ -80,11 +81,24 @@ List<GetPage> approutlist = [
     transition: Transition.fadeIn,
     transitionDuration: const Duration(seconds: 1)
   ),
+  //
   GetPage(
     name: '/second', 
     page: () => const Second(),
     transition: Transition.fadeIn,
     transitionDuration: const Duration(seconds: 1)
+  ),
+  GetPage(
+    name: '/notification', 
+    page: () => const Notification(),
+    binding: BindingsBuilder(
+      () => {
+       Get.put(SignupController()),
+        Get.put(LoginController())
+      },
+    ),
+    // transition: Transition.fadeIn,
+    // transitionDuration: const Duration(seconds: 1)
   ),
   GetPage(
     name: '/third', 
@@ -171,6 +185,8 @@ List<GetPage> approutlist = [
     ),
   ),
 
+
+  
 
   GetPage(
     name: '/auth/password/reset', 
@@ -316,7 +332,8 @@ List<GetPage> approutlist = [
     transition: Transition.fadeIn,
     binding: BindingsBuilder(
       () => {
-        Get.put(SavingController())
+        Get.put(SavingController()),
+        Get.put(AuthController())
       },
     ),
   ),

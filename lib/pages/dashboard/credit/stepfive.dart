@@ -312,6 +312,7 @@ class _EmploymentbankState extends State<Employmentbank> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       // backgroundColor: ,
+      backgroundColor: CustomTheme.presntstate ? applydark : dashboardcard,
       body: SingleChildScrollView(
         child: SizedBox(
           height: 100.h,
@@ -469,23 +470,45 @@ class _EmploymentbankState extends State<Employmentbank> {
               ),
               Align( 
                 alignment: FractionalOffset.bottomCenter,
-                child: GestureDetector(
-                  // onTap: () => Get.toNamed("credit/preview"),
-                  onTap: () =>  validate(),
-                  child: Container(
-                    width: 100.w,
-                    height: 58,
-                    color: const Color.fromRGBO(66, 213, 121, 1),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      // onTap: () => Get.toNamed("credit/preview"),
+                      onTap: () =>  Get.toNamed('credit/preview', arguments: Get.arguments),
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        color: primary,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Skip",
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    GestureDetector(
+                      // onTap: () => Get.toNamed("credit/preview"),
+                      onTap: () =>  validate(),
+                      child: Container(
+                        width: 100.w,
+                        height: 58,
+                        color: const Color.fromRGBO(66, 213, 121, 1),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Next",
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -504,57 +527,60 @@ class Topbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(height: 25.h),
-        Container(
-          height: 20.h,
-          width: 100.w,
-          // child: Text("fiosa"),  
-          decoration: BoxDecoration(
-            color: primary,
-            image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
-              fit: BoxFit.cover
-            ),
-          ),
-        ),
-        Positioned(
-          top: 16.h,
-          right: 7.w,
-          child: Container(
-            width: 64,
-            height: 64,
-            padding: const EdgeInsets.all(10),
-            child: SvgPicture.asset(
-              "assets/image/Iconmoney-bill.svg",
-              semanticsLabel: 'Acme Logo',
-              width: 40,
-              height: 20,
-            ),
+    return Container(
+      color: CustomTheme.presntstate ? applydark : dashboardcard,
+      child: Stack(
+        children: [
+          SizedBox(height: 25.h),
+          Container(
+            height: 20.h,
+            width: 100.w,
+            // child: Text("fiosa"),  
             decoration: BoxDecoration(
               color: primary,
-              shape: BoxShape.circle
-            ),
-          )
-        ),
-        Positioned(
-          top: 6.h,
-          left: 3.w,
-          child: GestureDetector(
-            onTap: () =>  Get.back(),
-            child: Container(
-              width: 42,
-              height: 42,
-              padding: const EdgeInsets.all(10),
-              child: Icon(
-                FontAwesome.angle_left,
-                color: black,
+              image: const DecorationImage(image: AssetImage("assets/image/credithome.png"), 
+                fit: BoxFit.cover
               ),
-            
             ),
-          )
-        ),
-      ],
+          ),
+          Positioned(
+            top: 16.h,
+            right: 7.w,
+            child: Container(
+              width: 64,
+              height: 64,
+              padding: const EdgeInsets.all(10),
+              child: SvgPicture.asset(
+                "assets/image/Iconmoney-bill.svg",
+                semanticsLabel: 'Acme Logo',
+                width: 40,
+                height: 20,
+              ),
+              decoration: BoxDecoration(
+                color: primary,
+                shape: BoxShape.circle
+              ),
+            )
+          ),
+          Positioned(
+            top: 6.h,
+            left: 3.w,
+            child: GestureDetector(
+              onTap: () =>  Get.back(),
+              child: Container(
+                width: 42,
+                height: 42,
+                padding: const EdgeInsets.all(10),
+                child: Icon(
+                  FontAwesome.angle_left,
+                  color: black,
+                ),
+              
+              ),
+            )
+          ),
+        ],
+      ),
     );
   }
 }

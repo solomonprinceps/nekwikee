@@ -268,6 +268,7 @@ class _LoginState extends State<Login> {
                         children: [
                           const SizedBox(height: 30),
                           Image.asset(
+                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
                             width: 60.w,
                           ),
@@ -383,13 +384,7 @@ class _LoginState extends State<Login> {
                                         decoration: InputDecoration(
                                           filled: true,
                                           contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                          fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
-                                          border: inputborder,
-                                          focusedBorder: activeinputborder,
-                                          enabledBorder: inputborder,
-                                          focusedErrorBorder:inputborder ,
-                                          errorBorder: errorborder,
-                                          disabledBorder: inputborder,
+                                          
                                           errorStyle: const TextStyle(color: Colors.red),
                                         )
                                       ),

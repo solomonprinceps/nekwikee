@@ -48,7 +48,16 @@ class _HomeState extends State<Home> {
   }
   getoken() async {
     await _firebaseMessaging.getToken().then((value) {
-      print("firebase ");
+      sendtoken(value!);
+    });
+  }
+
+  sendtoken(String token) async {
+    Map data = {
+      "email": auth.userdata["email"],
+      "token": token
+    };
+    await auth.updateToken(data).then((value) {
       print(value);
     });
   }
@@ -96,7 +105,7 @@ class _HomeState extends State<Home> {
                 // channel.description,
                 color: Colors.blue,
                 playSound: true,
-                icon: '@mipmap/ic_launcher',
+                icon: '@mipmap/launcher_icon',
               ),
             ));
       }
@@ -202,9 +211,10 @@ class _HomeState extends State<Home> {
                   SizedBox(width: 20),
                   
                   InkWell(
-                    // onTap: () => logout(),
-                    // onTap: () => showNotification(),
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed("notification");
+                    },
+                    // onTap: () => getoken(),
                     child: Icon(
                       FontAwesome.bell,
                       color: registerActioncolor,

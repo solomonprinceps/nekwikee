@@ -69,6 +69,7 @@ class _MyAppState extends State<MyApp> {
     currentTheme.addListener(() {
       setState(() {});
     });
+    _logOutUser(context);
   }
 
   void _initializeTimer(BuildContext context) {

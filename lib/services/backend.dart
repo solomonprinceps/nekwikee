@@ -342,6 +342,33 @@ class Backend {
     return responsedata;
   }
 
+  Future<dynamic> updateToken({required Map data}) async {
+    dynamic otpresponse;
+        try {
+      Response responseobj = await _dio.post('${_baseUrl}customer/token-update',
+        data: jsonEncode(data),
+      );
+      otpresponse = responseobj.data;
+    } on DioError catch (e) { 
+      if (e.response != null) {
+        // print('DATA: ${e.response?.data}'); 
+        otpresponse = e.response?.data;
+      } else {
+        // print(e.requestOptions);
+        // print(e.message);
+        otpresponse = {
+          "status": "error",
+          "message": "Error occured (Network Connection)."
+        };
+        return otpresponse;
+      }
+      return otpresponse;
+    } 
+    return otpresponse;
+  }
+
+
+
 
   Future<dynamic> signup({required Map data}) async {
     dynamic otpresponse;
@@ -522,7 +549,39 @@ class Backend {
     return responsedata;
   }
 
+  //   
 
+
+  Future notificateList() async {
+    dynamic responsedata;
+    try {
+      String token = await authtoken();
+      print(token);
+      Response responseobj = await _dio.post(
+        '${_baseUrl}customer/notification/list',
+        options: Options(
+          headers: {
+            "authorization": 'Bearer $token',
+          },
+        ),
+      );
+      responsedata = responseobj.data;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        // print('DATA: ${e.response?.data}'); 
+        responsedata = e.response?.data;
+      } else {
+        responsedata = {
+          "status": "error",
+          "message": "Error occured (Network Connection)"
+        };
+        return responsedata;
+      }
+      return responsedata;
+    }
+    return responsedata;
+  }
+  
 
 
   Future transferlitetomax({required Map data}) async {
@@ -555,7 +614,7 @@ class Backend {
     return responsedata;
   }
 
-    Future transferlitetogoals({required Map data}) async {
+  Future transferlitetogoals({required Map data}) async {
     dynamic responsedata;
     try {
       String token = await authtoken();
