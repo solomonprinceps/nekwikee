@@ -195,7 +195,7 @@ class _NotificationState extends State<Notification> {
                               Text(
                                 notificationList![index]["title"],
                                 style: TextStyle(
-                                  color: primary,
+                                  color: CustomTheme.presntstate ? white : primary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600
                                 ),
@@ -209,7 +209,7 @@ class _NotificationState extends State<Notification> {
                                   overflow: TextOverflow.clip,
                                   maxLines: 4,
                                   style: TextStyle(
-                                    color: primary,
+                                    color: CustomTheme.presntstate ? white : primary,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w200
                                   ),
