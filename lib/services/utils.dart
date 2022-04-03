@@ -53,10 +53,9 @@ String stringamount(String? value) {
   if (value == null) {
     return '₦0';
   }
+  // return value;
   var newPrice = double.parse(value.toString());
-  // if (newPrice == null) {
-    
-  // }
+   
   String actualPrice =  newPrice.toStringAsFixed(0);
   return NumberFormat.currency(name: '₦').format(int.parse(actualPrice)).toString();
 }

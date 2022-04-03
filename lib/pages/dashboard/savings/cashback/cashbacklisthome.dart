@@ -431,7 +431,12 @@ class _CashbacklistState extends State<Cashbacklist> {
             InkWell(
               onTap: () {
                 // print(investmentid["cash_back_loans"][0]);
-                Get.toNamed("cashback/repayment", arguments: investmentid["cash_back_loans"][0]); 
+                if (investmentid["cash_back_loans"].length != 0) {
+                  Get.toNamed("cashback/repayment", arguments: investmentid["cash_back_loans"][0]); 
+                } else {
+                  snackbar(message: "", header: "No cashback available", bcolor: error);
+                }
+                
               },
               child: Container(
                 height: 44,

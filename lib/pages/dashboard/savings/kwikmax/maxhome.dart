@@ -189,12 +189,17 @@ class _MaxhomeState extends State<Maxhome> {
               child: Row(
                 children: [
                   
-                  Icon(
-                    FontAwesome.bell,
-                    color: registerActioncolor,
-                    size: 20.0,
-                    textDirection: TextDirection.ltr,
-                    semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("notification");
+                    },
+                    child: Icon(
+                      FontAwesome.bell,
+                      color: registerActioncolor,
+                      size: 20.0,
+                      textDirection: TextDirection.ltr,
+                      semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    ),
                   ),
                 ],
               ),

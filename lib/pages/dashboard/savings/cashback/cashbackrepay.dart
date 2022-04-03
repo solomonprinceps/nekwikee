@@ -101,17 +101,17 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
     if (auth.userdata["card_authorizations"] != null) {
       cards = auth.userdata["card_authorizations"];
     }
-    // print(cashback["loan_history"]["balance"]);
+  
     
     setState(() {
       cashback = Get.arguments;
       data["loanid"] = cashback["loanid"];
       datacashback["loanid"] = cashback["loanid"];
-      // data["amount"] = (cashback["loan_history"]["balance"]).toString();
+      // data["amount"] = (cashback["loan_history"]["balance"]).toString(); ["loan_history"]["balance"]
       // datacashback["amount"] = (cashback["loan_history"]["balance"]).toString();
     });
-    // print(cashback);
-    // print("balance");
+    print(cashback);
+    print("balance");
     amount.text = (cashback["loan_history"]["balance"]).toString();
     super.initState();
   }
@@ -299,8 +299,8 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                         children: [
                           // const SizedBox(height: 30),
                           Text(
-                            // "KWIKMAX - ${makecapitalize(savings["savings_name"].toString())}",
-                            "Amount: ${stringamount(cashback["balance"].toString())}",
+                            // "KWIKMAX -",
+                            "Amount: ${stringamount(cashback["loan_history"]["balance"].toString())}",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -309,8 +309,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                             ),
                           ),
                           Text(
-                            // stringamount(savings["amount_saved"].toString()),
-                            "Repayment: ${stringamount(cashback["amount_withdrawn"])}",
+                            "Repayment: ${stringamount(cashback["loan_history"]["amount_withdrawn"].toString())}",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 18,

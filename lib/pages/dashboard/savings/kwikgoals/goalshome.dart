@@ -151,12 +151,17 @@ class _GoalshomeState extends State<Goalshome> {
                     //   onPressed: () => currentTheme.toggleTheme(), 
                     //   child: const Text("change theme")
                     // ),
-                    Icon(
-                      FontAwesome.bell,
-                      color: registerActioncolor,
-                      size: 20.0,
-                      textDirection: TextDirection.ltr,
-                      semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed("notification");
+                      },
+                      child: Icon(
+                        FontAwesome.bell,
+                        color: registerActioncolor,
+                        size: 20.0,
+                        textDirection: TextDirection.ltr,
+                        semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                      ),
                     ),
                   ],
                 ),

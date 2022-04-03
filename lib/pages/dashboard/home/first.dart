@@ -1618,7 +1618,7 @@ class _FirstState extends State<First> {
                                         animation: false,
                                         lineHeight: 10.0,
                                         animationDuration: 2500,
-                                        percent: ((int.parse(latestgoal["amount_saved"].toString())/int.parse(latestgoal["target_amount"].toString()))).toDouble(),
+                                        percent: ((int.parse(latestgoal["amount_saved"].toString())/int.parse(latestgoal["target_amount"].toString())/100)).toDouble(),
                                         backgroundColor: CustomTheme.presntstate ? primary.withOpacity(0.3) : primary.withOpacity(0.1),
                                         barRadius: const Radius.circular(10),
                                         progressColor:CustomTheme.presntstate ? primary : HexColor("#42D579"),
@@ -1918,6 +1918,24 @@ class _FirstState extends State<First> {
                                     width: 25,
                                     height: 25,
                                     color: error,
+                                  ),
+                                ),
+                              ),
+
+
+                              Visibility(
+                                visible: item["product_mode"] == "5" && item["transaction_type"] == "5",
+                                child: Container(
+                                  width: 25,
+                                  height: 25,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: error,
+                                    borderRadius: BorderRadius.circular(100)
+                                  ),
+                                  child: Icon(
+                                    Ionicons.close_outline,
+                                    color: white,
                                   ),
                                 ),
                               ),

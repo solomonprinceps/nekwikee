@@ -90,24 +90,25 @@ class _HomeState extends State<Home> {
     getoken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published! xoxo');
-      Get.toNamed("/profile/changepin", arguments: 0);
+      Get.toNamed("/home", arguments: 1);
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                // channel.description,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/launcher_icon',
-              ),
-            ));
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              // channel.description,
+              color: Colors.blue,
+              playSound: true,
+              icon: '@mipmap/launcher_icon',
+            ),
+          )
+        );
       }
     });
 

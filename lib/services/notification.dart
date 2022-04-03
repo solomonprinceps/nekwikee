@@ -47,7 +47,8 @@ class PushNotificationService {
     // Stream listener
     // This function is called when the app is in the background and user clicks on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Get.toNamed("profile/changepin");
+      // Get.toNamed("profile/changepin");
+      Get.toNamed("/home", arguments: 1);
       if (message.data['type'] == 'chat') {
         // Navigator.pushNamed(context, '/chat',
         //     arguments: ChatArguments(message));

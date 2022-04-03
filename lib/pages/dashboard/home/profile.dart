@@ -911,6 +911,23 @@ class _ProfileState extends State<Profile> {
                                           ),
 
                                           Visibility(
+                                            visible: displaylist[index]["product_mode"] == "5" && displaylist[index]["transaction_type"] == "5",
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: error,
+                                                borderRadius: BorderRadius.circular(100)
+                                              ),
+                                              child: Icon(
+                                                Ionicons.close_outline,
+                                                color: white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Visibility(
                                             visible: displaylist[index]["product_mode"] == "3" && (displaylist[index]["transaction_type"] == "1" || displaylist[index]["transaction_type"] == "2"),
                                             child: Container(
                                               width: 25,
