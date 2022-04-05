@@ -36,7 +36,7 @@ class _CredithomeState extends State<Credithome> {
       }
       if (value["bvn"] == 0) {
         snackbar(message: value["message"], header:  "Successful.", bcolor: success);
-        Get.toNamed('credit/addbvn', arguments: 1);
+        Get.offAndToNamed("credit/addbvn", arguments: 1);
         return;
       }
       if (value["status"] == "error" ) {
@@ -118,7 +118,7 @@ class _CredithomeState extends State<Credithome> {
           ),
           Align( 
             alignment: Alignment.bottomCenter,
-            child: GestureDetector(
+            child: InkWell(
               // onTap: () => Get.toNamed('credit/first'),
               // onTap: () => Get.toNamed("credit/addbvn"),
               // onTap: () => Get.toNamed("credit/takeselfie"),

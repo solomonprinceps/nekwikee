@@ -348,7 +348,7 @@ class _GoalshomeState extends State<Goalshome> {
                       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                       padding: const EdgeInsets.all(15),
                       width: 100.w,
-                      height: 78,
+                      // height: 78,
                       decoration: BoxDecoration(
                         color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
                         borderRadius: BorderRadius.circular(5)
@@ -374,7 +374,9 @@ class _GoalshomeState extends State<Goalshome> {
                             "Save and earn towards your goal. penal charge for breaking your goal before maturity is 5% of withdrawn amount.",
                             style: TextStyle(
                               color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
-                              fontSize: 9
+                              // fontSize: 9
+                              fontSize: 12,
+                              height: 1.5,
                             ),   
                           )
                         ],

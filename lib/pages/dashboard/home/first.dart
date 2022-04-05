@@ -302,7 +302,7 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "Earn up to 18% per annum when your lock your funds for a minimum of 30 days Upfront interest",
+                                        "Earn up to 18% per annum when your lock you funds for a minimum of 30 days Upfront interest",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 10,
@@ -1611,7 +1611,7 @@ class _FirstState extends State<First> {
                                         overflow: TextOverflow.fade,
                                         style: TextStyle(
                                           fontSize: 11,
-                                          color: CustomTheme.presntstate ? white : HexColor("#35313099"),
+                                          color: CustomTheme.presntstate ? white : primary,
                                           fontWeight: FontWeight.w400
                                         ),
                                       ),

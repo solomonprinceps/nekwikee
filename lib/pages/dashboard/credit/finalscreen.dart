@@ -116,8 +116,8 @@ class _FinalcreditState extends State<Finalcredit> {
                     fontSize: 15
                   ),
                   children: <TextSpan>[
-                    TextSpan(text: "and is being processed. ", style: const TextStyle(fontWeight: FontWeight.w600)),
-                    TextSpan(text: "You would be contacted via email once approved", style: const TextStyle(fontWeight: FontWeight.w600)),
+                    TextSpan(text: "and is being processed. "),
+                    TextSpan(text: "You would be contacted via email once approved"),
                     // const TextSpan(text: " is being processed and you would be contacted via email when it's approved."),
                   ],
                 ),

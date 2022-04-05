@@ -730,8 +730,8 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                     'Work ID (Optional)',
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
                                     ),
                                   ),
                                   InkWell(
@@ -805,7 +805,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              GestureDetector(
+                              InkWell(
                                 onTap: () => _showDatePicker(context),
                                 child: TextFormField(
                                   style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
@@ -832,7 +832,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
         
                               const SizedBox(height: 20),
                               Text(
-                                'Name of Employer / Business',
+                                'Name of Employer',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -841,7 +841,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                               ),
                               const SizedBox(height: 5),
                               // _showFullModal
-                              GestureDetector(
+                              InkWell(
                                 onTap: () {
                                   setState(() {
                                     allbanks = applycon.companies;
@@ -870,25 +870,27 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              Obx(() => Visibility(
-                                visible: applycon.employerdata["employer_name"] ==  '99',
+                              Visibility(
+                                // visible: applycon.employerdata["employer_name"] !=  '99',
+                                visible: true,
                                 child: Text(
-                                  "Other Employer Name",
+                                  "Input Employer Name (If Others)",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
                                     color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                   ),
                                 ),
-                              )),
+                              ),
                               const SizedBox(height: 5),
-                              Obx(() => Visibility(
-                                visible: applycon.employerdata["employer_name"] == '99',
+                              Visibility(
+                                // visible: applycon.employerdata["employer_name"] != '99',
+                                visible: true,
                                 child: TextFormField(
                                   style: TextStyle( 
                                     color:CustomTheme.presntstate ? white : darkscaffold
                                   ),
-                                  validator: RequiredValidator(errorText:"Other Employer name is required."),
+                                  // validator: RequiredValidator(errorText:"Other Employer name is required."),
                                   keyboardType:  TextInputType.emailAddress,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   controller: otheremployer,
@@ -898,13 +900,12 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                   textInputAction: TextInputAction.done,
                                   
                                 ),
-                              )),
-                              Obx(() => 
-                                Visibility(
-                                  visible: applycon.employerdata["employer_name"] == '99',
-                                  child: const SizedBox(height: 20)
-                                )
                               ),
+                              Visibility(
+                                // visible: applycon.employerdata["employer_name"] != '99',
+                                visible: true,
+                                child: const SizedBox(height: 20)
+                              ) ,
                               Text(
                                 'Pay day',
                                 style: TextStyle(
@@ -969,33 +970,33 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 textInputAction: TextInputAction.done,
                               ),
         
-                              const SizedBox(height: 20),
-                              Text(
-                                'Employment Details',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              GestureDetector(
-                                onTap: () => employmmentWidget(),
-                                child: TextFormField(
-                                  style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
-                                  validator: RequiredValidator(
-                                    errorText: 'Employment details is required.'
-                                  ),
-                                  keyboardType: TextInputType.name,
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  controller: employmentdetailcontrol,
-                                  enabled: false,
-                                  // onSaved: (val) => backendata["firstname"] = val,
-                                  onSaved: (val) => applycon.employerdata["employment_type"] = val,
-                                  textInputAction: TextInputAction.done,
+                              // const SizedBox(height: 20),
+                              // Text(
+                              //   'Employment Details',
+                              //   style: TextStyle(
+                              //     fontWeight: FontWeight.w400,
+                              //     fontSize: 12,
+                              //     color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 5),
+                              // InkWell(
+                              //   onTap: () => employmmentWidget(),
+                              //   child: TextFormField(
+                              //     style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
+                              //     validator: RequiredValidator(
+                              //       errorText: 'Employment details is required.'
+                              //     ),
+                              //     keyboardType: TextInputType.name,
+                              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                              //     controller: employmentdetailcontrol,
+                              //     enabled: false,
+                              //     // onSaved: (val) => backendata["firstname"] = val,
+                              //     onSaved: (val) => applycon.employerdata["employment_type"] = val,
+                              //     textInputAction: TextInputAction.done,
                                   
-                                ),
-                              ),
+                              //   ),
+                              // ),
                               const SizedBox(height: 20),
                               Text(
                                 'Educational Level',
@@ -1006,7 +1007,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              GestureDetector(
+                              InkWell(
                                 onTap: () => educationlevelWidget(),
                                 child: TextFormField(
                                   style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
@@ -1033,7 +1034,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
               ),
               Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () {
                     // getbank();
                     // print(applycon.employerdata);
@@ -1110,7 +1111,7 @@ class Topbar extends StatelessWidget {
           Positioned(
             top: 6.h,
             left: 3.w,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () =>  Get.back(),
               child: Container(
                 width: 42,

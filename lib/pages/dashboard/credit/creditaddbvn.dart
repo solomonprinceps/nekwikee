@@ -41,16 +41,7 @@ class _CreditbvnState extends State<Creditbvn> {
 
   submitbvn() async {
     FocusScope.of(context).requestFocus(FocusNode());
-    // print(bvnfrom!);
-    // return
     context.loaderOverlay.show();
-    // if (bvnfrom == 0) {
-    //   Get.toNamed('home', arguments: 1);
-    // }
-    // if (bvnfrom == 1) {
-    //   Get.toNamed('dashboard/apply/one');
-    //   return;
-    // } 
     await applystate.addbvnapplication().then((value) {
       context.loaderOverlay.hide();
       if (value["status"] == "success") {
@@ -61,7 +52,7 @@ class _CreditbvnState extends State<Creditbvn> {
           return;
         }
         if (bvnfrom == 1) {
-          Get.toNamed('dashboard/apply/one');
+          Get.toNamed('credit/home');
           return;
         }
         
@@ -169,25 +160,25 @@ class _CreditbvnState extends State<Creditbvn> {
               alignment: FractionalOffset.bottomCenter,
               child: Column(
                 children: [
-                  GestureDetector(
-                    // onTap: () => Get.toNamed("credit/second"),
-                    onTap: () => validate(),
-                    child: Container(
-                      width: 100.w,
-                      height: 58,
-                      color: primary,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Skip",
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
+                  // InkWell(
+                  //   // onTap: () => Get.toNamed("credit/second"),
+                  //   onTap: () => validate(),
+                  //   child: Container(
+                  //     width: 100.w,
+                  //     height: 58,
+                  //     color: primary,
+                  //     alignment: Alignment.center,
+                  //     child: Text(
+                  //       "Skip",
+                  //       style: TextStyle(
+                  //         color: white,
+                  //         fontSize: 15,
+                  //         fontWeight: FontWeight.w400
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  InkWell(
                     // onTap: () => Get.toNamed("credit/second"),
                     onTap: () => validate(),
                     child: Container(

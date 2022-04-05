@@ -138,7 +138,7 @@ class _ChangepasswordState extends State<Changepassword> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 60.w,
+                            width: 50.w,
                           ),
                           SizedBox(height: 2.h),
                           Text(
@@ -151,7 +151,7 @@ class _ChangepasswordState extends State<Changepassword> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a new five-digit pin to authorise transactions within the Kwikee App',
+                            'Kindly provide a new four-digit pin to authorise transactions within the Kwikee App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,

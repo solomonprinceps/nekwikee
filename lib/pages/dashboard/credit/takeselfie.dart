@@ -77,7 +77,7 @@ class _TakeSelfieState extends State<TakeSelfie> {
           ),
           Align( 
             alignment: Alignment.bottomCenter,
-            child: GestureDetector(
+            child: InkWell(
               // onTap: () => Get.toNamed('credit/first'),
               onTap: () => Get.offAllNamed("home"),
               child: Container(
@@ -98,7 +98,7 @@ class _TakeSelfieState extends State<TakeSelfie> {
           ),
           Positioned(
             bottom: 58,
-            child: GestureDetector(
+            child: InkWell(
               // onTap: () => Get.toNamed('credit/first'),
               // onTap: () => Get.toNamed("credit/addbvn"),
               onTap: () => Get.toNamed("credit/camera", arguments: Get.arguments),

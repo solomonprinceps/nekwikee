@@ -9,6 +9,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:flutter/gestures.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Passwordreset extends StatefulWidget {
   const Passwordreset({ Key? key }) : super(key: key);
@@ -56,6 +57,18 @@ class _PasswordresetState extends State<Passwordreset> {
     }
   }  
 
+  void clearalldata() async {
+    // Get.back();
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    authstorage.remove('user');
+    authstorage.remove('accessToken');
+    authstorage.remove('fingeremail');
+    authstorage.remove('fingerpassword');
+    // authstorage.remove('passgetstarted');
+    authstorage.remove('firstmail');
+    Get.offAndToNamed('auth/login');
+  }
+
   resetp() async {
     context.loaderOverlay.show();
     await signup.forgotpass(data).then((value) {
@@ -63,7 +76,8 @@ class _PasswordresetState extends State<Passwordreset> {
       print(value);
       if (value?["status"] == "success") {
         snackbar(message: value?["message"], header: "Success", bcolor: success);  
-        Get.offAndToNamed('auth/login');
+        // Get.offAndToNamed('auth/login');
+        clearalldata();
         return;
         
         // Get.toNamed('register/nameandemail', arguments: verificationData);
@@ -120,7 +134,7 @@ class _PasswordresetState extends State<Passwordreset> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 60.w,
+                            width: 50.w,
                           ),
                           SizedBox(height: 5.h),
                           InkWell(

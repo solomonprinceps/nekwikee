@@ -373,7 +373,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   ),
                         
                                   const SizedBox(height: 5),
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () => shoWidget(),
                                     child: TextFormField(
                                       style: TextStyle(
@@ -470,7 +470,7 @@ class _CreditfirstState extends State<Creditfirst> {
               ),
               Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: GestureDetector(
+                child: InkWell(
                   // onTap: () => Get.toNamed("credit/second"), applystate.personalinfo
                   onTap: () => validate(),
                   child: Container(
@@ -544,7 +544,7 @@ class Topbar extends StatelessWidget {
           Positioned(
             top: 6.h,
             left: 3.w,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () =>  Get.back(),
               child: Container(
                 width: 42,

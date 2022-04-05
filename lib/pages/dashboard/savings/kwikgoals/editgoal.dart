@@ -648,7 +648,7 @@ class _EditGoalsState extends State<EditGoals> {
                       Text(
                         "Acheive you target, save towards a particular goal. 12% per annum",
                         style: TextStyle(
-                          fontSize: 9,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: CustomTheme.presntstate ? white : HexColor("#353130")
                         ),

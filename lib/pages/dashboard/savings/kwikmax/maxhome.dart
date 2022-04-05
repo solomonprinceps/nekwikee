@@ -378,9 +378,11 @@ class _MaxhomeState extends State<Maxhome> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Get cashback of upto 75% of your Kwikmax fund. 24% per annum",
+                    "Get cashback of up to 75% of your Kwikmax fund. 24% per annum",
                     style: TextStyle(
+                      // fontSize: 12,
                       fontSize: 12,
+                      height: 1.5,
                       fontWeight: FontWeight.w400,
                       color: CustomTheme.presntstate ? white : const Color.fromRGBO(53, 49, 48, 1)
                     ),

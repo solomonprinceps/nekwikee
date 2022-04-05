@@ -139,16 +139,15 @@ class _ConfirmselfieState extends State<Confirmselfie> {
           ),
           Align( 
             alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              // onTap: () => Get.toNamed('credit/first'),
-              onTap: () => uploadselfie(),
+            child: InkWell(
+              onTap: () => Get.toNamed("credit/camera", arguments: loanid),
               child: Container(
                 width: 100.w,
                 height: 58,
-                color: const Color.fromRGBO(66, 213, 121, 1),
+                color: primary,
                 alignment: Alignment.center,
                 child: Text(
-                  "Next",
+                  "Retake",
                   style: TextStyle(
                     color: white,
                     fontSize: 15,
@@ -160,18 +159,18 @@ class _ConfirmselfieState extends State<Confirmselfie> {
           ),
           Positioned(
             bottom: 58,
-            child: GestureDetector(
+            child: InkWell(
               // onTap: () => Get.toNamed('credit/first'),
               // onTap: () => Get.toNamed("credit/addbvn"),
-              // onTap: () => Get.back(),
-              onTap: () => Get.toNamed("credit/camera", arguments: loanid),
+              onTap: () => uploadselfie(),
+              // onTap: () => Get.toNamed("credit/camera", arguments: loanid),
               child: Container(
                 width: 100.w,
                 height: 58,
-                color: primary,
+                color: const Color.fromRGBO(66, 213, 121, 1),
                 alignment: Alignment.center,
                 child: Text(
-                  "Retake",
+                  "Next",
                   style: TextStyle(
                     color: white,
                     fontSize: 15,

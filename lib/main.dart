@@ -65,11 +65,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _logOutUser(context);
     _initializeTimer(context);
     currentTheme.addListener(() {
       setState(() {});
     });
-    _logOutUser(context);
+    
   }
 
   void _initializeTimer(BuildContext context) {
@@ -153,35 +154,14 @@ class _MyAppState extends State<MyApp> {
       useDefaultLoading: false,
       overlayColor: Colors.white30,
       overlayWidget: Center(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          alignment: Alignment.center,
-          height: 50,
-          width: 120,
-          decoration: BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.circular(10)
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SpinKitFadingCircle(
-                color: primary,
-                size: 30.0,
-              ),
-              const SizedBox(width: 7),
-              Text(
-                'loading...',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                  color: Colors.black,
-                  fontFamily: GoogleFonts.actor().toString(),  
-                ),
-              )
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            SpinKitFadingCube(
+              color: primary,
+              size: 50.0,
+            ),
+          ],
         ),
       ),
       overlayOpacity: 0.8,

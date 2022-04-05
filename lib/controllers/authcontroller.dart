@@ -13,6 +13,7 @@ class AuthController extends GetxController {
   var showbankstatementsetup = false.obs;
   var showapplyforcredit = false.obs;
   var continuecreditapply = false.obs;
+  var allowbio = false.obs;
   var showsetpin = false.obs;
   var hasloan = false.obs;
   var linkcard = false.obs;
@@ -28,11 +29,38 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
+
+  changeStatus() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    if(allowbio.isTrue){
+      allowbio.toggle();
+      authstorage.setBool("allowauth", allowbio.value);
+    }
+    else {
+      allowbio.value = true; //or pressedBool.toggle();
+      authstorage.setBool("allowauth", allowbio.value);
+    }
+   
+  }
   checkLogin() async {
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     dynamic token = authstorage.getString("accessToken").toString();
     if (token == null) {
       Get.offNamed("/login");
+    }
+  }
+
+  getallow() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    dynamic statess =  authstorage.getBool("allowauth");
+    if (statess == null) {
+      allowbio.value = false;
+    }
+    if (statess == true) {
+      allowbio.value = true;
+    }
+    if (statess == true) {
+      allowbio.value = false;
     }
   }
 

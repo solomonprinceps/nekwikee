@@ -1122,8 +1122,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                       fontSize: 20),
                 ),
                 elevation: 0.0),
-            backgroundColor:
-                !CustomTheme.presntstate ? whitescaffold : darkscaffold,
+            backgroundColor: !CustomTheme.presntstate ? whitescaffold : darkscaffold,
             body: Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: const BoxDecoration(
@@ -1154,7 +1153,6 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        
                         hintText: "Sort Bank",
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 3.0, horizontal: 10.0),
@@ -1179,31 +1177,31 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                     child: ScrollConfiguration(
                     behavior: MyBehavior(),
                     child: ListView.builder(
-                        itemCount: allbanks.length,
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          return InkWell(
-                            onTap: () {
-                              withdraw.withform["bankcode"] =
-                                  allbanks[index]["bankcode"];
-                              bankcontroller.text = allbanks[index]["name"];
-                              Get.back();
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1, color: black))),
-                                padding:
-                                    const EdgeInsets.only(top: 15, bottom: 15),
-                                child: Text(
-                                  allbanks[index]["name"],
-                                  style: TextStyle(
-                                      color: !CustomTheme.presntstate
-                                          ? black
-                                          : white),
-                                )),
-                          );
-                        }),
+                    itemCount: allbanks.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return InkWell(
+                        onTap: () {
+                          withdraw.withform["bankcode"] =
+                              allbanks[index]["bankcode"];
+                          bankcontroller.text = allbanks[index]["name"];
+                          Get.back();
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1, color: black))),
+                            padding:
+                                const EdgeInsets.only(top: 15, bottom: 15),
+                            child: Text(
+                              allbanks[index]["name"],
+                              style: TextStyle(
+                                  color: !CustomTheme.presntstate
+                                      ? black
+                                      : white),
+                            )),
+                      );
+                    }),
                   ))
                 ],
               ),

@@ -362,7 +362,7 @@ class _CreditSecondState extends State<CreditSecond> {
                                 ),
                                 const SizedBox(height: 10),
         
-                                GestureDetector(
+                                InkWell(
                                   onTap: () => Get.toNamed('credit/three'),
                                   child: Container(
                                     width: 100.w,

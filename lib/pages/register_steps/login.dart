@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
@@ -26,6 +27,9 @@ class _LoginState extends State<Login> {
   bool isPhone = false;
   bool isChecked = false;
   bool loginError = false;
+  bool showPass = true;
+  bool allowauth = false;
+
   final _formKey = GlobalKey<FormState>();
   Color resolvePhonecolor(String themestate) {
     // themestate == "dark" ? white : getstartedp    
@@ -54,7 +58,11 @@ class _LoginState extends State<Login> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
+  void changeshowPass(bool status) {
+    setState(() {
+      showPass = status;
+    });
+  }
   void validate() {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
@@ -81,6 +89,7 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
+    getstateallow();
     checkingForBioMetrics();
     loadmail();
     super.initState();
@@ -94,6 +103,37 @@ class _LoginState extends State<Login> {
     });
   }
 
+  getstateallow() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    dynamic boolstate = authstorage.getBool("allowauth");
+    print("bool");
+    print(boolstate);
+    if (boolstate == null) {
+      setState(() {
+        allowauth = boolstate;
+      });
+      return;
+    }
+    if (boolstate == false) {
+      setState(() {
+        allowauth = false;
+      });
+      return;
+    }
+    if (boolstate == true) {
+      setState(() {
+        allowauth = true;
+      });
+      return;
+    }
+    print(allowauth);
+    print("allowauth");
+    // setState(() {
+    //   allowauth = boolstate;
+    // });
+  }
+
+//allowauth
   Future<void> _authenticateMe() async {
     if (loginstate.finger["email"] == '' || loginstate.finger["email"] == 'null' || loginstate.finger["email"] == null) {
       snackbar(message: "Manual login required.", header: "Error", bcolor: error);
@@ -258,195 +298,153 @@ class _LoginState extends State<Login> {
                 ],
               ),
               Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 17, left: 20, right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 30),
-                          Image.asset(
-                            CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
-                            'assets/image/newlogo1.png',
-                            width: 60.w,
-                          ),
-                          SizedBox(height: 7.h),
-                          Text(
-                            'Sign in',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: CustomTheme.presntstate ? creditwithdark : primary 
+                child: ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 17, left: 20, right: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 30),
+                            Image.asset(
+                              CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
+                              'assets/image/newlogo1.png',
+                              width: 50.w,
                             ),
-                          ),
-                          SizedBox(height: 2.h),
-                          Visibility(
-                            visible: premail == null,
-                            child: Text(
-                              'Enter your credentials to log in to your Kwikee account.',
+                            SizedBox(height: 10),
+                            Text(
+                              'Sign in',
                               style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                height: 1.3,
-                                fontSize: 15,
-                                color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: CustomTheme.presntstate ? creditwithdark : primary 
                               ),
                             ),
-                          ),
-                          // Visibility(
-                          //   visible: premail != null,
-                          //   child: Text(
-                          //     premail.toString(),
-                          //     style: TextStyle(
-                          //       fontWeight: FontWeight.w300,
-                          //       height: 1.3,
-                          //       fontSize: 15,
-                          //       color: CustomTheme.presntstate ? inputcolordark : getstartedp 
-                          //     ),
-                          //   ),
-                          // ),
-                          const SizedBox(height: 20),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                
-                                Visibility(
-                                  visible: premail == null,
-                                  child: Text(
-                                    'Email Address',
+                            SizedBox(height: 2.h),
+                            Visibility(
+                              visible: premail == null,
+                              child: Text(
+                                'Enter your credentials to log in to your Kwikee account.',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  height: 1.3,
+                                  fontSize: 15,
+                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                                ),
+                              ),
+                            ),
+                            // Visibility(
+                            //   visible: premail != null,
+                            //   child: Text(
+                            //     premail.toString(),
+                            //     style: TextStyle(
+                            //       fontWeight: FontWeight.w300,
+                            //       height: 1.3,
+                            //       fontSize: 15,
+                            //       color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                            //     ),
+                            //   ),
+                            // ),
+                            const SizedBox(height: 20),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  
+                                  Visibility(
+                                    visible: premail == null,
+                                    child: Text(
+                                      'Email Address',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: CustomTheme.presntstate ? inputcolordark : getstartedp
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: premail == null,
+                                    child: const SizedBox(height: 5)
+                                  ),
+                                  Visibility(
+                                    visible: premail == null,
+                                    child: TextFormField( 
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? whitescaffold : darkscaffold
+                                      ),
+                                      // obscureText: true,
+                                      validator: MultiValidator([
+                                        RequiredValidator(errorText: 'Valid email is required.'),
+                                        EmailValidator(errorText: 'Valid email is required.'),    
+                                      ]),
+                                      keyboardType: TextInputType.emailAddress,
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                                      textInputAction: TextInputAction.done,
+                                      onSaved: (val) {
+                                        loginstate.login["email"] = val;
+                                      },
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: premail == null,
+                                    child: SizedBox(height: 2.h)
+                                  ),
+                                  Visibility(
+                                    visible: premail == null,
+                                    child: SizedBox(height: 2.h)
+                                  ),
+                                  
+                                  Text(
+                                    'Password',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,
                                       color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                     ),
                                   ),
-                                ),
-                                Visibility(
-                                  visible: premail == null,
-                                  child: const SizedBox(height: 5)
-                                ),
-                                Visibility(
-                                  visible: premail == null,
-                                  child: TextFormField( 
+                                  const SizedBox(height: 5),
+                                  TextFormField( 
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? whitescaffold : darkscaffold
                                     ),
-                                    // obscureText: true,
-                                    validator: MultiValidator([
-                                      RequiredValidator(errorText: 'Valid email is required.'),
-                                      EmailValidator(errorText: 'Valid email is required.'),    
-                                    ]),
-                                    keyboardType: TextInputType.emailAddress,
+                                    obscureText: showPass,
+                                    validator: RequiredValidator(errorText: 'Password is required.'),
+                                    // keyboardType: TextInputType.name,
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
                                     textInputAction: TextInputAction.done,
                                     onSaved: (val) {
-                                      loginstate.login["email"] = val;
+                                      loginstate.login["pin"] = val;
                                     },
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: premail == null,
-                                  child: SizedBox(height: 2.h)
-                                ),
-                                Visibility(
-                                  visible: premail == null,
-                                  child: SizedBox(height: 2.h)
-                                ),
-                                
-                                Text(
-                                  'Password',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: CustomTheme.presntstate ? inputcolordark : getstartedp
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                      child: TextFormField( 
-                                        style: TextStyle(
-                                          color: CustomTheme.presntstate ? whitescaffold : darkscaffold
-                                        ),
-                                        obscureText: true,
-                                        validator: RequiredValidator(errorText: 'Password is required.'),
-                                        // keyboardType: TextInputType.name,
-                                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                                        textInputAction: TextInputAction.done,
-                                        onSaved: (val) {
-                                          loginstate.login["pin"] = val;
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                                          
-                                          errorStyle: const TextStyle(color: Colors.red),
-                                        )
-                                      ),
-                                    ),
-                    
-                                    InkWell(
-                                      onTap: () {
-                                        _authenticateMe();
-                                      },
-                                      child: SizedBox(
-                                        // margin: loginError : ,
-                                        child: SvgPicture.asset(
-                                          'assets/image/finger_scanner.svg',
-                                          // color: Colors.red,
-                                          width: 40,
-                                          height: 50,
-                                          semanticsLabel: 'Scanner'
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                                      suffixIcon: InkWell(
+                                        onTap:() => changeshowPass(!showPass),
+                                        child: Icon(
+                                          showPass ? FontAwesome.eye_slash : FontAwesome.eye,
+                                          color: CustomTheme.presntstate ? white : primary,
                                         ),
                                       ),
+                                      errorStyle: const TextStyle(color: Colors.red),
                                     )
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children:  <TextSpan>[
-                                            TextSpan(
-                                              recognizer: TapGestureRecognizer()..onTap = () {
-                                                Get.toNamed('auth/password/reset');
-                                              },
-                                              text: 'Forgot Password?', 
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15,
-                                                color: Color.fromRGBO(0, 175, 239, 1)
-                                              )
-                                            ),
-                                            
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: premail != null,
-                                      child: SizedBox(
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
                                         child: RichText(
                                           text: TextSpan(
                                             children:  <TextSpan>[
                                               TextSpan(
-                                                recognizer: TapGestureRecognizer()..onTap = () async {
-                                                  setState(() {
-                                                    premail = null;
-                                                  });
-                                                  SharedPreferences authstorage = await SharedPreferences.getInstance();
-                                                  authstorage.remove('fingeremail');
-                                                  authstorage.remove('fingerpassword');
+                                                recognizer: TapGestureRecognizer()..onTap = () {
+                                                  Get.toNamed('auth/password/reset');
                                                 },
-                                                text: 'Switch Account', 
+                                                text: 'Forgot Password?', 
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 15,
@@ -458,19 +456,94 @@ class _LoginState extends State<Login> {
                                           ),
                                         ),
                                       ),
+                                      Visibility(
+                                        visible: premail != null,
+                                        child: SizedBox(
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children:  <TextSpan>[
+                                                TextSpan(
+                                                  recognizer: TapGestureRecognizer()..onTap = () async {
+                                                    setState(() {
+                                                      premail = null;
+                                                    });
+                                                    SharedPreferences authstorage = await SharedPreferences.getInstance();
+                                                    authstorage.remove('fingeremail');
+                                                    authstorage.remove('fingerpassword');
+                                                  },
+                                                  text: 'Switch Account', 
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15,
+                                                    color: Color.fromRGBO(0, 175, 239, 1)
+                                                  )
+                                                ),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 30),
+                                  // InkWell(
+                                    // onTap: () {
+                                    //   _authenticateMe();
+                                    // },
+                                    // child: Text(
+                                    //   "Sign in with biometrics",
+                                    //   style: const TextStyle(
+                                    //     fontWeight: FontWeight.w600,
+                                    //     fontSize: 15,
+                                    //     color: Color.fromRGBO(0, 175, 239, 1)
+                                    //   )
+                                    // ),
+                                  // )
+                
+                                  Visibility(
+                                    visible: allowauth,
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              _authenticateMe();
+                                            },
+                                            child: SizedBox(
+                                              child: SvgPicture.asset(
+                                                'assets/image/finger_scanner.svg',
+                                                width: 40,
+                                                height: 50,
+                                                semanticsLabel: 'Scanner'
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            "Sign in with biometrics",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              color: Color.fromRGBO(0, 175, 239, 1)
+                                            )
+                                          ),
+                                          SizedBox(height: 20),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                                
-                                
-                              ],
+                                  )
+                                  
+                                  
+                                ],
+                              )
                             )
-                          )
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    
-                  ],
+                      
+                    ],
+                  ),
                 ),
               ),
               Align(

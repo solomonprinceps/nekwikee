@@ -160,7 +160,7 @@ class _VerifynumberState extends State<Verifynumber> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 60.w,
+                            width: 50.w,
                           ),
                           SizedBox(height: 5.h),
                           Text(
@@ -266,7 +266,7 @@ class _VerifynumberState extends State<Verifynumber> {
                                   padding: const EdgeInsets.only(left: 1, right: 15),
                                   child: RichText(
                                     text: TextSpan(
-                                      text: 'Did\'t receive OTP? ',
+                                      text: 'Didn\'t receive OTP? ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 13,

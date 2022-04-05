@@ -329,7 +329,7 @@ class _NextofkinState extends State<Nextofkin> {
                                    ),
                                  ),
                                  const SizedBox(height: 5),
-                                 GestureDetector(
+                                 InkWell(
                                    onTap: () {
                                      FocusScope.of(context).requestFocus(FocusNode());
                                      shoWidget();
@@ -433,7 +433,7 @@ class _NextofkinState extends State<Nextofkin> {
                 alignment: FractionalOffset.bottomCenter,
                 child: Column(
                   children: [
-                    GestureDetector(
+                    InkWell(
                       // onTap: () => Get.toNamed("credit/four"),
                       onTap: () => validate(),
                       child: Container(
@@ -512,7 +512,7 @@ class Topbar extends StatelessWidget {
           Positioned(
             top: 6.h,
             left: 3.w,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () =>  Get.back(),
               child: Container(
                 width: 42,

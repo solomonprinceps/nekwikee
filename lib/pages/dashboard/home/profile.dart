@@ -28,6 +28,7 @@ class _ProfileState extends State<Profile> {
   bool isChecked = false;
   bool loading = false;
   bool themestate = CustomTheme.presntstate;
+  bool? allowauth = false;
   AuthController auth = Get.put(AuthController());
   final ScrollController _scrollController = ScrollController();
   CustomTheme theme = CustomTheme();
@@ -38,15 +39,42 @@ class _ProfileState extends State<Profile> {
   List displaylist = [];
 
   void logout() async {
-    // Get.back();
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     authstorage.remove('user');
     authstorage.remove('accessToken');
     authstorage.remove('fingeremail');
     authstorage.remove('fingerpassword');
-    // authstorage.remove('passgetstarted');
     authstorage.remove('firstmail');
     Get.offAllNamed("newsplash");
+  }
+
+  changebio(bool statedata) async {
+    
+    if (mounted) {
+      setState(() {
+        allowauth = true;
+      });
+    }
+   
+  }
+
+  getstateallow() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    bool? boolstate = authstorage.getBool("allowauth");
+    // if (mounted) {
+    //   if (boolstate! != false) {
+    //     setState(() {
+    //       allowauth = boolstate;
+    //     });
+    //     return;
+    //   }
+    // }
+    
+    setState(() {
+      allowauth = boolstate;
+    });
+    print("boolstate");
+    print(boolstate);
   }
 
   sortsaving() {
@@ -108,9 +136,9 @@ class _ProfileState extends State<Profile> {
       return;
     }
     context.loaderOverlay.show();
-    print("auth.pagenumber.value * 2");
-    print(auth.pagenumber.value);
-    print(auth.pagenumber.value * 2);
+    // print("auth.pagenumber.value * 2");
+    // print(auth.pagenumber.value);
+    // print(auth.pagenumber.value * 2);
     auth.pagenumber.value = auth.pagenumber.value * 2;
     final Map data = {
       "page_size": (auth.pagenumber).toString()
@@ -200,6 +228,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
+    // getstateallow();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && auth.loading.value == false) {
         setState(() {
@@ -210,6 +239,7 @@ class _ProfileState extends State<Profile> {
       }
     });
     super.initState();
+    
   }
 
   @override
@@ -493,7 +523,48 @@ class _ProfileState extends State<Profile> {
                       behavior: MyBehavior(),
                       child: ListView(
                         children: [
-                          
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(10),
+                            height: 47,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Row(
+                              children: [
+                                Obx(
+                                  () =>
+                                  Switch(
+                                    activeColor: primary,
+                                    activeTrackColor: primary.withOpacity(0.2),
+                                    inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
+                                    value: auth.allowbio.value,
+                                    // onChanged: (val) => changebio(!val)
+                                    onChanged: (val) {
+                                      // auth.allowbio.value = !val;
+                                      auth.changeStatus();
+
+                                      print("state ${auth.allowbio.value} then $val");
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  // fit: BoxFit.contain,
+                                  child: Text(
+                                    'Allow Biometrics Authentications',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          ),
                           GestureDetector(
                             onTap: () => Get.toNamed("profile/changepass"),
                             child: Container(
@@ -602,42 +673,7 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                          
-                          GestureDetector(
-                            onTap: () => logout(),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.all(10),
-                              height: 47,
-                              decoration: BoxDecoration(
-                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/image/logoutnoun.svg',
-                                    semanticsLabel: 'Logout Noun',
-                                    color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    // fit: BoxFit.contain,
-                                    child: Text(
-                                      'Sign Out',
-                                      style: TextStyle(
-                                        color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600
-                                      ),
-                                    ),
-                                  ))
-                                ],
-                              ),
-                            ),
-                          ),
-                    
+
                           Container(
                             margin: const EdgeInsets.only(bottom: 10),
                             padding: const EdgeInsets.all(10),
@@ -675,7 +711,44 @@ class _ProfileState extends State<Profile> {
                                 ))
                               ],
                             ),
-                          )
+                          ),
+                          
+                          GestureDetector(
+                            onTap: () => logout(),
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.all(10),
+                              height: 47,
+                              decoration: BoxDecoration(
+                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                                borderRadius: BorderRadius.circular(5)
+                              ),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/image/logoutnoun.svg',
+                                    semanticsLabel: 'Logout Noun',
+                                    color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    // fit: BoxFit.contain,
+                                    child: Text(
+                                      'Sign Out',
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            ),
+                          ),
+                    
+                          
                     
                     
                         ],

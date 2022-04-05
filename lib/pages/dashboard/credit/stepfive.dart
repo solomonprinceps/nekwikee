@@ -472,7 +472,7 @@ class _EmploymentbankState extends State<Employmentbank> {
                 alignment: FractionalOffset.bottomCenter,
                 child: Column(
                   children: [
-                    GestureDetector(
+                    InkWell(
                       // onTap: () => Get.toNamed("credit/preview"),
                       onTap: () =>  validate(),
                       child: Container(
@@ -490,7 +490,7 @@ class _EmploymentbankState extends State<Employmentbank> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       // onTap: () => Get.toNamed("credit/preview"),
                       onTap: () =>  Get.toNamed('credit/preview', arguments: Get.arguments),
                       child: Container(
@@ -565,7 +565,7 @@ class Topbar extends StatelessWidget {
           Positioned(
             top: 6.h,
             left: 3.w,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () =>  Get.back(),
               child: Container(
                 width: 42,

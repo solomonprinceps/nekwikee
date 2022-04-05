@@ -27,15 +27,17 @@ class _CreateMaxState extends State<CreateMax> {
   AuthController auth = Get.put(AuthController());
   dynamic tranw;
   List transwhere = [
-    {"text": "30 to 90 Days - 10%", "value": '30', "startday": 30, "endday": 90},
-    {"text": "91 to 180 Days - 13%", "value": '90', "startday": 91, "endday": 180},
-    {"text": "181 to 365 Days - 15%", "value": '180', "startday": 180, "endday": 365},
-    {"text": "1 to 2 years - 18%", "value": '270', "startday": 366, "endday": 730},
+    {"text": "30 to 90 Days - 10% Per Annum", "value": '30', "startday": 30, "endday": 90},
+    {"text": "91 to 180 Days - 13% Per Annum", "value": '90', "startday": 91, "endday": 180},
+    {"text": "181 to 365 Days - 15% Per Annum", "value": '180', "startday": 180, "endday": 365},
+    {"text": "1 to 2 Years - 18% Per Annum", "value": '270', "startday": 366, "endday": 730},
   ];
   dynamic _chosenDateTime;
   TextEditingController startdate = TextEditingController();
   TextEditingController endate = TextEditingController();
   TextEditingController amount = TextEditingController();
+  String? stdate;
+  String? enddate;
 
 
   void _showDatePicker(ctx) {
@@ -44,7 +46,10 @@ class _CreateMaxState extends State<CreateMax> {
     setState(() {
       _chosenDateTime = DateTime.now();
     }); 
-    startdate.text = dateformaterY_M_D(DateTime.now().toString());
+    startdate.text = dateformater(DateTime.now().toString());
+    setState(() {
+      stdate = dateformaterY_M_D(DateTime.now().toString());
+    });
     savings.createKwikMax["start_date"] = dateformaterY_M_D(DateTime.now().toString());
     showCupertinoModalPopup(
       context: ctx,
@@ -63,6 +68,9 @@ class _CreateMaxState extends State<CreateMax> {
                   initialDateTime: DateTime.now(),
                   mode: CupertinoDatePickerMode.date,
                   onDateTimeChanged: (val) {
+                    setState(() {
+                      stdate = dateformaterY_M_D(DateTime.now().toString());
+                    });
                     setState(() {
                       _chosenDateTime = val;
                       startdate.text = dateformaterY_M_D(_chosenDateTime.toString());
@@ -115,7 +123,7 @@ class _CreateMaxState extends State<CreateMax> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      // print(savings.createKwikGoal);
+      // print(savings.createKwikMax);
       submitmax();
     //  login();
     } else {
@@ -152,9 +160,11 @@ class _CreateMaxState extends State<CreateMax> {
       firstDate: startdate,
       lastDate: enddate
     );
-    // print(picked.toString());
-    
-    endate.text  = dateformaterY_M_D(picked.toString());
+    endate.text  = dateformater(picked.toString());
+    setState(() {
+      enddate = dateformaterY_M_D(picked.toString());
+    });
+    savings.createKwikMax["end_date"] = dateformaterY_M_D(picked.toString());
   }
   
 
@@ -231,9 +241,9 @@ class _CreateMaxState extends State<CreateMax> {
                           ),
                         ),
                         Text(
-                          "Earn upto 18% per annum when you lock your funds for a minimum of 30 days.",
+                          "Earn up to 18% per annum when you lock your funds for a minimum of 30 days.",
                           style: TextStyle(
-                            fontSize: 9,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: CustomTheme.presntstate ? white : HexColor("#353130")
                           ),
@@ -317,7 +327,10 @@ class _CreateMaxState extends State<CreateMax> {
                           controller: startdate,
                           // onSaved: (val) => backendata["firstname"] = val,
                           onChanged: (val) => savings.createKwikMax["start_date"] = val,
-                          onSaved: (val) => savings.createKwikMax["start_date"] = val,
+                          onSaved: (val) {
+                            savings.createKwikMax["start_date"] = stdate;
+                          },
+                          // onSaved: (val) => savings.createKwikMax["start_date"] = val,
                           textInputAction: TextInputAction.next,
                         ),
                       ),
@@ -395,7 +408,7 @@ class _CreateMaxState extends State<CreateMax> {
                             snackbar(message: "Start date is requred", header: "Error", bcolor: error);
                             return;
                           }
-                          savings.createKwikMax["duration"] = tranw?["tranwue"].toString();
+                          savings.createKwikMax["duration"] = tranw?["tranwue"].toString(); //enddate
                           final DateTime datestart1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["startday"]));
                           final DateTime datend1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["endday"]));
                           _selectDate(context,datestart1, datend1);
@@ -410,8 +423,13 @@ class _CreateMaxState extends State<CreateMax> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: endate,
                           // onSaved: (val) => backendata["firstname"] = val,
-                          onChanged: (val) => savings.createKwikMax["end_date"] = val,
-                          onSaved: (val) => savings.createKwikMax["end_date"] = val,
+                          // onChanged: (val) {
+                          //   savings.createKwikMax["end_date"] = enddate;
+                          // },
+                          // // onSaved: (val) => savings.createKwikMax["end_date"] = val,
+                          // onSaved: (val) {
+                          //   savings.createKwikMax["end_date"] = enddate.toString();
+                          // },
                           textInputAction: TextInputAction.next,
                         ),
                       ),
