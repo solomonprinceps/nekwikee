@@ -127,7 +127,7 @@ class _CreditbvnState extends State<Creditbvn> {
                             ),
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'BVN is required.'),
-                              MinLengthValidator(11, errorText: "BVN whould be more than 10 characters.")
+                              MinLengthValidator(11, errorText: "BVN should be more than 10 characters.")
                             ]),
                             keyboardType: TextInputType.number,
                             autovalidateMode: AutovalidateMode.onUserInteraction,
