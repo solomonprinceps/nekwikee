@@ -147,6 +147,8 @@ class _FirstState extends State<First> {
   }
 
 
+  
+
 
    _handlePaymentInitialization() async {
     final flutterwave = Flutterwave.forUIPayment(
@@ -450,7 +452,7 @@ class _FirstState extends State<First> {
   // }
 
   //async method to charge users card and return a response card_setup_link
-  chargeCard() async {
+  chargeCard(BuildContext context) async {
     String refs = _getReference();
     var charge = Charge()
       ..amount = 50 * 100
@@ -1447,86 +1449,102 @@ class _FirstState extends State<First> {
                           Visibility(
                             visible: auth.linkcard.value,
                             // visible: true,
-                            child: GestureDetector(
-                              onTap: () => chargeCard(),
-                              // onTap: () => _handlePaymentInitialization(),
-                              child: Card(
-                                shadowColor: HexColor("#0000000F"),
-                                margin: const EdgeInsets.only(right: 10),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
-                                  height: 150,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: HexColor("#0000000F"),
-                                        blurRadius: 3,
-                                        offset: const Offset(0, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/image/feather-right.svg',
-                                            semanticsLabel: 'Action Button',
-                                            // width: 20,
-                                            // height: 20,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            // padding: const EdgeInsets.all(6),
-                                            width: 46,
-                                            height: 46,
-                                            decoration: BoxDecoration(
-                                              color: primary,
-                                              shape: BoxShape.circle
-                                              // borderRadius: BorderRadius.circular(100)
+                            child: Theme(
+                              data: ThemeData.light(), 
+                              child: Builder(
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () => chargeCard(context),
+                                    // onTap: () async { 
+                                    //     Charge charge = Charge() ..amount = (1000 * 100).toInt() ..reference = DateTime.now().microsecondsSinceEpoch.toString() ..currency = "GHS" ..email = "test@gmail.com"; CheckoutResponse response = await plugin.checkout(context, method: CheckoutMethod.card, fullscreen: true, charge: charge, logo: Image.asset(
+                                    //       "assets/image/newappicon.png",
+                                    //       height: 50,
+                                    //       width: 50,
+                                    //       ) 
+                                    //   );
+                                    // }, 
+                                    // onTap: () => _handlePaymentInitialization(),
+                                    child: Card(
+                                      shadowColor: HexColor("#0000000F"),
+                                      color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 20, top: 5, right: 10),
+                                        height: 150,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: HexColor("#0000000F"),
+                                              blurRadius: 3,
+                                              offset: const Offset(0, 3), // changes position of shadow
                                             ),
-                                            // alignment: Alignment.center,
-                                            child: Icon(
-                                              FontAwesome.cc_mastercard,
-                                              color: white,
-                                              size: 15
-                                            )
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        'Link Card',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w600
+                                          ],
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/image/feather-right.svg',
+                                                  semanticsLabel: 'Action Button',
+                                                  // width: 20,
+                                                  // height: 20,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  // padding: const EdgeInsets.all(6),
+                                                  width: 46,
+                                                  height: 46,
+                                                  decoration: BoxDecoration(
+                                                    color: primary,
+                                                    shape: BoxShape.circle
+                                                    // borderRadius: BorderRadius.circular(100)
+                                                  ),
+                                                  // alignment: Alignment.center,
+                                                  child: Icon(
+                                                    FontAwesome.cc_mastercard,
+                                                    color: white,
+                                                    size: 15
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              'Link Card',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: CustomTheme.presntstate ?  darkwhite : primary,
+                                                fontWeight: FontWeight.w600
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              'Link your bank card to get funds disbursed into your wallet.',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: CustomTheme.presntstate ?  darkwhite : primary,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                          
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'Link your bank card to get funds disbursed into your wallet.',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                      ),
-                                    
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  );
+                                }
                               ),
                             ),
                           ),   
@@ -1739,6 +1757,7 @@ class _FirstState extends State<First> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  
                   Row(
                     children: [
                       SvgPicture.asset(

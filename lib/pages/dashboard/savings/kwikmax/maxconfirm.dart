@@ -57,7 +57,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
   }
 
   //async method to charge users card and return a response card_setup_link
-  chargeCard() async {
+  chargeCard(BuildContext context) async {
     print("ref " + savingsdata["paymentref"].toString());
     String refs = savingsdata["paymentref"].toString();
     var charge = Charge();
@@ -198,35 +198,46 @@ class _MaxconfirmState extends State<Maxconfirm> {
               Visibility(
                 visible: cards.isEmpty,
                 // visible: true,
-                child: GestureDetector(
-                  onTap:() {
-                    Get.back();
-                    chargeCard();
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    margin: const EdgeInsets.only(bottom: 10),
-                    width: double.infinity,
-                    // height: 100,
-                    child: Card(
-                      child: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Add New Card",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: !CustomTheme.presntstate ? darkscaffold  : white,
+                child: Theme(
+                  data: ThemeData.light(), 
+                  child: Builder(
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap:() {
+                          Get.back();
+                          chargeCard(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          width: double.infinity,
+                          // height: 100,
+                          child: Card(
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                // color: CustomTheme.presntstate ? darkscaffold  : white,
+                                color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F8F8F8"),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Add New Card",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: !CustomTheme.presntstate ? darkscaffold  : white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
+                          // color: primary,
                         ),
-                      ),
-                    ),
-                    // color: primary,
+                      );
+                    }
                   ),
                 ),
               ),

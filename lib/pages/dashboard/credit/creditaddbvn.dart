@@ -27,6 +27,7 @@ class _CreditbvnState extends State<Creditbvn> {
   int? bvnfrom;
 
   void validate() {
+    FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
       submitbvn();
