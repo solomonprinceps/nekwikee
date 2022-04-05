@@ -1307,9 +1307,11 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                               softWrap: true,
                                               textAlign: TextAlign.center,
                                               overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600),
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w600,
+                                                color: CustomTheme.presntstate ? white : black
+                                              ),
                                             )
                                           ],
                                         ),
@@ -1325,7 +1327,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'How much do you want to withdraw?',
+                                    'How much do you want to withdraw',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,
@@ -1358,7 +1360,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                   const SizedBox(height: 10),
                       
                                   Text(
-                                    'Choose Bank ?',
+                                    'Choose Bank',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,
@@ -1394,7 +1396,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    'Account Number ?',
+                                    'Account Number',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,

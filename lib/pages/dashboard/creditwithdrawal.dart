@@ -1348,7 +1348,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                           style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
-                                            color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                            color: CustomTheme.presntstate ? white : black, 
                                           ),
                                         )
                                       ],
@@ -1376,52 +1376,38 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
-                                  style: TextStyle(
-                                    color: !CustomTheme.presntstate ? darkscaffold  : whitescaffold,
-                                    fontFamily: GoogleFonts.roboto().toString(),
-                                  ),
-                                  // obscureText: true,
-                                  validator: RequiredValidator(
-                                    errorText: 'Amount is required.'),
-                                    keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    CurrencyTextInputFormatter(
-                                    locale: 'en',
-                                    decimalDigits: 0,
-                                    symbol: '₦',
-                                  )],
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  onSaved: (val) {
-                                    withdraw.formatamount(val);
-                                  },
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 3.0, horizontal: 10.0),
-                                    fillColor: !CustomTheme.presntstate
-                                        ? inputColor
-                                        : inputcolordark,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder: inputborder,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle:
-                                      const TextStyle(color: Colors.red),
-                                  )),
-                              const SizedBox(height: 15),
-                              Text(
-                                'Where Do you want to withdraw into',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                                  color: !CustomTheme.presntstate ? darkscaffold  : whitescaffold,
+                                  fontFamily: GoogleFonts.roboto().toString(),
                                 ),
+                                // obscureText: true,
+                                validator: RequiredValidator(
+                                  errorText: 'Amount is required.'),
+                                  keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  CurrencyTextInputFormatter(
+                                  locale: 'en',
+                                  decimalDigits: 0,
+                                  symbol: '₦',
+                                )],
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                textInputAction: TextInputAction.done,
+                                onSaved: (val) {
+                                  withdraw.formatamount(val);
+                                },
+                                
                               ),
-                              const SizedBox(height: 5),
+                              // const SizedBox(height: 15),
+                              // Text(
+                              //   'Where Do you want to withdraw into',
+                              //   style: TextStyle(
+                              //     fontWeight: FontWeight.w400,
+                              //     fontSize: 12,
+                              //     color: CustomTheme.presntstate ? inputcolordark : getstartedp, 
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 5),
                               // GestureDetector(
                               //   onTap: () => shoWidget(),
                               //   child: TextFormField(
@@ -1489,39 +1475,22 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                                         _showFullModal(context);
                                       } ,
                                       child: TextFormField(
-                                          style: TextStyle(
-                                              color: !CustomTheme.presntstate
-                                                  ? darkscaffold
-                                                  : whitescaffold),
-                                          // obscureText: true,
-                                          validator: RequiredValidator(errorText: "Bank is required"),
-                                          keyboardType: TextInputType.number,
-                                          autovalidateMode: AutovalidateMode
-                                              .onUserInteraction,
-                                          textInputAction: TextInputAction.done,
-                                          onSaved: (val) {
-                                            // loginstate.login["email"] = val;
-                                          },
-                                          enabled: false,
-                                          controller: bankcontroller,
-                                          decoration: InputDecoration(
-                                            filled: true,
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 3.0,
-                                                    horizontal: 10.0),
-                                            fillColor: !CustomTheme.presntstate
-                                                ? inputColor
-                                                : inputcolordark,
-                                            border: inputborder,
-                                            focusedBorder: activeinputborder,
-                                            enabledBorder: inputborder,
-                                            focusedErrorBorder: inputborder,
-                                            errorBorder: errorborder,
-                                            disabledBorder: inputborder,
-                                            errorStyle: const TextStyle(
-                                                color: Colors.red),
-                                          )),
+                                        style: TextStyle(
+                                            color: !CustomTheme.presntstate
+                                                ? darkscaffold
+                                                : whitescaffold),
+                                        // obscureText: true,
+                                        validator: RequiredValidator(errorText: "Bank is required"),
+                                        keyboardType: TextInputType.number,
+                                        autovalidateMode: AutovalidateMode
+                                            .onUserInteraction,
+                                        textInputAction: TextInputAction.done,
+                                        onSaved: (val) {
+                                          // loginstate.login["email"] = val;
+                                        },
+                                        enabled: false,
+                                        controller: bankcontroller,
+                                      ),
                                     ),
                                   )),
                               Obx(() => Visibility(
@@ -1544,43 +1513,27 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                               Obx(() => Visibility(
                                   visible: withdraw.withform["mode"] == "2",
                                   child: TextFormField(
-                                      style: TextStyle(
-                                        color: !CustomTheme.presntstate
-                                            ? darkscaffold
-                                            : whitescaffold),
-                                      // obscureText: true,
-            
-                                      keyboardType: TextInputType.number,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      textInputAction: TextInputAction.done,
-                                      onSaved: (val) {
-                                        withdraw.withform["accountnumber"] = val;
-                                      },
-                                      validator: MultiValidator([
-                                        RequiredValidator( errorText: "Account number is reqired"),
-                                        MinLengthValidator(10,
-                                          errorText:  "Account number should be more than 10")
-                                      ]),
-                                      controller: accountno,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 3.0,
-                                                horizontal: 10.0),
-                                        fillColor: !CustomTheme.presntstate
-                                            ? inputColor
-                                            : inputcolordark,
-                                        border: inputborder,
-                                        focusedBorder: activeinputborder,
-                                        enabledBorder: inputborder,
-                                        focusedErrorBorder: inputborder,
-                                        errorBorder: errorborder,
-                                        disabledBorder: inputborder,
-                                        errorStyle: const TextStyle(
-                                            color: Colors.red),
-                                      )),
+                                    style: TextStyle(
+                                      color: !CustomTheme.presntstate
+                                          ? darkscaffold
+                                          : whitescaffold),
+                                    // obscureText: true,
+          
+                                    keyboardType: TextInputType.number,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    textInputAction: TextInputAction.done,
+                                    onSaved: (val) {
+                                      withdraw.withform["accountnumber"] = val;
+                                    },
+                                    validator: MultiValidator([
+                                      RequiredValidator( errorText: "Account number is reqired"),
+                                      MinLengthValidator(10,
+                                        errorText:  "Account number should be more than 10")
+                                    ]),
+                                    controller: accountno,
+                                    
+                                  ),
                                 )
                             ),
                               const SizedBox(height: 20),
@@ -1594,40 +1547,25 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
-                                  style: TextStyle(
-                                      color: !CustomTheme.presntstate
-                                          ? darkscaffold
-                                          : whitescaffold),
-                                  // obscureText: true,
-            
-                                  keyboardType: TextInputType.number,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
-                                  onSaved: (val) {
-                                    withdraw.withform["transaction_pin"] = val;
-                                  },
-                                  validator: MultiValidator([
-                                    RequiredValidator(errorText: "Pin is reqired"),
-                                  ]),
-                                  controller: pincontroller,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 3.0, horizontal: 10.0),
-                                    fillColor: !CustomTheme.presntstate
-                                        ? inputColor
-                                        : inputcolordark,
-                                    border: inputborder,
-                                    focusedBorder: activeinputborder,
-                                    enabledBorder: inputborder,
-                                    focusedErrorBorder: inputborder,
-                                    errorBorder: errorborder,
-                                    disabledBorder: inputborder,
-                                    errorStyle:
-                                        const TextStyle(color: Colors.red),
-                                  )
+                                style: TextStyle(
+                                    color: !CustomTheme.presntstate
+                                        ? darkscaffold
+                                        : whitescaffold),
+                                // obscureText: true,
+          
+                                keyboardType: TextInputType.number,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                textInputAction: TextInputAction.done,
+                                onSaved: (val) {
+                                  withdraw.withform["transaction_pin"] = val;
+                                },
+                                validator: MultiValidator([
+                                  RequiredValidator(errorText: "Pin is reqired"),
+                                ]),
+                                controller: pincontroller,
+                                obscureText: true,
+                                
                               ),
                             ],
                           )

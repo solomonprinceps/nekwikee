@@ -294,18 +294,18 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          Visibility(
-                            visible: premail != null,
-                            child: Text(
-                              premail.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                height: 1.3,
-                                fontSize: 15,
-                                color: CustomTheme.presntstate ? inputcolordark : getstartedp 
-                              ),
-                            ),
-                          ),
+                          // Visibility(
+                          //   visible: premail != null,
+                          //   child: Text(
+                          //     premail.toString(),
+                          //     style: TextStyle(
+                          //       fontWeight: FontWeight.w300,
+                          //       height: 1.3,
+                          //       fontSize: 15,
+                          //       color: CustomTheme.presntstate ? inputcolordark : getstartedp 
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(height: 20),
                           Form(
                             key: _formKey,

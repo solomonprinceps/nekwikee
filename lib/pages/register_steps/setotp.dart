@@ -132,7 +132,7 @@ class _SetotpState extends State<Setotp> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a four-digit pin to authorise transactions within the Kwikie App',
+                            'Kindly provide a four-digit pin to authorise transactions within the Kwikee App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,

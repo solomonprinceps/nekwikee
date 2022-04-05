@@ -91,7 +91,7 @@ class _CreditpreviewState extends State<Creditpreview> {
       "loan_tenor": loantenor,
       "monthly_repayment": monthlyrepayment
     }).then((vlue) {
-      // print(vlue);
+      print(vlue);
       if (vlue["status"] == "error") {
         snackbar(message: vlue["message"], header: "Informaion", bcolor: error);
         

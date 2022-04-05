@@ -60,10 +60,12 @@ class _PasswordresetState extends State<Passwordreset> {
     context.loaderOverlay.show();
     await signup.forgotpass(data).then((value) {
       context.loaderOverlay.hide();
+      print(value);
       if (value?["status"] == "success") {
         snackbar(message: value?["message"], header: "Success", bcolor: success);  
+        Get.offAndToNamed('auth/login');
         return;
-        // Get.toNamed('register/setotp', );
+        
         // Get.toNamed('register/nameandemail', arguments: verificationData);
       }
       if (value?["status"] == "error") {

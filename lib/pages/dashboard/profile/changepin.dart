@@ -147,7 +147,7 @@ class _ChangepinState extends State<Changepin> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a new four-digit pin to authorise transactions within the Kwikie App',
+                            'Kindly provide a new four-digit pin to authorise transactions within the Kwikee App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
@@ -178,8 +178,8 @@ class _ChangepinState extends State<Changepin> {
                                   // validator: MinLengthValidator(11, errorText: 'phone number must be atleast 11 digits long'),
                                   validator: MultiValidator([
                                     RequiredValidator(errorText: 'Pin is required'),
-                                    MinLengthValidator(4, errorText: "Pin should be 5 characters"),
-                                    MaxLengthValidator(4, errorText: "Pin should be 5 characters")
+                                    MinLengthValidator(4, errorText: "Pin should be 4 characters"),
+                                    MaxLengthValidator(4, errorText: "Pin should be 4 characters")
                                   ]),
                                   obscureText: true,
                                   keyboardType: TextInputType.number,

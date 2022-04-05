@@ -43,17 +43,25 @@ class _CreditbvnState extends State<Creditbvn> {
     // print(bvnfrom!);
     // return
     context.loaderOverlay.show();
+    // if (bvnfrom == 0) {
+    //   Get.toNamed('home', arguments: 1);
+    // }
+    // if (bvnfrom == 1) {
+    //   Get.toNamed('dashboard/apply/one');
+    //   return;
+    // } 
     await applystate.addbvnapplication().then((value) {
       context.loaderOverlay.hide();
-      // print(value);   
       if (value["status"] == "success") {
         snackbar(message:  value["message"], header: "Success", bcolor: success);
         // Get.toNamed('dashboard/apply/one');
         if (bvnfrom == 0) {
           Get.toNamed('home', arguments: 1);
+          return;
         }
         if (bvnfrom == 1) {
           Get.toNamed('dashboard/apply/one');
+          return;
         }
         
       }
@@ -72,7 +80,7 @@ class _CreditbvnState extends State<Creditbvn> {
     setState(() {
       bvnfrom = Get.arguments;
     });
-    print(bvnfrom);
+    // print(bvnfrom);
     super.initState();
   }
   
@@ -133,18 +141,18 @@ class _CreditbvnState extends State<Creditbvn> {
                             autovalidateMode: AutovalidateMode.onUserInteraction,
                             onSaved: (val) => applystate.bvndata["bvn"] = val,
                             textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                              fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
-                              border: inputborder,
-                              focusedBorder: activeinputborder,
-                              enabledBorder: inputborder,
-                              focusedErrorBorder:inputborder ,
-                              errorBorder: errorborder,
-                              disabledBorder: inputborder,
-                              errorStyle: const TextStyle(color: Colors.red),
-                            )
+                            // decoration: InputDecoration(
+                            //   filled: true,
+                            //   contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                            //   fillColor: CustomTheme.presntstate ? inputcolordark : inputColor,
+                            //   border: inputborder,
+                            //   focusedBorder: activeinputborder,
+                            //   enabledBorder: inputborder,
+                            //   focusedErrorBorder:inputborder ,
+                            //   errorBorder: errorborder,
+                            //   disabledBorder: inputborder,
+                            //   errorStyle: const TextStyle(color: Colors.red),
+                            // )
                           ),
                         ],
                       ),

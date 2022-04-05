@@ -28,7 +28,7 @@ class _FinalcreditState extends State<Finalcredit> {
 
   Future timedown() async {
     Timer(const Duration(milliseconds: 3000), () {
-      Get.offAllNamed('home', arguments: 0);
+      Get.offAllNamed('home', arguments: 1);
     });
   }
 
@@ -83,26 +83,46 @@ class _FinalcreditState extends State<Finalcredit> {
               ),
             ),
             const SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.only(left:7, right: 7),
+            //   child: RichText(
+            //     textAlign: TextAlign.center,
+            //     text:  TextSpan(
+            //       text: 'Your Loan of ',
+                  
+            //       style:  TextStyle(
+            //         color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 1) : white,
+            //         fontSize: 15
+            //       ),
+            //       children: <TextSpan>[
+            //         TextSpan(text: stringamount(data["loanamount"].toString()), style: const TextStyle(fontWeight: FontWeight.w600)),
+            //         const TextSpan(text: ' to be repayed on the '),
+            //         TextSpan(text:data["loanrepayment"], style: const TextStyle(fontWeight: FontWeight.w600)),
+            //         const TextSpan(text: " is being processed and you would be contacted via email when it's approved."),
+            //       ],
+            //     ),
+            //   ),
+            // Your credit application has been completed and is being processed. You would be contacted via email once approved
+            // ),
             Padding(
               padding: const EdgeInsets.only(left:7, right: 7),
               child: RichText(
                 textAlign: TextAlign.center,
                 text:  TextSpan(
-                  text: 'Your Loan of ',
+                  text: 'Your credit application has been completed ',
                   
                   style:  TextStyle(
                     color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 1) : white,
                     fontSize: 15
                   ),
                   children: <TextSpan>[
-                    TextSpan(text: stringamount(data["loanamount"].toString()), style: const TextStyle(fontWeight: FontWeight.w600)),
-                    const TextSpan(text: ' to be repayed on the '),
-                    TextSpan(text:data["loanrepayment"], style: const TextStyle(fontWeight: FontWeight.w600)),
-                    const TextSpan(text: " is being processed and you would be contacted via email when it's approved."),
+                    TextSpan(text: "and is being processed. ", style: const TextStyle(fontWeight: FontWeight.w600)),
+                    TextSpan(text: "You would be contacted via email once approved", style: const TextStyle(fontWeight: FontWeight.w600)),
+                    // const TextSpan(text: " is being processed and you would be contacted via email when it's approved."),
                   ],
                 ),
               ),
-            ),
+            )
         
 
           ],

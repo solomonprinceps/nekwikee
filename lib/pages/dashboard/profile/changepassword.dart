@@ -22,7 +22,7 @@ class _ChangepasswordState extends State<Changepassword> {
   bool isPhone = false;
   final _formKey = GlobalKey<FormState>();
   dynamic data = {
-    "pin": "",
+    "transaction_pin": "",
     "password_confirmation": "",
     "password": ""
   };
@@ -57,6 +57,8 @@ class _ChangepasswordState extends State<Changepassword> {
   }
 
   changepassword() async {
+    // print(data);
+    // return;
     context.loaderOverlay.show();
     await auth.updatepassword(data).then((value) {
       context.loaderOverlay.hide();
@@ -149,7 +151,7 @@ class _ChangepasswordState extends State<Changepassword> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly provide a new five-digit pin to authorise transactions within the Kwikie App',
+                            'Kindly provide a new five-digit pin to authorise transactions within the Kwikee App',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
@@ -180,21 +182,21 @@ class _ChangepasswordState extends State<Changepassword> {
                                   // validator: MinLengthValidator(11, errorText: 'phone number must be atleast 11 digits long'),
                                   validator: MultiValidator([
                                     RequiredValidator(errorText: 'Pin is required'),
-                                    MinLengthValidator(5, errorText: "Pin should be 5 characters"),
-                                    MaxLengthValidator(5, errorText: "Pin should be 5 characters")
+                                    MinLengthValidator(4, errorText: "Pin should be 4 characters"),
+                                    MaxLengthValidator(4, errorText: "Pin should be 4 characters")
                                   ]),
                                   obscureText: true,
                                   keyboardType: TextInputType.number,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
+                                  textInputAction: TextInputAction.next,
                                   onSaved: (val) {
                                     setState(() {
-                                      data["pin"] = val;
+                                      data["transaction_pin"] = val;
                                     });
                                   },
                                   onChanged: (val) {
                                     setState(() {
-                                      data["pin"] = val;
+                                      data["transaction_pin"] = val;
                                     });
                                   },
                                 ),
@@ -215,7 +217,7 @@ class _ChangepasswordState extends State<Changepassword> {
                                   validator: RequiredValidator(errorText: "Password is required."),
                                   // keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  textInputAction: TextInputAction.done,
+                                  textInputAction: TextInputAction.next,
                                   obscureText: true,
                                   onSaved: (val) {
                                     setState(() {

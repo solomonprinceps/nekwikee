@@ -10,7 +10,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:kwikee1/themes/apptheme.dart';
-import 'package:kwikee1/themes/apptheme.dart';
+
 class Verifynumber extends StatefulWidget {
   const Verifynumber({Key? key}) : super(key: key);
 
@@ -305,25 +305,49 @@ class _VerifynumberState extends State<Verifynumber> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     
-                    GestureDetector(
-                      onTap: () {
-                        validate();
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 58,
-                        decoration: BoxDecoration(color: registerActioncolor),
-                        child: Center(
-                          child: Text(
-                            'Verify My Number',
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            validate();
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 58,
+                            decoration: BoxDecoration(color: registerActioncolor),
+                            child: Center(
+                              child: Text(
+                                'Verify My Number',
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('register/nameandemail', arguments: verificationData);
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 58,
+                            decoration: BoxDecoration(color: primary),
+                            child: Center(
+                              child: Text(
+                                'Skip',
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
 
                     // GestureDetector(

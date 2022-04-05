@@ -159,7 +159,7 @@ class _PasswordState extends State<Password> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Create your account to proceed to get loans at affordable interest rates.',
+                            'Create your account to get credit and save at the best rates.',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               height: 1.6,
