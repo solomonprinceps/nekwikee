@@ -706,7 +706,7 @@ class _ProfileState extends State<Profile> {
                                   // fit: BoxFit.contain,
                                   child:  Obx(
                                     () => Text(
-                                      auth.allowbio.value ? 'Finger Print / Face ID' : "Finger Print / Face ID",
+                                      auth.allowbio.value ? 'Enable Finger Print / Face ID' : "Enable Finger Print / Face ID",
                                       style: TextStyle(
                                         color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                         fontSize: 13,

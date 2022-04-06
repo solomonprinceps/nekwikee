@@ -232,7 +232,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                               ),
                               SizedBox(height: 2.h),
                               Text(
-                                'FUND KWIKLITE',
+                                'FUND KWIKGOALS',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,

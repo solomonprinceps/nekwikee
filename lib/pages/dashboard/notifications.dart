@@ -64,7 +64,7 @@ class _NotificationState extends State<Notification> {
                   //   ],
                   // ),
                   Text(
-                    data["title"],
+                    data["title"] == null ? " " : data["title"].toString(),
                     style: TextStyle(
                       color: CustomTheme.presntstate ? white : primary,
                       fontSize: 14,
@@ -75,7 +75,7 @@ class _NotificationState extends State<Notification> {
                   Container(
                     width: 154,
                     child: Text(
-                      data["message"],
+                      data["message"] == null ? " " : data["message"].toString(),
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       maxLines: 4,
@@ -264,7 +264,7 @@ class _NotificationState extends State<Notification> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      notificationList![index]["title"],
+                                      notificationList![index]["title"] == null  ? " " : notificationList![index]["title"].toString(),
                                       style: TextStyle(
                                         color: CustomTheme.presntstate ? white : primary,
                                         fontSize: 14,
@@ -275,7 +275,7 @@ class _NotificationState extends State<Notification> {
                                     Container(
                                       width: 154,
                                       child: Text(
-                                        notificationList![index]["message"],
+                                        notificationList![index]["message"] == null  ? " " : notificationList![index]["message"].toString(),
                                         softWrap: true,
                                         overflow: TextOverflow.clip,
                                         maxLines: 4,

@@ -38,7 +38,7 @@ class _CreateGoalsState extends State<CreateGoals> {
   ];
   bool loading = false;
   List cards = [
-    {"last4": "-1", "bank": "KiwkLite"}
+    {"last4": "-1", "bank": "KwikLite"}
   ];
 
   TextEditingController title = TextEditingController();

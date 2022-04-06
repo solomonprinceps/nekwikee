@@ -186,7 +186,7 @@ class _MyAppState extends State<MyApp> {
               darkTheme: CustomTheme.darkTheme,
               themeMode: currentTheme.currentTheme,     
               // themeMode: ThemeMode.light,
-              // initialRoute: '/credit/final',
+              // initialRoute: '/credit/preview',
               initialRoute: '/newsplash',
               getPages: approutlist
             ),

@@ -162,13 +162,13 @@ class _CreditpreviewState extends State<Creditpreview> {
                       style: TextStyle(
                         color: CustomTheme.presntstate ? creditwithdark : primary,
                         fontWeight: FontWeight.w600,
-                        fontSize: 21
+                        fontSize: 30
                       ),
                     ),
                     // const SizedBox(height: 17),
                     const SizedBox(height: 10),
                     Text(
-                      "Link Your bank card to access your available credit.\nKindly verify your official email to access your credit.",
+                      "Link Your bank card to access your available credit.\n\nKindly verify your official email to access your credit.",
                       style: TextStyle(
                         color: CustomTheme.presntstate ? HexColor("#CBD1D8") :const Color.fromRGBO(53, 49, 48, 1),
                         fontSize: 15,
