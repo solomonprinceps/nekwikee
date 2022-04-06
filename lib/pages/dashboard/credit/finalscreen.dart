@@ -75,7 +75,7 @@ class _FinalcreditState extends State<Finalcredit> {
             ),
             const SizedBox(height: 10),
             Text(
-              'Loan Application Completed',
+              'Credit Application Completed',
               style: TextStyle(
                 color: CustomTheme.presntstate ? creditwithdark : primary,
                 fontSize: 21,

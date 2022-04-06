@@ -242,7 +242,7 @@ class _GoalshomeState extends State<Goalshome> {
                                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8))
                                       ),
                                       child: Text(
-                                        autosave == 1 ? "Autosave is On" : "Autosave is Off",
+                                        autosave.toString() == '1' ? "Autosave is On" : "Autosave is Off",
                                         style: TextStyle(
                                           color: white,
                                           fontSize: 15

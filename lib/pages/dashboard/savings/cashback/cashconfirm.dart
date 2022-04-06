@@ -85,7 +85,7 @@ class _CashbackState extends State<Cashback> {
             Padding(
               padding: const EdgeInsets.only(left:20, right: 20, top: 15),
               child: Text(
-                "To access your cashback funds go to your Kwickee Kwik Lite.",
+                "To access your cashback funds go to your Kwik Lite.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,

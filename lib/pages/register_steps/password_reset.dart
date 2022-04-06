@@ -134,7 +134,7 @@ class _PasswordresetState extends State<Passwordreset> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 5.h),
                           InkWell(
@@ -211,28 +211,20 @@ class _PasswordresetState extends State<Passwordreset> {
                                 ),
                                 const SizedBox(height: 10),
                                 const SizedBox(height: 20),
-                                SizedBox(
-                                  
-                                  child: RichText(
-                                    text: TextSpan(
-                                      children:  <TextSpan>[
-                                        TextSpan(
-                                          recognizer: TapGestureRecognizer()..onTap = () {
-                                            // print('Terms and Conditions Single Tap');
-                                            Get.toNamed('auth/login');
-                                          },
-                                          text: ' Already have an account ?', 
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15,
-                                            color: Color.fromRGBO(0, 175, 239, 1)
-                                          )
-                                        ),
-                                        
-                                      ],
-                                    ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed('auth/login');
+                                  },
+                                  child: Text(
+                                    " Already have an account ?",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(0, 175, 239, 1)
+                                    )
                                   ),
                                 ),
+                                
                               ],
                             )
                           )

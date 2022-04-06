@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:sizer/sizer.dart';
@@ -184,7 +185,8 @@ class _LoginState extends State<Login> {
       print(resp);
       if (resp["status"] == "success") {
         loginstate.logging(resp["user"], resp["access_token"]);
-        Get.offAllNamed('newsplash');
+        // Get.offAllNamed('newsplash');
+        Get.offAllNamed('home');
       }
       if (resp["status"] == "error") {
         Get.snackbar(
@@ -303,18 +305,18 @@ class _LoginState extends State<Login> {
                   child: ListView(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 17, left: 20, right: 20),
+                        padding: const EdgeInsets.only(top: 7, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 30),
+                            // const SizedBox(height: 30),
                             Image.asset(
                               CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                               'assets/image/newlogo1.png',
-                              width: 50.w,
+                              width: 25.w,
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 30),
                             Text(
                               'Sign in',
                               style: TextStyle(
@@ -436,54 +438,70 @@ class _LoginState extends State<Login> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                        child: RichText(
-                                          text: TextSpan(
-                                            children:  <TextSpan>[
-                                              TextSpan(
-                                                recognizer: TapGestureRecognizer()..onTap = () {
-                                                  Get.toNamed('auth/password/reset');
-                                                },
-                                                text: 'Forgot Password?', 
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                  color: Color.fromRGBO(0, 175, 239, 1)
-                                                )
-                                              ),
+                                      // SizedBox(
+                                        
+                                      //   child: RichText(
+                                          
+                                      //     text: TextSpan(
+                                      //       style: TextStyle(
+                                      //         fontWeight: FontWeight.w500,
+                                      //         fontFamily: GoogleFonts.livvic().toString(),
+                                      //         fontSize: 15,
+                                      //         color: Color.fromRGBO(0, 175, 239, 1)
+                                      //       ),
+                                      //       children:  <TextSpan>[
+                                      //         TextSpan(
+                                      //           recognizer: TapGestureRecognizer()..onTap = () {
+                                      //             Get.toNamed('auth/password/reset');
+                                      //           },
+                                      //           text: 'forgot Password?', 
+                                      //           style: TextStyle(
+                                      //             fontWeight: FontWeight.w500,
+                                      //             fontFamily: GoogleFonts.livvic().toString(),
+                                      //             fontSize: 15,
+                                      //             color: Color.fromRGBO(0, 175, 239, 1)
+                                      //           )
+                                      //         ),
                                               
-                                            ],
-                                          ),
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.toNamed('auth/password/reset');
+                                        },
+                                        child: Text(
+                                          "Forget Password ?",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(0, 175, 239, 1)
+                                          )
                                         ),
                                       ),
                                       Visibility(
                                         visible: premail != null,
-                                        child: SizedBox(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children:  <TextSpan>[
-                                                TextSpan(
-                                                  recognizer: TapGestureRecognizer()..onTap = () async {
-                                                    setState(() {
-                                                      premail = null;
-                                                    });
-                                                    SharedPreferences authstorage = await SharedPreferences.getInstance();
-                                                    authstorage.remove('fingeremail');
-                                                    authstorage.remove('fingerpassword');
-                                                  },
-                                                  text: 'Switch Account', 
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 15,
-                                                    color: Color.fromRGBO(0, 175, 239, 1)
-                                                  )
-                                                ),
-                                                
-                                              ],
-                                            ),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            setState(() {
+                                              premail = null;
+                                            });
+                                            SharedPreferences authstorage = await SharedPreferences.getInstance();
+                                            authstorage.remove('fingeremail');
+                                            authstorage.remove('fingerpassword');
+                                          },
+                                          child: Text(
+                                            "Switch Account",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              color: Color.fromRGBO(0, 175, 239, 1)
+                                            )
                                           ),
                                         ),
                                       ),
+                                      
                                     ],
                                   ),
                                   SizedBox(height: 30),
@@ -567,7 +585,7 @@ class _LoginState extends State<Login> {
                             'Log In',
                             style: TextStyle(
                               color: white,
-                              fontSize: 15,
+                              fontSize: 18,
                               fontWeight: FontWeight.w300
                             ),
                           ),
@@ -589,7 +607,7 @@ class _LoginState extends State<Login> {
                             'Create an Account',
                             style: TextStyle(
                               color: white,
-                              fontSize: 15,
+                              fontSize: 18,
                               fontWeight: FontWeight.w300
                             ),
                           ),

@@ -61,7 +61,7 @@ class _SetotpState extends State<Setotp> {
       context.loaderOverlay.hide();
       if (value?["status"] == "success") {
         snackbar(message: value?["message"], header: "Success", bcolor: success);  
-        Get.offAllNamed('third');
+        Get.offAllNamed('newsplash');
       }
       if (value?["status"] == "error") {
         snackbar(message: value?["message"], header: "Error", bcolor: error);  
@@ -119,7 +119,7 @@ class _SetotpState extends State<Setotp> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 6.h),
                           Text(

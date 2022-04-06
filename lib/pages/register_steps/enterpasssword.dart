@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:sizer/sizer.dart';
@@ -84,7 +85,8 @@ class _PasswordState extends State<Password> {
       context.loaderOverlay.hide();
       var resp = value;
       if (resp["status"] == "success") {
-        loginstate.savefingerdata(signupstate.signup["email"].toString(),signupstate.signup["pin"].toString());
+        
+        loginstate.savefingerdata(backendata["email"].toString(),backendata["pin"].toString());
         loginstate.logging(value["user"], value["access_token"]);
         // Get.offAllNamed('third');
          Get.toNamed('register/setotp');
@@ -146,7 +148,7 @@ class _PasswordState extends State<Password> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 7.h),
                           Text(
@@ -243,11 +245,16 @@ class _PasswordState extends State<Password> {
                                       child: RichText(
                                         text: TextSpan(
                                           text: 'I agree with the',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
+                                          style: GoogleFonts.livvic(
+                                            fontWeight: FontWeight.w500,
                                             fontSize: 15,
-                                            color: CustomTheme.presntstate ? inputcolordark : getstartedp   
+                                            color: CustomTheme.presntstate ? inputcolordark : getstartedp
                                           ),
+                                          // style: TextStyle(
+                                          //   fontWeight: FontWeight.w300,
+                                          //   fontSize: 15,
+                                          //   color: CustomTheme.presntstate ? inputcolordark : getstartedp   
+                                          // ),
                                           children:   <TextSpan>[
                                             TextSpan(
                                               text: ' Terms and Conditions \n', 
@@ -255,7 +262,7 @@ class _PasswordState extends State<Password> {
                                                 // print('Contact Us Double Tap');
                                                 Get.toNamed("/terms");
                                               },
-                                              style: TextStyle(
+                                              style: GoogleFonts.livvic(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 15,
                                                 color: Color.fromRGBO(0, 175, 239, 1)

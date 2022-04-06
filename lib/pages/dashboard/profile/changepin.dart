@@ -134,7 +134,7 @@ class _ChangepinState extends State<Changepin> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 6.h),
                           Text(

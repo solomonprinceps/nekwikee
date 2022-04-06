@@ -254,7 +254,91 @@ class _FirstState extends State<First> {
                 child: Center(
                   child: Column(
                     children:  [
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 12.h),
+                      
+                      GestureDetector(
+                        onTap: () {
+                          if (loading) {
+                            Get.back();
+                            return;
+                          }
+                          Get.back();
+                          Get.toNamed('savings/lite/litehome', arguments: dashboards["user"]["kwiklite_investmentid"]);
+                        },
+                        child: Container(
+                          width: 435,
+                          height: 111,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: registerActioncolor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  width: 45,
+                                  height: 45,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromRGBO(246, 251, 254, 1)
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/image/goalsappicon.svg',
+                                    semanticsLabel: 'Target',
+                                    // color: white,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 8,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "KwikLite",
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                          color: white,
+                                          fontWeight: FontWeight.w600
+                                        ),
+                                      ),
+                                      const Text(
+                                        "Save and withdraw at will, 10% per annum.",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color:Color.fromRGBO(246, 251, 254, 0.42)
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      FontAwesome5Solid.arrow_right,
+                                      color: white,
+                                      size: 10,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
                       GestureDetector(
                         onTap: () {
                           Get.back();
@@ -302,10 +386,10 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "Earn up to 18% per annum when your lock you funds for a minimum of 30 days Upfront interest",
+                                        "Earn up to 18% per annum when you lock your funds for a minimum of 30 days.\nUpfront interest.",
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 12,
                                           // letterSpacing: 13,
                                           fontWeight: FontWeight.w600,
                                           color: Color.fromRGBO(246, 251, 254, 0.42),
@@ -332,7 +416,7 @@ class _FirstState extends State<First> {
                         ),
                       ),
                       const SizedBox(height: 20),
-            
+                      
                       GestureDetector(
                         onTap: () {
                           Get.back();
@@ -383,9 +467,9 @@ class _FirstState extends State<First> {
                                         ),
                                       ),
                                       const Text(
-                                        "Acheive you target, save towards a particular goal. 12% per annum",
+                                        "Acheive your target, save towards a particular goal. 12% per annum",
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                           color:Color.fromRGBO(246, 251, 254, 0.42)
                                         ),
@@ -410,7 +494,7 @@ class _FirstState extends State<First> {
                           ),
                         ),
                       ),
-            
+                      
                     ],
                   ),
                 ),
@@ -504,6 +588,7 @@ class _FirstState extends State<First> {
       setState(() {
         dashboards = value;
       });
+      print(dashboards["user"]["kwiklite_investmentid"]);
       if (value["update_bvn"].toString() == "1") {
         setState(() {
           showbvn = true;
@@ -1163,7 +1248,7 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: CustomTheme.presntstate ?  darkwhite : primary,
-                                          fontWeight: FontWeight.w400
+                                          fontWeight: FontWeight.w600
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -1522,11 +1607,16 @@ class _FirstState extends State<First> {
                                             const SizedBox(height: 5),
                                             Text(
                                               'Link Card',
-                                              style: TextStyle(
+                                              style: GoogleFonts.livvic(
                                                 fontSize: 15,
                                                 color: CustomTheme.presntstate ?  darkwhite : primary,
-                                                fontWeight: FontWeight.w600
+                                                fontWeight: FontWeight.w600  
                                               ),
+                                              // style: TextStyle(
+                                                // fontSize: 15,
+                                                // color: CustomTheme.presntstate ?  darkwhite : primary,
+                                                // fontWeight: FontWeight.w600
+                                              // ),
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
@@ -1721,7 +1811,7 @@ class _FirstState extends State<First> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      'Save with Kwik',
+                                      'Save with Kwikee',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: CustomTheme.presntstate ?  darkwhite : primary,
@@ -1730,7 +1820,7 @@ class _FirstState extends State<First> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      'Reach your goals quicker & easier with savings and investment with Kwikee.',
+                                      'Reach your goals quicker & easier with savings with Kwikee.',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 10,

@@ -45,6 +45,7 @@ class _NameandemailState extends State<Nameandemail> {
     "lastname": "",
     "email": "",
     "telephone": "",
+    "verified": "",
     "bvn": DateTime.now().millisecondsSinceEpoch.toString(),
     "dob": "2000-11-12",
   };
@@ -52,8 +53,10 @@ class _NameandemailState extends State<Nameandemail> {
 
   @override
   void initState() {
+    print(Get.arguments["verified"]);
     setState(() {
       backendata["telephone"] = Get.arguments["phone_number"];
+      backendata["verified"] = Get.arguments["verified"];
     });
     super.initState();
   }
@@ -111,7 +114,7 @@ class _NameandemailState extends State<Nameandemail> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 3.h),
                           Text(

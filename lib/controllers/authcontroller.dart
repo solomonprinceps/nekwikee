@@ -13,7 +13,7 @@ class AuthController extends GetxController {
   var showbankstatementsetup = false.obs;
   var showapplyforcredit = false.obs;
   var continuecreditapply = false.obs;
-  var allowbio = false.obs;
+  RxBool allowbio = false.obs;
   var showsetpin = false.obs;
   var hasloan = false.obs;
   var linkcard = false.obs;
@@ -24,6 +24,7 @@ class AuthController extends GetxController {
   List transactions = [].obs;
   @override
   void onInit() {
+    getallow();
     checkLogin();
     getusers();
     super.onInit();
@@ -53,11 +54,15 @@ class AuthController extends GetxController {
   getallow() async {
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     dynamic statess =  authstorage.getBool("allowauth");
+    print(statess);
+    print("statess");
     if (statess == null) {
       allowbio.value = false;
     }
     if (statess == true) {
       allowbio.value = true;
+      print(allowbio.value);
+      print("tt statess");
     }
     if (statess == true) {
       allowbio.value = false;

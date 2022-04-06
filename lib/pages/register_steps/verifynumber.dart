@@ -21,7 +21,9 @@ class Verifynumber extends StatefulWidget {
 class _VerifynumberState extends State<Verifynumber> {
   SignupController signup =  Get.put(SignupController());
   CustomTheme currentheme = CustomTheme();
-  dynamic verificationData;
+  dynamic 
+  
+  verificationData;
   bool isPhone = false;
   final _formKey = GlobalKey<FormState>();
   Color resolvePhonecolor(String themestate) {
@@ -46,12 +48,19 @@ class _VerifynumberState extends State<Verifynumber> {
 
 
   veriftOtp() async {
+    setState(() {
+      verificationData["verified"] = '1';
+    });
+    // Get.toNamed('register/nameandemail', arguments: verificationData);
+    // // print(verificationData);
+    // // return;
     context.loaderOverlay.show();
     await signup.verifyotp().then((value) {
       context.loaderOverlay.hide();
       if (value?["status"] == "success") {
         snackbar(message: value?["message"], header: "Success", bcolor: success);  
         // Get.toNamed('register/setotp', );
+        // print(verificationData);
         Get.toNamed('register/nameandemail', arguments: verificationData);
       }
       if (value?["status"] == "error") {
@@ -91,11 +100,15 @@ class _VerifynumberState extends State<Verifynumber> {
       signup.verification["otp_id"] = verificationData["otp_id"];
       signup.sendotp["phone_number"] = verificationData["phone_number"];
     });
+    setState(() {
+      verificationData["verified"] = '1';
+    });
     super.initState();
   }
 
   callOtp() async {
     context.loaderOverlay.show();
+    
     await signup.otpsend().then((value) {
       context.loaderOverlay.hide();
       print(value);
@@ -160,7 +173,7 @@ class _VerifynumberState extends State<Verifynumber> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 5.h),
                           Text(
@@ -205,10 +218,15 @@ class _VerifynumberState extends State<Verifynumber> {
                                         ),
                                       ),
                                       const SizedBox(width: 5),
-                                      Icon(
-                                        FontAwesome.pencil_square_o,
-                                        size: 15,
-                                        color: labelactive,
+                                      InkWell(
+                                        onTap: () {
+                                          Get.offAndToNamed('register/getnumber');
+                                        },
+                                        child: Icon(
+                                          FontAwesome.pencil_square_o,
+                                          size: 15,
+                                          color: labelactive,
+                                        ),
                                       )
                                     ],
                                   )
@@ -254,8 +272,21 @@ class _VerifynumberState extends State<Verifynumber> {
                                   onSaved: (val) => {
                                     signup.verification["otp"] = val
                                   },
+                                  onChanged: (val) {
+                                    signup.verification["otp"] = val;
+                                    if (val.length == 4) {
+                                      validate();
+                                    }
+                                  },
+                                  // 
                                   focusNode: _pinPutFocusNode,
                                   // controller: _pinPutController,
+                                  onEditingComplete: () {
+                                    setState(() {
+                                      verificationData["verified"] = 0;
+                                    });
+                                    Get.toNamed('register/nameandemail', arguments: verificationData);
+                                  },
                                   submittedFieldDecoration: pinPutDecoration,
                                   selectedFieldDecoration: pinPutDecoration,
                                   followingFieldDecoration: pinPutDecoration,
@@ -317,7 +348,7 @@ class _VerifynumberState extends State<Verifynumber> {
                             decoration: BoxDecoration(color: registerActioncolor),
                             child: Center(
                               child: Text(
-                                'Verify My Number',
+                                'Verify',
                                 style: TextStyle(
                                   color: white,
                                   fontSize: 18,
@@ -329,6 +360,9 @@ class _VerifynumberState extends State<Verifynumber> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            setState(() {
+                              verificationData["verified"] = '0';
+                            });
                             Get.toNamed('register/nameandemail', arguments: verificationData);
                           },
                           child: Container(

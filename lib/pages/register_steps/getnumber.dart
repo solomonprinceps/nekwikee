@@ -121,7 +121,7 @@ class _GetnumberState extends State<Getnumber> {
                           Image.asset(
                             CustomTheme.presntstate ? 'assets/image/newlogo1white.png' :
                             'assets/image/newlogo1.png',
-                            width: 50.w,
+                            width: 25.w,
                           ),
                           SizedBox(height: 6.h),
                           Text(
@@ -164,6 +164,9 @@ class _GetnumberState extends State<Getnumber> {
                                   onChanged: (val) {
                                     if (val != '' || val != '  ') {
                                       signup.sendotp["phone_number"] = val;
+                                    }
+                                    if (signup.sendotp["phone_number"]!.length == 11) {
+                                      FocusScope.of(context).requestFocus(FocusNode());
                                     }
                                   },
                                   style: TextStyle(

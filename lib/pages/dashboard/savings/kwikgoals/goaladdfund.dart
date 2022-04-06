@@ -246,7 +246,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
                         const SizedBox(height: 15),
                         
                         Text(
-                          "Acheive you target, save towards a particular goal. 12% per annum",
+                          "Acheive your target, save towards a particular goal. 12% per annum",
                           style: TextStyle(
                             // color: getstartedp.withOpacity(0.42),
                             color: CustomTheme.presntstate ? HexColor("#CBD1D8") : getstartedp,

@@ -40,6 +40,7 @@ class _MaxhomeState extends State<Maxhome> {
     "amount_saved": "0",
     "month_spent": " ",
     "matures_in": "",
+    "cash_back_loans": []
   };  
 
   String? investmentid;
@@ -52,6 +53,8 @@ class _MaxhomeState extends State<Maxhome> {
   listransaction() async {
     //investmentid.toString()
     context.loaderOverlay.show();
+    print("object");
+    print(savings["cashbacks"]);
     final Map data = {
       "product_type": '5',
       "loanid": savings["cashbacks"]
@@ -281,7 +284,7 @@ class _MaxhomeState extends State<Maxhome> {
                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8))
                                     ),
                                     child: Text(
-                                      autosave == 1 ? "Autosave is On" : "Autosave is Off",
+                                      autosave.toString() == '1' ? "Autosave is On" : "Autosave is Off",
                                       style: TextStyle(
                                         color: white,
                                         fontSize: 15
@@ -567,80 +570,83 @@ class _MaxhomeState extends State<Maxhome> {
                           ],
                         ),
                         SizedBox(width: 15),
-                        Column(
-                          children: [
-                            Visibility(
-                              visible: loading,
-                              child: Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: 45,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(5)
+                        Visibility(
+                          visible: savings["cash_back_loans"].length != 0,
+                          child: Column(
+                            children: [
+                              Visibility(
+                                visible: loading,
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(5)
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible: !loading,
-                              child: GestureDetector(
-                                // onTap: () => Get.toNamed("cashback/home"),
-                                onTap: () => listransaction(),
-                                // onTap: () {
-                                 
-                                //   Get.toNamed("cashback/list", arguments: savings);
-                                // },
-                                child: Container(
-                                  width: 42,
-                                  height: 42,
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: cashbackbackground,
-                                    borderRadius: BorderRadius.circular(5)
+                              Visibility(
+                                visible: !loading,
+                                child: GestureDetector(
+                                  // onTap: () => Get.toNamed("cashback/home"),
+                                  onTap: () => listransaction(),
+                                  // onTap: () {
+                                   
+                                  //   Get.toNamed("cashback/list", arguments: savings);
+                                  // },
+                                  child: Container(
+                                    width: 42,
+                                    height: 42,
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: cashbackbackground,
+                                      borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    child: SvgPicture.asset(
+                                      'assets/image/cashback.svg',
+                                      semanticsLabel: 'Transactions',
+                                      color: goalstext,
+                                      width: 10,
+                                      height: 10,
+                                      // color: white,
+                                    ),
+                                    // child: Icon(
+                                    //   FontAwesome.plus_square,
+                                    //   color: goalstext,
+                                    // ),
                                   ),
-                                  child: SvgPicture.asset(
-                                    'assets/image/cashback.svg',
-                                    semanticsLabel: 'Transactions',
-                                    color: goalstext,
-                                    width: 10,
-                                    height: 10,
-                                    // color: white,
-                                  ),
-                                  // child: Icon(
-                                  //   FontAwesome.plus_square,
-                                  //   color: goalstext,
-                                  // ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 4),
-                            Column(
-                              children: [
-                                Visibility(
-                                  visible: !loading,
-                                  child: Text(
-                                    'Cashback',
+                              const SizedBox(height: 4),
+                              Column(
+                                children: [
+                                  Visibility(
+                                    visible: !loading,
+                                    child: Text(
+                                      'Cashback',
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? white : iconcolorselected,
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Repayment',
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? white : iconcolorselected,
                                       fontSize: 9,
                                       fontWeight: FontWeight.w600
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  'Repayment',
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? white : iconcolorselected,
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                         // Column(
                         //   children: [

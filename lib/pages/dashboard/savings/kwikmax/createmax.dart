@@ -408,7 +408,7 @@ class _CreateMaxState extends State<CreateMax> {
                             snackbar(message: "Start date is requred", header: "Error", bcolor: error);
                             return;
                           }
-                          savings.createKwikMax["duration"] = tranw?["tranwue"].toString(); //enddate
+                          savings.createKwikMax["duration"] = tranw?["value"].toString(); //enddate
                           final DateTime datestart1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["startday"]));
                           final DateTime datend1 = DateTime.parse(_chosenDateTime.toString()).add(Duration(days: tranw?["endday"]));
                           _selectDate(context,datestart1, datend1);

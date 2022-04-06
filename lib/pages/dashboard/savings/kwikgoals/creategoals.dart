@@ -38,7 +38,7 @@ class _CreateGoalsState extends State<CreateGoals> {
   ];
   bool loading = false;
   List cards = [
-    {"last4": "-1", "bank": "Kiwk Lite"}
+    {"last4": "-1", "bank": "KiwkLite"}
   ];
 
   TextEditingController title = TextEditingController();
@@ -490,7 +490,7 @@ class _CreateGoalsState extends State<CreateGoals> {
                         ),
                       ),
                       Text(
-                        "Acheive you target, save towards a particular goal. 12% per annum",
+                        "Acheive your target, save towards a particular goal. 12% per annum",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

@@ -523,48 +523,7 @@ class _ProfileState extends State<Profile> {
                       behavior: MyBehavior(),
                       child: ListView(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.all(10),
-                            height: 47,
-                            decoration: BoxDecoration(
-                              color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Row(
-                              children: [
-                                Obx(
-                                  () =>
-                                  Switch(
-                                    activeColor: primary,
-                                    activeTrackColor: primary.withOpacity(0.2),
-                                    inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
-                                    value: auth.allowbio.value,
-                                    // onChanged: (val) => changebio(!val)
-                                    onChanged: (val) {
-                                      // auth.allowbio.value = !val;
-                                      auth.changeStatus();
-
-                                      print("state ${auth.allowbio.value} then $val");
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                  padding: const EdgeInsets.only(left: 3),
-                                  // fit: BoxFit.contain,
-                                  child: Text(
-                                    'Allow Biometrics Authentications',
-                                    style: TextStyle(
-                                      color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600
-                                    ),
-                                  ),
-                                ))
-                              ],
-                            ),
-                          ),
+                          
                           GestureDetector(
                             onTap: () => Get.toNamed("profile/changepass"),
                             child: Container(
@@ -676,7 +635,7 @@ class _ProfileState extends State<Profile> {
 
                           Container(
                             margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.all(10),
+                            // padding: const EdgeInsets.all(10),
                             height: 47,
                             decoration: BoxDecoration(
                               color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
@@ -685,10 +644,11 @@ class _ProfileState extends State<Profile> {
                             child: Row(
                               children: [
                                 Switch(
-                                  activeColor: primary,
-                                  activeTrackColor: primary.withOpacity(0.2),
-                                  inactiveTrackColor: Colors.grey.shade200.withOpacity(0.1),
-                                  value: themestate,
+                                  activeColor: CustomTheme.presntstate ? primary : white,
+                                    inactiveThumbColor: CustomTheme.presntstate ? primary : white,
+                                    activeTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
+                                    inactiveTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
+                                    value: themestate,
                                   onChanged: (bool val)  {
                                     currentTheme.toggleTheme(CustomTheme.presntstate);
                                     setState(() {
@@ -708,6 +668,53 @@ class _ProfileState extends State<Profile> {
                                       fontWeight: FontWeight.w600
                                     ),
                                   ),
+                                ))
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            // padding: const EdgeInsets.all(10),
+                            height: 47,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? HexColor("#212845") : HexColor("#F6F6F6"),
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Row(
+                              children: [
+                                Obx(
+                                  () =>
+                                  Switch(
+                                    activeColor: CustomTheme.presntstate ? primary : white,
+                                    inactiveThumbColor: CustomTheme.presntstate ? primary : white,
+                                    activeTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
+                                    inactiveTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
+                                    value: auth.allowbio.value,
+                                    // value: true,
+                                    // onChanged: (val) => changebio(!val)
+                                    onChanged: (val) {
+                                      // auth.allowbio.value = !val;
+                                      auth.changeStatus();
+                                      print("state ${auth.allowbio.value} then $val");
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  // fit: BoxFit.contain,
+                                  child:  Obx(
+                                    () => Text(
+                                      auth.allowbio.value ? 'Finger Print / Face ID' : "Finger Print / Face ID",
+                                      style: TextStyle(
+                                        color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                  )
+                                  
                                 ))
                               ],
                             ),

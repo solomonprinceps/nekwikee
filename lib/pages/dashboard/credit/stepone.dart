@@ -295,7 +295,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   ),
                                 ),
                                 Obx(() => Text(
-                                  "${auth.userdata['firstname']} ${auth.userdata['lastname']}",
+                                  "${auth.userdata['lastname']} ${auth.userdata['firstname']}",
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -433,7 +433,7 @@ class _CreditfirstState extends State<Creditfirst> {
                                   ),
                                   const SizedBox(height: 20),
                                   Text(
-                                    'Number of Years in above address',
+                                    'Number of  Years in above address',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12,

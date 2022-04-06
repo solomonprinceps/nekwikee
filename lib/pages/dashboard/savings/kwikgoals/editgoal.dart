@@ -646,7 +646,7 @@ class _EditGoalsState extends State<EditGoals> {
                         ),
                       ),
                       Text(
-                        "Acheive you target, save towards a particular goal. 12% per annum",
+                        "Acheive your target, save towards a particular goal. 12% per annum",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

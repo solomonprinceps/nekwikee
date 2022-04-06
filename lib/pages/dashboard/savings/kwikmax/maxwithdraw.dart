@@ -353,7 +353,8 @@ class _MaxwithdrawalState extends State<Maxwithdrawal> {
                       const SizedBox(height: 15),
                       
                       Text(
-                        "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  Bank",
+                        "",
+                        // "Your Funds will be withdrawn directly to your Kwiklite which could be transferred directly to your registered  Bank",
                         style: TextStyle(
                           color: CustomTheme.presntstate ? black : getstartedp.withOpacity(0.42),
                           fontSize: 11

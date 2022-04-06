@@ -37,6 +37,12 @@ class _NewsplashState extends State<Newsplash> {
     print("statebool");
     print(statebool);
     Timer(const Duration(milliseconds: 4000), () {
+      if (token == null) {
+        Get.offAllNamed("onboard");
+        return;   
+      }
+      Get.offAllNamed("auth/login");
+      return;
       if (token != null) {
         // Get.offAllNamed("onboard");
         Get.offAllNamed('home');
@@ -47,10 +53,7 @@ class _NewsplashState extends State<Newsplash> {
         Get.offAllNamed("auth/login");
         return;
       }
-      if (token == null) {
-        Get.offAllNamed("onboard");
-        return;   
-      }
+      
     });
     
   }

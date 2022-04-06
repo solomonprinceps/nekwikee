@@ -181,7 +181,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
               ListTile(
                 leading: Icon(FontAwesome5Solid.piggy_bank, color: primary),
                 title: Text(
-                  'Saving',
+                  'KwikLite',
                   style: TextStyle(
                     color: !CustomTheme.presntstate ? darkscaffold  : white,
                   ),
@@ -618,12 +618,17 @@ class _MaxconfirmState extends State<Maxconfirm> {
                               });
                             },
                           ),
-                          Text(
-                            "I agree to the terms and conditions.",
-                            style: TextStyle(
-                              color: CustomTheme.presntstate ? white : const Color.fromRGBO(28, 27, 27, 1),   
-                              fontSize: 15 
-                            )
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed("terms");
+                            },
+                            child: Text(
+                              "I agree to the terms and conditions.",
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : const Color.fromRGBO(28, 27, 27, 1),   
+                                fontSize: 15 
+                              )
+                            ),
                           )  
                         ],
                       ),

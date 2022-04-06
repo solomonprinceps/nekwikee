@@ -41,6 +41,69 @@ class _NotificationState extends State<Notification> {
     });
   }
 
+  _showSimpleModalDialog(context, dynamic data){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius:BorderRadius.circular(20.0)),
+            child: Container(
+            constraints: BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                  //   children: [
+                  //     // SizedBox(width: 10,)
+                  //     Icon(Ionicons.close),
+                  //   ],
+                  // ),
+                  Text(
+                    data["title"],
+                    style: TextStyle(
+                      color: CustomTheme.presntstate ? white : primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Container(
+                    width: 154,
+                    child: Text(
+                      data["message"],
+                      softWrap: true,
+                      overflow: TextOverflow.clip,
+                      maxLines: 4,
+                      style: TextStyle(
+                        color: CustomTheme.presntstate ? white : primary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w200
+                      ),
+                    ),
+                  ),
+                  // Text(
+                  //   "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.w400,
+                  //     fontSize: 14,
+                  //     color: Colors.black,
+                  //     wordSpacing: 1
+                  //   )
+                  // ),
+                  
+                ],
+              ),
+            ),
+          ),
+        );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,83 +228,86 @@ class _NotificationState extends State<Notification> {
                     //     ),
                     //   );
                     // } 
-                    return Stack(
-                      children: [
-                        SizedBox(height: 120),
-
-                        Container(
-                          height: 100,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            color: CustomTheme.presntstate ? HexColor("#212845") :Color.fromRGBO(238, 238, 238, 0.67),
-                            borderRadius: BorderRadius.circular(5)
-                          ),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(bottom: 15),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 47,
-                                width: 47,
-                                child: Icon(
-                                  Ionicons.mail,
-                                  color: white,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: primary
-                                ),
-                              ),
-                              SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    notificationList![index]["title"],
-                                    style: TextStyle(
-                                      color: CustomTheme.presntstate ? white : primary,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                    ),
+                    return InkWell(
+                      onTap: ()=> _showSimpleModalDialog(context,notificationList![index]),
+                      child: Stack(
+                        children: [
+                          SizedBox(height: 120),
+                    
+                          Container(
+                            height: 100,
+                            width: 100.w,
+                            decoration: BoxDecoration(
+                              color: CustomTheme.presntstate ? HexColor("#212845") :Color.fromRGBO(238, 238, 238, 0.67),
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.only(bottom: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 47,
+                                  width: 47,
+                                  child: Icon(
+                                    Ionicons.mail,
+                                    color: white,
                                   ),
-                                  SizedBox(height: 6),
-                                  Container(
-                                    width: 154,
-                                    child: Text(
-                                      notificationList![index]["message"],
-                                      softWrap: true,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 4,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: primary
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      notificationList![index]["title"],
                                       style: TextStyle(
                                         color: CustomTheme.presntstate ? white : primary,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w200
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                    SizedBox(height: 6),
+                                    Container(
+                                      width: 154,
+                                      child: Text(
+                                        notificationList![index]["message"],
+                                        softWrap: true,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 4,
+                                        style: TextStyle(
+                                          color: CustomTheme.presntstate ? white : primary,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w200
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Visibility(
-                          visible: index == 0,
-                          child: Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: HexColor("#42D579")
+                          Visibility(
+                            visible: index == 0,
+                            child: Positioned(
+                              right: 0,
+                              top: 0,
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: HexColor("#42D579")
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     );
                   }
                 )

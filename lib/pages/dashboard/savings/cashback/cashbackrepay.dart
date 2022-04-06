@@ -300,7 +300,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                           // const SizedBox(height: 30),
                           Text(
                             // "KWIKMAX -",
-                            "Amount: ${stringamount(cashback["loan_history"]["balance"].toString())}",
+                            "Amount Withdrawn: ${stringamount(cashback["loan_history"]["amount_withdrawn"].toString())}",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -309,7 +309,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
                             ),
                           ),
                           Text(
-                            "Repayment: ${stringamount(cashback["loan_history"]["amount_withdrawn"].toString())}",
+                            "Repayment: ${stringamount(cashback["loan_history"]["balance"].toString())}",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
