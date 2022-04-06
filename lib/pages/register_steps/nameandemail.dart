@@ -158,6 +158,7 @@ class _NameandemailState extends State<Nameandemail> {
                                   style: TextStyle(
                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold
                                   ),
+                                  textCapitalization: TextCapitalization.sentences,
                                   validator: RequiredValidator(errorText: 'First Name must be required.'),
                                   keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -178,6 +179,7 @@ class _NameandemailState extends State<Nameandemail> {
                                   style: TextStyle(
                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold
                                   ),
+                                  textCapitalization: TextCapitalization.sentences,
                                   validator: RequiredValidator(errorText: 'Last Name must be required.'),
                                   keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,

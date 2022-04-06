@@ -90,7 +90,7 @@ class _CredithomeState extends State<Credithome> {
                       AutoSizeText(
                         'The loans work like a virtual credit card for salary earners. The repayment date is your salary date.',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400,
                           color: credithometextdark
                         ),
@@ -102,7 +102,7 @@ class _CredithomeState extends State<Credithome> {
                       AutoSizeText(
                         'We will collect some information from you in the next few steps and based on this we will make you a loan offer. \n\n This amount is the maximum credit amount that can be made available for you at this time. As you increase your credibility by paying back at the required time, more will be made available to you.',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400,
                           color: credithometextdark 
                         ),

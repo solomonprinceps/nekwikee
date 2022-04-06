@@ -38,6 +38,30 @@ class _CreditbvnState extends State<Creditbvn> {
     }
   }  
 
+  startnow() async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    context.loaderOverlay.show();
+    applystate.startapplication().then((value) {
+      context.loaderOverlay.hide();
+      // print('checker ${value} ');
+      if (value["status"] == "success") {
+        auth.getusers();
+        // Get.toNamed('dashboard/apply/camera', arguments: value["loan_id"]); credit/takeselfie
+        Get.toNamed('credit/takeselfie', arguments: value["loan_id"]);
+      }
+      if (value["bvn"] == 0) {
+        snackbar(message: value["message"], header:  "Successful.", bcolor: success);
+        Get.offAndToNamed("credit/addbvn", arguments: 1);
+        return;
+      }
+      if (value["status"] == "error" ) {
+        snackbar(message: value["message"], header:  "Error.", bcolor: error);
+      }
+    }).catchError((onError) {
+      // print(onError);
+      context.loaderOverlay.hide();
+    });
+  }  
 
   submitbvn() async {
     FocusScope.of(context).requestFocus(FocusNode());
@@ -52,7 +76,8 @@ class _CreditbvnState extends State<Creditbvn> {
           return;
         }
         if (bvnfrom == 1) {
-          Get.toNamed('credit/home');
+          // Get.toNamed('credit/home');
+          startnow();
           return;
         }
         

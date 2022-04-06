@@ -203,7 +203,7 @@ class _SetotpState extends State<Setotp> {
                                       return "Pin confirmation is required";
                                     }
                                     if (data["pin"] != val) {
-                                      return "Pin and Pin comfirmation should same.";
+                                      return "Pin and Pin confirmation should same.";
                                     }
                                     return null;
                                   },
