@@ -285,6 +285,7 @@ class _NextofkinState extends State<Nextofkin> {
                                    style: TextStyle(
                                      color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
                                    ),
+                                   textCapitalization: TextCapitalization.sentences,
                                    validator: RequiredValidator(errorText: "Next of kin's first name is required."),
                                    keyboardType: TextInputType.name,
                                    autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -306,16 +307,17 @@ class _NextofkinState extends State<Nextofkin> {
                                  ),
                                  const SizedBox(height: 5),
                                  TextFormField( 
-                                   style: TextStyle(
-                                     color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
-                                   ),
-                                   validator: RequiredValidator(errorText: "Next of kin's last name is required."),
-                                   keyboardType: TextInputType.name,
-                                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                                   controller: nextastname,
-                                   // onSaved: (val) => backendata["firstname"] = val,
-                                   onSaved: (val) => applystate.nextofkindata["next_kin_lastname"] = val,
-                                   textInputAction: TextInputAction.next,
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? whitescaffold : darkscaffold 
+                                    ),
+                                    validator: RequiredValidator(errorText: "Next of kin's last name is required."),
+                                    keyboardType: TextInputType.name,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    controller: nextastname,
+                                    textCapitalization: TextCapitalization.sentences,
+                                    // onSaved: (val) => backendata["firstname"] = val,
+                                    onSaved: (val) => applystate.nextofkindata["next_kin_lastname"] = val,
+                                    textInputAction: TextInputAction.next,
                                    
                                  ),
                                          
