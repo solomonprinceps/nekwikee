@@ -152,21 +152,21 @@ class _CreditpreviewState extends State<Creditpreview> {
             Topbar(),   
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 23, right: 23, top: 28),
+                padding: const EdgeInsets.only(left: 23, right: 23, top: 18),
                 width: 100.w,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10),
                     Text(
                       "Credit Offer",
                       style: TextStyle(
                         color: CustomTheme.presntstate ? creditwithdark : primary,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w600,
                         fontSize: 21
                       ),
                     ),
                     // const SizedBox(height: 17),
+                    const SizedBox(height: 10),
                     Text(
                       "Link Your bank card to access your available credit.\nKindly verify your official email to access your credit.",
                       style: TextStyle(
@@ -176,31 +176,34 @@ class _CreditpreviewState extends State<Creditpreview> {
                       ),
                     ),
                     const SizedBox(height: 27),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Column(
-                        //   children: [
-                        //     Text(
-                        //       "Loan Amount",
-                        //       style: TextStyle(
-                        //         color: primary,
-                        //         fontWeight: FontWeight.w600,
-                        //         fontSize: 18
-                        //       ),
-                        //     ),
-                        //     const SizedBox(height: 5),
-                        //     const Text(
-                        //       "₦4,000,000",
-                        //       style: TextStyle(
-                        //         fontSize: 36,
-                        //         fontWeight: FontWeight.w600,
-                        //         color: Color.fromRGBO(66, 213, 121, 1)
-                        //       ),
-                        //     )  
-                        //   ],
-                        // ),
-                      ],
+                    Visibility(
+                      visible: otheremployer,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "Credit Limit",
+                                style: TextStyle(
+                                  color: primary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                stringamount(monthlyrepayment.toString()),
+                                style: TextStyle(
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromRGBO(66, 213, 121, 1)
+                                ),
+                              )  
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     // const SizedBox(height: 10),
                     // Visibility(
