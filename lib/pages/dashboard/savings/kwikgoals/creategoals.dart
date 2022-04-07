@@ -394,7 +394,7 @@ class _CreateGoalsState extends State<CreateGoals> {
       print(value);   
       if (value["status"] == "success") {
         snackbar(message: value?["message"], header: "Success", bcolor: success);
-        Get.offAndToNamed('home', arguments: 1);
+        Get.offAndToNamed('home', arguments: 0);
       }
       if (value["status"] == "error") {
         snackbar(message: value?["message"], header: "Error", bcolor: error);

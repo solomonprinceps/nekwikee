@@ -72,7 +72,7 @@ class _GoalsaddfundState extends State<Goalsaddfund> {
       }
       if (value["status"] == "success") {
         snackbar(message: value?["message"], header: "success", bcolor: success);
-        Get.offAndToNamed('home', arguments: 1);
+        Get.offAndToNamed('home', arguments: 0);
       }
     }).catchError((err) {
       context.loaderOverlay.hide();

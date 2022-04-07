@@ -686,7 +686,7 @@ class _ProfileState extends State<Profile> {
                                 Obx(
                                   () =>
                                   Switch(
-                                    activeColor: CustomTheme.presntstate ? primary : white,
+                                    activeColor: CustomTheme.presntstate ? error : success,
                                     inactiveThumbColor: CustomTheme.presntstate ? primary : white,
                                     activeTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
                                     inactiveTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,

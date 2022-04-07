@@ -125,7 +125,7 @@ class _MaxconfirmState extends State<Maxconfirm> {
         context.loaderOverlay.hide();
         snackbar(message: value["message"], header: "Success", bcolor: success);
         
-        Get.toNamed('home', arguments: 1);
+        Get.toNamed('home', arguments: 0);
         // Get.toNamed('dashboard/savings/confirmation', arguments: value);
       }
       if (value["status"] == "error") {
