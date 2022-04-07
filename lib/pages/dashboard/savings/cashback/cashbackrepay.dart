@@ -57,7 +57,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       context.loaderOverlay.hide();
       if (value?["status"] == "success") {
         snackbar(message: "", header: value["message"], bcolor: success);
-        Get.offAllNamed('home', arguments: 1);
+        Get.offAllNamed('home', arguments: 0);
       }
 
       if (value?["status"] == "error") {
@@ -82,7 +82,7 @@ class _CashbackRepaymentState extends State<CashbackRepayment> {
       context.loaderOverlay.hide();
       if (value?["status"] == "success") {
         snackbar(message: "", header: value["message"], bcolor: success);
-        Get.offAllNamed('home', arguments: 1);
+        Get.offAllNamed('home', arguments: 0);
       }
 
       if (value?["status"] == "error") {
