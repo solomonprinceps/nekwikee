@@ -60,7 +60,7 @@ class _SetotpState extends State<Setotp> {
     await auth.changepins(data).then((value) {
       context.loaderOverlay.hide();
       if (value?["status"] == "success") {
-        snackbar(message: value?["message"], header: "Success", bcolor: success);  
+        snackbar(message: "Pin created successfully", header: "Success", bcolor: success);  
         Get.offAllNamed('newsplash');
       }
       if (value?["status"] == "error") {

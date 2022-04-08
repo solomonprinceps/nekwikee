@@ -1104,18 +1104,9 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                       
+                        
                         hintText: "Sort Bank",
                         contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
-                        fillColor: !CustomTheme.presntstate
-                            ? inputColor
-                            : inputcolordark,
-                        border: inputborder,
-                        focusedBorder: activeinputborder,
-                        enabledBorder: inputborder,
-                        focusedErrorBorder: inputborder,
-                        errorBorder: errorborder,
-                        disabledBorder: inputborder,
                         errorStyle: const TextStyle(color: Colors.red),
                       ),
                       // decoration: !CustomTheme.presntstate  ? inputformdecodark : inputformdeco,
@@ -1469,28 +1460,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAllNamed("savings/lite/litehome");
-                      },
-                      child: Container(
-                        width: 100.w,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: labelactive
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Previous',
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    
                     GestureDetector(
                       onTap: () {
                         validate();
@@ -1504,6 +1474,28 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                         child: Center(
                           child: Text(
                             'Withdraw',
+                            style: TextStyle(
+                              color: white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed("savings/lite/litehome");
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: labelactive
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Previous',
                             style: TextStyle(
                               color: white,
                               fontSize: 18,

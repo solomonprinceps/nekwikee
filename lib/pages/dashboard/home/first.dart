@@ -145,37 +145,6 @@ class _FirstState extends State<First> {
       enddate.text = dateformater(selectEndDate.toString());
     }  
   }
-
-
-  
-
-
-   _handlePaymentInitialization() async {
-    final flutterwave = Flutterwave.forUIPayment(
-      amount: "10000",
-      currency: "NG",
-      context: this.context,
-      publicKey: "FLWPUBK-8d61486747c22e0f25bc78dd7fd195c7-X",
-      encryptionKey: "35b35441528bc479e5725a1f",
-      email: "ahambasolomon800@gmail.com",
-      fullName: "Test User",
-      txRef: DateTime.now().toIso8601String(),
-      narration: "Example Project",
-      isDebugMode: true,
-      phoneNumber: "2349034426192",
-      acceptAccountPayment: true,
-      acceptCardPayment: true,
-      acceptUSSDPayment: true
-    );
-    final response = await flutterwave.initializeForUiPayments();
-    print(response.data!.status);
-    // if (response != null) {
-    //   this.showLoading(response.data.status);
-    // } else {
-    //   this.showLoading("No Response!");
-    // }
-  }
-
   
 
   Future updatebackcard(String data) async {

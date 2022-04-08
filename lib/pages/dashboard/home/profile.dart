@@ -45,6 +45,7 @@ class _ProfileState extends State<Profile> {
     authstorage.remove('fingeremail');
     authstorage.remove('fingerpassword');
     authstorage.remove('firstmail');
+    authstorage.remove("allowauth");
     Get.offAllNamed("newsplash");
   }
 
@@ -686,7 +687,7 @@ class _ProfileState extends State<Profile> {
                                 Obx(
                                   () =>
                                   Switch(
-                                    activeColor: CustomTheme.presntstate ? error : success,
+                                    activeColor: CustomTheme.presntstate ? success : success,
                                     inactiveThumbColor: CustomTheme.presntstate ? primary : white,
                                     activeTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
                                     inactiveTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,

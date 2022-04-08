@@ -186,7 +186,7 @@ class _LoginState extends State<Login> {
       if (resp["status"] == "success") {
         loginstate.logging(resp["user"], resp["access_token"]);
         // Get.offAllNamed('newsplash');
-        Get.offAllNamed('home');
+        Get.offAllNamed('home', arguments: 1);
       }
       if (resp["status"] == "error") {
         Get.snackbar(

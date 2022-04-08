@@ -34,6 +34,7 @@ class PushNotificationService {
     // If you want to handle a notification click when the app is terminated, you can use `getInitialMessage`
     // to get the initial message, and depending in the remoteMessage, you can decide to handle the click
     // This function can be called from anywhere in your app, there is an example in main file.
+    // dynamic ofp = FirebaseMessaging.onMessage
     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
@@ -78,12 +79,13 @@ var androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
           print(message);
           print("foreground");
       // This function handles the click in the notification when the app is in foreground
-      Get.toNamed("home", arguments: 2);
+      Get.toNamed("home", arguments: 1);
     });
 // onMessage is called when the app is in foreground and a notification is received
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
       // Get.find<HomeController>().getNotificationsNumber();
-      print(message);
+      // print(message);
+      print("dncdcnjd");
       RemoteNotification? notification = message!.notification;
       AndroidNotification? android = message.notification?.android;
 // If `onMessage` is triggered with a notification, construct our own

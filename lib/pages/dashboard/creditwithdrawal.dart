@@ -1154,17 +1154,16 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                       decoration: InputDecoration(
                         filled: true,
                         hintText: "Sort Bank",
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 3.0, horizontal: 10.0),
-                        fillColor: !CustomTheme.presntstate
-                            ? inputColor
-                            : inputcolordark,
-                        border: inputborder,
-                        focusedBorder: activeinputborder,
-                        enabledBorder: inputborder,
-                        focusedErrorBorder: inputborder,
-                        errorBorder: errorborder,
-                        disabledBorder: inputborder,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
+                        // fillColor: !CustomTheme.presntstate
+                        //     ? inputColor
+                        //     : inputcolordark,
+                        // border: inputborder,
+                        // focusedBorder: activeinputborder,
+                        // enabledBorder: inputborder,
+                        // focusedErrorBorder: inputborder,
+                        // errorBorder: errorborder,
+                        // disabledBorder: inputborder,
                         errorStyle: const TextStyle(color: Colors.red),
                       ),
                       // decoration: !CustomTheme.presntstate  ? inputformdecodark : inputformdeco,
@@ -1577,6 +1576,29 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          validate();
+                        },
+                        child: Container(
+                          width: 100.w,
+                          height: 58,
+                          margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: registerActioncolor
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Withdraw',
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
                           // Get.offAllNamed("/credit");
                           Get.back();
                         },
@@ -1599,29 +1621,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          validate();
-                        },
-                        child: Container(
-                          width: 100.w,
-                          height: 58,
-                          margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                          decoration: BoxDecoration(
-                            color: registerActioncolor
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Withdraw',
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      
                     ],
                   ),
                 ],

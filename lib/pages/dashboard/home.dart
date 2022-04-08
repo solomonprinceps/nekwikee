@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:kwikee1/styles.dart';
@@ -32,7 +33,8 @@ class _HomeState extends State<Home> {
     androidId: 'com.moneymarquefinance.kwikee',
   );
   dynamic passedid;
-  int? index = 1;
+  int? index = 0;
+  int notiy = 0;
   final pages =  <Widget>[
     const Savings(),
     const First(),
@@ -90,7 +92,10 @@ class _HomeState extends State<Home> {
     getoken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published! xoxo');
-      Get.toNamed("/home", arguments: 1);
+      setState(() {
+        notiy = notiy + 1;
+      });
+      // Get.toNamed("/home", arguments: 1);
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
@@ -213,16 +218,29 @@ class _HomeState extends State<Home> {
                   
                   InkWell(
                     onTap: () {
+                      setState(() {
+                        notiy = 0;
+                      });
                       Get.toNamed("notification");
                     },
                     // onTap: () => getoken(),
-                    child: Icon(
-                      FontAwesome.bell,
-                      color: registerActioncolor,
-                      size: 20.0,
-                      textDirection: TextDirection.ltr,
-                      semanticLabel:
-                          'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    child: Badge(
+                      badgeColor: notiy != 0 ? error : Colors.transparent,
+                      badgeContent:  notiy != 0 ? Text(
+                        notiy.toString(),
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 10
+                        ),
+                      ): Container(),
+                      child: Icon(
+                        FontAwesome.bell,
+                        color: registerActioncolor,
+                        size: 25.0,
+                        textDirection: TextDirection.ltr,
+                        semanticLabel:
+                            'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                      ),
                     ),
                   ),
                 ],
