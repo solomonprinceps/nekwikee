@@ -247,7 +247,7 @@ class _LoginState extends State<Login> {
         print(resp?["user"]);
         loginstate.savefingerdata(loginstate.login["email"].toString(), loginstate.login["pin"].toString());
         loginstate.logging(resp?["user"], resp?["access_token"]);
-        Get.offAllNamed('home');
+        Get.offAllNamed('home', arguments: 1);
         return;
       }
     }).catchError((err) {

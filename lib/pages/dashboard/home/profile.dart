@@ -46,6 +46,7 @@ class _ProfileState extends State<Profile> {
     authstorage.remove('fingerpassword');
     authstorage.remove('firstmail');
     authstorage.remove("allowauth");
+    authstorage.remove("liteshow");
     Get.offAllNamed("newsplash");
   }
 
@@ -230,6 +231,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     // getstateallow();
+    auth.getallow();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && auth.loading.value == false) {
         setState(() {

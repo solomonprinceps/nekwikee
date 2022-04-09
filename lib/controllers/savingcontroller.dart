@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kwikee1/services/backend.dart';
 import 'package:kwikee1/services/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SavingController extends GetxController {
@@ -9,6 +10,7 @@ class SavingController extends GetxController {
   List savingslist = [].obs;
   List savingsdata = [].obs;
   var firstload = true.obs;
+  RxBool liteshow = false.obs;
   List lite = [{
     "amount_saved": '0'
   }].obs;
@@ -85,8 +87,53 @@ class SavingController extends GetxController {
     "beneficiary": ""
   };
 
+  
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   maxadd(List data) {
 
+  }
+
+
+  changeStatus() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    if(liteshow.isTrue){
+      liteshow.toggle();
+      authstorage.setBool("liteshow", liteshow.value).then((value) {
+        // print(value);
+        // print("value");
+      });
+    }
+    else {
+      liteshow.value = true; //or pressedBool.toggle();
+      update();
+      authstorage.setBool("liteshow", liteshow.value);
+    }
+    print("liteshow ${liteshow.value}");
+  }
+
+  showliteinit() async {
+    SharedPreferences authstorage = await SharedPreferences.getInstance();
+    dynamic statess =  authstorage.getBool("liteshow");
+    print(statess);
+    print("statess");
+    if (statess == null) {
+      liteshow.value = false;
+    }
+    if (statess == true) {
+      liteshow.value = true;
+      print(liteshow.value);
+      print("tt statess");
+    }
+    if (statess == false) {
+      liteshow.value = false;
+      print(liteshow.value);
+      print("tt statess");
+    }
   }
 
   sortsaving(List savings) {

@@ -258,7 +258,7 @@ class _CreditpreviewState extends State<Creditpreview> {
                             Column(
                               children:  [
                                 const Text(
-                                  "TENURE",
+                                  "TENOR",
                                   style: TextStyle(
                                     color:Color.fromRGBO(53, 49, 48, 1),
                                     fontWeight: FontWeight.w500,

@@ -270,14 +270,17 @@ class _GoalshomeState extends State<Goalshome> {
                                 const SizedBox(width: 30),
                                 Visibility(
                                   visible: !loading,
-                                  child: GestureDetector(
-                                    onTap: () => changeamoun(showamount),
-                                    child: Icon(
-                                      showamount ? FontAwesome.eye_slash : FontAwesome.eye,
-                                      size: 21,
-                                      color: white,
+                                  child: Obx(
+                                    () => GestureDetector(
+                                      onTap: () => saving.changeStatus(),
+                                      child: Icon(
+                                        saving.liteshow.value ?
+                                          FontAwesome.eye : FontAwesome.eye_slash,
+                                        size: 21,
+                                        color: white,
+                                      ),
                                     ),
-                                  ),
+                                  )
                                 )
                               ],
                             ),
@@ -288,15 +291,18 @@ class _GoalshomeState extends State<Goalshome> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  showamount ? stringamount(savings?["amount_saved"].toString()) : "******",
-                                  style: TextStyle(
-                                    color: white,
-                                    fontSize: 34,
-                                    fontFamily: GoogleFonts.roboto().toString(),
-                                    fontWeight: FontWeight.w600
+                                Obx(
+                                  () => Text(
+                                    saving.liteshow.value ? "*******" : stringamount(savings["amount_saved"].toString()),
+                                    style: TextStyle(
+                                      color: white,
+                                      fontSize: 34,
+                                      fontFamily: GoogleFonts.roboto().toString(),
+                                      fontWeight: FontWeight.w600
+                                    ),
                                   ),
                                 ),
+                                
                                 // Column(
                                 //   crossAxisAlignment: CrossAxisAlignment.end,
                                 //   children: [

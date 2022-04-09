@@ -49,7 +49,11 @@ class _NotificationState extends State<Notification> {
           shape: RoundedRectangleBorder(
             borderRadius:BorderRadius.circular(20.0)),
             child: Container(
-            constraints: BoxConstraints(maxHeight: 350),
+            constraints: BoxConstraints(maxHeight: 200),
+            decoration: BoxDecoration(
+              color: CustomTheme.presntstate ? HexColor('#131B39') : white,
+              borderRadius: BorderRadius.circular(10)
+            ),
             child: Padding(
               padding: const EdgeInsets.all(30.0),
               child: ListView(

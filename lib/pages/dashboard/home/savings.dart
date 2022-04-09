@@ -36,8 +36,10 @@ class _SavingsState extends State<Savings> {
 
   @override
   void initState() {
+    saving.showliteinit();
     WidgetsFlutterBinding.ensureInitialized();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
+      
       // plugin.initialize(publicKey: publicKeyTest);
       if (saving.firstload.value) {
         refreshkey.currentState?.show(); 
@@ -394,27 +396,32 @@ class _SavingsState extends State<Savings> {
                               Row(
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
-                                  Text(
-                                    showamount ?
-                                    stringamount(lite[0]["amount_saved"].toString())  : "*****",
-                                    style: TextStyle(
-                                      color: white,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: GoogleFonts.roboto().toString(),
+                                  Obx(
+                                    () => Text(
+                                      saving.liteshow.value ?
+                                      "*****" :  stringamount(lite[0]["amount_saved"].toString()),
+                                      style: TextStyle(
+                                        color: white,
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: GoogleFonts.roboto().toString(),
+                                      ),
                                     ),
                                   ),
+                                  
                                   const SizedBox(width: 10),
-                                  GestureDetector(
-                                    onTap: () => changeshow(showamount),
-                                    child: Icon(
-                                      // FontAwesome.eye,
-                                       showamount ?
-                                    FontAwesome.eye_slash : FontAwesome.eye,
-                                      size: 21,
-                                      color: white,
-                                    ),
-                                  )
+                                  Obx(
+                                    () => GestureDetector(
+                                      onTap: () => saving.changeStatus(),
+                                      child: Icon(
+                                        // FontAwesome.eye,
+                                        saving.liteshow.value ?
+                                        FontAwesome.eye : FontAwesome.eye_slash,
+                                        size: 21,
+                                        color: white,
+                                      ),
+                                    )
+                                  ),
                                 ],
                               ),
                               Visibility(

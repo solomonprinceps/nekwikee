@@ -209,27 +209,33 @@ class _LitehomeState extends State<Litehome> {
                         child: Row(
                           // crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
+                            Obx(
+                              () => Text(
                               // "₦300,782",
-                              showamount ? stringamount(savings?["amount_saved"].toString()) : "*****",
-                              maxLines: 1,
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 42,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: GoogleFonts.roboto().toString(),
+                                saving.liteshow.value ?  "*****" : stringamount(savings?["amount_saved"].toString()),
+                                maxLines: 1,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: white,
+                                  fontSize: 42,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: GoogleFonts.roboto().toString(),
+                                ),
                               ),
                             ),
+                            
                             const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap:  ()=> changeamoun(showamount),
-                              child: Icon(
-                                showamount ? FontAwesome.eye_slash : FontAwesome.eye,
-                                color: white
-                              ),
-                            )
+                            Obx(
+                              () =>  GestureDetector(
+                                onTap:  ()=> saving.changeStatus(),
+                                child: Icon(
+                                  saving.liteshow.value ? FontAwesome.eye : FontAwesome.eye_slash,
+                                  color: white
+                                ),
+                              )
+                            ),
+                            
                           ],
                         ),
                       ),

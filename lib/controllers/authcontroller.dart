@@ -24,7 +24,6 @@ class AuthController extends GetxController {
   List transactions = [].obs;
   @override
   void onInit() {
-    getallow();
     checkLogin();
     getusers();
     super.onInit();
@@ -41,8 +40,8 @@ class AuthController extends GetxController {
       allowbio.value = true; //or pressedBool.toggle();
       authstorage.setBool("allowauth", allowbio.value);
     }
-   
   }
+  
   checkLogin() async {
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     dynamic token = authstorage.getString("accessToken").toString();
@@ -64,8 +63,10 @@ class AuthController extends GetxController {
       print(allowbio.value);
       print("tt statess");
     }
-    if (statess == true) {
+    if (statess == false) {
       allowbio.value = false;
+      print(allowbio.value);
+      print("tt statess");
     }
   }
 
