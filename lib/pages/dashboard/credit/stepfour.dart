@@ -99,8 +99,6 @@ class _EmploymentinfoState extends State<Employmentinfo> {
   ];
 
   _showFullModal(context) {
-    // print(applycon.companies);
-    // print("ssm ${allbanks}");
     showGeneralDialog(
       context: context,
       barrierDismissible: false, // should dialog be dismissed when tapped outside
@@ -109,7 +107,6 @@ class _EmploymentinfoState extends State<Employmentinfo> {
       pageBuilder: (_, __, ___) {
         // your widget implementation
         return StatefulBuilder(builder: (context, setState) {
-        
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -186,6 +183,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                               applycon.employerdata["employer_name"] = allbanks[index]["company_id"].toString();
                               namecompany.text = allbanks[index]["company_name"].toString();
                               paydayctontroller.text = allbanks[index]["payday"];
+                              otheremployer.text = "";
                               if (applycon.employerdata["employer_name"] == "99") {
                                 paydayctontroller.text = "";
                               }
@@ -573,7 +571,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      // print(applycon.employerdata);
+      print(applycon.employerdata);
       // print('object');
       employmentApply();
     } else {}
@@ -850,7 +848,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                 },
                                 child: TextFormField(
                                   style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
-                                  validator: RequiredValidator(errorText: "Employer is required."),
+                                  // validator: RequiredValidator(errorText: "Employer is required."),
                                   keyboardType: TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   controller: namecompany,
@@ -891,13 +889,19 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                     color:CustomTheme.presntstate ? white : darkscaffold
                                   ),
                                   // validator: RequiredValidator(errorText:"Other Employer name is required."),
-                                  keyboardType:  TextInputType.emailAddress,
+                                  keyboardType:  TextInputType.name,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   controller: otheremployer,
+                                  onChanged: (val) {
+                                    applycon.employerdata["employer_name"] =  '99' ;                                   
+                                    applycon.employerdata["other_employer_name"] = val;
+                                    namecompany.text = "";
+                                    paydayctontroller.text = "";
+                                  },
                                   onSaved: (val) {
                                     applycon.employerdata["other_employer_name"] = val;
                                   },
-                                  textInputAction: TextInputAction.done,
+                                  textInputAction: TextInputAction.next,
                                   
                                 ),
                               ),
@@ -918,8 +922,16 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                               Obx(() => 
                                 TextFormField(
                                   style: TextStyle(color: CustomTheme.presntstate ? white : darkscaffold),
-                                  validator: RequiredValidator(
-                                  errorText: 'Pay day is required.'),
+                                  validator: (val) {
+                                    if (val == "") {
+                                      return "Pay day is required.";
+                                    }
+                                    if (int.parse(val!) > 31) {
+                                      return "Pay day should not be more than 31.";
+                                    }
+                                    return null;
+                                  },
+                                  // validator: RequiredValidator(errorText: 'Pay day is required.'),
                                   enabled: applycon.employerdata["employer_name"] ==  '99' ? true : false,
                                   keyboardType: TextInputType.phone,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,

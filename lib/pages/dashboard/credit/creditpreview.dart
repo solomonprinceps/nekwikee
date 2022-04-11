@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,6 +34,7 @@ class _CreditpreviewState extends State<Creditpreview> {
   bool isChecked = false;
   bool otheremployer = true;
   dynamic message;
+  bool loading = false;
 
   @override
   void initState() {
@@ -52,8 +54,14 @@ class _CreditpreviewState extends State<Creditpreview> {
   }
 
   getloanoffer({required Map data}) async {
+    setState(() {
+      loading = true;
+    });
     context.loaderOverlay.show();
     applycon.loanoffer(data: data).then((value) {
+      setState(() {
+        loading = false;
+      });
       print('ds ${value?["other_employer"]} ');
       context.loaderOverlay.hide();
       if (value?["other_employer"] == 1) {
@@ -154,226 +162,229 @@ class _CreditpreviewState extends State<Creditpreview> {
               child: Container(
                 padding: const EdgeInsets.only(left: 23, right: 23, top: 18),
                 width: 100.w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Credit Offer",
-                      style: TextStyle(
-                        color: CustomTheme.presntstate ? creditwithdark : primary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30
+                child: Visibility(
+                  visible: !loading,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Credit Offer",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? creditwithdark : primary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30
+                        ),
                       ),
-                    ),
-                    // const SizedBox(height: 17),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Link Your bank card to access your available credit.\n\nKindly verify your official email to access your credit.",
-                      style: TextStyle(
-                        color: CustomTheme.presntstate ? HexColor("#CBD1D8") :const Color.fromRGBO(53, 49, 48, 1),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
+                      // const SizedBox(height: 17),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Link Your bank card to access your available credit.\n\nKindly verify your official email to access your credit.",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? HexColor("#CBD1D8") :const Color.fromRGBO(53, 49, 48, 1),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 27),
-                    Visibility(
-                      visible: otheremployer,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
+                      const SizedBox(height: 27),
+                      Visibility(
+                        visible: otheremployer,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Credit Limit",
+                                  style: TextStyle(
+                                    color: primary,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  stringamount(monthlyrepayment.toString()),
+                                  style: TextStyle(
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(66, 213, 121, 1)
+                                  ),
+                                )  
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // const SizedBox(height: 10),
+                      // Visibility(
+                      //   visible: otheremployer,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           Text(
+                      //             "Credit Limit",
+                      //             style: TextStyle(
+                      //               color: primary,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontSize: 18
+                      //             ),
+                      //           ),
+                      //           const SizedBox(height: 5),
+                      //           Text(
+                      //             // "₦4,000,000",
+                      //             stringamount(loanamount.toString()),
+                      //             style: TextStyle(
+                      //               fontSize: 36,
+                      //               fontWeight: FontWeight.w600,
+                      //               color:const Color.fromRGBO(66, 213, 121, 1),
+                      //               fontFamily: GoogleFonts.roboto().toString(),
+                      //             ),
+                      //           )  
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Visibility(
+                        visible: otheremployer,
+                        child: const SizedBox(height: 20)
+                      ),
+                      Visibility(
+                        visible: otheremployer,
+                        child: Container(
+                          width: 100.w,
+                          height: 166,
+                          decoration: BoxDecoration(
+                            color: CustomTheme.presntstate ? HexColor("#212845") : const Color.fromRGBO(62, 64, 149, 0.03),
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                children:  [
+                                  const Text(
+                                    "TENOR",
+                                    style: TextStyle(
+                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11
+                                    ),
+                                  ),
+                                  Text(
+                                    // '${savingsdata["duration"].toString()} Days',
+                                    "$loantenor Months",
+                                    style:const TextStyle(
+                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                  Text(
+                                    "INTEREST RATE",
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11
+                                    ),
+                                  ),
+                                  Text(
+                                    // savingsdata["rate"].toString(),
+                                    "$rate % Per Day",
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Column(
+                                children: [
+                                  Text(
+                                    'CREDIT REPAYMENT DATE',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11
+                                    ),
+                                  ),
+                                  Text(
+                                    // dateformater(savingsdata["maturity_date"].toString()),
+                                    '$repaymentstartdate',
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                  // const SizedBox(height: 30),
+                                  // const Text(
+                                  //   "Monthly Repayment",
+                                  //   style: TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 1),
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: 11
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   stringamount(monthlyrepayment.toString()),
+                                  //   style: const TextStyle(
+                                  //     color:Color.fromRGBO(53, 49, 48, 0.6),
+                                  //     fontWeight: FontWeight.w600,
+                                  //     fontSize: 18
+                                  //   ),
+                                  // ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 27),
+                
+                      Visibility(
+                        visible: !otheremployer,
+                        child: Container(
+                          width: 100.w,
+                          height: 166,
+                          decoration: BoxDecoration(
+                            color: CustomTheme.presntstate ? HexColor("#212845") : const Color.fromRGBO(62, 64, 149, 0.03),
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Credit Limit",
+                                // dateformater(savingsdata["maturity_date"].toString()),
+                                message.toString(),
+                                textAlign: TextAlign.center,
+                                maxLines: 4,
+                                overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  color: primary,
+                                  color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18
                                 ),
                               ),
-                              const SizedBox(height: 5),
-                              Text(
-                                stringamount(monthlyrepayment.toString()),
-                                style: TextStyle(
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(66, 213, 121, 1)
-                                ),
-                              )  
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    // const SizedBox(height: 10),
-                    // Visibility(
-                    //   visible: otheremployer,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Column(
-                    //         children: [
-                    //           Text(
-                    //             "Credit Limit",
-                    //             style: TextStyle(
-                    //               color: primary,
-                    //               fontWeight: FontWeight.w600,
-                    //               fontSize: 18
-                    //             ),
-                    //           ),
-                    //           const SizedBox(height: 5),
-                    //           Text(
-                    //             // "₦4,000,000",
-                    //             stringamount(loanamount.toString()),
-                    //             style: TextStyle(
-                    //               fontSize: 36,
-                    //               fontWeight: FontWeight.w600,
-                    //               color:const Color.fromRGBO(66, 213, 121, 1),
-                    //               fontFamily: GoogleFonts.roboto().toString(),
-                    //             ),
-                    //           )  
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    Visibility(
-                      visible: otheremployer,
-                      child: const SizedBox(height: 20)
-                    ),
-                    Visibility(
-                      visible: otheremployer,
-                      child: Container(
-                        width: 100.w,
-                        height: 166,
-                        decoration: BoxDecoration(
-                          color: CustomTheme.presntstate ? HexColor("#212845") : const Color.fromRGBO(62, 64, 149, 0.03),
-                          borderRadius: BorderRadius.circular(5)
                         ),
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(left: 15, right: 15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children:  [
-                                const Text(
-                                  "TENOR",
-                                  style: TextStyle(
-                                    color:Color.fromRGBO(53, 49, 48, 1),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 11
-                                  ),
-                                ),
-                                Text(
-                                  // '${savingsdata["duration"].toString()} Days',
-                                  "$loantenor Months",
-                                  style:const TextStyle(
-                                    color:Color.fromRGBO(53, 49, 48, 0.6),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18
-                                  ),
-                                ),
-                                Text(
-                                  "INTEREST RATE",
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 11
-                                  ),
-                                ),
-                                Text(
-                                  // savingsdata["rate"].toString(),
-                                  "$rate % Per Day",
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Column(
-                              children: [
-                                Text(
-                                  'CREDIT REPAYMENT DATE',
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 11
-                                  ),
-                                ),
-                                Text(
-                                  // dateformater(savingsdata["maturity_date"].toString()),
-                                  '$repaymentstartdate',
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18
-                                  ),
-                                ),
-                                // const SizedBox(height: 30),
-                                // const Text(
-                                //   "Monthly Repayment",
-                                //   style: TextStyle(
-                                //     color:Color.fromRGBO(53, 49, 48, 1),
-                                //     fontWeight: FontWeight.w500,
-                                //     fontSize: 11
-                                //   ),
-                                // ),
-                                // Text(
-                                //   stringamount(monthlyrepayment.toString()),
-                                //   style: const TextStyle(
-                                //     color:Color.fromRGBO(53, 49, 48, 0.6),
-                                //     fontWeight: FontWeight.w600,
-                                //     fontSize: 18
-                                //   ),
-                                // ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 27),
-
-                    Visibility(
-                      visible: !otheremployer,
-                      child: Container(
-                        width: 100.w,
-                        height: 166,
-                        decoration: BoxDecoration(
-                          color: CustomTheme.presntstate ? HexColor("#212845") : const Color.fromRGBO(62, 64, 149, 0.03),
-                          borderRadius: BorderRadius.circular(5)
-                        ),
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              // dateformater(savingsdata["maturity_date"].toString()),
-                              message.toString(),
-                              textAlign: TextAlign.center,
-                              maxLines: 4,
-                              overflow: TextOverflow.clip,
-                              style: TextStyle(
-                                color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-
-          
-          
-          
-          
-          
-                  ],
+                      )
+                
+                          
+                          
+                          
+                          
+                          
+                    ],
+                  ),
                 ),
                 
               ),
