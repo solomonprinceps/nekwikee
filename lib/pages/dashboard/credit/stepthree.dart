@@ -178,7 +178,7 @@ class _NextofkinState extends State<Nextofkin> {
     });
   }
 
-   @override
+  @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       applystate.nextofkindata["loan_id"] = Get.arguments;
@@ -333,8 +333,8 @@ class _NextofkinState extends State<Nextofkin> {
                                  const SizedBox(height: 5),
                                  InkWell(
                                    onTap: () {
-                                     FocusScope.of(context).requestFocus(FocusNode());
-                                     shoWidget();
+                                    FocusScope.of(context).requestFocus(FocusNode());
+                                    shoWidget();
                                    } ,
                                    child: TextFormField( 
                                      style: TextStyle(

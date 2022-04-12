@@ -919,9 +919,45 @@ class Backend {
     return responsedata;
   }
 
+  Future<dynamic> uploadLoadDocument({required var data}) async {
+    dynamic responsedata;
+    String fileName = data["file"].split('/').last;
+    var formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(data["file"], filename: fileName),
+      "loan_id": data["loan_id"],
+      "type": data["type"]
+    });  
+    try {
+      String token = await authtoken();
+      Response responseobj = await _dio.post(
+        '${_baseUrl}customer/document/upload',
+        data: formData,
+        options: Options(
+          headers: {
+            "authorization": 'Bearer $token',
+            "contentType": 'multipart/form-data'
+          },
+        ),
+      );
+      responsedata = responseobj.data;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        // print('DATA: ${e.response?.data}'); 
+        responsedata = e.response?.data;
+      } else {
+        responsedata = {
+          "status": "error",
+          "message": "An unknown error occured try again later."
+        };
+        return responsedata;
+      }
+      return responsedata;
+    }
+    return responsedata;
+  }
+
   Future<dynamic> uploadSelfie({required Map data, required var image}) async {
     dynamic responsedata;
-    // print(data["passport"]);
     String fileName = data["passport"].split('/').last;
     var formData = FormData.fromMap({
       "passport_file": await MultipartFile.fromFile(data["passport"], filename: fileName),

@@ -91,6 +91,14 @@ class AuthController extends GetxController {
     return bodydata;
   }
 
+  Future <dynamic> uploadLoadDocument({ required Map data}) async {
+    dynamic bodydata;
+    await dioclient.uploadLoadDocument(data: data).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
+
   Future <dynamic> updatepins(pindata) async {
     dynamic bodydata;
     await dioclient.updatechange(data: pindata).then((value) {

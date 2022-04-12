@@ -10,6 +10,7 @@ import 'package:kwikee1/pages/dashboard/credit/stepthree.dart';
 import 'package:kwikee1/pages/dashboard/home/profile.dart';
 import 'package:kwikee1/pages/dashboard/profile/changepassword.dart';
 import 'package:kwikee1/pages/dashboard/profile/changepin.dart';
+import 'package:kwikee1/pages/dashboard/profile/loandocument.dart';
 import 'package:kwikee1/pages/dashboard/savings/cashback/cashbackconfirm.dart';
 import 'package:kwikee1/pages/dashboard/savings/kwikgoals/goalsconfirm.dart';
 import 'package:kwikee1/pages/dashboard/savings/kwikgoals/goalshome.dart';
@@ -221,6 +222,16 @@ List<GetPage> approutlist = [
     name: '/profile',
     page: () =>  const Profile(),
     transition: Transition.fadeIn,
+    binding: BindingsBuilder(
+      () => {
+        Get.put(AuthController()),
+      },
+    ),
+  ),
+
+  GetPage(
+    name: '/profile/loandocument', 
+    page: () => const LoanDocument(),
     binding: BindingsBuilder(
       () => {
         Get.put(AuthController()),

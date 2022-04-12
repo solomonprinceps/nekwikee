@@ -13,6 +13,10 @@ import 'package:kwikee1/themes/apptheme.dart';
 import 'package:kwikee1/services/datstruct.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -21,6 +25,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final ImagePicker _picker = ImagePicker();
   bool? showsettings = true;
   bool? showtransactions = false;
   bool? nexturl = false;
@@ -37,6 +42,23 @@ class _ProfileState extends State<Profile> {
   List others = [];
   List lite = [];
   List displaylist = [];
+
+  // pickImage() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //   String? fileUrl = result!.files.single.path;
+  //   context.loaderOverlay.show();
+  //   auth.uploadLoadDocument(fileUrl).then((value)  {
+  //     context.loaderOverlay.hide();
+  //     print(value);
+  //   }).catchError((error) {
+  //     context.loaderOverlay.hide();
+  //   });
+  //   // if (result != null) {
+  //   //   File file = File(result.files.single.path);
+  //   // } else {
+  //   //   // User canceled the picker
+  //   // }
+  // }
 
   void logout() async {
     SharedPreferences authstorage = await SharedPreferences.getInstance();
@@ -478,42 +500,46 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
-                        Column(
-                          children: [
-                            Card(
-                              // shadowColor: HexColor("#00000014"),
-                              child: Container(
-                                height: 63,
-                                width: 63,
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: CustomTheme.presntstate ? HexColor("#353E64") : HexColor("#F6F6F6"),
-                                  borderRadius: BorderRadius.circular(5)
+                        GestureDetector(
+                          // onTap: () => pickImage(),
+                          onTap: () => Get.toNamed("profile/loandocument"),
+                          child: Column(
+                            children: [
+                              Card(
+                                // shadowColor: HexColor("#00000014"),
+                                child: Container(
+                                  height: 63,
+                                  width: 63,
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: CustomTheme.presntstate ? HexColor("#353E64") : HexColor("#F6F6F6"),
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  // child: Icon(
+                                  //   FontAwesome.file_pdf_o,
+                                  //   size: 34,
+                                  //   color: HexColor("#827F7F"),
+                                  // ),
+                                  child: SvgPicture.asset(
+                                    'assets/image/loandocument.svg',
+                                    semanticsLabel: 'Loan document',
+                                    color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
+                                    // color: white,
+                                  ),
+                                  // width: double.infinity
                                 ),
-                                // child: Icon(
-                                //   FontAwesome.file_pdf_o,
-                                //   size: 34,
-                                //   color: HexColor("#827F7F"),
-                                // ),
-                                child: SvgPicture.asset(
-                                  'assets/image/loandocument.svg',
-                                  semanticsLabel: 'Loan document',
-                                  color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
-                                  // color: white,
+                              ),
+                              // const SizedBox(height: 10),
+                              Text(
+                                "Loan Document",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: CustomTheme.presntstate ? HexColor("#CBD1D8") : HexColor("#827F7F"),
+                                  fontWeight: FontWeight.w400
                                 ),
-                                // width: double.infinity
-                              ),
-                            ),
-                            // const SizedBox(height: 10),
-                            Text(
-                              "Loan Document",
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: CustomTheme.presntstate ? HexColor("#CBD1D8") : HexColor("#827F7F"),
-                                fontWeight: FontWeight.w400
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         )
                       ]
                   ),
