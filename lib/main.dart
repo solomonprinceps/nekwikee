@@ -79,12 +79,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _logOutUser(BuildContext context) async {
-    // Log out the user if they're logged in, then cancel the timer.
-    // You'll have to make sure to cancel the timer if the user manually logs out
-    //   and to call _initializeTimer once the user logs in
     print("logout");
-    // _asyncConfirmDialog(context);
      print('I am 401');
+    context.loaderOverlay.hide();
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     String? token  = authstorage.getString("accessToken");
     if (token != null) {

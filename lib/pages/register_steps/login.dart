@@ -385,7 +385,7 @@ class _LoginState extends State<Login> {
                                       ]),
                                       keyboardType: TextInputType.emailAddress,
                                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                                      textInputAction: TextInputAction.done,
+                                      textInputAction: TextInputAction.next,
                                       onSaved: (val) {
                                         loginstate.login["email"] = val;
                                       },
@@ -472,7 +472,7 @@ class _LoginState extends State<Login> {
                                           Get.toNamed('auth/password/reset');
                                         },
                                         child: Text(
-                                          "Forget Password ?",
+                                          "Forgot Password ?",
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 15,
