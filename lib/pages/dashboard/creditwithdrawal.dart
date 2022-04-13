@@ -42,7 +42,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
   List banks = [
     {
       "id": '5d1dbeb0a1039600258b1fcf',
-      "name": 'PROV"id"US BANK',
+      "name": 'PROVIDUS BANK',
       "bankcode": '101',
       "bankcode2": '000023'
     },
@@ -150,7 +150,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     },
     {
       "id": '5d1dc9aba1039600258b1fd4',
-      "name": 'F"id"ELITY BANK PLC',
+      "name": 'FIDELITY BANK PLC',
       "bankcode": '070',
       "bankcode2": '000007'
     },
@@ -546,7 +546,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     },
     {
       "id": '5f6a2dab4c96990028d1e78a',
-      "name": 'F"id"Fund MFB',
+      "name": 'Fid Fund MFB',
       "bankcode": '090126',
       "bankcode2": '090126'
     },
@@ -558,7 +558,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     },
     {
       "id": '5f6a2dab4c96990028d1e78b',
-      "name": 'F"id"elity Mobile',
+      "name": 'Fidelity Mobile',
       "bankcode": '100019',
       "bankcode2": '100019'
     },
@@ -876,7 +876,7 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     },
     {
       "id": '5f6a2dab4c96990028d1e7c4',
-      "name": 'Tr"id"ent Microfinance Bank',
+      "name": 'Trident Microfinance Bank',
       "bankcode": '090146',
       "bankcode2": '090146'
     },

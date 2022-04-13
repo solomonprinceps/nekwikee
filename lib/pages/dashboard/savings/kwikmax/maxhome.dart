@@ -76,6 +76,8 @@ class _MaxhomeState extends State<Maxhome> {
     });
   }
 
+  
+
   Future moveKwimax() async {
     context.loaderOverlay.show();
     await saving.kwikmaxsinglesave(savings["investmentid"]).then((value) {
@@ -85,6 +87,7 @@ class _MaxhomeState extends State<Maxhome> {
         return;
       }
       if (value?["status"] == "success") {
+        // Get.toNamed("savings/max/withdrawal");
         refreshkey.currentState?.show(); 
       }
     }).catchError((onError) {
@@ -533,6 +536,8 @@ class _MaxhomeState extends State<Maxhome> {
                               visible: !loading,
                               child: GestureDetector(
                                 onTap: () { 
+                                  // moveKwimax();
+                                  
                                   if (savings["can_withdraw"] == 1) {
                                     moveKwimax();
                                     return;

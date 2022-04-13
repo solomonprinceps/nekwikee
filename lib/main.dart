@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
   void _logOutUser(BuildContext context) async {
     print("logout");
      print('I am 401');
-    context.loaderOverlay.hide();
+    // context.loaderOverlay.hide();
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     String? token  = authstorage.getString("accessToken");
     if (token != null) {

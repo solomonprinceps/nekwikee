@@ -96,6 +96,22 @@ class _LoanDocumentState extends State<LoanDocument> {
               Navigator.pop(context);
             },
           ),
+          CupertinoActionSheetAction(
+            child: Text(
+              'Bank Statement',
+              style: TextStyle(
+                fontSize: 20,
+                color: CustomTheme.presntstate ? white :  black
+              ),
+            ),
+            onPressed: () {
+              docuementype.text = "Bank Statement";
+              setState(() {
+                data["type"] = '3';
+              });
+              Navigator.pop(context);
+            },
+          ),
           
           
         ],

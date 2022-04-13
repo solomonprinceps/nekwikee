@@ -524,7 +524,7 @@ class Backend {
     try {
       String token = await authtoken();
       Response responseobj = await _dio.post(
-        '${_baseUrl}withdraw/kwikmax',
+        '${_baseUrl}customer/withdraw/kwikmax',
         data: data,
         options: Options(
           headers: {
