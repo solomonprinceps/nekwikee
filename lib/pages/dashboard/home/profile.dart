@@ -531,7 +531,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               // const SizedBox(height: 10),
                               Text(
-                                "Document",
+                                "Documents",
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: CustomTheme.presntstate ? HexColor("#CBD1D8") : HexColor("#827F7F"),
@@ -678,7 +678,7 @@ class _ProfileState extends State<Profile> {
                                     activeTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
                                     inactiveTrackColor: CustomTheme.presntstate ? primary.withOpacity(0.2) : white,
                                     value: themestate,
-                                  onChanged: (bool val)  {
+                                    onChanged: (bool val)  {
                                     currentTheme.toggleTheme(CustomTheme.presntstate);
                                     setState(() {
                                       themestate = val;
@@ -690,7 +690,7 @@ class _ProfileState extends State<Profile> {
                                   padding: const EdgeInsets.only(left: 3),
                                   // fit: BoxFit.contain,
                                   child: Text(
-                                    'Change Theme',
+                                    themestate ? 'Switch to Light Mode' : 'Switch to Dark Mode',
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? HexColor("#F6FBFE") : HexColor("#827F7F"),
                                       fontSize: 13,

@@ -240,7 +240,7 @@ class _LoanDocumentState extends State<LoanDocument> {
                           ),
                           SizedBox(height: 6.h),
                           Text(
-                            'Upload Loan Document',
+                            'Upload Document',
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w600,
@@ -249,7 +249,7 @@ class _LoanDocumentState extends State<LoanDocument> {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            'Kindly Select a loan document you want to upload.',
+                            'Kindly Select a document you want to upload.',
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 15,
@@ -305,7 +305,7 @@ class _LoanDocumentState extends State<LoanDocument> {
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  'Select loan document',
+                                  'Select document',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,

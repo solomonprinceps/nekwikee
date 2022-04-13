@@ -583,6 +583,36 @@ class Backend {
   }
   
 
+  Future notificatemarkseen(String id) async {
+    dynamic responsedata;
+    try {
+      String token = await authtoken();
+      print(token);
+      Response responseobj = await _dio.post(
+        '${_baseUrl}customer/notification/list?id=${id}&seen=true',
+        options: Options(
+          headers: {
+            "authorization": 'Bearer $token',
+          },
+        ),
+      );
+      responsedata = responseobj.data;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        // print('DATA: ${e.response?.data}'); 
+        responsedata = e.response?.data;
+      } else {
+        responsedata = {
+          "status": "error",
+          "message": "Error occured (Network Connection)"
+        };
+        return responsedata;
+      }
+      return responsedata;
+    }
+    return responsedata;
+  }
+
 
   Future transferlitetomax({required Map data}) async {
     dynamic responsedata;
