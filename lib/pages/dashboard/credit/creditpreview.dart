@@ -267,23 +267,23 @@ class _CreditpreviewState extends State<Creditpreview> {
                             children: [
                               Column(
                                 children:  [
-                                   Text(
-                                    "TENOR",
-                                    style: TextStyle(
-                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11
-                                    ),
-                                  ),
-                                  Text(
-                                    // '${savingsdata["duration"].toString()} Days',
-                                    "$loantenor Months",
-                                    style: TextStyle(
-                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   "TENOR",
+                                  //   style: TextStyle(
+                                  //     color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: 11
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   // '${savingsdata["duration"].toString()} Days',
+                                  //   "$loantenor Months",
+                                  //   style: TextStyle(
+                                  //     color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
+                                  //     fontWeight: FontWeight.w600,
+                                  //     fontSize: 18
+                                  //   ),
+                                  // ),
                                   Text(
                                     "INTEREST RATE",
                                     style: TextStyle(
