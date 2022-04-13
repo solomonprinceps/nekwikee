@@ -113,7 +113,7 @@ class _NotificationState extends State<Notification> {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
-          onTap: () => Get.offAndToNamed("home"),
+          onTap: () => Get.offAndToNamed("home", arguments: 1),
           child: Container(
             width: 75,
             height: 75,

@@ -226,13 +226,14 @@ class _HomeState extends State<Home> {
                     // onTap: () => getoken(),
                     child: Badge(
                       badgeColor: notiy != 0 ? error : Colors.transparent,
+                      showBadge: notiy != 0 ? true : false,
                       badgeContent:  notiy != 0 ? Text(
                         notiy.toString(),
                         style: TextStyle(
                           color: white,
                           fontSize: 10
                         ),
-                      ): Container(),
+                      ): SizedBox(),
                       child: Icon(
                         FontAwesome.bell,
                         color: registerActioncolor,

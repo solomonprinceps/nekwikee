@@ -522,7 +522,7 @@ class _ProfileState extends State<Profile> {
                                   // ),
                                   child: SvgPicture.asset(
                                     'assets/image/loandocument.svg',
-                                    semanticsLabel: 'Loan document',
+                                    semanticsLabel: 'Document',
                                     color: CustomTheme.presntstate ? HexColor("#827F7F") : HexColor("#827F7F")
                                     // color: white,
                                   ),
@@ -531,7 +531,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               // const SizedBox(height: 10),
                               Text(
-                                "Loan Document",
+                                "Document",
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: CustomTheme.presntstate ? HexColor("#CBD1D8") : HexColor("#827F7F"),
