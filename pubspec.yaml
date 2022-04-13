@@ -1,4 +1,4 @@
-name: kwikee
+name: kwikee1
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -67,6 +67,7 @@ dependencies:
   firebase_core: ^1.13.1
   easy_debounce: ^2.0.2+1
   date_range_form_field: ^1.0.2
+  file_picker: ^4.5.1
   flutter_phone_direct_caller: ^2.1.0
   # google_ml_kit: ^0.7.3  
   badges: ^2.0.2
