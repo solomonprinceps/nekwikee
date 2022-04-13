@@ -267,10 +267,10 @@ class _CreditpreviewState extends State<Creditpreview> {
                             children: [
                               Column(
                                 children:  [
-                                  const Text(
+                                   Text(
                                     "TENOR",
                                     style: TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 1),
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11
                                     ),
@@ -278,8 +278,8 @@ class _CreditpreviewState extends State<Creditpreview> {
                                   Text(
                                     // '${savingsdata["duration"].toString()} Days',
                                     "$loantenor Months",
-                                    style:const TextStyle(
-                                      color:Color.fromRGBO(53, 49, 48, 0.6),
+                                    style: TextStyle(
+                                      color: CustomTheme.presntstate ? HexColor("#CBD1D8") : const Color.fromRGBO(53, 49, 48, 1),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                     ),

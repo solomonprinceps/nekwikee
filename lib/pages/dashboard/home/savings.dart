@@ -477,7 +477,7 @@ class _SavingsState extends State<Savings> {
                       const SizedBox(height: 20),
                       //rgba(53, 49, 48, 0.6)
                       Text(
-                        "Your Kwiklite works like a regular bank account. Your can fund it directly and withdraw anytime you want. 10% per annum.\n\nIt is directly connected to a unique wema bank account which could be funded using the Account Number.",
+                        "Your Kwiklite works like a regular bank account. You can fund it directly and withdraw anytime you want. 10% per annum.\n\nIt is directly connected to a unique wema bank account which could be funded using the Account Number.",
                         style: TextStyle(
                           color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  white,
                           fontSize: 12,
