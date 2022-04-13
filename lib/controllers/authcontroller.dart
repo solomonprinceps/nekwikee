@@ -106,6 +106,14 @@ class AuthController extends GetxController {
     });
     return bodydata;
   }
+
+  Future<dynamic> notificatemarkseen(String id) async {
+    dynamic bodydata;
+    await dioclient.notificatemarkseen(id).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
   
   Future<dynamic> notificateList() async {
     dynamic bodydata;

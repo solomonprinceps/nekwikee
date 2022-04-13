@@ -540,7 +540,7 @@ class _TermsState extends State<Terms> {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        "We will contact you through the phone number or email address you provided to us, or through notifications on your device. If you have any questions, complaints or claims, please contact us via mail customer@kwikee.app.",
+                        "We will contact you through the phone number or email address you provided to us, or through notifications on your device. If you have any questions, complaints or claims, please contact us via mail help@kwikee.app.",
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,

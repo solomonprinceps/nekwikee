@@ -153,7 +153,7 @@ class _FirstState extends State<First> {
       context.loaderOverlay.hide();
       _showMessage('Payment was successful!!!', success);
       // refreshkey.currentState?.show(); 
-      Get.offAllNamed('home');
+      Get.offAllNamed('home', arguments: 1);
       // _showMessage('Payment was successful!!!', success);
       print(value);
     }).catchError((err) {

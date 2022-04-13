@@ -33,7 +33,17 @@ class _NotificationState extends State<Notification> {
     context.loaderOverlay.show();
     await auth.notificateList().then((value) {
       context.loaderOverlay.hide();
-      // print(value["notifications"]["data"]);
+      print(value["notifications"]["data"][0]);
+      setState(() {
+        notificationList = value["notifications"]["data"];
+      });
+      print(notificationList);
+    });
+  }
+
+  notificatemarkseen(Map data) async {
+    await auth.notificatemarkseen(data["id"].toString()).then((value) {
+      print(value["notifications"]["data"][0]);
       setState(() {
         notificationList = value["notifications"]["data"];
       });
@@ -233,11 +243,17 @@ class _NotificationState extends State<Notification> {
                     //   );
                     // } 
                     return InkWell(
-                      onTap: ()=> _showSimpleModalDialog(context,notificationList![index]),
+                      // onTap: ()=> _showSimpleModalDialog(context,notificationList![index]),
+                      onTap: () {
+                        setState(() {
+                          notificationList![index]["status"] = "1";
+                        });
+                        notificatemarkseen(notificationList![index]);
+                        _showSimpleModalDialog(context,notificationList![index]);
+                      },
                       child: Stack(
                         children: [
                           SizedBox(height: 120),
-                    
                           Container(
                             height: 100,
                             width: 100.w,
@@ -296,7 +312,7 @@ class _NotificationState extends State<Notification> {
                             ),
                           ),
                           Visibility(
-                            visible: index == 0,
+                            visible: notificationList![index]["status"].toString() == '0',
                             child: Positioned(
                               right: 0,
                               top: 0,
