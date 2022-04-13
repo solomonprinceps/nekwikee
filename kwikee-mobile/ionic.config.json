@@ -1,0 +1,7 @@
+{
+  "name": "kwikee-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
