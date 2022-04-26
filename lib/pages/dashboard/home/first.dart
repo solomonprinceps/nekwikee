@@ -1485,8 +1485,8 @@ class _FirstState extends State<First> {
                           Visibility(
                             visible: auth.showbankstatementsetup.value,
                             child: GestureDetector(
-                              // onTap: () => _launchInBrowser(dashboards["bank_statement_setup_link"]),
-                              onTap: () => okroShow(),
+                              onTap: () => _launchInBrowser(dashboards["bank_statement_setup_link"]),
+                              // onTap: () => okroShow(),
                               child: Card(
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),
