@@ -70,29 +70,29 @@ class _ChangepinState extends State<Changepin> {
   }
 
     sendotp() {
-    context.loaderOverlay.show();
-    withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
-      context.loaderOverlay.hide();
-      print(value);
-      if (value["status"] == "error") {
-        snackbar(message: "", header: value?["message"], bcolor: error);
-        return;
-      }
-      if (value["status"] == "success") {
-        setState(() {
-          verification = value;
-        });
-        // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
-        // submit();
-        setState(() {
-          otp = [];
-        });
-        otpdailog(context);
-        return;
-      }
-      
-    });
-  }
+      context.loaderOverlay.show();
+      withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
+        context.loaderOverlay.hide();
+        print(value);
+        if (value["status"] == "error") {
+          snackbar(message: "", header: value?["message"], bcolor: error);
+          return;
+        }
+        if (value["status"] == "success") {
+          setState(() {
+            verification = value;
+          });
+          // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
+          // submit();
+          setState(() {
+            otp = [];
+          });
+          otpdailog(context);
+          return;
+        }
+        
+      });
+    }
 
   verificationOtp() {
     context.loaderOverlay.show();

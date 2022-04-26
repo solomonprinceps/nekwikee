@@ -124,701 +124,699 @@ class _GoalshomeState extends State<Goalshome> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: WillPopScope(
-        onWillPop:() => _willPopCallback(),
-        child: Scaffold(
-          appBar: AppBar(
-            leading: GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                width: 40,
-                height: 40,
-                color: savingmonth,
-                child: Icon(
-                  FontAwesome.angle_left,
-                  size: 20,
-                  color: white,
-                ),
+    return WillPopScope(
+      onWillPop:() => _willPopCallback(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              width: 40,
+              height: 40,
+              color: savingmonth,
+              child: Icon(
+                FontAwesome.angle_left,
+                size: 20,
+                color: white,
               ),
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: Row(
-                  children: [
-                    // TextButton(
-                    //   onPressed: () => currentTheme.toggleTheme(), 
-                    //   child: const Text("change theme")
-                    // ),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed("notification");
-                      },
-                      child: Icon(
-                        FontAwesome.bell,
-                        color: registerActioncolor,
-                        size: 20.0,
-                        textDirection: TextDirection.ltr,
-                        semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            backgroundColor: savingmonth,
-            elevation: 0,
           ),
-          body: ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: RefreshIndicator(
-              onRefresh: () => getsinglesavings(investmentid.toString()),
-              key: refreshkey,
-              color: savingmonth,
-              backgroundColor: white,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 38.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: savingmonth,
-                        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5))
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.only(left:20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 55,
-                                      height: 55,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color.fromRGBO(246, 251, 254, 1)
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: SvgPicture.asset(
-                                        'assets/image/goaldashcon.svg',
-                                        semanticsLabel: 'money bill',
-                                        width: 40,
-                                        height: 40,
-                                        // color: white,
-                                      ),
-                                      // child: Icon(
-                                      //   FontAwesome5Solid.piggy_bank,
-                                      //   color: savingmonth,
-                                      // )
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  // TextButton(
+                  //   onPressed: () => currentTheme.toggleTheme(), 
+                  //   child: const Text("change theme")
+                  // ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("notification");
+                    },
+                    child: Icon(
+                      FontAwesome.bell,
+                      color: registerActioncolor,
+                      size: 20.0,
+                      textDirection: TextDirection.ltr,
+                      semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          backgroundColor: savingmonth,
+          elevation: 0,
+        ),
+        body: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: RefreshIndicator(
+            onRefresh: () => getsinglesavings(investmentid.toString()),
+            key: refreshkey,
+            color: savingmonth,
+            backgroundColor: white,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 38.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: savingmonth,
+                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5))
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30),
+                        Padding(
+                          padding: const EdgeInsets.only(left:20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 55,
+                                    height: 55,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromRGBO(246, 251, 254, 1)
                                     ),
-                                    const SizedBox(width: 20),
-                                    Text(
-                                      "Goals",
-                                      style: TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18.sp
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: !loading,
-                                  child: GestureDetector(
-                                    onTap: () => changeAutosave(investmentid.toString()),
-                                    child: Container(
-                                      width: 135,
-                                      height: 28,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: registerActioncolor,
-                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8))
-                                      ),
-                                      child: Text(
-                                        autosave.toString() == '1' ? "Autosave is On" : "Autosave is Off",
-                                        style: TextStyle(
-                                          color: white,
-                                          fontSize: 15
-                                        ),
-                                      ),
+                                    alignment: Alignment.center,
+                                    child: SvgPicture.asset(
+                                      'assets/image/goaldashcon.svg',
+                                      semanticsLabel: 'money bill',
+                                      width: 40,
+                                      height: 40,
+                                      // color: white,
                                     ),
+                                    // child: Icon(
+                                    //   FontAwesome5Solid.piggy_bank,
+                                    //   color: savingmonth,
+                                    // )
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 20),
-                            child: Row(
-                              children: [
-                                Text(
-                                  // capitalize(savings["savings_name"].toString()),
-                                  savings?["savings_name"].toUpperCase(),
-                                  style: TextStyle(
-                                    color: goalstext,
-                                    fontSize: 17
-                                  ),
-                                ),
-                                const SizedBox(width: 30),
-                                Visibility(
-                                  visible: !loading,
-                                  child: Obx(
-                                    () => GestureDetector(
-                                      onTap: () => saving.changeStatus(),
-                                      child: Icon(
-                                        saving.liteshow.value ?
-                                          FontAwesome.eye : FontAwesome.eye_slash,
-                                        size: 21,
-                                        color: white,
-                                      ),
-                                    ),
-                                  )
-                                )
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.only(left:20, right: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Obx(
-                                  () => Text(
-                                    saving.liteshow.value ? "*******" : stringamount(savings["amount_saved"].toString()),
+                                  const SizedBox(width: 20),
+                                  Text(
+                                    "Goals",
                                     style: TextStyle(
                                       color: white,
-                                      fontSize: 34,
-                                      fontFamily: GoogleFonts.roboto().toString(),
-                                      fontWeight: FontWeight.w600
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Visibility(
+                                visible: !loading,
+                                child: GestureDetector(
+                                  onTap: () => changeAutosave(investmentid.toString()),
+                                  child: Container(
+                                    width: 135,
+                                    height: 28,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: registerActioncolor,
+                                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8))
+                                    ),
+                                    child: Text(
+                                      autosave.toString() == '1' ? "Autosave is On" : "Autosave is Off",
+                                      style: TextStyle(
+                                        color: white,
+                                        fontSize: 15
+                                      ),
                                     ),
                                   ),
                                 ),
-                                
-                                // Column(
-                                //   crossAxisAlignment: CrossAxisAlignment.end,
-                                //   children: [
-                                //     Text(
-                                //       savings["month_spent"],
-                                //       style: TextStyle(
-                                //         color: goalstext,
-                                //         fontSize: 15,
-                                //         fontWeight: FontWeight.w300
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
-                                
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:20, right: 20),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                
-                                Text(
-                                  savings["matures_in"].toString(),
-                                  style: TextStyle(
-                                    color: CustomTheme.presntstate ?  white :  goalstext.withOpacity(0.27),
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400
-                                  ),
+                        ),
+                        const SizedBox(height: 30),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            children: [
+                              Text(
+                                // capitalize(savings["savings_name"].toString()),
+                                savings?["savings_name"].toUpperCase(),
+                                style: TextStyle(
+                                  color: goalstext,
+                                  fontSize: 17
                                 ),
-                                Text(
-                                  savings["month_spent"],
-                                  style: TextStyle(
-                                    color: goalstext,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w300
-                                  ),
-                                ),
-                              ],
-                            )
-                          )
-                        ],
-                      )
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                      padding: const EdgeInsets.all(15),
-                      width: 100.w,
-                      // height: 78,
-                      decoration: BoxDecoration(
-                        color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                        borderRadius: BorderRadius.circular(5)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: 'GOAL TITLE: ',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: savingmonth
                               ),
-                              children: <TextSpan>[
-                                TextSpan(text: savings["savings_name"], style: const TextStyle(fontWeight: FontWeight.w800)),
-                              ],
-                            ),
+                              const SizedBox(width: 30),
+                              Visibility(
+                                visible: !loading,
+                                child: Obx(
+                                  () => GestureDetector(
+                                    onTap: () => saving.changeStatus(),
+                                    child: Icon(
+                                      saving.liteshow.value ?
+                                        FontAwesome.eye : FontAwesome.eye_slash,
+                                      size: 21,
+                                      color: white,
+                                    ),
+                                  ),
+                                )
+                              )
+                            ],
                           ),
-                          const SizedBox(height: 6),
-                          Text(
-                            "Save and earn towards your goal. penal charge for breaking your goal before maturity is 5% of withdrawn amount.",
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(left:20, right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Obx(
+                                () => Text(
+                                  saving.liteshow.value ? "*******" : stringamount(savings["amount_saved"].toString()),
+                                  style: TextStyle(
+                                    color: white,
+                                    fontSize: 34,
+                                    fontFamily: GoogleFonts.roboto().toString(),
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                              
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.end,
+                              //   children: [
+                              //     Text(
+                              //       savings["month_spent"],
+                              //       style: TextStyle(
+                              //         color: goalstext,
+                              //         fontSize: 15,
+                              //         fontWeight: FontWeight.w300
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:20, right: 20),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              
+                              Text(
+                                savings["matures_in"].toString(),
+                                style: TextStyle(
+                                  color: CustomTheme.presntstate ?  white :  goalstext.withOpacity(0.27),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              ),
+                              Text(
+                                savings["month_spent"],
+                                style: TextStyle(
+                                  color: goalstext,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
+                            ],
+                          )
+                        )
+                      ],
+                    )
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    padding: const EdgeInsets.all(15),
+                    width: 100.w,
+                    // height: 78,
+                    decoration: BoxDecoration(
+                      color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'GOAL TITLE: ',
                             style: TextStyle(
-                              color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
-                              // fontSize: 9
                               fontSize: 12,
-                              height: 1.5,
-                            ),   
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-                      padding: const EdgeInsets.all(15),
-                      width: 100.w,
-                      height: 91,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Visibility(
-                                visible: loading,
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    width: 45,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: !loading,
-                                child: GestureDetector(
-                                  onTap: () => Get.toNamed("savings/goals/addfund", arguments: savings),
-                                  child: Container(
-                                    width: 42,
-                                    height: 42,
-                                    decoration: BoxDecoration(
-                                      color: savingmonth,
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                    child: Icon(
-                                      FontAwesome.plus_square,
-                                      color: goalstext,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Add Funds',
-                                style: TextStyle(
-                                  color: CustomTheme.presntstate ? white : iconcolorselected,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w600
-                                ),
-                              )
+                              color: savingmonth
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(text: savings["savings_name"], style: const TextStyle(fontWeight: FontWeight.w800)),
                             ],
                           ),
-                          Column(
-                            children: [
-                              Visibility(
-                                visible: loading,
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    width: 45,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: !loading,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (savings["can_withdraw"] == 1) {
-                                      banklist();
-                                      return;
-                                    }
-                                    snackbar(message: "Savings is not withdrawable.", header: "Error", bcolor: error);
-                                    return;
-                                  },
-                                  child: Container(
-                                    width: 42,
-                                    height: 42,
-                                    decoration: BoxDecoration(
-                                      color: savingmonth,
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                    child: Icon(
-                                      FontAwesome.money,
-                                      color: goalstext,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Withdraw',
-                                style: TextStyle(
-                                  color: CustomTheme.presntstate ? white : iconcolorselected,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w600
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Visibility(
-                                visible: loading,
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    width: 45,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: !loading,
-                                child: GestureDetector(
-                                  onTap: () => Get.toNamed('savings/goals/edit', arguments: savings),
-                                  child: Container(
-                                    width: 42,
-                                    height: 42,
-                                    decoration: BoxDecoration(
-                                      color: savingmonth,
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                    child: Icon(
-                                      FontAwesome.gear,
-                                      color: goalstext,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Edit',
-                                style: TextStyle(
-                                  color: CustomTheme.presntstate ? white : iconcolorselected,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w600
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      )
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "Save and earn towards your goal. penal charge for breaking your goal before maturity is 5% of withdrawn amount.",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ?  white :  kwiklightcolor.withOpacity(0.42),
+                            // fontSize: 9
+                            fontSize: 12,
+                            height: 1.5,
+                          ),   
+                        )
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/image/arrows.svg',
-                                semanticsLabel: 'money bill',
-                                color: CustomTheme.presntstate ? white : primary,
-                              ),
-                              const SizedBox(width: 15),
-                              Text(
-                                'ACTIVITY',
-                                style: TextStyle(
-                                  color: CustomTheme.presntstate ? white : primary,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [    
-                              Icon(
-                                FontAwesome.calendar_check_o,
-                                color: CustomTheme.presntstate ? white : primary,
-                                size: 20,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                      // color: Colors.red,
-                      constraints: BoxConstraints(
-                        minHeight: 20.h
-                      ),
-                      child: Column(
-                        children: [
-                          Visibility(
-                            visible: loading,
-                            child: Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: double.infinity,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300]!,
-                                  borderRadius: BorderRadius.circular(5)
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
+                    padding: const EdgeInsets.all(15),
+                    width: 100.w,
+                    height: 91,
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: loading,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          
-                          Visibility(
-                            visible: !loading,
+                            Visibility(
+                              visible: !loading,
+                              child: GestureDetector(
+                                onTap: () => Get.toNamed("savings/goals/addfund", arguments: savings),
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  decoration: BoxDecoration(
+                                    color: savingmonth,
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Icon(
+                                    FontAwesome.plus_square,
+                                    color: goalstext,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Add Funds',
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : iconcolorselected,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: loading,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: !loading,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (savings["can_withdraw"] == 1) {
+                                    banklist();
+                                    return;
+                                  }
+                                  snackbar(message: "Savings is not withdrawable.", header: "Error", bcolor: error);
+                                  return;
+                                },
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  decoration: BoxDecoration(
+                                    color: savingmonth,
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Icon(
+                                    FontAwesome.money,
+                                    color: goalstext,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Withdraw',
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : iconcolorselected,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: loading,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: !loading,
+                              child: GestureDetector(
+                                onTap: () => Get.toNamed('savings/goals/edit', arguments: savings),
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  decoration: BoxDecoration(
+                                    color: savingmonth,
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Icon(
+                                    FontAwesome.gear,
+                                    color: goalstext,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Edit',
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : iconcolorselected,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/image/arrows.svg',
+                              semanticsLabel: 'money bill',
+                              color: CustomTheme.presntstate ? white : primary,
+                            ),
+                            const SizedBox(width: 15),
+                            Text(
+                              'ACTIVITY',
+                              style: TextStyle(
+                                color: CustomTheme.presntstate ? white : primary,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [    
+                            Icon(
+                              FontAwesome.calendar_check_o,
+                              color: CustomTheme.presntstate ? white : primary,
+                              size: 20,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    // color: Colors.red,
+                    constraints: BoxConstraints(
+                      minHeight: 20.h
+                    ),
+                    child: Column(
+                      children: [
+                        Visibility(
+                          visible: loading,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
                             child: Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                                // color: Colors.red,
-                              constraints: BoxConstraints(
-                                minHeight: 20.h
-                              ),
-                              child: Column(
-                                children: transactions.map<Widget>((item) {
-                                  return Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                                    margin: const EdgeInsets.only(bottom: 5),
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Visibility(
-                                          visible: item["transaction_type"] == "1",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                              color: error,
-                                              shape: BoxShape.circle
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              FontAwesome.angle_up,
-                                              size: 25.0,
-                                              color: white,
-                                            )
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "2",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                              color: success,
-                                              shape: BoxShape.circle
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              FontAwesome.angle_down,
-                                              size: 25.0,
-                                              color: white,
-                                            )
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "4",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                              color: error,
-                                              shape: BoxShape.circle
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Ionicons.close_outline,
-                                              size: 15.0,
-                                              color: white,
-                                            )
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "3",
-                                          child: Container(
-                                            width: 27,
-                                            height: 27,
-                                            decoration: BoxDecoration(
-                                              color: error,
-                                              shape: BoxShape.circle
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Ionicons.close_outline,
-                                              size: 15.0,
-                                              color: white,
-                                            )
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            margin: const EdgeInsets.only(left: 5, right: 5),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  // "Credit Application X728829",
-                                                  item["narration"].toString(),
-                                                  maxLines: 1,
-                                                  softWrap: true,
-                                                  overflow: TextOverflow.clip,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: CustomTheme.presntstate ? goalstext : dashname
-                                                  ),
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      item["giroreference"].toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 9.5,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: CustomTheme.presntstate ?  white : black
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      // "15 Oct, 2022.",
-                                                      dateformater(item["created_at"].toString()),
-                                                      style: TextStyle(
-                                                        fontSize: 9.5,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: CustomTheme.presntstate ?  white : black
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "2",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(item["amount"]),
-                                            style: TextStyle(
-                                              color: listmoneylight,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto().toString(),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "1",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(item["amount"]),
-                                            style: TextStyle(
-                                              color: listmoneylight,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto().toString(),
-                                            ),
-                                          ),
-                                        ),
-
-                                        Visibility(
-                                          visible: item["transaction_type"] == "3",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(item["amount"]),
-                                            style: TextStyle(
-                                              color: error,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto().toString(),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: item["transaction_type"] == "4",
-                                          child: Text(
-                                            // '₦1,500',
-                                            stringamount(item["amount"]),
-                                            style: TextStyle(
-                                              color: error,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              fontFamily: GoogleFonts.roboto().toString(),
-                                            ),
-                                          ),
-                                        )
-                                        // Text(
-                                        //   // '₦1,500',
-                                        //   stringamount(item["amount"]),
-                                        //   style: TextStyle(
-                                        //     color: listmoneylight,
-                                        //     fontWeight: FontWeight.w600,
-                                        //     fontSize: 15
-                                        //   ),
-                                        // )
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300]!,
+                                borderRadius: BorderRadius.circular(5)
                               ),
                             ),
                           ),
-                          SizedBox(height: 10.h)
-                        ],
-                      ),
-                    )
-                      
+                        ),
+                        
+                        Visibility(
+                          visible: !loading,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                              // color: Colors.red,
+                            constraints: BoxConstraints(
+                              minHeight: 20.h
+                            ),
+                            child: Column(
+                              children: transactions.map<Widget>((item) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                                  margin: const EdgeInsets.only(bottom: 5),
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: CustomTheme.presntstate ?  dackmodedashboardcaard : HexColor("#f8f8f8"),
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Visibility(
+                                        visible: item["transaction_type"] == "1",
+                                        child: Container(
+                                          width: 27,
+                                          height: 27,
+                                          decoration: BoxDecoration(
+                                            color: error,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_up,
+                                            size: 25.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "2",
+                                        child: Container(
+                                          width: 27,
+                                          height: 27,
+                                          decoration: BoxDecoration(
+                                            color: success,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            FontAwesome.angle_down,
+                                            size: 25.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "4",
+                                        child: Container(
+                                          width: 27,
+                                          height: 27,
+                                          decoration: BoxDecoration(
+                                            color: error,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            Ionicons.close_outline,
+                                            size: 15.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "3",
+                                        child: Container(
+                                          width: 27,
+                                          height: 27,
+                                          decoration: BoxDecoration(
+                                            color: error,
+                                            shape: BoxShape.circle
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            Ionicons.close_outline,
+                                            size: 15.0,
+                                            color: white,
+                                          )
+                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 5, right: 5),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                // "Credit Application X728829",
+                                                item["narration"].toString(),
+                                                maxLines: 1,
+                                                softWrap: true,
+                                                overflow: TextOverflow.clip,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: CustomTheme.presntstate ? goalstext : dashname
+                                                ),
+                                              ),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    item["giroreference"].toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 9.5,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: CustomTheme.presntstate ?  white : black
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    // "15 Oct, 2022.",
+                                                    dateformater(item["created_at"].toString()),
+                                                    style: TextStyle(
+                                                      fontSize: 9.5,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: CustomTheme.presntstate ?  white : black
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "2",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(item["amount"]),
+                                          style: TextStyle(
+                                            color: listmoneylight,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "1",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(item["amount"]),
+                                          style: TextStyle(
+                                            color: listmoneylight,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+
+                                      Visibility(
+                                        visible: item["transaction_type"] == "3",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(item["amount"]),
+                                          style: TextStyle(
+                                            color: error,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: item["transaction_type"] == "4",
+                                        child: Text(
+                                          // '₦1,500',
+                                          stringamount(item["amount"]),
+                                          style: TextStyle(
+                                            color: error,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            fontFamily: GoogleFonts.roboto().toString(),
+                                          ),
+                                        ),
+                                      )
+                                      // Text(
+                                      //   // '₦1,500',
+                                      //   stringamount(item["amount"]),
+                                      //   style: TextStyle(
+                                      //     color: listmoneylight,
+                                      //     fontWeight: FontWeight.w600,
+                                      //     fontSize: 15
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.h)
+                      ],
+                    ),
+                  )
                     
-                  ],
-                ),
+                  
+                ],
               ),
             ),
           ),

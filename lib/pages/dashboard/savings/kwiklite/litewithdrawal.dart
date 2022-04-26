@@ -32,6 +32,7 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
   WithdrawController withdraw = Get.find<WithdrawController>();
   SavingController saving = Get.find<SavingController>();
   AuthController auth = Get.find<AuthController>();
+  String status = "0";
   final _formKey = GlobalKey<FormState>();
   dynamic selectedbank;
   dynamic tranw;
@@ -993,9 +994,11 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
         sendotpdata["phone_number"] = auth.userdata["telephone"];
         sendotpdata["email"] = auth.userdata["email"];
       });
-      sendotp();
-      // print(withdraw.withform);
-      // submit();
+      if (status == "1" || status == "0") {
+        sendotp();
+      } else {
+        submit();
+      }
     } else {
       // print("not validated");
     }
@@ -1312,90 +1315,145 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                 // padding: const EdgeInsets.all(10),
                                 width: double.infinity,
                                 height: 100,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: beneficiaries.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        print(beneficiaries[index]);
-                                        saving.savingwithdrawal["beneficiary"] = '1';
-                                        modecontroller.text = "Other Account";
-                                        saving.savingwithdrawal["bankcode"] = beneficiaries[index]["bank_code"];
-                                        accountno.text = beneficiaries[index]["account_number"];
-                                        bankcontroller.text = beneficiaries[index]["name"];
-                                      },
-                                      // onTap: () {
-                                      //   saving.savingwithdrawal["beneficiary"] = '1';
-                                      //   modecontroller.text = "Other Account";
-                                      //   accountno.text = beneficiaries[index]["account_number"];
-                                      //   saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
-                                      //   print(beneficiaries[index]);
-                                      //   banks.forEach((data) {
-                                      //     if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
-                                      //       // withdraw.withform["bankcode"] = data["bankcode"];
-                                      //       bankcontroller.text = data["name"];
-                                      //       // saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
-                                      //     }
-                                      //   });
-                                      // },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(top: 8, bottom: 8),
-                                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                        width: 80,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: beneficiaries.length,
+                                        itemBuilder: (context, index) {
+                                          
+                                          return GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                status = "2";
+                                              });
+                                              print(beneficiaries[index]);
+                                              saving.savingwithdrawal["beneficiary"] = '1';
+                                              modecontroller.text = "Other Account";
+                                              saving.savingwithdrawal["bankcode"] = beneficiaries[index]["bank_code"];
+                                              accountno.text = beneficiaries[index]["account_number"];
+                                              bankcontroller.text = beneficiaries[index]["name"];
+                                            },
+                                            // onTap: () {
+                                            //   saving.savingwithdrawal["beneficiary"] = '1';
+                                            //   modecontroller.text = "Other Account";
+                                            //   accountno.text = beneficiaries[index]["account_number"];
+                                            //   saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
+                                            //   print(beneficiaries[index]);
+                                            //   banks.forEach((data) {
+                                            //     if (data["bankcode"] == beneficiaries[index]["bank_code"]) {
+                                            //       // withdraw.withform["bankcode"] = data["bankcode"];
+                                            //       bankcontroller.text = data["name"];
+                                            //       // saving.savingwithdrawal["bankcode"] = allbanks[index]["bankcode"];
+                                            //     }
+                                            //   });
+                                            // },
+                                            child: Container(
+                                              // margin: const EdgeInsets.only(top: 8, bottom: 8),
+                                              padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                              width: 80,
+                                              child: Column(
+                                                mainAxisAlignment:MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  CachedNetworkImage(
+                                                    imageUrl: beneficiaries[index]["logo"],
+                                                    imageBuilder:  (context, imageProvider) =>
+                                                     Container(
+                                                      width: 60,
+                                                      height: 60,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey.shade400,
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    placeholder: (context, url) =>  Shimmer.fromColors(
+                                                      baseColor: Colors.grey.shade300,
+                                                      highlightColor:  Colors.grey[100]!,
+                                                      child: Container(
+                                                        width: 45,
+                                                        height: 45,
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.grey[300],
+                                                          borderRadius: BorderRadius.circular(5)
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                  ),
+                                                  Text(
+                                                    '${beneficiaries[index]["account_name"]}',
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.center,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: CustomTheme.presntstate ? white : black
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: status == "2",
+                                      child: SizedBox(width: 10)
+                                    ),
+                                    Visibility(
+                                      visible: status == "2",
+                                      child: InkWell(
+                                        onTap: () {
+                                          accountno.text = "";
+                                          bankcontroller.text = "";
+                                          setState(() {
+                                            status = "1";
+                                          });
+                                        },
                                         child: Column(
-                                          mainAxisAlignment:MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            CachedNetworkImage(
-                                              imageUrl: beneficiaries[index]
-                                                  ["logo"],
-                                              imageBuilder:
-                                                  (context, imageProvider) =>
-                                                      Container(
-                                                width: 60,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.grey.shade400,
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                    image: imageProvider,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+                                            SizedBox(height: 13),
+                                            Container(
+                                              // margin: const EdgeInsets.only(left: 10, right: 10),
+                                              padding: const EdgeInsets.all(10),
+                                              width: 60,
+                                              height: 60,
+                                              child: Icon(
+                                                Ionicons.add,
+                                                size: 30,
+                                                color: CustomTheme.presntstate ? white : primary, 
                                               ),
-                                              placeholder: (context, url) =>
-                                                  Shimmer.fromColors(
-                                                baseColor: Colors.grey.shade300,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 45,
-                                                  height: 45,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey[300],
-                                                    borderRadius: BorderRadius.circular(5)
-                                                  ),
-                                                ),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
                                               ),
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
                                             ),
                                             Text(
-                                              '${beneficiaries[index]["account_name"]}',
+                                              // '${beneficiaries[index]["account_name"]}',
+                                              "Add new",
                                               softWrap: true,
                                               textAlign: TextAlign.center,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w600,
-                                                color: CustomTheme.presntstate ? white : black
+                                                color: CustomTheme.presntstate ? white : primary, 
                                               ),
                                             )
                                           ],
                                         ),
                                       ),
-                                    );
-                                  }
+                                    )
+                                    
+                                  ],
                                 ),
                               ),
                             ),
@@ -1448,6 +1506,9 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                   const SizedBox(height: 5),
                                   GestureDetector(
                                     onTap: () {
+                                      if (status == "2") {
+                                        return;
+                                      }
                                       setState(() {
                                         allbanks = banks;
                                       });
@@ -1486,14 +1547,14 @@ class _LitewithdrawalState extends State<Litewithdrawal> {
                                     style: TextStyle(
                                       color: CustomTheme.presntstate ? white : darkscaffold
                                     ),
-                                      // obscureText: true,
+                                    enabled: status != "2",
                                     validator: MultiValidator([
                                       RequiredValidator(errorText: "Account number is required"),
                                       MinLengthValidator(10, errorText: "Account number should be more than 10 digits")
                                     ]),  
                                     // validator: 
                                     keyboardType: TextInputType.number,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                                     textInputAction: TextInputAction.done,
                                     onSaved: (val) {
                                       saving.savingwithdrawal["accountnumber"] = val;

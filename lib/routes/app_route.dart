@@ -265,6 +265,8 @@ List<GetPage> approutlist = [
     binding: BindingsBuilder(
       () => {
         Get.put(AuthController()),
+        Get.put(SavingController()),
+        Get.put(WithdrawController())
       },
     ),
   ),
