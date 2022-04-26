@@ -1027,8 +1027,6 @@ class Backend {
     dynamic responsedata;
     // String fileName = ;
     dynamic formImage = data["id_card"] == "" ? "" : await MultipartFile.fromFile(data["id_card"], filename: basename(data["id_card"]));
-    // print(formImage.toString());
-    // FormData().files.ad
     var formData = FormData.fromMap({
       "employer_name": data["employer_name"],
       "employment_start_date": data["employment_start_date"],
@@ -1039,7 +1037,8 @@ class Backend {
       "education_level": data["education_level"],
       "pay_date": data["pay_date"],
       "file": formImage,
-      "type": '2'
+      "type": '2',
+      "other_employer_name": data["other_employer_name"]
     });
     // formData.files.add(formImage);
     // print('${formData.files[0].key}');

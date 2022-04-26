@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kwikee1/controllers/authcontroller.dart';
+import 'package:kwikee1/controllers/withdrawalcontroller.dart';
+import 'package:kwikee1/controllers/savingcontroller.dart';
 import 'package:kwikee1/services/utils.dart';
 import 'package:kwikee1/styles.dart';
 import 'package:sizer/sizer.dart';
@@ -8,7 +10,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kwikee1/themes/apptheme.dart';
-
+import 'package:numeric_keyboard/numeric_keyboard.dart';
+import 'package:hexcolor/hexcolor.dart';
 class Changepin extends StatefulWidget {
   const Changepin({ Key? key }) : super(key: key);
 
@@ -17,7 +20,9 @@ class Changepin extends StatefulWidget {
 }
 
 class _ChangepinState extends State<Changepin> {
-  AuthController auth = AuthController();
+  WithdrawController withdraw = Get.find<WithdrawController>();
+  SavingController saving = Get.find<SavingController>();
+  AuthController auth = Get.find<AuthController>();
   String? phonenumber;
   bool isPhone = false;
   final _formKey = GlobalKey<FormState>();
@@ -26,6 +31,24 @@ class _ChangepinState extends State<Changepin> {
     "pin_confirmation": "",
     "password": ""
   };
+
+
+  List<String> otp = [];
+
+  Map<String?, String?> sendotpdata = {
+    'message': 'Use {{code}} to authorize your kwikee transaction',
+    'duration': '10',
+    'length': '4',
+    'type': '3',
+    'place_holder': '{{code}}',
+    'phone_number': '',
+    'email': '',
+    'product': '3'
+  };
+
+  Map? verification = {};
+
+
   Color resolvePhonecolor(String themestate) {
     // themestate == "dark" ? white : getstartedp    
     if ( themestate == "dark" && isPhone == true) {
@@ -44,6 +67,72 @@ class _ChangepinState extends State<Changepin> {
       return getstartedp;
     }
     return white;
+  }
+
+    sendotp() {
+    context.loaderOverlay.show();
+    withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+        setState(() {
+          verification = value;
+        });
+        // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
+        // submit();
+        setState(() {
+          otp = [];
+        });
+        otpdailog(context);
+        return;
+      }
+      
+    });
+  }
+
+  verificationOtp() {
+    context.loaderOverlay.show();
+    verification!["otp"] = otp.join();
+    withdraw.verifyotp(verification: verification!).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+        Get.back();
+        setpin();
+        return;
+      }
+    });
+  }
+
+  resendotp() {
+    context.loaderOverlay.show();
+    withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+         setState(() {
+          verification = value;
+        });
+        // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
+        // submit();
+        setState(() {
+          otp = [];
+        });
+        return;
+      }
+    });
   }
 
   void _showMessage(String message, Color background) {
@@ -78,7 +167,11 @@ class _ChangepinState extends State<Changepin> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      setpin();
+      setState(() {
+        sendotpdata["phone_number"] = auth.userdata["telephone"];
+        sendotpdata["email"] = auth.userdata["email"];
+      });
+      sendotp();
       // Get.offAndToNamed('register/getnumber');
     } else {
       _showMessage("Error Occoured.", error);
@@ -319,4 +412,162 @@ class _ChangepinState extends State<Changepin> {
       ),
     );
   }
+
+  otpdailog(context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false, // should dialog be dismissed when tapped outside
+      barrierLabel: "OTP", // label for barrier
+      transitionDuration: const Duration(milliseconds:50), // how long it takes to popup dialog after button click
+      pageBuilder: (_, __, ___) {
+        return StatefulBuilder(builder: (context, setState) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => Get.back(),
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: HexColor("#0000000F"),
+                              ),
+                              child: Icon(
+                                Icons.cancel,
+                                color: CustomTheme.presntstate ? white : primary,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      Text(
+                        "Enter OTP",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? white : primary,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "Enter the 4 digit pin",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? white : black,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        width: 70.w,
+                        height: 60,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 1 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ), 
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 2 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 3 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 4 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ) 
+                          ],
+                        )
+                      ),
+                      SizedBox(height: 35),
+                      InkWell(
+                        onTap: () => resendotp(),
+                        child: Text(
+                          "Resend OTP?",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? white : primary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+                      
+                      NumericKeyboard(
+                        onKeyboardTap: (val) {
+                          if (otp.length == 4) {
+                            // print(otp);
+                            verificationOtp();
+                            return;
+                          }
+                          if (otp.isNotEmpty || otp.length != 4) {
+                            setState(() {
+                              otp.add(val);
+                            });
+                            if (otp.length == 4) {
+                              // print(otp);
+                              verificationOtp();
+                              return;
+                            }
+                          }
+                        },
+                        textColor: CustomTheme.presntstate ? white : primary,
+                        rightButtonFn: () {
+                          if (otp.isNotEmpty || otp.length != 0) {
+                            setState(() {
+                              otp.removeLast();
+                            });
+                            print(otp);
+                          }
+                        },
+                        rightIcon: Icon(Icons.backspace, color: CustomTheme.presntstate ? white : primary),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly
+                      )
+
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
 }

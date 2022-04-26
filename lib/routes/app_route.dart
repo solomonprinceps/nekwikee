@@ -59,6 +59,7 @@ import '../pages/dashboard/homenav.dart';
 import '../pages/dashboard/savings/kwikgoals/editgoal.dart';
 import '../pages/verify.dart';
 import '../pages/dashboard/notifications.dart';
+import '../pages/otpmodal.dart';
 
 List<GetPage> approutlist = [
   GetPage(
@@ -74,6 +75,11 @@ List<GetPage> approutlist = [
   GetPage(
     name: '/newsplash',
     page: () => const Newsplash(),
+    transition: Transition.fadeIn,
+  ),
+  GetPage(
+    name: '/otpage',
+    page: () => const Otpmodal(),
     transition: Transition.fadeIn,
   ),
   GetPage(
@@ -246,6 +252,8 @@ List<GetPage> approutlist = [
     binding: BindingsBuilder(
       () => {
         Get.put(AuthController()),
+        Get.put(SavingController()),
+        Get.put(WithdrawController())
       },
     ),
   ),
@@ -302,7 +310,9 @@ List<GetPage> approutlist = [
     transition: Transition.fadeIn,
     binding: BindingsBuilder(
       () => {
-        Get.put(SavingController())
+        Get.put(SavingController()),
+        Get.put(AuthController()),
+        Get.put(WithdrawController())
       },
     ),
   ),

@@ -16,9 +16,9 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:kwikee1/services/datstruct.dart';
-import 'package:flutterwave/flutterwave.dart';
 import 'dart:ui';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:okra_widget_official/okra_widget.dart';
 
 
 class First extends StatefulWidget {
@@ -788,6 +788,75 @@ class _FirstState extends State<First> {
       });
   }
 
+
+  okroShow() async {
+    var banks = [
+      "ecobank-nigeria",
+      "fidelity-bank",
+      "first-bank-of-nigeria",
+      "first-city-monument-bank",
+      "guaranty-trust-bank",
+      "access-bank",
+      "unity-bank",
+      "alat",
+      "polaris-bank",
+      "stanbic-ibtc-bank",
+      "standard-chartered-bank",
+      "sterling-bank",
+      "union-bank-of-nigeria",
+      "united-bank-for-africa",
+      "wema-bank",
+      "rubies-bank",
+      "kuda-bank"
+    ];
+
+    Okra.buildWithOptions(context,
+        key: "a93b52c2-f022-5aef-833b-c8c6bb1567f4",
+        token: "5f340e740a041e06ff4a440e",
+        color: "#22245d",
+        products: [
+          "auth",
+          "balance",
+          "identity",
+          "transactions"
+        ],
+        chargeAmount: 1000,
+        chargeNote: "testing",
+        chargeType: "one-time",
+        chargeCurrency: "NGN",
+        environment: "production",
+        clientName: "Kwikee",
+        logo:  "https://dash.okra.ng/static/media/okra-logo.514fd943.png",
+        limit: 3,
+        currency: "NGN",
+        isCorporate: false,
+        showBalance: true,
+        geoLocation: true,
+        payment: true,
+        connectMessage: "Which account do you want to connect with?",
+        callbackUrl: "https://api.kwikee.app/api/utilities/okra/notification?email=ahambasolomon800@gmail.com",
+        redirectUrl: "",
+        widgetSuccess:"Your account was successfully linked to Kwikee",
+        widgetFailed:  "An unknown error occurred, please try again.",
+        guarantors: {
+          "status": false,
+          "message": "Okra requires you to add guarantors",
+          "number": 3,
+        },
+        filters: {"industry_type": "all", "banks": banks},
+        onSuccess: (data) {
+          print("Success");
+          print(data);
+        }, onError: (message) {
+          print("error");
+          print(message);
+        }, onClose: (message) {
+          print("close");
+          print(message);
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
@@ -1416,8 +1485,8 @@ class _FirstState extends State<First> {
                           Visibility(
                             visible: auth.showbankstatementsetup.value,
                             child: GestureDetector(
-                              onTap: () => _launchInBrowser(dashboards["bank_statement_setup_link"]),
-                              // onTap: () => okrowigdet(),
+                              // onTap: () => _launchInBrowser(dashboards["bank_statement_setup_link"]),
+                              onTap: () => okroShow(),
                               child: Card(
                                 shadowColor: HexColor("#0000000F"),
                                 margin: const EdgeInsets.only(right: 10),

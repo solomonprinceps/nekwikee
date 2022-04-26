@@ -195,7 +195,7 @@ class _TermsState extends State<Terms> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "(D). ",
+                              "(d). ",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -229,7 +229,7 @@ class _TermsState extends State<Terms> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "(E). ",
+                              "(e). ",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,

@@ -427,7 +427,7 @@ class _LoginState extends State<Login> {
                                       suffixIcon: InkWell(
                                         onTap:() => changeshowPass(!showPass),
                                         child: Icon(
-                                          showPass ? FontAwesome.eye_slash : FontAwesome.eye,
+                                          showPass ? FontAwesome.eye : FontAwesome.eye_slash,
                                           color: CustomTheme.presntstate ? white : primary,
                                         ),
                                       ),

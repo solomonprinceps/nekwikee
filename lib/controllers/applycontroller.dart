@@ -142,9 +142,9 @@ class ApplyController extends GetxController {
     return bodydata;
   }
 
-  Future <dynamic> applyemployment() async {
+  Future <dynamic> applyemployment({required Map data}) async {
     dynamic bodydata;
-    await dioclient.applyemployer(data: employerdata).then((value) {
+    await dioclient.applyemployer(data: data).then((value) {
       bodydata = value;
     });
     return bodydata;

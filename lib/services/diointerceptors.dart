@@ -6,7 +6,7 @@ class Logging extends dio.Interceptor {
   // LoginController login = LoginController();
   @override
   void onRequest( dio.RequestOptions options, dio.RequestInterceptorHandler handler) {
-    print('${options.data}');
+    print('request data  ${options.data}');
     return super.onRequest(options, handler);
   }
 

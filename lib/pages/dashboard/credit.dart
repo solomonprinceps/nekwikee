@@ -302,7 +302,19 @@ class _CreditState extends State<Credit> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
+                child: Text(
+                  "kindly fund the account below to make a repayment on your credit card",
+                  style: TextStyle(
+                    color: !CustomTheme.presntstate ? const Color.fromRGBO(53, 49, 48, 0.6).withOpacity(0.42) :  white,
+                    fontSize: 12,
+                    height: 1.5,
+                    // fontWeight: FontWeight.w600
+                  ),
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
                 alignment: Alignment.center,

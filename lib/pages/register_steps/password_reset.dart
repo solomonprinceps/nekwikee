@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwikee1/themes/apptheme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class Passwordreset extends StatefulWidget {
   const Passwordreset({ Key? key }) : super(key: key);
@@ -107,8 +108,22 @@ class _PasswordresetState extends State<Passwordreset> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  InkWell(
+                    onTap: () => Get.back(),
+                    child: Container(
+                      width: 45,
+                      height: 45,
+                      alignment: Alignment.center,
+                      // color: black,
+                      child: Icon(
+                        FontAwesome.angle_left,
+                        size: 20,
+                        color: CustomTheme.presntstate ? white : black,
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 60.w,
                     height: 15.h,

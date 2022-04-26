@@ -55,7 +55,6 @@ dependencies:
   image_picker: ^0.8.4+9
   camera: ^0.9.4+14
   flutter_paystack: ^1.0.5+1
-  flutterwave: ^1.0.1
   url_launcher: ^6.0.20
   cached_network_image: ^3.2.0
   upgrader: ^3.13.0
@@ -69,8 +68,12 @@ dependencies:
   date_range_form_field: ^1.0.2
   file_picker: ^4.5.1
   flutter_phone_direct_caller: ^2.1.0
+  okra_widget_official: ^3.1.0
   # google_ml_kit: ^0.7.3  
   badges: ^2.0.2
+  numeric_keyboard: ^1.1.0
+  
+  
   
   
   

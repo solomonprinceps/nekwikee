@@ -572,14 +572,15 @@ class _EmploymentinfoState extends State<Employmentinfo> {
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
       print(applycon.employerdata);
+      Map data = applycon.employerdata;
       // print('object');
-      employmentApply();
+      employmentApply(data: data);
     } else {}
   }
 
-  employmentApply() async {
+  employmentApply({required Map data}) async {
     context.loaderOverlay.show();
-    applycon.applyemployment().then((value) {
+    applycon.applyemployment(data: data).then((value) {
       context.loaderOverlay.hide();
       print(value);
       if (value["status"] == "success") {
@@ -856,7 +857,7 @@ class _EmploymentinfoState extends State<Employmentinfo> {
                                   onSaved: (val) {
                                     // applycon.employerdata["other_employer_name"] = val;
                                     if (val == "Others") {
-                                      applycon.employerdata["other_employer_name"] = '99';
+                                      applycon.employerdata["employer_name"] = '99';
                                     } else {
                                       applycon.employerdata["other_employer_name"]  = val;
                                     }

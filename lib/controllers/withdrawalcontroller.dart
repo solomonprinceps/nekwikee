@@ -16,6 +16,32 @@ class WithdrawController extends GetxController {
     "beneficiary": ""
   }.obs;
 
+  Map<String?, String?> sendotpdata = {
+    'message': 'Use {{code}} to authorize your kwikee transaction',
+    'duration': '10',
+    'length': '4',
+    'type': '3',
+    'place_holder': '{{code}}',
+    'phone_number': '',
+    'email': ''
+  }.obs;
+
+  Future<dynamic> otpsend({required Map sendotpdata}) async {
+    dynamic bodydata;
+    await dioclient.sendotp(data: sendotpdata).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
+
+  Future<dynamic> verifyotp ({required Map verification}) async {
+    dynamic bodydata;
+    await dioclient.verifyotp(data: verification).then((value) {
+      bodydata = value;
+    });
+    return bodydata;
+  }
+
   formatamount(String? amountSign) {
     List stringarry = amountSign != null ? amountSign.split('₦') : [];
     String numbpart = stringarry[1];

@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
 
   void _logOutUser(BuildContext context) async {
     print("logout");
-     print('I am 401');
+    print('I am 401');
     // context.loaderOverlay.hide();
     SharedPreferences authstorage = await SharedPreferences.getInstance();
     String? token  = authstorage.getString("accessToken");
@@ -183,7 +183,7 @@ class _MyAppState extends State<MyApp> {
               darkTheme: CustomTheme.darkTheme,
               themeMode: currentTheme.currentTheme,     
               // themeMode: ThemeMode.light,
-              // initialRoute: '/profile/loandocument',
+              // initialRoute: '/otpage',
               initialRoute: '/newsplash',
               getPages: approutlist
             ),

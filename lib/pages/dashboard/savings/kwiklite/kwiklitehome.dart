@@ -149,12 +149,17 @@ class _LitehomeState extends State<Litehome> {
                           ),
                           Row(
                             children: [
-                              Icon(
-                                FontAwesome.bell,
-                                color: white,
-                                size: 18.0,
-                                textDirection: TextDirection.ltr,
-                                semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed("notification");
+                                },
+                                child: Icon(
+                                  FontAwesome.bell,
+                                  color: white,
+                                  size: 18.0,
+                                  textDirection: TextDirection.ltr,
+                                  semanticLabel: 'Icon', // Announced in accessibility modes (e.g TalkBack/VoiceOver). This label does not show in the UI.
+                                ),
                               ),
                             ],
                           ),

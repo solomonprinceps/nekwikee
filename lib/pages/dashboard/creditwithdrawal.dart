@@ -14,6 +14,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:numeric_keyboard/numeric_keyboard.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Creditwithdrawal extends StatefulWidget {
   const Creditwithdrawal({Key? key}) : super(key: key);
@@ -967,6 +969,20 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
   ];
 
   List allbanks = [];
+  List<String> otp = [];
+
+  Map<String?, String?> sendotpdata = {
+    'message': 'Use {{code}} to authorize your kwikee transaction',
+    'duration': '10',
+    'length': '4',
+    'type': '3',
+    'place_holder': '{{code}}',
+    'phone_number': '',
+    'email': '',
+    'product': '3'
+  };
+
+  Map? verification = {};
 
   shoWidget() {
     return showCupertinoModalPopup<void>(
@@ -1014,14 +1030,82 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     );
   }
 
+  sendotp() {
+    context.loaderOverlay.show();
+    withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+        setState(() {
+          verification = value;
+        });
+        // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
+        // submit();
+        setState(() {
+          otp = [];
+        });
+        otpdailog(context);
+        return;
+      }
+      
+    });
+  }
+
+  verificationOtp() {
+    context.loaderOverlay.show();
+    verification!["otp"] = otp.join();
+    withdraw.verifyotp(verification: verification!).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+        Get.back();
+        submit();
+        return;
+      }
+    });
+  }
+
+  resendotp() {
+    context.loaderOverlay.show();
+    withdraw.otpsend(sendotpdata: sendotpdata).then((value) {
+      context.loaderOverlay.hide();
+      print(value);
+      if (value["status"] == "error") {
+        snackbar(message: "", header: value?["message"], bcolor: error);
+        return;
+      }
+      if (value["status"] == "success") {
+         setState(() {
+          verification = value;
+        });
+        // snackbar(message: "", header: "OTP sent to your phone number and email.", bcolor: success);
+        // submit();
+        setState(() {
+          otp = [];
+        });
+        return;
+      }
+    });
+  }
+
   void validate() {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState?.validate() != false) {
       _formKey.currentState?.save();
-      print(withdraw.withform);
-      submit();
-      // Get.toNamed('dashboard/withdraw/confirm');
-
+      // print(withdraw.withform);
+      setState(() {
+        sendotpdata["phone_number"] = auth.userdata["telephone"];
+        sendotpdata["email"] = auth.userdata["email"];
+      });
+      sendotp();
     } else {
       // print("not validated");
     }
@@ -1092,36 +1176,35 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
     FocusScope.of(context).requestFocus(FocusNode());
     showGeneralDialog(
       context: context,
-      barrierDismissible:
-          false, // should dialog be dismissed when tapped outside
+      barrierDismissible: false, // should dialog be dismissed when tapped outside
       barrierLabel: "Bank", // label for barrier
-      transitionDuration: const Duration(
-          milliseconds:
-              50), // how long it takes to popup dialog after button click
+      transitionDuration: const Duration(milliseconds: 50), // how long it takes to popup dialog after button click
       pageBuilder: (_, __, ___) {
         // your widget implementation
         return StatefulBuilder(builder: (context, setState) {
           return Scaffold(
             appBar: AppBar(
-                backgroundColor:
-                    !CustomTheme.presntstate ? white : darkscaffold,
-                centerTitle: true,
-                leading: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      color: !CustomTheme.presntstate ? Colors.black : white,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                title: Text(
-                  "Bank",
-                  style: TextStyle(
-                      color: !CustomTheme.presntstate ? Colors.black87 : white,
-                      fontFamily: 'Overpass',
-                      fontSize: 20),
+              backgroundColor:  !CustomTheme.presntstate ? white : darkscaffold,
+              centerTitle: true,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: !CustomTheme.presntstate ? Colors.black : white,
                 ),
-                elevation: 0.0),
+                onPressed: () {
+                  Navigator.pop(context);
+                }
+              ),
+              title: Text(
+                "Bank",
+                style: TextStyle(
+                  color: !CustomTheme.presntstate ? Colors.black87 : white,
+                  fontFamily: 'Overpass',
+                  fontSize: 20
+                ),
+              ),
+              elevation: 0.0
+            ),
             backgroundColor: !CustomTheme.presntstate ? whitescaffold : darkscaffold,
             body: Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -1203,6 +1286,165 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                     }),
                   ))
                 ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+
+
+  otpdailog(context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false, // should dialog be dismissed when tapped outside
+      barrierLabel: "OTP", // label for barrier
+      transitionDuration: const Duration(milliseconds:50), // how long it takes to popup dialog after button click
+      pageBuilder: (_, __, ___) {
+        return StatefulBuilder(builder: (context, setState) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => Get.back(),
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: HexColor("#0000000F"),
+                              ),
+                              child: Icon(
+                                Icons.cancel,
+                                color: CustomTheme.presntstate ? white : primary,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      Text(
+                        "Enter OTP",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? white : primary,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "Enter the 4 digit pin",
+                        style: TextStyle(
+                          color: CustomTheme.presntstate ? white : black,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        width: 70.w,
+                        height: 60,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: CustomTheme.presntstate ? dackmodedashboardcaard : HexColor("#f8f8f8"),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 1 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ), 
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 2 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 3 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: otp.length >= 4 ? CustomTheme.presntstate ? white : primary : CustomTheme.presntstate ? white.withOpacity(0.3) : primary.withOpacity(0.3)
+                              ),
+                            ) 
+                          ],
+                        )
+                      ),
+                      SizedBox(height: 35),
+                      InkWell(
+                        onTap: () => resendotp(),
+                        child: Text(
+                          "Resend OTP?",
+                          style: TextStyle(
+                            color: CustomTheme.presntstate ? white : primary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+                      
+                      NumericKeyboard(
+                        onKeyboardTap: (val) {
+                          if (otp.length == 4) {
+                            // print(otp);
+                            verificationOtp();
+                            return;
+                          }
+                          if (otp.isNotEmpty || otp.length != 4) {
+                            setState(() {
+                              otp.add(val);
+                            });
+                            if (otp.length == 4) {
+                              // print(otp);
+                              verificationOtp();
+                              return;
+                            }
+                          }
+                        },
+                        textColor: CustomTheme.presntstate ? white : primary,
+                        rightButtonFn: () {
+                          if (otp.isNotEmpty || otp.length != 0) {
+                            setState(() {
+                              otp.removeLast();
+                            });
+                            print(otp);
+                          }
+                        },
+                        rightIcon: Icon(Icons.backspace, color: CustomTheme.presntstate ? white : primary),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly
+                      )
+
+
+                    ],
+                  ),
+                ),
               ),
             ),
           );
@@ -1599,7 +1841,6 @@ class _CreditwithdrawalState extends State<Creditwithdrawal> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Get.offAllNamed("/credit");
                           Get.back();
                         },
                         child: Container(
