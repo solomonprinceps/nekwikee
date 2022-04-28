@@ -255,7 +255,7 @@ class _ChangepinState extends State<Changepin> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:  [
                                 Text(
-                                  'Enter pin',
+                                  'New pin',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
@@ -291,7 +291,7 @@ class _ChangepinState extends State<Changepin> {
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
-                                  'Confirm Pin',
+                                  'Confirm new pin',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,

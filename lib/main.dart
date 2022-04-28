@@ -13,6 +13,7 @@ import 'styles.dart';
 import 'package:kwikee1/services/notification.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:device_preview/device_preview.dart';
 
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -50,7 +51,13 @@ Future<void> main() async {
   //   badge: true,
   //   sound: true,
   // );
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => MyApp(), // Wrap your app
+    )
+  );
 }
 
 class MyApp extends StatefulWidget {

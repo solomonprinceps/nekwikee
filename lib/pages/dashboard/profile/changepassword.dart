@@ -226,7 +226,7 @@ class _ChangepasswordState extends State<Changepassword> {
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
-                                  'Password',
+                                  'New password',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.sp,
@@ -257,7 +257,7 @@ class _ChangepasswordState extends State<Changepassword> {
                     
                                 const SizedBox(height: 20),
                                 Text(
-                                  'Confirm Password',
+                                  'Confirm new password',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.sp,
